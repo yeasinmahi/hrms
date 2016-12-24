@@ -63,8 +63,10 @@ namespace GITS.Hrms.Library.Data.Entity
 			entity.Name = DBUtility.ToString(dataReader["Name"]);
             entity.ShortName = DBUtility.ToNullableString(dataReader["ShortName"]);
 			entity.SortOrder = DBUtility.ToInt32(dataReader["SortOrder"]);
-            entity.GroupType = (GroupTypes)DBUtility.ToNullableInt32(dataReader["GroupType"]);
-            entity.Status = (Statuses)DBUtility.ToInt32(dataReader["Status"]);
+		    var nullableInt32 = DBUtility.ToNullableInt32(dataReader["GroupType"]);
+		    if (nullableInt32 != null)
+		        entity.GroupType = (GroupTypes)nullableInt32;
+		    entity.Status = (Statuses)DBUtility.ToInt32(dataReader["Status"]);
             entity.BanglaName = DBUtility.ToNullableString(dataReader["BanglaName"]);
 			entity.EntityState = EntityStates.Clean;
 
