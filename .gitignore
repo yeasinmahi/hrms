@@ -2,8 +2,9 @@
 
 *.user
 *.suo
-Asa.Hrms.Library\bin
-Asa.Hrms.Library\obj
-Asa.Hrms.WebSite\bin
-Asa.Hrms.WebSite\obj
+*.cache
+Asa.Hrms.Library/bin
+Asa.Hrms.Library/obj
+Asa.Hrms.WebSite/bin
+Asa.Hrms.WebSite/obj
 

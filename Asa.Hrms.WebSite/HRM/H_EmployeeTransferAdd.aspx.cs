@@ -90,7 +90,7 @@ namespace GITS.Hrms.WebSite.HRM
             if (DBUtility.ToInt32(ddlBranch.SelectedValue) == DBUtility.ToInt32(this.hdnBranch.Value))
             {
                 msg.Type = MessageType.Error;
-                msg.Msg = "Invalid joining branch selected";
+                msg.Msg = "Transfered branch should not be current branch";
                 return msg;
             }
 

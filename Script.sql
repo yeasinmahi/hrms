@@ -58,8 +58,82 @@ alter table H_Designation add Status int
 alter table H_Designation add BanglaName varchar(50) null 
 
 --8 Scripts
-
+alter table H_Employee add NationalId varchar(50) not null
+alter table H_Employee add NameInBangla nchar(50) not null
 
 --9 Scripts
+
+ALTER VIEW [dbo].[H_EmployeeView]
+      AS
+      SELECT
+      H_Employee.Id,
+      H_Employee.Name,
+	  H_Employee.NameInBangla,
+	  H_Employee.Code,
+      FatherName,
+      MotherName,
+      DateOfBirth,
+      BloodGroup,
+      Sex,
+      MaritalStatus,
+      Religion,
+      PermanentAddressId,
+      PresentAddressId,
+      AppointmentLetterDate,
+      AppointmentLetterNo,
+      JoiningDate,
+      H_Employee.EmploymentType,
+      H_Employee.Status,
+      BranchId,
+      Branch.Name AS BranchName,
+      RegionId,
+      Region.Name AS RegionName,
+      SubzoneId,
+      Subzone.Name AS SubzoneName,
+      ZoneId,
+      Zone.Name AS ZoneName,
+      H_DepartmentId,
+      H_Department.Name AS DepartmentName,
+      H_DesignationId,
+      H_Designation.Name AS DesignationName,
+      H_GradeId,
+      H_Grade.Name AS GradeName
+      FROM H_Employee
+      INNER JOIN H_EmployeeBranch ON H_Employee.Id = H_EmployeeBranch.H_EmployeeId AND (H_EmployeeBranch.EndDate = '2099-12-31' OR H_EmployeeBranch.EndDate = (SELECT MAX(EndDate) FROM H_EmployeeBranch WHERE H_EmployeeBranch.H_EmployeeId = H_Employee.Id))
+      INNER JOIN Branch ON Branch.Id = BranchId
+      INNER JOIN Region ON Region.Id = RegionId
+      INNER JOIN Subzone ON Subzone.Id = SubzoneId
+      INNER JOIN Zone ON Zone.Id = ZoneId
+      INNER JOIN H_EmployeeDepartment ON H_Employee.Id = H_EmployeeDepartment.H_EmployeeId AND (H_EmployeeDepartment.EndDate = '2099-12-31' OR H_EmployeeDepartment.EndDate = (SELECT MAX(EndDate) FROM H_EmployeeDepartment WHERE H_EmployeeDepartment.H_EmployeeId = H_Employee.Id))
+      INNER JOIN H_Department ON H_Department.Id = H_DepartmentId
+      INNER JOIN H_EmployeeDesignation ON H_Employee.Id = H_EmployeeDesignation.H_EmployeeId AND (H_EmployeeDesignation.EndDate = '2099-12-31' OR H_EmployeeDesignation.EndDate = (SELECT MAX(EndDate) FROM H_EmployeeDesignation WHERE H_EmployeeDesignation.H_EmployeeId = H_Employee.Id))
+      INNER JOIN H_Designation ON H_Designation.Id = H_DesignationId
+      INNER JOIN H_EmployeeGrade ON H_Employee.Id = H_EmployeeGrade.H_EmployeeId AND (H_EmployeeGrade.EndDate = '2099-12-31' OR H_EmployeeGrade.EndDate = (SELECT MAX(EndDate) FROM H_EmployeeGrade WHERE H_EmployeeGrade.H_EmployeeId = H_Employee.Id))
+      INNER JOIN H_Grade ON H_Grade.Id = H_GradeId
+GO
+
+--10 Scripts
+create table H_EmployeePhoto (
+Id int IDENTITY(1, 1) NOT NULL,
+H_EmployeeId int not null,
+Photo image not null
+)
+
+--10 Scripts
+create table H_EmployeePromotionHistory (
+Id int IDENTITY(1, 1) NOT NULL,
+H_EmployeeId int not null,
+Type int not null,
+LetterNo varchar(50) null,
+LetterDate date null,
+OldH_GradeId int null,
+NewH_GradeId int null,
+OldH_DesignationId int null,
+NewH_DesignationId int null,
+PromotionDate date null,
+Remarks varchar(50) not null,
+Status varchar(50) null,
+UserLogin varchar(50) not null
+)
 
 
