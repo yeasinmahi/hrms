@@ -1,0 +1,12 @@
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\bin\Release\GITS.Hrms.Library.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\bin\Release\GITS.Hrms.Library.pdb
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\bin\Release\AjaxControlToolkit.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\bin\Release\Asa.ExcelXmlWriter.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\bin\Release\Microsoft.SqlServer.ConnectionInfo.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\bin\Release\Microsoft.SqlServer.Smo.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\bin\Release\Microsoft.SqlServer.SqlEnum.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\obj\Release\GITS.Hrms.Library.csprojResolveAssemblyReference.cache
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\obj\Release\GITS.Hrms.Library.Properties.Resources.resources
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\obj\Release\GITS.Hrms.Library.csproj.GenerateResource.Cache
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\obj\Release\GITS.Hrms.Library.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.Library\obj\Release\GITS.Hrms.Library.pdb

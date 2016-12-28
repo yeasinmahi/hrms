@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GITS.Hrms.Library", "Asa.Hrms.Library\GITS.Hrms.Library.csproj", "{3420B3AB-C0FF-4A12-A109-B2F44DA72B44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GITS.Hrms.Library", "GITS.Hrms.Library\GITS.Hrms.Library.csproj", "{3420B3AB-C0FF-4A12-A109-B2F44DA72B44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GITS.Hrms.WebSite", "Asa.Hrms.WebSite\GITS.Hrms.WebSite.csproj", "{79985DD5-007C-4C11-831B-423A20266E8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GITS.Hrms.WebSite", "GITS.Hrms.WebSite\GITS.Hrms.WebSite.csproj", "{79985DD5-007C-4C11-831B-423A20266E8F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3420B3AB-C0FF-4A12-A109-B2F44DA72B44} = {3420B3AB-C0FF-4A12-A109-B2F44DA72B44}
 	EndProjectSection

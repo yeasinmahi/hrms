@@ -1,0 +1,15 @@
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\GITS.Hrms.WebSite.dll.config
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\GITS.Hrms.WebSite.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\GITS.Hrms.WebSite.pdb
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\AjaxControlToolkit.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\Asa.ExcelXmlWriter.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\GITS.Hrms.Library.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\Microsoft.SqlServer.Smo.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\Microsoft.SqlServer.ConnectionInfo.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\Microsoft.SqlServer.SqlEnum.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\bin\GITS.Hrms.Library.pdb
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\obj\Debug\GITS.Hrms.WebSite.csprojResolveAssemblyReference.cache
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\obj\Debug\GITS.Hrms.WebSite.Properties.Resources.resources
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\obj\Debug\GITS.Hrms.WebSite.csproj.GenerateResource.Cache
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\obj\Debug\GITS.Hrms.WebSite.dll
+F:\Project\Sample\ASA.HRMS\Asa.Hrms.WebSite\obj\Debug\GITS.Hrms.WebSite.pdb
