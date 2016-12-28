@@ -3,8 +3,8 @@
 *.user
 *.suo
 *.cache
-Asa.Hrms.Library/bin
-Asa.Hrms.Library/obj
-Asa.Hrms.WebSite/bin
-Asa.Hrms.WebSite/obj
+GITS.Hrms.Library/bin
+GITS.Hrms.Library/obj
+GITS.Hrms.WebSite/bin
+GITS.Hrms.WebSite/obj
 
