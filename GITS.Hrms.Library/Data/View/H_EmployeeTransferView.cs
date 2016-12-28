@@ -18,8 +18,8 @@ namespace GITS.Hrms.Library.Data.View
         private DateTime _JoiningDate;
         private String _Remarks;
         private Int32 _Emp_ID;
-        private String _PresentMobile;
-        private String _PastMobile;
+        //private String _PresentMobile;
+        //private String _PastMobile;
 
 
         public H_EmployeeTransferView()
@@ -47,8 +47,8 @@ namespace GITS.Hrms.Library.Data.View
             view.SourceBranch = DBUtility.ToString(dataReader["SourceBranch"]);
             view.DestinationBranch = DBUtility.ToString(dataReader["DestinationBranch"]);
             view.Remarks = DBUtility.ToString(dataReader["Remarks"]);
-            view.PresentMobile = DBUtility.ToString(dataReader["PresentMobile"]);
-            view.PastMobile = DBUtility.ToString(dataReader["PastMobile"]);
+            //view.PresentMobile = DBUtility.ToString(dataReader["PresentMobile"]);
+            //view.PastMobile = DBUtility.ToString(dataReader["PastMobile"]);
 
 			return view;
 		}
@@ -99,16 +99,16 @@ namespace GITS.Hrms.Library.Data.View
 			get {return this._Remarks;}
 			set {this._Remarks = value;}
 		}
-        public String PresentMobile
-        {
-            get { return this._PresentMobile; }
-            set { this._PresentMobile = value; }
-        }
-        public String PastMobile
-        {
-            get { return this._PastMobile; }
-            set { this._PastMobile = value; }
-        }
+        //public String PresentMobile
+        //{
+        //    get { return this._PresentMobile; }
+        //    set { this._PresentMobile = value; }
+        //}
+        //public String PastMobile
+        //{
+        //    get { return this._PastMobile; }
+        //    set { this._PastMobile = value; }
+        //}
         public Int32 Emp_ID
         {
             get { return this._Emp_ID; }

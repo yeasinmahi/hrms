@@ -161,3 +161,19 @@ Title varchar(50) not null,
 FileName varchar(50) not null,
 UploadDate date null
 )
+
+--14 Scripts
+alter table H_EmployeeTransferHistory add UserLogin varchar(50) not null
+
+--15 Scripts
+ALTER VIEW [dbo].[H_EmployeeTransferView]
+			AS
+			SELECT dbo.H_EmployeeTransferHistory.Id,dbo.H_EmployeeTransferHistory.Type,
+			dbo.H_EmployeeTransferHistory.LetterNo, dbo.H_EmployeeTransferHistory.LetterDate, dbo.H_EmployeeTransferHistory.JoiningDate,dbo.H_EmployeeTransferHistory.H_EmployeeId as Emp_ID,
+			dbo.H_EmployeeTransferHistory.Remarks, db.Name as DestinationBranch,sb.Name as SourceBranch, dbo.H_Employee.Name AS EmployeeName, 
+			FROM  dbo.H_EmployeeTransferHistory
+			INNER JOIN dbo.H_Employee ON dbo.H_EmployeeTransferHistory.H_EmployeeId = dbo.H_Employee.Id AND H_EmployeeTransferHistory.Status=1
+			INNER JOIN dbo.Branch db ON dbo.H_EmployeeTransferHistory.DestinationBranchId = db.Id
+			INNER JOIN dbo.Branch sb ON  dbo.H_EmployeeTransferHistory.SourceBranchId = sb.Id
+
+--16 Scripts

@@ -28,8 +28,8 @@
 						<mms:BoundField DataField="SourceBranch" HeaderText="Source Branch" SortExpression="SourceBranch"   HeaderStyle-HorizontalAlign="Right" FieldType="String"></mms:BoundField>
 						<mms:BoundField DataField="DestinationBranch" HeaderText="Destination Branch" SortExpression="DestinationBranch"  HeaderStyle-HorizontalAlign="Right" FieldType="String"></mms:BoundField>
 						<mms:BoundField DataField="JoiningDate" HeaderText="Joining Date" SortExpression="JoiningDate" DataFormatString="{0:dd/MM/yyyy}" FieldType="DateTime"></mms:BoundField>
-						<mms:BoundField DataField="PresentMobile" HeaderText="Present Mobile" SortExpression="PresentMobile" FieldType="String"></mms:BoundField>
-						<mms:BoundField DataField="PastMobile" HeaderText="Past Mobile" SortExpression="PastMobile" FieldType="String"></mms:BoundField>
+						<%--<mms:BoundField DataField="PresentMobile" HeaderText="Present Mobile" SortExpression="PresentMobile" FieldType="String"></mms:BoundField>
+						<mms:BoundField DataField="PastMobile" HeaderText="Past Mobile" SortExpression="PastMobile" FieldType="String"></mms:BoundField>--%>
 						<mms:BoundField DataField="Remarks" HeaderText="Remarks" SortExpression="Remarks" FieldType="String"></mms:BoundField>
 					</Columns>
 				</asp:GridView>
