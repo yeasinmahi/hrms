@@ -136,4 +136,28 @@ Status varchar(50) null,
 UserLogin varchar(50) not null
 )
 
+--11 Scripts
+alter table H_AcademicQualification add Institution varchar(50) not null
 
+--12 Scripts
+ALTER VIEW [dbo].[H_AcademicQualificationView]
+			AS
+			SELECT dbo.H_AcademicQualification.Id, dbo.H_AcademicQualification.H_EmployeeId, dbo.H_AcademicQualification.[Level],dbo.H_AcademicQualification.Institution,
+			ISNULL(convert(varchar,dbo.H_AcademicQualification.GPA), dbo.H_AcademicQualification.Result) AS Result
+			,dbo.H_AcademicQualification.PassingYear,
+			dbo.H_AcademicQualification.SortOrder, dbo.ExamName.Name AS ExamName, dbo.GroupSubject.Name AS SubjectName,
+			dbo.BoardUniversity.Name AS BoardName
+			FROM dbo.H_AcademicQualification
+			INNER JOIN dbo.ExamName ON dbo.H_AcademicQualification.ExamNameId = dbo.ExamName.Id
+			INNER JOIN dbo.GroupSubject ON dbo.H_AcademicQualification.GroupSubjectId = dbo.GroupSubject.Id
+			INNER JOIN dbo.BoardUniversity ON dbo.H_AcademicQualification.BoardUniversityId = dbo.BoardUniversity.Id
+GO
+
+--13 Scripts
+create table H_FileUpload (
+Id int IDENTITY(1, 1) NOT NULL,
+H_EmployeeId int not null,
+Title varchar(50) not null,
+FileName varchar(50) not null,
+UploadDate date null
+)
