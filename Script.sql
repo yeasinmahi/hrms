@@ -177,3 +177,22 @@ ALTER VIEW [dbo].[H_EmployeeTransferView]
 			INNER JOIN dbo.Branch sb ON  dbo.H_EmployeeTransferHistory.SourceBranchId = sb.Id
 
 --16 Scripts
+create table H_EmployeeLeaveHistory (
+Id int IDENTITY(1, 1) NOT NULL,
+H_EmployeeId int not null,
+Type int not null,
+JoinType int not null,
+LetterNo varchar(50) not null,
+LetterDate date not null,
+StartDate date not null,
+EndDate date not null,
+Cause varchar(300) null,
+Status int not null
+)
+
+--17 Scripts
+alter table H_EmployeeLeave add Status int
+
+--18 Scripts
+*alter table H_EmployeeLeave add Status int
+
