@@ -167,23 +167,23 @@
       CONSTRAINT PK_DbTransactionDetails_Id PRIMARY KEY(Id))
     </script>
   </config>
-	<config sequence="14" type="FRESH" version="1.0.0" description="District">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[Division](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[Name] [varchar](100) NOT NULL,
-			CONSTRAINT [PK_Division] PRIMARY KEY (Id))
-		</script>
-	</config>
+  <config sequence="14" type="FRESH" version="1.0.0" description="District">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[Division](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [Name] [varchar](100) NOT NULL,
+      CONSTRAINT [PK_Division] PRIMARY KEY (Id))
+    </script>
+  </config>
   <config sequence="15" type="FRESH" version="1.0.0" description="District">
     <script provider="SQL Server">
-		CREATE TABLE [District](
-		[Id] [int] IDENTITY(1,1) NOT NULL,
-		[DivisionId] [int] NULL,
-		[Name] [varchar](50) NOT NULL,
-		CONSTRAINT [PK_District_Id] PRIMARY KEY ([Id]),
-		CONSTRAINT [FK_District_Division] FOREIGN KEY([DivisionId]) REFERENCES [dbo].[Division] ([Id]))
-	</script>
+      CREATE TABLE [District](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [DivisionId] [int] NULL,
+      [Name] [varchar](50) NOT NULL,
+      CONSTRAINT [PK_District_Id] PRIMARY KEY ([Id]),
+      CONSTRAINT [FK_District_Division] FOREIGN KEY([DivisionId]) REFERENCES [dbo].[Division] ([Id]))
+    </script>
   </config>
   <config sequence="16" type="FRESH" version="1.0.0" description="Thana">
     <script provider="SQL Server">
@@ -196,12 +196,12 @@
   </config>
   <config sequence="17" type="FRESH" version="1.0.0" description="Zone">
     <script provider="SQL Server">
-		CREATE TABLE [Zone](
-		[Id] [int] IDENTITY(1,1) NOT NULL,
-		[Name] [varchar](50) NOT NULL,
-		[Status] [INT] NOT NULL,
-		CONSTRAINT [PK_Zone_Id] PRIMARY KEY ([Id]))
-	</script>
+      CREATE TABLE [Zone](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [Name] [varchar](50) NOT NULL,
+      [Status] [INT] NOT NULL,
+      CONSTRAINT [PK_Zone_Id] PRIMARY KEY ([Id]))
+    </script>
   </config>
   <config sequence="18" type="FRESH" version="1.0.0" description="Subzone">
     <script provider="SQL Server">
@@ -209,38 +209,44 @@
       [Id] [int] IDENTITY(1,1) NOT NULL,
       [ZoneId] [int] NOT NULL,
       [Name] [varchar](50) NOT NULL,
-	  [Status] [INT] NOT NULL,
+      [Status] [INT] NOT NULL,
+      [NameInBangla] [nchar](50) NULL,
+      [OpeningDate] [DATE] NULL,
+      [ClosingDate] [DATE] NULL,
       CONSTRAINT [PK_Subzone_Id] PRIMARY KEY ([Id]))
     </script>
   </config>
   <config sequence="19" type="FRESH" version="1.0.0" description="Region">
     <script provider="SQL Server">
-		CREATE TABLE [Region](
-		[Id] [int] IDENTITY(1,1) NOT NULL,
-		[SubZoneId] [int] NOT NULL,
-		[Name] [varchar](50) NOT NULL,
-		[Status] [INT] NOT NULL,
-		CONSTRAINT [PK_Region_Id] PRIMARY KEY ([Id]))
-	</script>
+      CREATE TABLE [Region](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [SubZoneId] [int] NOT NULL,
+      [Name] [varchar](50) NOT NULL,
+      [Status] [INT] NOT NULL,
+      [OpeningDate] [DATE] NULL,
+      [ClosingDate] [DATE] NULL,
+      CONSTRAINT [PK_Region_Id] PRIMARY KEY ([Id]))
+    </script>
   </config>
   <config sequence="20" type="FRESH" version="1.0.0" description="Branch">
     <script provider="SQL Server">
-		CREATE TABLE [Branch](
-		Id [int] IDENTITY(-2,1) NOT NULL,
-		ThanaId [int] NOT NULL,
-		RegionId [int] NOT NULL,
-		Code [int] NULL,
-		Name [varchar](100) NOT NULL,
-		BranchType [int] NOT NULL,
-		OpeningDate [datetime] NOT NULL,
-		MobileNumber [varchar](50) NULL,
-		Status [int] NOT NULL,
-		LocationType [int] NOT NULL,
-		[Village] [varchar](50)  NULL,
-		[PostOffice] [varchar](50) NULL,
-		[PostCode] [varchar](4)  NULL,
-		CONSTRAINT [PK_Branch_Id] PRIMARY KEY ([Id]))
-	</script>
+      CREATE TABLE [Branch](
+      Id [int] IDENTITY(-2,1) NOT NULL,
+      ThanaId [int] NOT NULL,
+      RegionId [int] NOT NULL,
+      Code [int] NULL,
+      Name [varchar](100) NOT NULL,
+      BranchType [int] NOT NULL,
+      OpeningDate [datetime] NOT NULL,
+      MobileNumber [varchar](50) NULL,
+      Status [int] NOT NULL,
+      LocationType [int] NOT NULL,
+      [Village] [varchar](50)  NULL,
+      [PostOffice] [varchar](50) NULL,
+      [PostCode] [varchar](4)  NULL,
+      [NameInBangla] [nchar](50) NULL
+      CONSTRAINT [PK_Branch_Id] PRIMARY KEY ([Id]))
+    </script>
   </config>
   <config sequence ="21" type="FRESH" version="1.0.0" description="Config">
     <script provider="SQL Server">
@@ -284,9 +290,9 @@
   </config>
   <config sequence="24" type="FRESH" version="1.0.0" description="UserLocation">
     <script provider="SQL Server">
-     		alter table [User] add IsReset bit
-			alter table [User] add LastResetDate datetime
-			alter table [User] add UserType int
+      alter table [User] add IsReset bit
+      alter table [User] add LastResetDate datetime
+      alter table [User] add UserType int
     </script>
   </config>
 
@@ -297,6 +303,7 @@
       Id int IDENTITY(1, 1),
       Name varchar(50) NOT NULL,
       SortOrder [int] NOT NULL,
+      RomanName varchar(50) NULL,
       CONSTRAINT PK_H_Grade_Id PRIMARY KEY (Id),
       CONSTRAINT UK_H_Grade_Name UNIQUE(Name))
     </script>
@@ -305,8 +312,11 @@
     <script provider="SQL Server">
       CREATE TABLE H_Designation(
       Id int IDENTITY(1, 1),
-      Name varchar(50) NOT NULL,
-      SortOrder [int] NOT NULL,
+      [Name] varchar(50) NOT NULL,
+      [BanglaName] varchar(50) NULL,
+      [ShortName] varchar(50) NULL,
+      [Status] int,
+      [SortOrder] [int] NOT NULL,
       CONSTRAINT PK_H_Designation_Id PRIMARY KEY (Id),
       CONSTRAINT UK_H_Designation_Name UNIQUE(Name))
     </script>
@@ -368,6 +378,8 @@
       PermanentDate [datetime] NULL,
       EmploymentType [int] NOT NULL,
       Status [int] NOT NULL,
+      NationalId varchar(20) not null,
+      NameInBangla nchar(50) not null,
       CONSTRAINT PK_H_Employee_Id PRIMARY KEY (Id))
     </script>
   </config>
@@ -506,6 +518,7 @@
       StartDate [datetime] NOT NULL,
       EndDate [datetime] NULL,
       Cause [varchar](300) NULL,
+      [Status] int,
       CONSTRAINT PK_H_EmployeeLeave_Id PRIMARY KEY (Id))
     </script>
   </config>
@@ -594,7 +607,7 @@
       FineType [varchar](250) NOT NULL,
       FineTime [int] NOT NULL,
       FineAmount [float] NOT NULL,
-	  Duration [int] not NULL,
+      Duration [int] not NULL,
       CONSTRAINT PK_H_EmployeePenalty_Id PRIMARY KEY (Id))
     </script>
   </config>
@@ -643,141 +656,189 @@
       CONSTRAINT PK_H_EmployeeSpecialHonor_Id PRIMARY KEY (Id))
     </script>
   </config>
-	<config sequence="127" type="FRESH" version="1.0.0" description="H_BranchTransfer">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[H_BranchTransfer](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[LetterNo] [nvarchar](50) NOT NULL,
-			[LetterDate] [datetime] NOT NULL,
-			[BranchId] [int] NOT NULL,
-			[SourceRegionId] [int] NOT NULL,
-			[DestinationRegionId] [int] NOT NULL,
-			[TransferDate] [datetime] NOT NULL,
-			CONSTRAINT [PK_H_BranchTransfer] PRIMARY KEY ([Id]),
-			CONSTRAINT [FK_H_BranchTransfer_Branch] FOREIGN KEY([BranchId]) REFERENCES [dbo].[Branch] ([Id]),
-			CONSTRAINT [FK_H_BranchTransfer_Region] FOREIGN KEY([SourceRegionId]) REFERENCES [dbo].[Region] ([Id]),
-			CONSTRAINT [FK_H_BranchTransfer_Region1] FOREIGN KEY([DestinationRegionId]) REFERENCES [dbo].[Region] ([Id]))
-		</script>
-	</config>
-	<config sequence="128" type="FRESH" version="1.0.0" description="H_FinalPayment">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[H_FinalPayment](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[H_EmployeeId] [int] NOT NULL,
-			[LetterNo] [varchar](50) NOT NULL,
-			[LetterDate] [datetime] NOT NULL,
-			[ClosingDate] [datetime] NOT NULL,
-			[NetPay] [numeric](9, 2) NOT NULL,
-			CONSTRAINT [PK_H_FinalPayment] PRIMARY KEY ([Id]),
-			CONSTRAINT [FK_H_FinalPayment_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
-		</script>
-	</config>
-	<config sequence="129" type="FRESH" version="1.0.0" description="H_FinalPayment">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[BoardUniversity](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[Name] [varchar](100) NOT NULL,
-			CONSTRAINT [PK_BoardUniversity] PRIMARY KEY ([Id]))
-		</script>
-	</config>
-	<config sequence="130" type="FRESH" version="1.0.0" description="H_FinalPayment">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[GroupSubject](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[Name] [varchar](100) NOT NULL,
-			CONSTRAINT [PK_GroupSubject] PRIMARY KEY([Id]))
-		</script>
-	</config>
-	<config sequence="131" type="FRESH" version="1.0.0" description="H_FinalPayment">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[ExamName](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[Name] [varchar](50) NOT NULL,
-			CONSTRAINT [PK_ExamName] PRIMARY KEY ([Id]))
-		</script>
-	</config>
-	<config sequence="132" type="FRESH" version="1.0.0" description="H_FinalPayment">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[H_AcademicQualification](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[H_EmployeeId] [int] NOT NULL,
-			[Level] [int] NOT NULL,
-			[ExamNameId] [int] NOT NULL,
-			[GroupSubjectId] [int] NOT NULL,
-			[BoardUniversityId] [int] NOT NULL,
-			[Result] [varchar](10) NOT NULL,
-			[GPA] [numeric](3, 2) NULL,
-			[PassingYear] [int] NOT NULL,
-			[SortOrder] [int] NOT NULL,
-			CONSTRAINT [PK_H_AcademicQualification_Id] PRIMARY KEY ([Id]),
-			CONSTRAINT [FK_H_AcademicQualification_BoardUniversity] FOREIGN KEY([BoardUniversityId]) REFERENCES [dbo].[BoardUniversity] ([Id]),
-			CONSTRAINT [FK_H_AcademicQualification_ExamName] FOREIGN KEY([ExamNameId]) REFERENCES [dbo].[ExamName] ([Id]),
-			CONSTRAINT [FK_H_AcademicQualification_GroupSubject] FOREIGN KEY([GroupSubjectId]) REFERENCES [dbo].[GroupSubject] ([Id]),
-			CONSTRAINT [FK_H_AcademicQualification_H_EmployeeId] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
-		</script>
-	</config>
-	<config sequence="133" type="FRESH" version="1.0.0" description="BranchOpenClose">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[BranchOpenClose](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[BranchId] [int] NOT NULL,
-			[LetterNo] [varchar](50) NOT NULL,
-			[LetterDate] [datetime] NOT NULL,
-			[Effectivedate] [datetime] NOT NULL,
-			[Types] [int] NOT NULL,
-			[IsRecent] [bit] NOT NULL,
-			CONSTRAINT [PK_BranchOpenClose] PRIMARY KEY ([Id]),
-			CONSTRAINT [FK_BranchOpenClose_Branch] FOREIGN KEY([BranchId]) REFERENCES [dbo].[Branch] ([Id]))
-		</script>
-	</config>
-	<config sequence="134" type="FRESH" version="1.0.0" description="BranchOpenClose">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[H_EmployeeTransferHistory](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[H_EmployeeId] [int] NOT NULL,
-			[Type] [int] NOT NULL,
-			[LetterNo] [varchar](200) NOT NULL,
-			[LetterDate] [datetime] NOT NULL,
-			[SourceBranchId] [int] NOT NULL,
-			[DestinationBranchId] [int] NOT NULL,
-			[JoiningDate] [datetime] NOT NULL,
-			[Remarks] [varchar](300) NULL,
-			[EntryDateTime] [datetime] NOT NULL,
-			[Status] [int] NOT NULL,
-			CONSTRAINT [PK_H_EmployeeTransferHistory_Id] PRIMARY KEY ([Id]),
-			CONSTRAINT [FK_H_EmployeeTransferHistory_DestinationBranchId] FOREIGN KEY([DestinationBranchId]) REFERENCES [dbo].[Branch] ([Id]),
-			CONSTRAINT [FK_H_EmployeeTransferHistory_H_EmployeeId] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]),
-			CONSTRAINT [FK_H_EmployeeTransferHistory_SourceBranchId] FOREIGN KEY([SourceBranchId]) REFERENCES [dbo].[Branch] ([Id]))
-		</script>
-	</config>
-	<config sequence="135" type="FRESH" version="1.0.0" description="BranchOpenClose">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[H_EmployeePermanent](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[H_EmployeeId] [int] NOT NULL,
-			[LetterNo] [varchar](50) NOT NULL,
-			[LetterDate] [datetime] NOT NULL,
-			[PermanentDate] [datetime] NOT NULL,
-			[Remarks] [varchar](250) NULL,
-			CONSTRAINT [PK_H_EmployeePermanent] PRIMARY KEY ([Id]),
-			CONSTRAINT [FK_H_EmployeePermanent_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
-		</script>
-	</config>
-	<config sequence="136" type="FRESH" version="1.0.0" description="H_EmployeeSubzone">
-		<script provider="SQL Server">
-			CREATE TABLE [dbo].[H_EmployeeSubzone](
-			[Id] [int] IDENTITY(1,1) NOT NULL,
-			[H_EmployeeId] [int] NOT NULL,
-			[SubzoneId] [int] NOT NULL,
-			[SubzoneDate] [datetime] NOT NULL,
-			[ZoneId] [int] NOT NULL,
-			[ZoneDate] [datetime] NOT NULL,
-			CONSTRAINT [PK_H_EmployeeSubzone] PRIMARY KEY([Id]),
-			CONSTRAINT [FK_H_EmployeeSubzone_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]),
-			CONSTRAINT [FK_H_EmployeeSubzone_Subzone] FOREIGN KEY([SubzoneId]) REFERENCES [dbo].[Subzone] ([Id]),
-			CONSTRAINT [FK_H_EmployeeSubzone_Zone] FOREIGN KEY([ZoneId]) REFERENCES [dbo].[Zone] ([Id]))
-		</script>
-	</config>
+  <config sequence="127" type="FRESH" version="1.0.0" description="H_BranchTransfer">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_BranchTransfer](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [LetterNo] [nvarchar](50) NOT NULL,
+      [LetterDate] [datetime] NOT NULL,
+      [BranchId] [int] NOT NULL,
+      [SourceRegionId] [int] NOT NULL,
+      [DestinationRegionId] [int] NOT NULL,
+      [TransferDate] [datetime] NOT NULL,
+      CONSTRAINT [PK_H_BranchTransfer] PRIMARY KEY ([Id]),
+      CONSTRAINT [FK_H_BranchTransfer_Branch] FOREIGN KEY([BranchId]) REFERENCES [dbo].[Branch] ([Id]),
+      CONSTRAINT [FK_H_BranchTransfer_Region] FOREIGN KEY([SourceRegionId]) REFERENCES [dbo].[Region] ([Id]),
+      CONSTRAINT [FK_H_BranchTransfer_Region1] FOREIGN KEY([DestinationRegionId]) REFERENCES [dbo].[Region] ([Id]))
+    </script>
+  </config>
+  <config sequence="128" type="FRESH" version="1.0.0" description="H_FinalPayment">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_FinalPayment](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [LetterNo] [varchar](50) NOT NULL,
+      [LetterDate] [datetime] NOT NULL,
+      [ClosingDate] [datetime] NOT NULL,
+      [NetPay] [numeric](9, 2) NOT NULL,
+      CONSTRAINT [PK_H_FinalPayment] PRIMARY KEY ([Id]),
+      CONSTRAINT [FK_H_FinalPayment_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
+    </script>
+  </config>
+  <config sequence="129" type="FRESH" version="1.0.0" description="H_FinalPayment">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[BoardUniversity](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [Name] [varchar](100) NOT NULL,
+      CONSTRAINT [PK_BoardUniversity] PRIMARY KEY ([Id]))
+    </script>
+  </config>
+  <config sequence="130" type="FRESH" version="1.0.0" description="H_FinalPayment">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[GroupSubject](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [Name] [varchar](100) NOT NULL,
+      CONSTRAINT [PK_GroupSubject] PRIMARY KEY([Id]))
+    </script>
+  </config>
+  <config sequence="131" type="FRESH" version="1.0.0" description="H_FinalPayment">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[ExamName](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [Name] [varchar](50) NOT NULL,
+      CONSTRAINT [PK_ExamName] PRIMARY KEY ([Id]))
+    </script>
+  </config>
+  <config sequence="132" type="FRESH" version="1.0.0" description="H_FinalPayment">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_AcademicQualification](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [Level] [int] NOT NULL,
+      [ExamNameId] [int] NOT NULL,
+      [GroupSubjectId] [int] NOT NULL,
+      [BoardUniversityId] [int] NOT NULL,
+      [Result] [varchar](10) NOT NULL,
+      [GPA] [numeric](3, 2) NULL,
+      [PassingYear] [int] NOT NULL,
+      [SortOrder] [int] NOT NULL,
+      Institution varchar(200) not null,
+      CONSTRAINT [PK_H_AcademicQualification_Id] PRIMARY KEY ([Id]),
+      CONSTRAINT [FK_H_AcademicQualification_BoardUniversity] FOREIGN KEY([BoardUniversityId]) REFERENCES [dbo].[BoardUniversity] ([Id]),
+      CONSTRAINT [FK_H_AcademicQualification_ExamName] FOREIGN KEY([ExamNameId]) REFERENCES [dbo].[ExamName] ([Id]),
+      CONSTRAINT [FK_H_AcademicQualification_GroupSubject] FOREIGN KEY([GroupSubjectId]) REFERENCES [dbo].[GroupSubject] ([Id]),
+      CONSTRAINT [FK_H_AcademicQualification_H_EmployeeId] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
+    </script>
+  </config>
+  <config sequence="133" type="FRESH" version="1.0.0" description="BranchOpenClose">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[BranchOpenClose](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [BranchId] [int] NOT NULL,
+      [LetterNo] [varchar](50) NOT NULL,
+      [LetterDate] [datetime] NOT NULL,
+      [Effectivedate] [datetime] NOT NULL,
+      [Types] [int] NOT NULL,
+      [IsRecent] [bit] NOT NULL,
+      CONSTRAINT [PK_BranchOpenClose] PRIMARY KEY ([Id]),
+      CONSTRAINT [FK_BranchOpenClose_Branch] FOREIGN KEY([BranchId]) REFERENCES [dbo].[Branch] ([Id]))
+    </script>
+  </config>
+  <config sequence="134" type="FRESH" version="1.0.0" description="BranchOpenClose">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_EmployeeTransferHistory](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [Type] [int] NOT NULL,
+      [LetterNo] [varchar](200) NOT NULL,
+      [LetterDate] [datetime] NOT NULL,
+      [SourceBranchId] [int] NOT NULL,
+      [DestinationBranchId] [int] NOT NULL,
+      [JoiningDate] [datetime] NOT NULL,
+      [Remarks] [varchar](300) NULL,
+      [EntryDateTime] [datetime] NOT NULL,
+      [Status] [int] NOT NULL,
+      [UserLogin] [varchar](50) NOT NULL,
+      CONSTRAINT [PK_H_EmployeeTransferHistory_Id] PRIMARY KEY ([Id]),
+      CONSTRAINT [FK_H_EmployeeTransferHistory_DestinationBranchId] FOREIGN KEY([DestinationBranchId]) REFERENCES [dbo].[Branch] ([Id]),
+      CONSTRAINT [FK_H_EmployeeTransferHistory_H_EmployeeId] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]),
+      CONSTRAINT [FK_H_EmployeeTransferHistory_SourceBranchId] FOREIGN KEY([SourceBranchId]) REFERENCES [dbo].[Branch] ([Id]))
+    </script>
+  </config>
+  <config sequence="135" type="FRESH" version="1.0.0" description="BranchOpenClose">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_EmployeePermanent](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [LetterNo] [varchar](50) NOT NULL,
+      [LetterDate] [datetime] NOT NULL,
+      [PermanentDate] [datetime] NOT NULL,
+      [Remarks] [varchar](250) NULL,
+      CONSTRAINT [PK_H_EmployeePermanent] PRIMARY KEY ([Id]),
+      CONSTRAINT [FK_H_EmployeePermanent_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
+    </script>
+  </config>
+  <config sequence="136" type="FRESH" version="1.0.0" description="H_EmployeeSubzone">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_EmployeeSubzone](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [SubzoneId] [int] NOT NULL,
+      [SubzoneDate] [datetime] NOT NULL,
+      [ZoneId] [int] NOT NULL,
+      [ZoneDate] [datetime] NOT NULL,
+      CONSTRAINT [PK_H_EmployeeSubzone] PRIMARY KEY([Id]),
+      CONSTRAINT [FK_H_EmployeeSubzone_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]),
+      CONSTRAINT [FK_H_EmployeeSubzone_Subzone] FOREIGN KEY([SubzoneId]) REFERENCES [dbo].[Subzone] ([Id]),
+      CONSTRAINT [FK_H_EmployeeSubzone_Zone] FOREIGN KEY([ZoneId]) REFERENCES [dbo].[Zone] ([Id]))
+    </script>
+  </config>
+  <config sequence="137" type="FRESH" version="1.0.0" description="H_EmployeePhoto">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_EmployeePhoto](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [Photo] [image] NOT NULL,
+      CONSTRAINT [PK_H_EmployeePhoto] PRIMARY KEY([Id]),
+      CONSTRAINT [FK_H_EmployeePhoto_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
+    </script>
+  </config>
+  <config sequence="138" type="FRESH" version="1.0.0" description="H_EmployeePromotionHistory">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_EmployeePromotionHistory](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [Type] [int] NOT NULL,
+      [LetterNo] [varchar](50) NULL,
+      [LetterDate] [date] NULL,
+      [OldH_GradeId] [int] NULL,
+      [NewH_GradeId] [int] NULL,
+      [OldH_DesignationId] [int] NULL,
+      [NewH_DesignationId] [int] NULL,
+      [PromotionDate] [date] NULL,
+      [Remarks] [varchar](50) NOT NULL,
+      [Status] [varchar](50) NULL,
+      [UserLogin] [varchar](50) NOT NULL,
+      CONSTRAINT [PK_H_EmployeePhoto] PRIMARY KEY([Id]),
+      CONSTRAINT [FK_H_EmployeePromotionHistory_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]),
+      CONSTRAINT [FK_H_EmployeePromotionHistory_H_Designation] FOREIGN KEY([OldH_DesignationId]) REFERENCES [dbo].[H_Designation] ([Id]),
+      CONSTRAINT [FK_H_EmployeePromotionHistory_H_Designation1] FOREIGN KEY([NewH_DesignationId]) REFERENCES [dbo].[H_Designation] ([Id]),
+      CONSTRAINT [FK_H_EmployeePromotionHistory_H_Grade] FOREIGN KEY([OldH_GradeId]) REFERENCES [dbo].[H_Grade] ([Id]),
+      CONSTRAINT [FK_H_EmployeePromotionHistory_H_Grade1] FOREIGN KEY([NewH_GradeId]) REFERENCES [dbo].[H_Grade] ([Id]))
+    </script>
+  </config>
+  <config sequence="139" type="FRESH" version="1.0.0" description="H_FileUpload">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_FileUpload](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [Title] [varchar](50) NOT NULL,
+      [FileName] [varchar](50) NOT NULL,
+      [UploadDate] [date] NULL,
+      CONSTRAINT [PK_H_EmployeePhoto] PRIMARY KEY([Id]),
+      CONSTRAINT [FK_H_FileUpload_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
+    </script>
+  </config>
   <!--HRM END-->
   <!-- END TABLE SECTION -->
   <!-- START VIEW SECTION -->
@@ -883,13 +944,14 @@
   </config>
   <config sequence="1009" type="ALWAYS" version="1.0.0" description="BranchView">
     <script provider="SQL Server">
-      CREATE VIEW BranchView
+      CRAETE VIEW [dbo].[BranchView]
       AS
       SELECT Branch.Id,
       Code,
       Branch.Name,
       Branch.BranchType,
-      OpeningDate,
+      Branch.OpeningDate,
+      Branch.NameInBangla,
       MobileNumber,
       Branch.Status,
       LocationType,
@@ -911,41 +973,42 @@
       INNER JOIN District ON Thana.DistrictId = District.Id
     </script>
   </config>
-	<config sequence="1010" type="ALWAYS" version="1.0.0" description="ThanaView">
-		<script provider="SQL Server">
-			CREATE VIEW [dbo].[H_AcademicQualificationView]
-			AS
-			SELECT dbo.H_AcademicQualification.Id, dbo.H_AcademicQualification.H_EmployeeId, dbo.H_AcademicQualification.[Level],
-			ISNULL(convert(varchar,dbo.H_AcademicQualification.GPA), dbo.H_AcademicQualification.Result) AS Result
-			,dbo.H_AcademicQualification.PassingYear,
-			dbo.H_AcademicQualification.SortOrder, dbo.ExamName.Name AS ExamName, dbo.GroupSubject.Name AS SubjectName,
-			dbo.BoardUniversity.Name AS BoardName
-			FROM dbo.H_AcademicQualification
-			INNER JOIN dbo.ExamName ON dbo.H_AcademicQualification.ExamNameId = dbo.ExamName.Id
-			INNER JOIN dbo.GroupSubject ON dbo.H_AcademicQualification.GroupSubjectId = dbo.GroupSubject.Id
-			INNER JOIN dbo.BoardUniversity ON dbo.H_AcademicQualification.BoardUniversityId = dbo.BoardUniversity.Id
-		</script>
-	</config>
-     <config sequence="1011" type="BOTH" version="1.0.0" description="Zone Column Adding">
+  <config sequence="1010" type="ALWAYS" version="1.0.0" description="H_AcademicQualificationView">
     <script provider="SQL Server">
- 
+      CREATE VIEW [dbo].[H_AcademicQualificationView]
+      AS
+      SELECT dbo.H_AcademicQualification.Id, dbo.H_AcademicQualification.H_EmployeeId, dbo.H_AcademicQualification.[Level],dbo.H_AcademicQualification.Institution,
+      ISNULL(convert(varchar,dbo.H_AcademicQualification.GPA), dbo.H_AcademicQualification.Result) AS Result
+      ,dbo.H_AcademicQualification.PassingYear,
+      dbo.H_AcademicQualification.SortOrder, dbo.ExamName.Name AS ExamName, dbo.GroupSubject.Name AS SubjectName,
+      dbo.BoardUniversity.Name AS BoardName
+      FROM dbo.H_AcademicQualification
+      INNER JOIN dbo.ExamName ON dbo.H_AcademicQualification.ExamNameId = dbo.ExamName.Id
+      INNER JOIN dbo.GroupSubject ON dbo.H_AcademicQualification.GroupSubjectId = dbo.GroupSubject.Id
+      INNER JOIN dbo.BoardUniversity ON dbo.H_AcademicQualification.BoardUniversityId = dbo.BoardUniversity.Id
+    </script>
+  </config>
+  <config sequence="1011" type="BOTH" version="1.0.0" description="Zone Column Adding">
+    <script provider="SQL Server">
+
       alter table zone
 
       add  OpeningDate  Datetime null
-	  alter table zone
+      alter table zone
       add    [ClosingDate]  Datetime null
     </script>
-     </config>
-    
-    
-  <config sequence="2001" type="ALWAYS" version="1.0.0" description="">
+  </config>
+
+
+  <config sequence="2001" type="ALWAYS" version="1.0.0" description="H_EmployeeView">
     <script provider="SQL Server">
-      CREATE VIEW H_EmployeeView
+      CREATE VIEW [dbo].[H_EmployeeView]
       AS
       SELECT
       H_Employee.Id,
       H_Employee.Name,
-	  H_Employee.Code,
+      H_Employee.NameInBangla,
+      H_Employee.Code,
       FatherName,
       MotherName,
       DateOfBirth,
@@ -988,114 +1051,110 @@
       INNER JOIN H_Grade ON H_Grade.Id = H_GradeId
     </script>
   </config>
-	<config sequence="2002" type="ALWAYS" version="1.0.0" description="ThanaView">
-		<script provider="SQL Server">
-			CREATE VIEW [dbo].[H_EmployeeTransferView]
-			AS
-			SELECT dbo.H_EmployeeTransferHistory.Id,dbo.H_EmployeeTransferHistory.Type,
-			dbo.H_EmployeeTransferHistory.LetterNo, dbo.H_EmployeeTransferHistory.LetterDate, dbo.H_EmployeeTransferHistory.JoiningDate,
-			dbo.H_EmployeeTransferHistory.Remarks, db.Name as DestinationBranch,sb.Name as SourceBranch, dbo.H_Employee.Name AS EmployeeName
-			FROM  dbo.H_EmployeeTransferHistory
-			INNER JOIN dbo.H_Employee ON dbo.H_EmployeeTransferHistory.H_EmployeeId = dbo.H_Employee.Id AND H_EmployeeTransferHistory.Status=1
-			INNER JOIN dbo.Branch db ON dbo.H_EmployeeTransferHistory.DestinationBranchId = db.Id
-			INNER JOIN dbo.Branch sb ON  dbo.H_EmployeeTransferHistory.SourceBranchId = sb.Id
-		</script>
-	</config>
-  <!-- END VIEW SECTION -->
-  <!-- START FUNCTION SECTION -->
-  <!-- END FUNCTION SECTION -->
-  <!-- START DEFAULT DATA SECTION -->
+  <config sequence="2002" type="ALWAYS" version="1.0.0" description="H_EmployeeTransferView">
+    <script provider="SQL Server">
+      CREATE VIEW [dbo].[H_EmployeeTransferView]
+      AS
+      SELECT dbo.H_EmployeeTransferHistory.Id,dbo.H_EmployeeTransferHistory.Type,
+      dbo.H_EmployeeTransferHistory.LetterNo, dbo.H_EmployeeTransferHistory.LetterDate, dbo.H_EmployeeTransferHistory.JoiningDate,dbo.H_EmployeeTransferHistory.H_EmployeeId as Emp_ID,
+      dbo.H_EmployeeTransferHistory.Remarks, db.Name as DestinationBranch,sb.Name as SourceBranch, dbo.H_Employee.Name AS EmployeeName,
+      FROM  dbo.H_EmployeeTransferHistory
+      INNER JOIN dbo.H_Employee ON dbo.H_EmployeeTransferHistory.H_EmployeeId = dbo.H_Employee.Id AND H_EmployeeTransferHistory.Status=1
+      INNER JOIN dbo.Branch db ON dbo.H_EmployeeTransferHistory.DestinationBranchId = db.Id
+      INNER JOIN dbo.Branch sb ON  dbo.H_EmployeeTransferHistory.SourceBranchId = sb.Id
+    </script>
+  </config>
   <config sequence="3001" type="FRESH" version="1.0.0" description="Module">
     <script provider="SQL Server">
-		INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('HRM', 'HRM', '~/Images/HR.gif', 'True', 10);
-		INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('REPORT', 'Report', '~/Images/Report.gif', 'True', 20);
-		INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('DBMANAGEMENT', 'Database Management', '~/Images/DbManagement.gif', 'True', 30);
-		INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('SECURITY', 'Security', '~/Images/security.gif', 'True', 40);
-		INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('ADMIN', 'Admin', '~/Images/TBAdd.gif', 'True', 50);
-		INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('AUDIT', 'Audit', '~/Images/Audit.gif', 'True', 60);
-	</script>
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('HRM', 'HRM', '~/Images/HR.gif', 'True', 10);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('REPORT', 'Report', '~/Images/Report.gif', 'True', 20);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('DBMANAGEMENT', 'Database Management', '~/Images/DbManagement.gif', 'True', 30);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('SECURITY', 'Security', '~/Images/security.gif', 'True', 40);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('ADMIN', 'Admin', '~/Images/TBAdd.gif', 'True', 50);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('AUDIT', 'Audit', '~/Images/Audit.gif', 'True', 60);
+    </script>
   </config>
   <config sequence="3002" type="FRESH" version="1.0.0" description="Property">
     <script provider="SQL Server">
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'DISTRICT LIST', 'Govt.District', 'OWN', NULL, NULL, 'Admin/DistrictList.aspx', 'True', 10)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'DISTRICT ADD', 'New District', 'INHERITED', 'DISTRICT LIST', NULL, 'Admin/DistrictList.aspx', 'False', 20)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'THANA LIST', 'Govt.Thana', 'OWN', NULL, NULL, 'Admin/ThanaList.aspx', 'True', 30)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'THANA ADD', 'New Thana', 'INHERITED', 'THANA LIST', NULL, 'Admin/ThanaList.aspx', 'False', 40)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'DISTRICT LIST', 'Govt.District', 'OWN', NULL, NULL, 'Admin/DistrictList.aspx', 'True', 10)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'DISTRICT ADD', 'New District', 'INHERITED', 'DISTRICT LIST', NULL, 'Admin/DistrictList.aspx', 'False', 20)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'THANA LIST', 'Govt.Thana', 'OWN', NULL, NULL, 'Admin/ThanaList.aspx', 'True', 30)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'THANA ADD', 'New Thana', 'INHERITED', 'THANA LIST', NULL, 'Admin/ThanaList.aspx', 'False', 40)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'ZONE LIST', 'ASA Zone', 'OWN', NULL, NULL, 'Admin/ZoneList.aspx', 'True', 50)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'ZONE ADD', 'New Zone', 'INHERITED', 'ZONE LIST', NULL, 'Admin/ZoneList.aspx', 'False', 60)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'SUBZONE LIST', 'ASA District', 'OWN', NULL, NULL, 'Admin/SubzoneList.aspx', 'True', 10)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'SUBZONE ADD', 'New Subzone', 'INHERITED', 'SUBZONE LIST', NULL, 'Admin/SubzoneList.aspx', 'False', 20)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'REGION LIST', 'Region', 'OWN', NULL, NULL, 'Admin/RegionList.aspx', 'True', 70)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'REGION ADD', 'New Region', 'INHERITED', 'REGION LIST', NULL, 'Admin/RegionList.aspx', 'False', 80)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'ZONE LIST', 'ASA Zone', 'OWN', NULL, NULL, 'Admin/ZoneList.aspx', 'True', 50)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'ZONE ADD', 'New Zone', 'INHERITED', 'ZONE LIST', NULL, 'Admin/ZoneList.aspx', 'False', 60)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'SUBZONE LIST', 'ASA District', 'OWN', NULL, NULL, 'Admin/SubzoneList.aspx', 'True', 10)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'SUBZONE ADD', 'New Subzone', 'INHERITED', 'SUBZONE LIST', NULL, 'Admin/SubzoneList.aspx', 'False', 20)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'REGION LIST', 'Region', 'OWN', NULL, NULL, 'Admin/RegionList.aspx', 'True', 70)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'REGION ADD', 'New Region', 'INHERITED', 'REGION LIST', NULL, 'Admin/RegionList.aspx', 'False', 80)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'BRANCH LIST', 'Branch', 'OWN', NULL, NULL, 'Admin/BranchList.aspx', 'True', 110)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'BRANCH ADD', 'New Branch', 'INHERITED', 'BRANCH LIST', NULL, 'Admin/BranchList.aspx', 'False', 110)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'BRANCH LIST', 'Branch', 'OWN', NULL, NULL, 'Admin/BranchList.aspx', 'True', 110)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'BRANCH ADD', 'New Branch', 'INHERITED', 'BRANCH LIST', NULL, 'Admin/BranchList.aspx', 'False', 110)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_DEPARTMENT LIST', ' Department', 'OWN', NULL, NULL, 'Admin/H_DepartmentList.aspx', 'True', 120)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_DEPARTMENT ADD', ' Department', 'INHERITED', 'H_DEPARTMENT LIST', NULL, 'Admin/H_DepartmentList.aspx', 'False', 130)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_GRADE LIST', ' Grade', 'OWN', NULL, NULL, 'Admin/H_GradeList.aspx', 'True', 140)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_GRADE ADD', ' Grade', 'INHERITED', 'H_GRADE LIST', NULL, 'Admin/H_GradeList.aspx', 'False', 150)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_DESIGNATION LIST', ' Designation', 'OWN', NULL, NULL, 'Admin/H_DesignationList.aspx', 'True', 160)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_DESIGNATION ADD', ' Designation', 'INHERITED', 'H_DESIGNATION LIST', NULL, 'Admin/H_DesignationList.aspx', 'False', 170)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_DEPARTMENT LIST', ' Department', 'OWN', NULL, NULL, 'Admin/H_DepartmentList.aspx', 'True', 120)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_DEPARTMENT ADD', ' Department', 'INHERITED', 'H_DEPARTMENT LIST', NULL, 'Admin/H_DepartmentList.aspx', 'False', 130)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_GRADE LIST', ' Grade', 'OWN', NULL, NULL, 'Admin/H_GradeList.aspx', 'True', 140)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_GRADE ADD', ' Grade', 'INHERITED', 'H_GRADE LIST', NULL, 'Admin/H_GradeList.aspx', 'False', 150)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_DESIGNATION LIST', ' Designation', 'OWN', NULL, NULL, 'Admin/H_DesignationList.aspx', 'True', 160)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'H_DESIGNATION ADD', ' Designation', 'INHERITED', 'H_DESIGNATION LIST', NULL, 'Admin/H_DesignationList.aspx', 'False', 170)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'CONFIG LIST', 'Config', 'OWN', NULL, NULL, 'Admin/ConfigList.aspx', 'True', 190)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'CONFIG ADD', 'New Config', 'INHERITED', 'CONFIG LIST', NULL, 'Admin/ConfigList.aspx', 'False', 200)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'REPORTCONFIG LIST', 'Report Config', 'OWN', NULL, NULL, 'Admin/ReportConfigList.aspx', 'True', 210)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'REPORTCONFIG ADD', 'Report Config', 'INHERITED', 'REPORTCONFIG LIST', NULL, 'Admin/ReportConfigList.aspx', 'False', 220)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'CONFIG LIST', 'Config', 'OWN', NULL, NULL, 'Admin/ConfigList.aspx', 'True', 190)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'CONFIG ADD', 'New Config', 'INHERITED', 'CONFIG LIST', NULL, 'Admin/ConfigList.aspx', 'False', 200)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'REPORTCONFIG LIST', 'Report Config', 'OWN', NULL, NULL, 'Admin/ReportConfigList.aspx', 'True', 210)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'REPORTCONFIG ADD', 'Report Config', 'INHERITED', 'REPORTCONFIG LIST', NULL, 'Admin/ReportConfigList.aspx', 'False', 220)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('SECURITY', 'ROLE LIST', 'Role', 'OWN', NULL, '~/Images/Role.gif', 'Security/RoleList.aspx', 'True', 10)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('SECURITY', 'ROLE ADD', 'New Role', 'INHERITED', 'ROLE LIST', NULL, 'Security/RoleAdd.aspx', 'False', 20)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('SECURITY', 'USER LIST', 'User', 'OWN', NULL, '~/Images/User.gif', 'Security/UserList.aspx', 'True', 30)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('SECURITY', 'USER ADD', 'New User', 'INHERITED', 'USER LIST', NULL, 'Security/UserAdd.aspx', 'False', 40)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('SECURITY', 'ROLE LIST', 'Role', 'OWN', NULL, '~/Images/Role.gif', 'Security/RoleList.aspx', 'True', 10)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('SECURITY', 'ROLE ADD', 'New Role', 'INHERITED', 'ROLE LIST', NULL, 'Security/RoleAdd.aspx', 'False', 20)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('SECURITY', 'USER LIST', 'User', 'OWN', NULL, '~/Images/User.gif', 'Security/UserList.aspx', 'True', 30)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('SECURITY', 'USER ADD', 'New User', 'INHERITED', 'USER LIST', NULL, 'Security/UserAdd.aspx', 'False', 40)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'UPGRADE DATABASE', 'Upgrade Database', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 10)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'BACKUP DATABASE', 'Backup Database', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 20)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'RESTORE DATABASE', 'Restore Database', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 30)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'EXECUTE SCRIPT', 'Execute Script', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 40)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'SHRINK DATABASE', 'Shrink Database', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 50)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'UPGRADE DATABASE', 'Upgrade Database', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 10)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'BACKUP DATABASE', 'Backup Database', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 20)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'RESTORE DATABASE', 'Restore Database', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 30)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'EXECUTE SCRIPT', 'Execute Script', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 40)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('DBMANAGEMENT', 'SHRINK DATABASE', 'Shrink Database', 'OWN', NULL, NULL, 'DbManagement/DbManagement.aspx', 'True', 50)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('AUDIT', 'DBTRANSACTION LIST', 'Db Transaction', 'OWN', NULL, NULL, 'Audit/DbTransactionList.aspx', 'True', 10)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('AUDIT', 'DBTRANSACTION ADD', 'New Db Transaction', 'INHERITED', 'DBTRANSACTION LIST', NULL, 'Audit/DbTransactionAdd.aspx', 'False', 20)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('AUDIT', 'DBTRANSACTIONDETAILS LIST', 'Db Transaction Details', 'OWN', NULL, NULL, 'Audit/DbTransactionDetailsList.aspx', 'True', 30)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('AUDIT', 'DBTRANSACTIONDETAILS ADD', 'New Db Transaction Details', 'INHERITED', 'DBTRANSACTIONDETAILS LIST', NULL, 'Audit/DbTransactionDetailsAdd.aspx', 'False', 40)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('AUDIT', 'DBTRANSACTION LIST', 'Db Transaction', 'OWN', NULL, NULL, 'Audit/DbTransactionList.aspx', 'True', 10)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('AUDIT', 'DBTRANSACTION ADD', 'New Db Transaction', 'INHERITED', 'DBTRANSACTION LIST', NULL, 'Audit/DbTransactionAdd.aspx', 'False', 20)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('AUDIT', 'DBTRANSACTIONDETAILS LIST', 'Db Transaction Details', 'OWN', NULL, NULL, 'Audit/DbTransactionDetailsList.aspx', 'True', 30)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('AUDIT', 'DBTRANSACTIONDETAILS ADD', 'New Db Transaction Details', 'INHERITED', 'DBTRANSACTIONDETAILS LIST', NULL, 'Audit/DbTransactionDetailsAdd.aspx', 'False', 40)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEE LIST', ' Employee', 'OWN', NULL, NULL, 'HRM/H_EmployeeList.aspx', 'True', 70)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEE ADD', ' Employee', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_EmployeeList.aspx', 'False', 80)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEE LIST', ' Employee', 'OWN', NULL, NULL, 'HRM/H_EmployeeList.aspx', 'True', 70)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEE ADD', ' Employee', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_EmployeeList.aspx', 'False', 80)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_ACADEMICQUALIFICATION LIST', ' Academic Qualification', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_AcademicQualificationList.aspx', 'False', 90)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_ACADEMICQUALIFICATION ADD', ' Academic Qualification', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_AcademicQualificationList.aspx', 'False', 100)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EXPERIENCE LIST', ' Experience', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_ExperienceList.aspx', 'False', 110)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EXPERIENCE ADD', ' Experience', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_ExperienceList.aspx', 'False', 120)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_PROFESSIONALQUALIFICATION LIST', ' Professional Qualification', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_ProfessionalQualificationList.aspx', 'False', 130)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_PROFESSIONALQUALIFICATION ADD', ' Professional Qualification', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_ProfessionalQualificationList.aspx', 'False', 140)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_TRAINING LIST', ' Training', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_TrainingList.aspx', 'False', 150)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_TRAINING ADD', ' Training', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_TrainingList.aspx', 'False', 160)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_ACADEMICQUALIFICATION LIST', ' Academic Qualification', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_AcademicQualificationList.aspx', 'False', 90)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_ACADEMICQUALIFICATION ADD', ' Academic Qualification', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_AcademicQualificationList.aspx', 'False', 100)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EXPERIENCE LIST', ' Experience', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_ExperienceList.aspx', 'False', 110)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EXPERIENCE ADD', ' Experience', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_ExperienceList.aspx', 'False', 120)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_PROFESSIONALQUALIFICATION LIST', ' Professional Qualification', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_ProfessionalQualificationList.aspx', 'False', 130)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_PROFESSIONALQUALIFICATION ADD', ' Professional Qualification', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_ProfessionalQualificationList.aspx', 'False', 140)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_TRAINING LIST', ' Training', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_TrainingList.aspx', 'False', 150)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_TRAINING ADD', ' Training', 'INHERITED', 'H_EMPLOYEE LIST', NULL, 'HRM/H_TrainingList.aspx', 'False', 160)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEETRANSFER LIST', ' Employee Transfer', 'OWN', NULL, NULL, 'HRM/H_EmployeeTransferList.aspx', 'True', 170)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEETRANSFER ADD', ' Employee Transfer', 'INHERITED', 'H_EMPLOYEETRANSFER LIST', NULL, 'HRM/H_EmployeeTransferAdd.aspx', 'False', 175)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEPROMOTION ADD', ' Employee Promotion', 'OWN', NULL, NULL, 'HRM/H_EmployeePromotionAdd.aspx', 'True', 180)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEETRANSFER LIST', ' Employee Transfer', 'OWN', NULL, NULL, 'HRM/H_EmployeeTransferList.aspx', 'True', 170)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEETRANSFER ADD', ' Employee Transfer', 'INHERITED', 'H_EMPLOYEETRANSFER LIST', NULL, 'HRM/H_EmployeeTransferAdd.aspx', 'False', 175)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEPROMOTION ADD', ' Employee Promotion', 'OWN', NULL, NULL, 'HRM/H_EmployeePromotionAdd.aspx', 'True', 180)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEELEAVE ADD', ' Employee Leave', 'OWN', NULL, NULL, 'HRM/H_EmployeeLeaveAdd.aspx', 'True', 190)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEDROP ADD', ' Employee Drop', 'OWN', NULL, NULL, 'HRM/H_EmployeeDropAdd.aspx', 'True', 200)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEELEAVE ADD', ' Employee Leave', 'OWN', NULL, NULL, 'HRM/H_EmployeeLeaveAdd.aspx', 'True', 190)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEDROP ADD', ' Employee Drop', 'OWN', NULL, NULL, 'HRM/H_EmployeeDropAdd.aspx', 'True', 200)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEREJOIN ADD', ' Employee Rejoin', 'OWN', NULL, NULL, 'HRM/H_EmployeeRejoinAdd.aspx', 'True', 210)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEREEMPLOYMENT ADD', ' Employee Reemployment', 'OWN', NULL, NULL, 'HRM/H_EmployeeReemploymentAdd.aspx', 'True', 220)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEREJOIN ADD', ' Employee Rejoin', 'OWN', NULL, NULL, 'HRM/H_EmployeeRejoinAdd.aspx', 'True', 210)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEREEMPLOYMENT ADD', ' Employee Reemployment', 'OWN', NULL, NULL, 'HRM/H_EmployeeReemploymentAdd.aspx', 'True', 220)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEINCREMENTHELDUP ADD', ' Employee Increment Heldup', 'OWN', NULL, NULL, 'HRM/H_EmployeeIncrementHeldupAdd.aspx', 'True', 230)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEWARNING ADD', ' Employee Warning', 'OWN', NULL, NULL, 'HRM/H_EmployeeWarningAdd.aspx', 'True', 240)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEPENALTY ADD', ' Employee Penalty', 'OWN', NULL, NULL, 'HRM/H_EmployeePenaltyAdd.aspx', 'True', 250)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEINCREMENTHELDUP ADD', ' Employee Increment Heldup', 'OWN', NULL, NULL, 'HRM/H_EmployeeIncrementHeldupAdd.aspx', 'True', 230)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEWARNING ADD', ' Employee Warning', 'OWN', NULL, NULL, 'HRM/H_EmployeeWarningAdd.aspx', 'True', 240)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEPENALTY ADD', ' Employee Penalty', 'OWN', NULL, NULL, 'HRM/H_EmployeePenaltyAdd.aspx', 'True', 250)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEACTINGDESIGNATION ADD', ' Employee Acting Designation', 'OWN', NULL, NULL, 'HRM/H_EmployeeActingDesignationAdd.aspx', 'True', 260)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEWAITINGFORPOSTING ADD', ' Employee Waiting For Posting', 'OWN', NULL, NULL, 'HRM/H_EmployeeWaitingForPostingAdd.aspx', 'True', 270)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEACTINGDESIGNATION ADD', ' Employee Acting Designation', 'OWN', NULL, NULL, 'HRM/H_EmployeeActingDesignationAdd.aspx', 'True', 260)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEWAITINGFORPOSTING ADD', ' Employee Waiting For Posting', 'OWN', NULL, NULL, 'HRM/H_EmployeeWaitingForPostingAdd.aspx', 'True', 270)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEESALARY ADD', ' Employee Salary', 'OWN', NULL, NULL, 'HRM/H_EmployeeSalaryAdd.aspx', 'True', 280)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEESPECIALHONOR ADD', ' Employee Special Honor', 'OWN', NULL, NULL, 'HRM/H_EmployeeSpecialHonorAdd.aspx', 'True', 390)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEESALARY ADD', ' Employee Salary', 'OWN', NULL, NULL, 'HRM/H_EmployeeSalaryAdd.aspx', 'True', 280)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEESPECIALHONOR ADD', ' Employee Special Honor', 'OWN', NULL, NULL, 'HRM/H_EmployeeSpecialHonorAdd.aspx', 'True', 390)
 
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'HRM REPORT', 'HRM Report', 'OWN', NULL, NULL, 'Reports/HRM_Report.aspx', 'True', 700)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'QUICK SUMMARY', 'Quick Summary', 'OWN', NULL, NULL, 'Reports/QuickSummaryReport.aspx', 'True', 710)
-		INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'LETTEROFIDCARD', 'Letter Of Id Card', 'OWN', NULL, NULL, 'Reports/LetterOfIdCard.aspx', 'True', 720)
-	</script>
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'HRM REPORT', 'HRM Report', 'OWN', NULL, NULL, 'Reports/HRM_Report.aspx', 'True', 700)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'QUICK SUMMARY', 'Quick Summary', 'OWN', NULL, NULL, 'Reports/QuickSummaryReport.aspx', 'True', 710)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'LETTEROFIDCARD', 'Letter Of Id Card', 'OWN', NULL, NULL, 'Reports/LetterOfIdCard.aspx', 'True', 720)
+    </script>
   </config>
   <config sequence="3003" type="FRESH" version="1.0.0" description="Command">
     <script provider="SQL Server">
@@ -1121,152 +1180,152 @@
   </config>
   <config sequence="3004" type="FRESH" version="1.0.0" description="PropertyCommand">
     <script provider="SQL Server">
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE LIST', 'DELETE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER LIST', 'DELETE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER LIST', 'RESET PASSWORD', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER LIST', 'RESET PASSWORD', 3)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE ADD', 'CANCEL', 4)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER ADD', 'CANCEL', 4)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ROLE ADD', 'CANCEL', 4)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('USER ADD', 'CANCEL', 4)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('UPGRADE DATABASE', 'UPGRADE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BACKUP DATABASE', 'BACKUP', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('RESTORE DATABASE', 'RESTORE', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXECUTE SCRIPT', 'EXECUTE', 4)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SHRINK DATABASE', 'SHRINK', 5)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('UPGRADE DATABASE', 'UPGRADE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BACKUP DATABASE', 'BACKUP', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('RESTORE DATABASE', 'RESTORE', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXECUTE SCRIPT', 'EXECUTE', 4)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SHRINK DATABASE', 'SHRINK', 5)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SUBZONE LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('DISTRICT LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ZONE LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REGION LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('THANA LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BRANCH LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SUBZONE LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('DISTRICT LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ZONE LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REGION LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('THANA LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BRANCH LIST', 'ADD', 1)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SUBZONE ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SUBZONE ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SUBZONE ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('DISTRICT ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('DISTRICT ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('DISTRICT ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ZONE ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ZONE ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ZONE ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REGION ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REGION ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REGION ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('THANA ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('THANA ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('THANA ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BRANCH ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BRANCH ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BRANCH ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SUBZONE ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SUBZONE ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('SUBZONE ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('DISTRICT ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('DISTRICT ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('DISTRICT ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ZONE ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ZONE ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('ZONE ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REGION ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REGION ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REGION ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('THANA ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('THANA ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('THANA ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BRANCH ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BRANCH ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BRANCH ADD', 'SAVE AND NEW', 3)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('CONFIG ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('CONFIG ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('CONFIG ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('CONFIG ADD', 'SAVE AND CLOSE', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG LIST', 'DELETE', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('REPORTCONFIG ADD', 'SAVE AND NEW', 3)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT LIST', 'DELETE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION LIST', 'DELETE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEE LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEE LIST', 'DELETE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEE LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEE LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE LIST', 'DELETE', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEE ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEE ADD', 'CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_EMPLOYEE ADD', 'REFRESH','New', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DEPARTMENT ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_DESIGNATION ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEE ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEE ADD', 'CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_EMPLOYEE ADD', 'REFRESH','New', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADE ADD', 'SAVE AND NEW', 3)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_ACADEMICQUALIFICATION LIST', 'ADD', 'Add Academic Qualification', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_ACADEMICQUALIFICATION LIST', 'DELETE', 'Delete Academic Qualification', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_EXPERIENCE LIST', 'ADD', 'Add Experience', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_EXPERIENCE LIST', 'DELETE', 'Delete Experience' ,2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_PROFESSIONALQUALIFICATION LIST', 'ADD', 'Add Professional Qualification', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_PROFESSIONALQUALIFICATION LIST', 'DELETE', 'Delete Professional Qualification', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_TRAINING LIST', 'ADD', 'Add Training', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_TRAINING LIST', 'DELETE', 'Delete Training', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_ACADEMICQUALIFICATION LIST', 'ADD', 'Add Academic Qualification', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_ACADEMICQUALIFICATION LIST', 'DELETE', 'Delete Academic Qualification', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_EXPERIENCE LIST', 'ADD', 'Add Experience', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_EXPERIENCE LIST', 'DELETE', 'Delete Experience' ,2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_PROFESSIONALQUALIFICATION LIST', 'ADD', 'Add Professional Qualification', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_PROFESSIONALQUALIFICATION LIST', 'DELETE', 'Delete Professional Qualification', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_TRAINING LIST', 'ADD', 'Add Training', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName,  SortOrder) VALUES('H_TRAINING LIST', 'DELETE', 'Delete Training', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_ACADEMICQUALIFICATION ADD', 'SAVE', 'Save Academic Qualification', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_ACADEMICQUALIFICATION ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_ACADEMICQUALIFICATION ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_EXPERIENCE ADD', 'SAVE', 'Save Experience', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EXPERIENCE ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EXPERIENCE ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_PROFESSIONALQUALIFICATION ADD', 'SAVE', 'Save Professional Qualification', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_PROFESSIONALQUALIFICATION ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_PROFESSIONALQUALIFICATION ADD', 'SAVE AND NEW', 3)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_TRAINING ADD', 'SAVE', 'Save Training', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_TRAINING ADD', 'SAVE AND CLOSE', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_TRAINING ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_ACADEMICQUALIFICATION ADD', 'SAVE', 'Save Academic Qualification', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_ACADEMICQUALIFICATION ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_ACADEMICQUALIFICATION ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_EXPERIENCE ADD', 'SAVE', 'Save Experience', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EXPERIENCE ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EXPERIENCE ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_PROFESSIONALQUALIFICATION ADD', 'SAVE', 'Save Professional Qualification', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_PROFESSIONALQUALIFICATION ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_PROFESSIONALQUALIFICATION ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, DisplayName, SortOrder) VALUES('H_TRAINING ADD', 'SAVE', 'Save Training', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_TRAINING ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_TRAINING ADD', 'SAVE AND NEW', 3)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEETRANSFER LIST', 'ADD', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEETRANSFER ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEETRANSFER ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEETRANSFER LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEETRANSFER ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEETRANSFER ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPROMOTION ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPROMOTION ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPROMOTION ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPROMOTION ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEELEAVE ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEELEAVE ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEELEAVE ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEELEAVE ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEDROP ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEDROP ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEDROP ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEDROP ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREJOIN ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREJOIN ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREJOIN ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREJOIN ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREEMPLOYMENT ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREEMPLOYMENT ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREEMPLOYMENT ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREEMPLOYMENT ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEINCREMENTHELDUP ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEINCREMENTHELDUP ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEINCREMENTHELDUP ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEINCREMENTHELDUP ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEWARNING ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEWARNING ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEWARNING ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEWARNING ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPENALTY ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPENALTY ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPENALTY ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPENALTY ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEACTINGDESIGNATION ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEACTINGDESIGNATION ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEACTINGDESIGNATION ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEACTINGDESIGNATION ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEWAITINGFORPOSTING ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEWAITINGFORPOSTING ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEWAITINGFORPOSTING ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEWAITINGFORPOSTING ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEESALARY ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEESALARY ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEESALARY ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEESALARY ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEESPECIALHONOR ADD', 'SAVE', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEESPECIALHONOR ADD', 'SAVE AND NEW', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEESPECIALHONOR ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEESPECIALHONOR ADD', 'SAVE AND NEW', 2)
 
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('HRM REPORT', 'EXCEL', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('HRM REPORT', 'SEARCH', 2)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('QUICK SUMMARY', 'EXCEL', 1)
-		INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('LETTEROFIDCARD', 'PRINT', 1)
-	</script>
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('HRM REPORT', 'EXCEL', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('HRM REPORT', 'SEARCH', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('QUICK SUMMARY', 'EXCEL', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('LETTEROFIDCARD', 'PRINT', 1)
+    </script>
   </config>
   <config sequence="3005" type="FRESH" version="1.0.0" description="Role">
     <script provider="SQL Server">
@@ -1285,161 +1344,161 @@
   </config>
   <config sequence="3008" type="FRESH" version="1.0.0" description="RoleProperty">
     <script provider="SQL Server">
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'ROLE LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'USER LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'ROLE LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'USER LIST')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'UPGRADE DATABASE')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'BACKUP DATABASE')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'RESTORE DATABASE')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'EXECUTE SCRIPT')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'SHRINK DATABASE')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'UPGRADE DATABASE')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'BACKUP DATABASE')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'RESTORE DATABASE')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'EXECUTE SCRIPT')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'SHRINK DATABASE')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'DBTRANSACTION LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'DBTRANSACTION LIST')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'SUBZONE LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'DISTRICT LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'ZONE LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'REGION LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'THANA LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'BRANCH LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'SUBZONE LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'DISTRICT LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'ZONE LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'REGION LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'THANA LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'BRANCH LIST')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'CONFIG LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'REPORTCONFIG LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'CONFIG LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'REPORTCONFIG LIST')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_DEPARTMENT LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_DESIGNATION LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEE LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_GRADE LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_DEPARTMENT LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_DESIGNATION LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEE LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_GRADE LIST')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_ACADEMICQUALIFICATION LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EXPERIENCE LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_PROFESSIONALQUALIFICATION LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_TRAINING LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_ACADEMICQUALIFICATION LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EXPERIENCE LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_PROFESSIONALQUALIFICATION LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_TRAINING LIST')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEETRANSFER LIST')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEETRANSFER ADD')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEPROMOTION ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEETRANSFER LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEETRANSFER ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEPROMOTION ADD')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEELEAVE ADD')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEDROP ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEELEAVE ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEDROP ADD')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEREJOIN ADD')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEREEMPLOYMENT ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEREJOIN ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEREEMPLOYMENT ADD')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEINCREMENTHELDUP ADD')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEWARNING ADD')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEPENALTY ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEINCREMENTHELDUP ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEWARNING ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEPENALTY ADD')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEACTINGDESIGNATION ADD')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEWAITINGFORPOSTING ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEACTINGDESIGNATION ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEWAITINGFORPOSTING ADD')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEESALARY ADD')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEESPECIALHONOR ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEESALARY ADD')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEESPECIALHONOR ADD')
 
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'HRM REPORT')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'QUICK SUMMARY')
-		INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'LETTEROFIDCARD')
-	</script>
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'HRM REPORT')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'QUICK SUMMARY')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'LETTEROFIDCARD')
+    </script>
   </config>
   <config sequence="3009" type="FRESH" version="1.0.0" description="RoleCommand">
     <script provider="SQL Server">
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ROLE LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ROLE LIST', 'DELETE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'USER LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'USER LIST', 'DELETE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'USER LIST', 'RESET PASSWORD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ROLE LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ROLE LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'USER LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'USER LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'USER LIST', 'RESET PASSWORD')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ROLE ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'USER ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ROLE ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'USER ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'UPGRADE DATABASE', 'UPGRADE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BACKUP DATABASE', 'BACKUP')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'RESTORE DATABASE', 'RESTORE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'EXECUTE SCRIPT', 'EXECUTE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'SHRINK DATABASE', 'SHRINK')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'UPGRADE DATABASE', 'UPGRADE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BACKUP DATABASE', 'BACKUP')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'RESTORE DATABASE', 'RESTORE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'EXECUTE SCRIPT', 'EXECUTE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'SHRINK DATABASE', 'SHRINK')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'SUBZONE LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'DISTRICT LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ZONE LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REGION LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'THANA LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'SUBZONE LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'DISTRICT LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ZONE LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REGION LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'THANA LIST', 'ADD')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'SUBZONE ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'DISTRICT ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ZONE ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REGION ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'THANA ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'SUBZONE ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'DISTRICT ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'ZONE ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REGION ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'THANA ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BRANCH LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BRANCH ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BRANCH LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BRANCH ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'CONFIG ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'CONFIG ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REPORTCONFIG LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REPORTCONFIG LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REPORTCONFIG LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REPORTCONFIG LIST', 'DELETE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REPORTCONFIG ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'REPORTCONFIG ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DEPARTMENT LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DEPARTMENT LIST', 'DELETE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DESIGNATION LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DESIGNATION LIST', 'DELETE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEE LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEE LIST', 'DELETE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_GRADE LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_GRADE LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DEPARTMENT LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DEPARTMENT LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DESIGNATION LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DESIGNATION LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEE LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEE LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_GRADE LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_GRADE LIST', 'DELETE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DEPARTMENT ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DESIGNATION ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEE ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_GRADE ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DEPARTMENT ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_DESIGNATION ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEE ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_GRADE ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ACADEMICQUALIFICATION LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ACADEMICQUALIFICATION LIST', 'DELETE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EXPERIENCE LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EXPERIENCE LIST', 'DELETE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_PROFESSIONALQUALIFICATION LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_PROFESSIONALQUALIFICATION LIST', 'DELETE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRAINING LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRAINING LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ACADEMICQUALIFICATION LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ACADEMICQUALIFICATION LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EXPERIENCE LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EXPERIENCE LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_PROFESSIONALQUALIFICATION LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_PROFESSIONALQUALIFICATION LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRAINING LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRAINING LIST', 'DELETE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ACADEMICQUALIFICATION ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EXPERIENCE ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_PROFESSIONALQUALIFICATION ADD', 'SAVE')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRAINING ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ACADEMICQUALIFICATION ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EXPERIENCE ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_PROFESSIONALQUALIFICATION ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRAINING ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEETRANSFER LIST', 'ADD')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEETRANSFER ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEETRANSFER LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEETRANSFER ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEPROMOTION ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEPROMOTION ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEELEAVE ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEELEAVE ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEDROP ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEDROP ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEREJOIN ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEREJOIN ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEREEMPLOYMENT ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEREEMPLOYMENT ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEINCREMENTHELDUP ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEINCREMENTHELDUP ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEWARNING ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEWARNING ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEPENALTY ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEPENALTY ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEACTINGDESIGNATION ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEACTINGDESIGNATION ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEWAITINGFORPOSTING ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEWAITINGFORPOSTING ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEESALARY ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEESALARY ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEESPECIALHONOR ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEESPECIALHONOR ADD', 'SAVE')
 
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'HRM REPORT', 'EXCEL')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'HRM REPORT', 'SEARCH')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'QUICK SUMMARY', 'EXCEL')
-		INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'LETTEROFIDCARD', 'PRINT')
-	</script>
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'HRM REPORT', 'EXCEL')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'HRM REPORT', 'SEARCH')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'QUICK SUMMARY', 'EXCEL')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'LETTEROFIDCARD', 'PRINT')
+    </script>
   </config>
   <config sequence="3010" type="FRESH" version="1.0.0" description="Config">
     <script provider="SQL Server">
@@ -2174,7 +2233,7 @@
       INSERT INTO Subzone(Id, ZoneId, Name,Status) VALUES(152,15,'Tangail',1);
       INSERT INTO Subzone(Id, ZoneId, Name,Status) VALUES(153,15,'Tangail-Ghatail',1);
       INSERT INTO Subzone(Id, ZoneId, Name,Status) VALUES(154,13,'Thakurgaon',1);
-      SET IDENTITY_INSERT [Subzone] OFF;  
+      SET IDENTITY_INSERT [Subzone] OFF;
     </script>
   </config>
   <config sequence="3015" type="FRESH" version="1.0.0" description="Region">
@@ -3689,7 +3748,7 @@
     <script provider="SQL Server">
       Insert Into dbo.ReportConfig values('Staff Information', 64, '', 0, 0, 0, 0)
     </script>
-  </config>  
+  </config>
   <config sequence="3051" type="FRESH" version="1.0.0" description="">
     <script provider="SQL Server">
     </script>
@@ -3776,31 +3835,31 @@
       AS
       BEGIN
       SELECT DISTINCT
-      
+
       (SELECT COUNT(dbo.H_AcademicQualification.H_EmployeeId) FROM dbo.H_AcademicQualification
       INNER JOIN dbo.H_Employee ON dbo.H_Employee.Id = dbo.H_AcademicQualification.H_EmployeeId AND dbo.H_Employee.JoiningDate &lt; = @AsOnDate
       WHERE dbo.H_AcademicQualification.Level = 'Masters') AS 'Masters',
-      
+
       (SELECT COUNT(dbo.H_AcademicQualification.H_EmployeeId) FROM dbo.H_AcademicQualification
       INNER JOIN dbo.H_Employee ON dbo.H_Employee.Id = dbo.H_AcademicQualification.H_EmployeeId AND dbo.H_Employee.JoiningDate &lt; = @AsOnDate
       WHERE (dbo.H_AcademicQualification.Level = 'Honors' AND dbo.H_AcademicQualification.H_EmployeeId NOT IN
       (SELECT dbo.H_AcademicQualification.H_EmployeeId FROM dbo.H_AcademicQualification WHERE dbo.H_AcademicQualification.Level = 'Masters'))) AS 'Honors',
-      
+
       (SELECT COUNT(dbo.H_AcademicQualification.H_EmployeeId) FROM dbo.H_AcademicQualification
       INNER JOIN dbo.H_Employee ON dbo.H_Employee.Id = dbo.H_AcademicQualification.H_EmployeeId AND dbo.H_Employee.JoiningDate &lt; = @AsOnDate
       WHERE (dbo.H_AcademicQualification.Level = 'Higher Secondary' AND dbo.H_AcademicQualification.H_EmployeeId NOT IN
       (SELECT dbo.H_AcademicQualification.H_EmployeeId FROM dbo.H_AcademicQualification WHERE dbo.H_AcademicQualification.Level = 'Masters' OR dbo.H_AcademicQualification.Level = 'Honors'))) AS 'Higher Secondary',
-      
+
       (SELECT COUNT(dbo.H_AcademicQualification.H_EmployeeId) FROM dbo.H_AcademicQualification
       INNER JOIN dbo.H_Employee ON dbo.H_Employee.Id = dbo.H_AcademicQualification.H_EmployeeId AND dbo.H_Employee.JoiningDate &lt; = @AsOnDate
       WHERE (dbo.H_AcademicQualification.Level = 'Secondary' AND dbo.H_AcademicQualification.H_EmployeeId NOT IN
       (SELECT dbo.H_AcademicQualification.H_EmployeeId FROM dbo.H_AcademicQualification WHERE dbo.H_AcademicQualification.Level = 'Masters' OR dbo.H_AcademicQualification.Level = 'Honors' OR dbo.H_AcademicQualification.Level = 'Higher Secondary'))) AS 'Secondary',
-      
+
       (SELECT COUNT(dbo.H_AcademicQualification.H_EmployeeId) FROM dbo.H_AcademicQualification
       INNER JOIN dbo.H_Employee ON dbo.H_Employee.Id = dbo.H_AcademicQualification.H_EmployeeId AND dbo.H_Employee.JoiningDate &lt; = @AsOnDate
       WHERE dbo.H_AcademicQualification.H_EmployeeId NOT IN
       (SELECT dbo.H_AcademicQualification.H_EmployeeId FROM dbo.H_AcademicQualification WHERE dbo.H_AcademicQualification.Level = 'Masters' OR dbo.H_AcademicQualification.Level = 'Honors' OR dbo.H_AcademicQualification.Level = 'Higher Secondary' OR dbo.H_AcademicQualification.Level = 'Secondary')) AS 'Others'
-      
+
       FROM dbo.H_AcademicQualification
       END
     </script>
@@ -3902,7 +3961,7 @@
   </config>
   <config sequence="4005" type="FRESH" version="1.0.0" description="PropertyCommand">
     <script provider="SQL Server">
-     
+
     </script>
   </config>
   <config sequence="4006" type="FRESH" version="1.0.0" description="RoleProperty">
@@ -4087,7 +4146,7 @@
   </config>
   <config sequence="4113" type="FRESH" version="1.0.0" description="H_AcademicQualification">
     <script provider="SQL Server">
-  
+
     </script>
   </config>
   <config sequence="4114" type="FRESH" version="1.0.0" description="H_AcademicQualification">
@@ -4276,218 +4335,218 @@
       ADD CONSTRAINT FK_H_Address_ThanaId FOREIGN KEY(ThanaId) REFERENCES Thana (Id)
     </script>
   </config>
-	<config sequence="4149" type="FRESH" version="1.0.0" description="Branch_Transfer">
-		<script provider="SQL Server">
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_BRANCHTRANSFER ADD', ' Branch Transfer', 'OWN', NULL, NULL, 'HRM/H_BranchTransfer.aspx', 'True', 400)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_BRANCHTRANSFER ADD', 'SAVE', 1)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_BRANCHTRANSFER ADD')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_BRANCHTRANSFER ADD', 'SAVE')
+  <config sequence="4149" type="FRESH" version="1.0.0" description="Branch_Transfer">
+    <script provider="SQL Server">
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_BRANCHTRANSFER ADD', ' Branch Transfer', 'OWN', NULL, NULL, 'HRM/H_BranchTransfer.aspx', 'True', 400)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_BRANCHTRANSFER ADD', 'SAVE', 1)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_BRANCHTRANSFER ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_BRANCHTRANSFER ADD', 'SAVE')
 
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_FINALPAYMENT ADD', ' Final Payment', 'OWN', NULL, NULL, 'HRM/H_FnalPaymentAdd.aspx', 'True', 420)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_FINALPAYMENT ADD', 'SAVE', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_FINALPAYMENT ADD', 'SAVE AND NEW', 2)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_FINALPAYMENT ADD')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_FINALPAYMENT ADD', 'SAVE')
-		</script>
-	</config>
-	<config sequence="4150" type="FRESH" version="1.0.0" description="EmployeeEducation">
-		<script provider="SQL Server">
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'BOARDUNIVERSITY LIST', 'Board University', 'OWN', NULL, NULL, 'Admin/BoardUniversityList.aspx', 'True', 230)
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'BOARDUNIVERSITY ADD', 'Board University', 'INHERITED', 'BOARDUNIVERSITY LIST', NULL, 'Admin/BoardUniversityList.aspx', 'False', 240)
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'EXAMNAME LIST', 'Exam Name', 'OWN', NULL, NULL, 'Admin/ExamNameList.aspx', 'True', 250)
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'EXAMNAME ADD', 'Exam Name', 'INHERITED', 'EXAMNAME LIST', NULL, 'Admin/ExamNameList.aspx', 'False', 260)
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'GROUPSUBJECT LIST', 'Group Subject', 'OWN', NULL, NULL, 'Admin/GroupSubjectList.aspx', 'True', 270)
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'GROUPSUBJECT ADD', 'Group Subject', 'INHERITED', 'GROUPSUBJECT LIST', NULL, 'Admin/GroupSubjectList.aspx', 'False', 280)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_FINALPAYMENT ADD', ' Final Payment', 'OWN', NULL, NULL, 'HRM/H_FnalPaymentAdd.aspx', 'True', 420)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_FINALPAYMENT ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_FINALPAYMENT ADD', 'SAVE AND NEW', 2)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_FINALPAYMENT ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_FINALPAYMENT ADD', 'SAVE')
+    </script>
+  </config>
+  <config sequence="4150" type="FRESH" version="1.0.0" description="EmployeeEducation">
+    <script provider="SQL Server">
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'BOARDUNIVERSITY LIST', 'Board University', 'OWN', NULL, NULL, 'Admin/BoardUniversityList.aspx', 'True', 230)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'BOARDUNIVERSITY ADD', 'Board University', 'INHERITED', 'BOARDUNIVERSITY LIST', NULL, 'Admin/BoardUniversityList.aspx', 'False', 240)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'EXAMNAME LIST', 'Exam Name', 'OWN', NULL, NULL, 'Admin/ExamNameList.aspx', 'True', 250)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'EXAMNAME ADD', 'Exam Name', 'INHERITED', 'EXAMNAME LIST', NULL, 'Admin/ExamNameList.aspx', 'False', 260)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'GROUPSUBJECT LIST', 'Group Subject', 'OWN', NULL, NULL, 'Admin/GroupSubjectList.aspx', 'True', 270)
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('ADMIN', 'GROUPSUBJECT ADD', 'Group Subject', 'INHERITED', 'GROUPSUBJECT LIST', NULL, 'Admin/GroupSubjectList.aspx', 'False', 280)
 
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY LIST', 'ADD', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY LIST', 'DELETE', 2)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME LIST', 'ADD', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME LIST', 'DELETE', 2)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT LIST', 'ADD', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME LIST', 'DELETE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT LIST', 'ADD', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT LIST', 'DELETE', 2)
 
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY ADD', 'SAVE', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY ADD', 'SAVE AND CLOSE', 2)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY ADD', 'SAVE AND NEW', 3)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME ADD', 'SAVE', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME ADD', 'SAVE AND CLOSE', 2)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME ADD', 'SAVE AND NEW', 3)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT ADD', 'SAVE', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT ADD', 'SAVE AND CLOSE', 2)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('BOARDUNIVERSITY ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('EXAMNAME ADD', 'SAVE AND NEW', 3)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT ADD', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT ADD', 'SAVE AND CLOSE', 2)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('GROUPSUBJECT ADD', 'SAVE AND NEW', 3)
 
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'BOARDUNIVERSITY LIST')
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'EXAMNAME LIST')
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'GROUPSUBJECT LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'BOARDUNIVERSITY LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'EXAMNAME LIST')
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'GROUPSUBJECT LIST')
 
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BOARDUNIVERSITY LIST', 'ADD')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BOARDUNIVERSITY LIST', 'DELETE')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'EXAMNAME LIST', 'ADD')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'EXAMNAME LIST', 'DELETE')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'GROUPSUBJECT LIST', 'ADD')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'GROUPSUBJECT LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BOARDUNIVERSITY LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BOARDUNIVERSITY LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'EXAMNAME LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'EXAMNAME LIST', 'DELETE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'GROUPSUBJECT LIST', 'ADD')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'GROUPSUBJECT LIST', 'DELETE')
 
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BOARDUNIVERSITY ADD', 'SAVE')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'EXAMNAME ADD', 'SAVE')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'GROUPSUBJECT ADD', 'SAVE')
-		</script>
-	</config>
-	<config sequence="4151" type="FRESH" version="1.0.0" description="EmployeeEducation">
-		<script provider="SQL Server">
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_EMPLOYEEREPORT', 'Employee Information', 'OWN', NULL, NULL, 'Reports/H_EmployeeReport.aspx', 'True', 730)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREPORT', 'SEARCH', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREPORT', 'EXCEL', 2)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEREPORT')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEREPORT', 'SEARCH')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEREPORT', 'EXCEL')
-		</script>
-	</config>
-	<config sequence="4152" type="FRESH" version="1.0.0" description="EmployeeEducation">
-		<script provider="SQL Server">
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEPERMANENT', 'Employee Permanent', 'OWN', NULL, NULL, 'HRM/H_EmployeePermanentAdd.aspx', 'True', 430)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPERMANENT', 'SAVE', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPERMANENT', 'SAVE AND NEW', 2)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEPERMANENT')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEPERMANENT', 'SAVE')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEPERMANENT', 'SAVE AND NEW')
-		</script>
-	</config>
-	<config sequence="4153" type="FRESH" version="1.0.0" description="H_TRANSFERREPORT">
-		<script provider="SQL Server">
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_TRANSFERREPORT', 'Transfer Report', 'OWN', NULL, NULL, 'Reports/H_TransferReport.aspx', 'True', 740)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_TRANSFERREPORT', 'SEARCH', 1)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_TRANSFERREPORT', 'EXCEL', 2)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_TRANSFERREPORT')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRANSFERREPORT', 'SEARCH')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRANSFERREPORT', 'EXCEL')
-		</script>
-	</config>
-	<config sequence="4154" type="FRESH" version="1.0.0" description="H_INDIVIDUALREPORT">
-		<script provider="SQL Server">
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_INDIVIDUALREPORT', 'Individual Report', 'OWN', NULL, NULL, 'Reports/H_IndividualReport.aspx', 'True', 750)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_INDIVIDUALREPORT', 'EXCEL', 2)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_INDIVIDUALREPORT')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_INDIVIDUALREPORT', 'EXCEL')
-		</script>
-	</config>
-	<config sequence="4155" type="FRESH" version="1.0.0" description="H_GRADEDESIGNATIONWISETOTALSTAFF">
-		<script provider="SQL Server">
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_GRADEDESIGNATIONWISETOTALSTAFF', 'Grade-Designation Wise Total Staff', 'OWN', NULL, NULL, 'Reports/CrystalReportParameterUI.aspx', 'True', 750)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADEDESIGNATIONWISETOTALSTAFF', 'PRINT', 1)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_GRADEDESIGNATIONWISETOTALSTAFF')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_GRADEDESIGNATIONWISETOTALSTAFF', 'PRINT')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'BOARDUNIVERSITY ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'EXAMNAME ADD', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'GROUPSUBJECT ADD', 'SAVE')
+    </script>
+  </config>
+  <config sequence="4151" type="FRESH" version="1.0.0" description="EmployeeEducation">
+    <script provider="SQL Server">
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_EMPLOYEEREPORT', 'Employee Information', 'OWN', NULL, NULL, 'Reports/H_EmployeeReport.aspx', 'True', 730)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREPORT', 'SEARCH', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEREPORT', 'EXCEL', 2)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEREPORT')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEREPORT', 'SEARCH')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEREPORT', 'EXCEL')
+    </script>
+  </config>
+  <config sequence="4152" type="FRESH" version="1.0.0" description="EmployeeEducation">
+    <script provider="SQL Server">
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('HRM', 'H_EMPLOYEEPERMANENT', 'Employee Permanent', 'OWN', NULL, NULL, 'HRM/H_EmployeePermanentAdd.aspx', 'True', 430)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPERMANENT', 'SAVE', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_EMPLOYEEPERMANENT', 'SAVE AND NEW', 2)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_EMPLOYEEPERMANENT')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEPERMANENT', 'SAVE')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEEPERMANENT', 'SAVE AND NEW')
+    </script>
+  </config>
+  <config sequence="4153" type="FRESH" version="1.0.0" description="H_TRANSFERREPORT">
+    <script provider="SQL Server">
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_TRANSFERREPORT', 'Transfer Report', 'OWN', NULL, NULL, 'Reports/H_TransferReport.aspx', 'True', 740)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_TRANSFERREPORT', 'SEARCH', 1)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_TRANSFERREPORT', 'EXCEL', 2)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_TRANSFERREPORT')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRANSFERREPORT', 'SEARCH')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_TRANSFERREPORT', 'EXCEL')
+    </script>
+  </config>
+  <config sequence="4154" type="FRESH" version="1.0.0" description="H_INDIVIDUALREPORT">
+    <script provider="SQL Server">
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_INDIVIDUALREPORT', 'Individual Report', 'OWN', NULL, NULL, 'Reports/H_IndividualReport.aspx', 'True', 750)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_INDIVIDUALREPORT', 'EXCEL', 2)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_INDIVIDUALREPORT')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_INDIVIDUALREPORT', 'EXCEL')
+    </script>
+  </config>
+  <config sequence="4155" type="FRESH" version="1.0.0" description="H_GRADEDESIGNATIONWISETOTALSTAFF">
+    <script provider="SQL Server">
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_GRADEDESIGNATIONWISETOTALSTAFF', 'Grade-Designation Wise Total Staff', 'OWN', NULL, NULL, 'Reports/CrystalReportParameterUI.aspx', 'True', 750)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_GRADEDESIGNATIONWISETOTALSTAFF', 'PRINT', 1)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_GRADEDESIGNATIONWISETOTALSTAFF')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_GRADEDESIGNATIONWISETOTALSTAFF', 'PRINT')
 
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_OWNDISTRICTWISEREPORT', 'Own District Wise Total Staff', 'OWN', NULL, NULL, 'Reports/CrystalReportParameterUI.aspx', 'True', 760)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_OWNDISTRICTWISEREPORT', 'PRINT', 1)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_OWNDISTRICTWISEREPORT')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_OWNDISTRICTWISEREPORT', 'PRINT')
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_OWNDISTRICTWISEREPORT', 'Own District Wise Total Staff', 'OWN', NULL, NULL, 'Reports/CrystalReportParameterUI.aspx', 'True', 760)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_OWNDISTRICTWISEREPORT', 'PRINT', 1)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_OWNDISTRICTWISEREPORT')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_OWNDISTRICTWISEREPORT', 'PRINT')
 
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_ATAGLANCETOTALSTAFFPOSITION', 'At a Glance Total Staff', 'OWN', NULL, NULL, 'Reports/CrystalReportParameterUI.aspx', 'True', 770)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_ATAGLANCETOTALSTAFFPOSITION', 'PRINT', 1)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_ATAGLANCETOTALSTAFFPOSITION')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ATAGLANCETOTALSTAFFPOSITION', 'PRINT')
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_ATAGLANCETOTALSTAFFPOSITION', 'At a Glance Total Staff', 'OWN', NULL, NULL, 'Reports/CrystalReportParameterUI.aspx', 'True', 770)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_ATAGLANCETOTALSTAFFPOSITION', 'PRINT', 1)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_ATAGLANCETOTALSTAFFPOSITION')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ATAGLANCETOTALSTAFFPOSITION', 'PRINT')
 
-			INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_ASADISTRICTWISETOTALSTAFF', 'ASA District Wise Total Staff', 'OWN', NULL, NULL, 'Reports/CrystalReportParameterUI.aspx', 'True', 780)
-			INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_ASADISTRICTWISETOTALSTAFF', 'PRINT', 1)
-			INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_ASADISTRICTWISETOTALSTAFF')
-			INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ASADISTRICTWISETOTALSTAFF', 'PRINT')
-		</script>
-	</config>
-	<config sequence="4156" type="FRESH" version="1.0.0" description="H_Designation">
-		<script provider="SQL Server">
-			ALTER Table H_Designation
-			Add GroupType INT null
-		</script>
-	</config>
+      INSERT INTO Property(ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ('REPORT', 'H_ASADISTRICTWISETOTALSTAFF', 'ASA District Wise Total Staff', 'OWN', NULL, NULL, 'Reports/CrystalReportParameterUI.aspx', 'True', 780)
+      INSERT INTO PropertyCommand(PropertyName, CommandName, SortOrder) VALUES('H_ASADISTRICTWISETOTALSTAFF', 'PRINT', 1)
+      INSERT INTO RoleProperty(RoleName, PropertyName) VALUES('Admin', 'H_ASADISTRICTWISETOTALSTAFF')
+      INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_ASADISTRICTWISETOTALSTAFF', 'PRINT')
+    </script>
+  </config>
+  <config sequence="4156" type="FRESH" version="1.0.0" description="H_Designation">
+    <script provider="SQL Server">
+      ALTER Table H_Designation
+      Add GroupType INT null
+    </script>
+  </config>
   <!-- HRM ends -->
   <!-- END CONSTRAINT SECTION -->
   <!-- START PROCEDURE SECTION -->
-	<config sequence="6001" type="FRESH" version="1.0.0" description="Grade_Designation_Wise_Staff_Report">
-		<script provider="SQL Server">
-			CREATE PROCEDURE [dbo].[Grade_Designation_Wise_Staff_Report]
-			(
-			@AsOnDate Datetime
-			)
-			AS
-			BEGIN
-			SELECT g.name AS Grade,d.Name AS Designation
-			,SUM(case when e.sex=1 then 1 else 0 end ) AS Male
-			,SUM(case when e.sex=2 then 1 else 0 end ) AS Female
-			,SUM(case when e.EmploymentType=2 then 1 else 0 end ) AS Permanent
-			,SUM(case when e.EmploymentType=5 then 1 else 0 end ) AS Provisional
-			,COUNT(e.Id ) AS Total
-			,@AsOnDate AS ASOnDate
-			FROM H_Grade g
-			INNER JOIN H_GradeDesignation gd ON gd.H_GradeId=g.Id
-			INNER JOIN H_Designation d ON  d.Id=gd.H_DesignationId
-			LEFT JOIN H_EmployeeDesignation ed ON d.Id=ed.H_DesignationId AND (@AsOnDate BETWEEN ed.StartDate And ed.EndDate)
-			LEFT JOIN H_Employee e ON e.Id=ed.H_EmployeeId AND e.Status=4
-			GROUP BY g.Id ,g.name,d.Id,d.Name
-			ORDER BY g.Name,d.Name
-			END
-		</script>
-	</config>
-	<config sequence="6002" type="FRESH" version="1.0.0" description="Own_District_Designation_Wise_Total_Staff">
-		<script provider="SQL Server">
-			CREATE PROCEDURE [dbo].[Own_District_Designation_Wise_Total_Staff]
-			(
-			@AsOnDate Datetime
-			)
-			AS
-			BEGIN
-			SELECT d.name AS District
-			,SUM( case when b.Status=1 AND  b.BranchType=1 then 1 else 0 end) as Branch
-			,SUM( case when b.Status=1 AND  b.BranchType=1 then 1 else 0 end) as Orther_Branch
-			,ISNULL(lo.Male,0) AS LO_Male
-			,ISNULL(lo.FeMale,0) AS LO_Female
-			,ISNULL(lo.BM_Male,0) AS BM_Male
-			,ISNULL(lo.BM_FeMale,0) AS BM_Female
-			,ISNULL(lo.ABM_Male,0) AS ABM_Male
-			,ISNULL(lo.ABM_FeMale,0) AS ABM_Female
-			,ISNULL(lo.RM_Male,0) AS RM_Male
-			,ISNULL(lo.RM_FeMale,0) AS RM_Female
-			,ISNULL(lo.DM_Male,0) AS DM_Male
-			,ISNULL(lo.DM_FeMale,0) AS DM_Female
-			,ISNULL(lo.Auditor_Male,0) AS Au_Male
-			,ISNULL(lo.Auditor_FeMale,0) AS Au_Female
-			,ISNULL(lo.Other_Male,0) AS Oth_Male
-			,ISNULL(lo.Other_FeMale,0) AS Oth_Female
-			,ISNULL(lo.Male,0)+ISNULL(lo.BM_Male,0)+ISNULL(lo.ABM_Male,0)+ISNULL(lo.RM_Male,0)+ISNULL(lo.DM_Male,0)+ISNULL(lo.Auditor_Male,0)+ISNULL(lo.Other_Male,0) AS Total_Male
-			,ISNULL(lo.FeMale,0)+ISNULL(lo.BM_FeMale,0)+ISNULL(lo.ABM_FeMale,0)+ISNULL(lo.RM_FeMale,0)+ISNULL(lo.DM_FeMale,0)+ISNULL(lo.Auditor_FeMale,0)+ISNULL(lo.Other_FeMale,0) AS Total_Female
-			,@AsOnDate AS AsOnDate
-			FROM District d
-			INNER JOIN Thana t ON d.Id=t.DistrictId
-			INNER JOIN Branch b ON t.Id=b.ThanaId
-			LEFT JOIN (
-			select d.Id as DistId,d.Name AS District
-			,SUM(case when e.Sex=1 AND des.GroupType=1 then 1 else 0 end) as Male
-			,SUM(case when e.Sex=2 AND des.GroupType=1 then 1 else 0 end) as FeMale
-			,SUM(case when e.Sex=1 AND des.GroupType=2 then 1 else 0 end) as BM_Male
-			,SUM(case when e.Sex=2 AND des.GroupType=2 then 1 else 0 end) as BM_FeMale
-			,SUM(case when e.Sex=1 AND des.GroupType=3 then 1 else 0 end) as ABM_Male
-			,SUM(case when e.Sex=2 AND des.GroupType=3 then 1 else 0 end) as ABM_FeMale
-			,SUM(case when e.Sex=1 AND des.GroupType=4 then 1 else 0 end) as RM_Male
-			,SUM(case when e.Sex=2 AND des.GroupType=4 then 1 else 0 end) as RM_FeMale
-			,SUM(case when e.Sex=1 AND (des.GroupType=5 OR des.GroupType=6)then 1 else 0 end) as DM_Male
-			,SUM(case when e.Sex=2 AND (des.GroupType=5 OR des.GroupType=6) then 1 else 0 end) as DM_FeMale
-			,SUM(case when e.Sex=1 AND des.GroupType=7 then 1 else 0 end) as Auditor_Male
-			,SUM(case when e.Sex=2 AND des.GroupType=7 then 1 else 0 end) as Auditor_FeMale
-			,SUM(case when e.Sex=1 AND des.GroupType=8 then 1 else 0 end) as Other_Male
-			,SUM(case when e.Sex=2 AND des.GroupType=8 then 1 else 0 end) as Other_FeMale
-			from  H_Employee e
-			INNER JOIN H_Address a ON e.PermanentAddressId=a.Id
-			INNER JOIN Thana t ON t.Id=a.ThanaId
-			INNER JOIN District d ON d.Id=t.DistrictId
-			INNER JOIN H_EmployeeDesignation ed ON ed.H_EmployeeId=e.Id AND (@AsOnDate Between ed.StartDate AND ed.EndDate)
-			INNER JOIN H_Designation des ON ed.H_DesignationId=des.Id
-			where e.Status=1
-			group by  d.Id,d.Name
-			) lo ON lo.DistId=d.Id
-			GROUP BY d.Name,lo.Male,lo.FeMale,lo.BM_Male,lo.BM_FeMale,lo.ABM_Male,lo.ABM_FeMale,lo.RM_Male,lo.RM_FeMale,lo.DM_Male,lo.DM_FeMale,lo.Auditor_Male,lo.Auditor_FeMale,lo.Other_Male,lo.Other_FeMale--,bm.Male,bm.FeMale,abm.Male,abm.FeMale,rm.Male,rm.FeMale,dm.Male,dm.FeMale,au.Male,au.FeMale,oth.Male,oth.FeMale
-			ORDER BY d.Name
-			END
-		</script>
-	</config>
+  <config sequence="6001" type="FRESH" version="1.0.0" description="Grade_Designation_Wise_Staff_Report">
+    <script provider="SQL Server">
+      CREATE PROCEDURE [dbo].[Grade_Designation_Wise_Staff_Report]
+      (
+      @AsOnDate Datetime
+      )
+      AS
+      BEGIN
+      SELECT g.name AS Grade,d.Name AS Designation
+      ,SUM(case when e.sex=1 then 1 else 0 end ) AS Male
+      ,SUM(case when e.sex=2 then 1 else 0 end ) AS Female
+      ,SUM(case when e.EmploymentType=2 then 1 else 0 end ) AS Permanent
+      ,SUM(case when e.EmploymentType=5 then 1 else 0 end ) AS Provisional
+      ,COUNT(e.Id ) AS Total
+      ,@AsOnDate AS ASOnDate
+      FROM H_Grade g
+      INNER JOIN H_GradeDesignation gd ON gd.H_GradeId=g.Id
+      INNER JOIN H_Designation d ON  d.Id=gd.H_DesignationId
+      LEFT JOIN H_EmployeeDesignation ed ON d.Id=ed.H_DesignationId AND (@AsOnDate BETWEEN ed.StartDate And ed.EndDate)
+      LEFT JOIN H_Employee e ON e.Id=ed.H_EmployeeId AND e.Status=4
+      GROUP BY g.Id ,g.name,d.Id,d.Name
+      ORDER BY g.Name,d.Name
+      END
+    </script>
+  </config>
+  <config sequence="6002" type="FRESH" version="1.0.0" description="Own_District_Designation_Wise_Total_Staff">
+    <script provider="SQL Server">
+      CREATE PROCEDURE [dbo].[Own_District_Designation_Wise_Total_Staff]
+      (
+      @AsOnDate Datetime
+      )
+      AS
+      BEGIN
+      SELECT d.name AS District
+      ,SUM( case when b.Status=1 AND  b.BranchType=1 then 1 else 0 end) as Branch
+      ,SUM( case when b.Status=1 AND  b.BranchType=1 then 1 else 0 end) as Orther_Branch
+      ,ISNULL(lo.Male,0) AS LO_Male
+      ,ISNULL(lo.FeMale,0) AS LO_Female
+      ,ISNULL(lo.BM_Male,0) AS BM_Male
+      ,ISNULL(lo.BM_FeMale,0) AS BM_Female
+      ,ISNULL(lo.ABM_Male,0) AS ABM_Male
+      ,ISNULL(lo.ABM_FeMale,0) AS ABM_Female
+      ,ISNULL(lo.RM_Male,0) AS RM_Male
+      ,ISNULL(lo.RM_FeMale,0) AS RM_Female
+      ,ISNULL(lo.DM_Male,0) AS DM_Male
+      ,ISNULL(lo.DM_FeMale,0) AS DM_Female
+      ,ISNULL(lo.Auditor_Male,0) AS Au_Male
+      ,ISNULL(lo.Auditor_FeMale,0) AS Au_Female
+      ,ISNULL(lo.Other_Male,0) AS Oth_Male
+      ,ISNULL(lo.Other_FeMale,0) AS Oth_Female
+      ,ISNULL(lo.Male,0)+ISNULL(lo.BM_Male,0)+ISNULL(lo.ABM_Male,0)+ISNULL(lo.RM_Male,0)+ISNULL(lo.DM_Male,0)+ISNULL(lo.Auditor_Male,0)+ISNULL(lo.Other_Male,0) AS Total_Male
+      ,ISNULL(lo.FeMale,0)+ISNULL(lo.BM_FeMale,0)+ISNULL(lo.ABM_FeMale,0)+ISNULL(lo.RM_FeMale,0)+ISNULL(lo.DM_FeMale,0)+ISNULL(lo.Auditor_FeMale,0)+ISNULL(lo.Other_FeMale,0) AS Total_Female
+      ,@AsOnDate AS AsOnDate
+      FROM District d
+      INNER JOIN Thana t ON d.Id=t.DistrictId
+      INNER JOIN Branch b ON t.Id=b.ThanaId
+      LEFT JOIN (
+      select d.Id as DistId,d.Name AS District
+      ,SUM(case when e.Sex=1 AND des.GroupType=1 then 1 else 0 end) as Male
+      ,SUM(case when e.Sex=2 AND des.GroupType=1 then 1 else 0 end) as FeMale
+      ,SUM(case when e.Sex=1 AND des.GroupType=2 then 1 else 0 end) as BM_Male
+      ,SUM(case when e.Sex=2 AND des.GroupType=2 then 1 else 0 end) as BM_FeMale
+      ,SUM(case when e.Sex=1 AND des.GroupType=3 then 1 else 0 end) as ABM_Male
+      ,SUM(case when e.Sex=2 AND des.GroupType=3 then 1 else 0 end) as ABM_FeMale
+      ,SUM(case when e.Sex=1 AND des.GroupType=4 then 1 else 0 end) as RM_Male
+      ,SUM(case when e.Sex=2 AND des.GroupType=4 then 1 else 0 end) as RM_FeMale
+      ,SUM(case when e.Sex=1 AND (des.GroupType=5 OR des.GroupType=6)then 1 else 0 end) as DM_Male
+      ,SUM(case when e.Sex=2 AND (des.GroupType=5 OR des.GroupType=6) then 1 else 0 end) as DM_FeMale
+      ,SUM(case when e.Sex=1 AND des.GroupType=7 then 1 else 0 end) as Auditor_Male
+      ,SUM(case when e.Sex=2 AND des.GroupType=7 then 1 else 0 end) as Auditor_FeMale
+      ,SUM(case when e.Sex=1 AND des.GroupType=8 then 1 else 0 end) as Other_Male
+      ,SUM(case when e.Sex=2 AND des.GroupType=8 then 1 else 0 end) as Other_FeMale
+      from  H_Employee e
+      INNER JOIN H_Address a ON e.PermanentAddressId=a.Id
+      INNER JOIN Thana t ON t.Id=a.ThanaId
+      INNER JOIN District d ON d.Id=t.DistrictId
+      INNER JOIN H_EmployeeDesignation ed ON ed.H_EmployeeId=e.Id AND (@AsOnDate Between ed.StartDate AND ed.EndDate)
+      INNER JOIN H_Designation des ON ed.H_DesignationId=des.Id
+      where e.Status=1
+      group by  d.Id,d.Name
+      ) lo ON lo.DistId=d.Id
+      GROUP BY d.Name,lo.Male,lo.FeMale,lo.BM_Male,lo.BM_FeMale,lo.ABM_Male,lo.ABM_FeMale,lo.RM_Male,lo.RM_FeMale,lo.DM_Male,lo.DM_FeMale,lo.Auditor_Male,lo.Auditor_FeMale,lo.Other_Male,lo.Other_FeMale--,bm.Male,bm.FeMale,abm.Male,abm.FeMale,rm.Male,rm.FeMale,dm.Male,dm.FeMale,au.Male,au.FeMale,oth.Male,oth.FeMale
+      ORDER BY d.Name
+      END
+    </script>
+  </config>
   <config sequence="6003" type="UPGRADE" version="1.0.0" description="H_EMPLOYEECONSULTANCYREPORT">
     <script provider="SQL Server">
       INSERT INTO Property (ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ( N'REPORT', N'H_EMPLOYEECONSULTANCYREPORT', N'Employee Consultancy Report', N'OWN', NULL, NULL, N'Reports/H_EmployeeConsultancyReport.aspx', 1, 850)
@@ -4497,6 +4556,48 @@
       INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEECONSULTANCYREPORT', 'SEARCH')
     </script>
   </config>
+
+  <config sequence="6006" type="BOTH" version="1.0.0" description="H_EMPLOYEECONSULTANCYREPORT">
+    <script provider="SQL Server">
+      CRAETE VIEW [dbo].[SubzoneView]
+      AS
+      SELECT Subzone.Id, Subzone.Name, ZoneId, Zone.Name AS ZoneName, Subzone.NameInBangla, Subzone.Status
+      FROM Subzone
+      INNER JOIN Zone ON Zone.Id = ZoneId
+    </script>
+  </config>
+  <config sequence="6009" type="BOTH" version="1.0.0" description="Alter BranchView">
+    <script provider="SQL Server">
+      ALTER VIEW [dbo].[BranchView]
+      AS
+      SELECT Branch.Id,
+      Code,
+      Branch.Name,
+      Branch.BranchType,
+      Branch.OpeningDate,
+      Branch.NameInBangla,
+      MobileNumber,
+      Branch.Status,
+      LocationType,
+      RegionId,
+      Region.Name AS RegionName,
+      SubzoneId,
+      Subzone.Name AS SubzoneName,
+      ZoneId,
+      Zone.Name AS ZoneName,
+      ThanaId,
+      Thana.Name AS ThanaName,
+      Thana.DistrictId,
+      District.Name AS DistrictName
+      FROM Branch
+      INNER JOIN Region ON RegionId = Region.Id
+      INNER JOIN Subzone ON SubzoneId = Subzone.Id
+      INNER JOIN Zone ON ZoneId = Zone.Id
+      INNER JOIN Thana ON ThanaId = Thana.Id
+      INNER JOIN District ON Thana.DistrictId = District.Id
+    </script>
+  </config>
+
   <!-- END PROCEDURE SECTION -->
   <!-- START TRIGGER SECTION -->
   <!-- END TRIGGER SECTION -->

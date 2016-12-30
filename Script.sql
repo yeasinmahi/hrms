@@ -193,6 +193,4 @@ Status int not null
 --17 Scripts
 alter table H_EmployeeLeave add Status int
 
---18 Scripts
-*alter table H_EmployeeLeave add Status int
 
