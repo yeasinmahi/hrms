@@ -199,7 +199,9 @@
       CREATE TABLE [Zone](
       [Id] [int] IDENTITY(1,1) NOT NULL,
       [Name] [varchar](50) NOT NULL,
-      [Status] [INT] NOT NULL,
+      [Status] [int] NOT NULL,
+      [OpeningDate]  Date NULL,
+      [ClosingDate]  Date NULL,
       CONSTRAINT [PK_Zone_Id] PRIMARY KEY ([Id]))
     </script>
   </config>
@@ -819,7 +821,7 @@
       [Remarks] [varchar](50) NOT NULL,
       [Status] [varchar](50) NULL,
       [UserLogin] [varchar](50) NOT NULL,
-      CONSTRAINT [PK_H_EmployeePhoto] PRIMARY KEY([Id]),
+      CONSTRAINT [PK_H_EmployeePromotionHistory] PRIMARY KEY([Id]),
       CONSTRAINT [FK_H_EmployeePromotionHistory_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]),
       CONSTRAINT [FK_H_EmployeePromotionHistory_H_Designation] FOREIGN KEY([OldH_DesignationId]) REFERENCES [dbo].[H_Designation] ([Id]),
       CONSTRAINT [FK_H_EmployeePromotionHistory_H_Designation1] FOREIGN KEY([NewH_DesignationId]) REFERENCES [dbo].[H_Designation] ([Id]),
@@ -835,8 +837,25 @@
       [Title] [varchar](50) NOT NULL,
       [FileName] [varchar](50) NOT NULL,
       [UploadDate] [date] NULL,
-      CONSTRAINT [PK_H_EmployeePhoto] PRIMARY KEY([Id]),
+      CONSTRAINT [PK_H_FileUpload] PRIMARY KEY([Id]),
       CONSTRAINT [FK_H_FileUpload_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
+    </script>
+  </config>
+  <config sequence="140" type="FRESH" version="1.0.0" description="H_FileUpload">
+    <script provider="SQL Server">
+      CREATE TABLE [dbo].[H_EmployeeLeaveHistory](
+      [Id] [int] IDENTITY(1,1) NOT NULL,
+      [H_EmployeeId] [int] NOT NULL,
+      [Type] [int] NOT NULL,
+      [JoinType] [int] NOT NULL,
+      [LetterNo] [varchar](50) NOT NULL,
+      [LetterDate] [date] NOT NULL,
+      [StartDate] [date] NOT NULL,
+      [EndDate] [date] NOT NULL,
+      [Cause] [varchar](200) NULL,
+      [Status] [int] NOT NULL,
+      CONSTRAINT [PK_H_EmployeeLeaveHistory] PRIMARY KEY([Id]),
+      CONSTRAINT [FK_H_EmployeeLeaveHistory_H_Employee] FOREIGN KEY([H_EmployeeId]) REFERENCES [dbo].[H_Employee] ([Id]))
     </script>
   </config>
   <!--HRM END-->
@@ -944,7 +963,7 @@
   </config>
   <config sequence="1009" type="ALWAYS" version="1.0.0" description="BranchView">
     <script provider="SQL Server">
-      CRAETE VIEW [dbo].[BranchView]
+      CREATE VIEW BranchView
       AS
       SELECT Branch.Id,
       Code,
@@ -975,7 +994,7 @@
   </config>
   <config sequence="1010" type="ALWAYS" version="1.0.0" description="H_AcademicQualificationView">
     <script provider="SQL Server">
-      CREATE VIEW [dbo].[H_AcademicQualificationView]
+      CREATE VIEW H_AcademicQualificationView
       AS
       SELECT dbo.H_AcademicQualification.Id, dbo.H_AcademicQualification.H_EmployeeId, dbo.H_AcademicQualification.[Level],dbo.H_AcademicQualification.Institution,
       ISNULL(convert(varchar,dbo.H_AcademicQualification.GPA), dbo.H_AcademicQualification.Result) AS Result
@@ -988,18 +1007,7 @@
       INNER JOIN dbo.BoardUniversity ON dbo.H_AcademicQualification.BoardUniversityId = dbo.BoardUniversity.Id
     </script>
   </config>
-  <config sequence="1011" type="BOTH" version="1.0.0" description="Zone Column Adding">
-    <script provider="SQL Server">
-
-      alter table zone
-
-      add  OpeningDate  Datetime null
-      alter table zone
-      add    [ClosingDate]  Datetime null
-    </script>
-  </config>
-
-
+  
   <config sequence="2001" type="ALWAYS" version="1.0.0" description="H_EmployeeView">
     <script provider="SQL Server">
       CREATE VIEW [dbo].[H_EmployeeView]
@@ -1057,7 +1065,7 @@
       AS
       SELECT dbo.H_EmployeeTransferHistory.Id,dbo.H_EmployeeTransferHistory.Type,
       dbo.H_EmployeeTransferHistory.LetterNo, dbo.H_EmployeeTransferHistory.LetterDate, dbo.H_EmployeeTransferHistory.JoiningDate,dbo.H_EmployeeTransferHistory.H_EmployeeId as Emp_ID,
-      dbo.H_EmployeeTransferHistory.Remarks, db.Name as DestinationBranch,sb.Name as SourceBranch, dbo.H_Employee.Name AS EmployeeName,
+      dbo.H_EmployeeTransferHistory.Remarks, db.Name as DestinationBranch,sb.Name as SourceBranch, dbo.H_Employee.Name AS EmployeeName
       FROM  dbo.H_EmployeeTransferHistory
       INNER JOIN dbo.H_Employee ON dbo.H_EmployeeTransferHistory.H_EmployeeId = dbo.H_Employee.Id AND H_EmployeeTransferHistory.Status=1
       INNER JOIN dbo.Branch db ON dbo.H_EmployeeTransferHistory.DestinationBranchId = db.Id
@@ -4556,48 +4564,7 @@
       INSERT INTO RoleCommand(RoleName, PropertyName, CommandName) VALUES('Admin', 'H_EMPLOYEECONSULTANCYREPORT', 'SEARCH')
     </script>
   </config>
-
-  <config sequence="6006" type="BOTH" version="1.0.0" description="H_EMPLOYEECONSULTANCYREPORT">
-    <script provider="SQL Server">
-      CRAETE VIEW [dbo].[SubzoneView]
-      AS
-      SELECT Subzone.Id, Subzone.Name, ZoneId, Zone.Name AS ZoneName, Subzone.NameInBangla, Subzone.Status
-      FROM Subzone
-      INNER JOIN Zone ON Zone.Id = ZoneId
-    </script>
-  </config>
-  <config sequence="6009" type="BOTH" version="1.0.0" description="Alter BranchView">
-    <script provider="SQL Server">
-      ALTER VIEW [dbo].[BranchView]
-      AS
-      SELECT Branch.Id,
-      Code,
-      Branch.Name,
-      Branch.BranchType,
-      Branch.OpeningDate,
-      Branch.NameInBangla,
-      MobileNumber,
-      Branch.Status,
-      LocationType,
-      RegionId,
-      Region.Name AS RegionName,
-      SubzoneId,
-      Subzone.Name AS SubzoneName,
-      ZoneId,
-      Zone.Name AS ZoneName,
-      ThanaId,
-      Thana.Name AS ThanaName,
-      Thana.DistrictId,
-      District.Name AS DistrictName
-      FROM Branch
-      INNER JOIN Region ON RegionId = Region.Id
-      INNER JOIN Subzone ON SubzoneId = Subzone.Id
-      INNER JOIN Zone ON ZoneId = Zone.Id
-      INNER JOIN Thana ON ThanaId = Thana.Id
-      INNER JOIN District ON Thana.DistrictId = District.Id
-    </script>
-  </config>
-
+  
   <!-- END PROCEDURE SECTION -->
   <!-- START TRIGGER SECTION -->
   <!-- END TRIGGER SECTION -->
