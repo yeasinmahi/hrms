@@ -1074,12 +1074,12 @@
   </config>
   <config sequence="3001" type="FRESH" version="1.0.0" description="Module">
     <script provider="SQL Server">
-      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('HRM', 'HRM', '~/Images/HR.gif', 'True', 10);
-      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('REPORT', 'Report', '~/Images/Report.gif', 'True', 20);
-      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('DBMANAGEMENT', 'Database Management', '~/Images/DbManagement.gif', 'True', 30);
-      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('SECURITY', 'Security', '~/Images/security.gif', 'True', 40);
-      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('ADMIN', 'Admin', '~/Images/TBAdd.gif', 'True', 50);
-      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('AUDIT', 'Audit', '~/Images/Audit.gif', 'True', 60);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('HRM', 'HRM', '~/Images/hr.png', 'True', 10);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('REPORT', 'Report', '~/Images/report.png', 'True', 20);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('DBMANAGEMENT', 'Database Management', '~/Images/db.png', 'True', 30);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('SECURITY', 'Security', '~/Images/security.png', 'True', 40);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('ADMIN', 'Admin', '~/Images/admin.png', 'True', 50);
+      INSERT INTO Module(Name, DisplayName, ImageUrl, IsActive, SortOrder) VALUES('AUDIT', 'Audit', '~/Images/audit.png', 'True', 60);
     </script>
   </config>
   <config sequence="3002" type="FRESH" version="1.0.0" description="Property">
@@ -1166,16 +1166,16 @@
   </config>
   <config sequence="3003" type="FRESH" version="1.0.0" description="Command">
     <script provider="SQL Server">
-      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('ADD', 'Add', 'OWN', NULL, NULL, '~/Images/TBAdd.gif', '~/Images/TBSeperator.gif', NULL, 1)
-      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('DELETE', 'Delete', 'OWN', NULL, NULL, '~/Images/TBDelete.gif', '~/Images/TBSeperator.gif', 'javascript:DeleteSelected();', 2)
+      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('ADD', 'Add', 'OWN', NULL, NULL, '~/Images/add.png', '~/Images/TBSeperator.gif', NULL, 1)
+      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('DELETE', 'Delete', 'OWN', NULL, NULL, '~/Images/remove.png', '~/Images/TBSeperator.gif', 'javascript:DeleteSelected();', 2)
       INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('RESET PASSWORD', 'Reset Password', 'OWN', NULL, NULL, NULL, '~/Images/TBSeperator.gif', 'javascript:Confirm(''This will reset selected user(s) password. Do you want to continue?'', ''RESET PASSWORD'');', 7)
       INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('EXCEL', 'Export', 'AUTO', NULL, NULL, '~/Images/TBExportToExcel.gif', '~/Images/TBSeperator.gif', NULL, 9)
       INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('PRINT', 'Print', 'AUTO', NULL, NULL, '~/Images/Print.gif', '~/Images/TBSeperator.gif', NULL, 16)
       INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('REFRESH', 'Refresh', 'AUTO', NULL, NULL, '~/Images/TBRefresh.gif', '~/Images/TBSeperator.gif', NULL, 8)
 
-      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('SAVE', 'Save', 'OWN', NULL, NULL, '~/Images/TBSave.gif', '~/Images/TBSeperator.gif', NULL, 3)
-      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('SAVE AND CLOSE', 'Save &amp; Close', 'INHERITED', 'SAVE', NULL, '~/Images/TBSaveClose.gif', '~/Images/TBSeperator.gif', NULL, 4)
-      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('SAVE AND NEW', 'Save &amp; New', 'INHERITED', 'SAVE', NULL, '~/Images/TBSaveNew.gif', '~/Images/TBSeperator.gif', NULL, 5)
+      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('SAVE', 'Save', 'OWN', NULL, NULL, '~/Images/TBSave.gif', '~/Images/save.png', NULL, 3)
+      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('SAVE AND CLOSE', 'Save &amp; Close', 'INHERITED', 'SAVE', NULL, '~/Images/saveClose.png', '~/Images/TBSeperator.gif', NULL, 4)
+      INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('SAVE AND NEW', 'Save &amp; New', 'INHERITED', 'SAVE', NULL, '~/Images/saveNew.png', '~/Images/TBSeperator.gif', NULL, 5)
       INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('SEARCH', 'Search', 'OWN', NULL, NULL, '~/Images/Search1.gif', '~/Images/TBSeperator.gif', NULL, 15)
       INSERT INTO Command(Name, DisplayName, PermissionType, PermissionCommand, ToolTipText, ImageUrl, SeperatorUrl, NavigateUrl, SortOrder) VALUES('CANCEL', 'Cancel', 'AUTO', NULL, NULL, '~/Images/TBCancelChanges.gif', '~/Images/TBSeperator.gif', 'javascript:CancelForm();', 6)
 

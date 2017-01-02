@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
-
-namespace GITS.Hrms.WebSite
-{
-    public partial class _Default {
+namespace GITS.Hrms.WebSite {
     
+    
+    public partial class _Default {
+        
         /// <summary>
         /// Head1 control.
         /// </summary>
@@ -21,7 +20,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-    
+        
         /// <summary>
         /// frmLayout control.
         /// </summary>
@@ -30,7 +29,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm frmLayout;
-    
+        
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -39,7 +38,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-    
+        
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -48,7 +47,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-    
+        
         /// <summary>
         /// lblTitle1 control.
         /// </summary>
@@ -57,7 +56,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTitle1;
-    
+        
         /// <summary>
         /// lblUserName control.
         /// </summary>
@@ -66,7 +65,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserName;
-    
+        
         /// <summary>
         /// lblTitle2 control.
         /// </summary>
@@ -75,7 +74,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTitle2;
-    
+        
         /// <summary>
         /// LoginStatus1 control.
         /// </summary>
@@ -84,7 +83,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LoginStatus LoginStatus1;
-    
+        
         /// <summary>
         /// Image1 control.
         /// </summary>
@@ -93,7 +92,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image Image1;
-    
+        
         /// <summary>
         /// lblNavigationTitle control.
         /// </summary>
@@ -102,7 +101,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNavigationTitle;
-    
+        
         /// <summary>
         /// divMenu control.
         /// </summary>
@@ -111,7 +110,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenu;
-    
+        
         /// <summary>
         /// mnuMenubar control.
         /// </summary>
@@ -120,7 +119,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu mnuMenubar;
-    
+        
         /// <summary>
         /// mnuTitleMenubar control.
         /// </summary>
@@ -129,7 +128,7 @@ namespace GITS.Hrms.WebSite
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu mnuTitleMenubar;
-    
+        
         /// <summary>
         /// ifPage control.
         /// </summary>
