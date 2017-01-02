@@ -937,7 +937,7 @@
     <script provider="SQL Server">
       CREATE VIEW SubzoneView
       AS
-      SELECT Subzone.Id, Subzone.Name, ZoneId, Zone.Name AS ZoneName,Subzone.Status
+      SELECT Subzone.Id, Subzone.Name, ZoneId, Zone.Name AS ZoneName, Subzone.NameInBangla, Subzone.Status
       FROM Subzone
       INNER JOIN Zone ON Zone.Id = ZoneId
     </script>
@@ -4555,7 +4555,7 @@
       END
     </script>
   </config>
-  <config sequence="6003" type="UPGRADE" version="1.0.0" description="H_EMPLOYEECONSULTANCYREPORT">
+  <config sequence="6003" type="FRESH" version="1.0.0" description="H_EMPLOYEECONSULTANCYREPORT">
     <script provider="SQL Server">
       INSERT INTO Property (ModuleName, Name, DisplayName, PermissionType, PermissionProperty, ImageUrl, Path, IsActive, SortOrder) VALUES ( N'REPORT', N'H_EMPLOYEECONSULTANCYREPORT', N'Employee Consultancy Report', N'OWN', NULL, NULL, N'Reports/H_EmployeeConsultancyReport.aspx', 1, 850)
       INSERT INTO PropertyCommand ([PropertyName], [CommandName], [DisplayName], [ToolTipText], [ImageUrl], [SeperatorUrl], [NavigateUrl], [SortOrder]) VALUES (N'H_EMPLOYEECONSULTANCYREPORT', N'SEARCH', NULL, NULL, NULL, NULL, NULL, 1)

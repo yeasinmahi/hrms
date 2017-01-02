@@ -276,7 +276,9 @@
     <Content Include="Libs\Microsoft.SqlServer.ConnectionInfo.dll" />
     <Content Include="Libs\Microsoft.SqlServer.Smo.dll" />
     <Content Include="Libs\Microsoft.SqlServer.SqlEnum.dll" />
-    <None Include="Resources\DatabaseConfig.xml" />
+    <None Include="Resources\DatabaseConfig.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\DatabaseConfigSchema.xsd" />
   </ItemGroup>
   <ItemGroup>
