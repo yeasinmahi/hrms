@@ -17,7 +17,7 @@
                 <table border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td style="padding-top: 45px; text-align: left;" valign="top">
-                            <img alt="" src="Images/LoginlLogo.jpg" />
+                            <img style="width: 120px; height: 60px" alt="" src="Images/logo.png" />
                         </td>
                     </tr>
                     <tr>
