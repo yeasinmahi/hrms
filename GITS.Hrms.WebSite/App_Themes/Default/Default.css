@@ -80,6 +80,9 @@ table.MenuBarStaticMenuItemStyle td
 	vertical-align:top;
 	font-weight:normal;
 }
+input {
+    border-radius: 5px;
+}
 .TextBox
 {
 	border:solid 1px #193687;
@@ -131,6 +134,7 @@ table.MenuBarStaticMenuItemStyle td
 .DropDownList
 {
 	border:solid 1px #193687;
+    border-radius: 5px;
 }
 .DataGridFixedHeader
 {
