@@ -74,7 +74,7 @@
                                     </tr>
                             </table>
                         </td>
-                        <td>
+                        <td style="background-image: url(../Images/AppBackground.jpg); background-size: cover">
                             <iframe id="ifPage" runat="server" frameborder="0" width="100%" height="100%" style="border-left: solid 1px #6893CF;" src="Home.aspx"></iframe>
                         </td>
                     </tr>
