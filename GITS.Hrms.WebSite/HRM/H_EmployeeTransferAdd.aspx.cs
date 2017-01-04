@@ -166,14 +166,23 @@ namespace GITS.Hrms.WebSite.HRM
                 {
                     if (H_EmployeeTransferHistory.Update(this.TransactionManager, h_EmployeeTransfer))
                     {
-                        
+                        this.TransactionManager = new TransactionManager(false);
+                        H_EmployeeBranch employeeBranch = H_EmployeeBranch.Find("H_EmployeeId = " + DBUtility.ToInt32(hdnId.Value), "")[0];
+                        employeeBranch.H_EmployeeId = DBUtility.ToInt32(hdnId.Value);
+                        employeeBranch.BranchId = DBUtility.ToInt32(ddlBranch.SelectedValue);
+                        H_EmployeeBranch.Update(TransactionManager, employeeBranch);
+
                     }
                 }
                 else
                 {
                     if (H_EmployeeTransferHistory.Insert(this.TransactionManager, h_EmployeeTransfer))
                     {
-                        
+                        this.TransactionManager = new TransactionManager(false);
+                        H_EmployeeBranch employeeBranch = H_EmployeeBranch.Find("H_EmployeeId = " + DBUtility.ToInt32(hdnId.Value), "")[0];
+                        employeeBranch.H_EmployeeId = DBUtility.ToInt32(hdnId.Value);
+                        employeeBranch.BranchId = DBUtility.ToInt32(ddlBranch.SelectedValue);
+                        H_EmployeeBranch.Update(TransactionManager, employeeBranch);
                     }
                 }
 
