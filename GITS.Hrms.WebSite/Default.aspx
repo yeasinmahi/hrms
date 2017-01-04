@@ -21,7 +21,7 @@
                         <td colspan="2" style="height: 40px; background-image: url('Images/header.png'); background-repeat: no-repeat; background-size: cover;">
                             <table cellpadding="1" cellspacing="1" style="width: 100%;">
                                 <tr>
-                                    <td align="left" rowspan="3" style=" height: 40px; width: 200px; background-image: url('Images/logo.png'); background-repeat: no-repeat; background-size: contain;">
+                                    <td align="left" rowspan="3" style=" height: 40px; width: 15%; background-image: url('Images/logo.png'); background-repeat: no-repeat; background-size: contain;">
                                         <%--<asp:Label ForeColor="#D6E8FF" Font-Bold="true" ID="Label1" runat="server" Text="Logo" />--%>
                                     </td>
                                 </tr>

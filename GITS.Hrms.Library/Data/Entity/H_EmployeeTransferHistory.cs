@@ -63,8 +63,8 @@ namespace GITS.Hrms.Library.Data.Entity
             entity.EntryDateTime = DBUtility.ToDateTime(dataReader["EntryDateTime"]);
             entity.Status = (Statuses)DBUtility.ToInt32(dataReader["Status"]);
             entity.UserLogin = DBUtility.ToString(dataReader["UserLogin"]);
-            entity.H_LetterFormatsId = DBUtility.ToNullableInt32(dataReader["H_LetterFormatsId"]);
-            entity.Duplication = DBUtility.ToNullableString(dataReader["Duplication"]);
+            //entity.H_LetterFormatsId = DBUtility.ToNullableInt32(dataReader["H_LetterFormatsId"]);
+            //entity.Duplication = DBUtility.ToNullableString(dataReader["Duplication"]);
 
             entity.EntityState = EntityStates.Clean;
 

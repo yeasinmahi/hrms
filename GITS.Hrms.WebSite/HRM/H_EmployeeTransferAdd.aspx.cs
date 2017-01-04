@@ -164,11 +164,17 @@ namespace GITS.Hrms.WebSite.HRM
                 this.TransactionManager = new TransactionManager(true, desc);
                 if (this.Type == TYPE_EDIT)
                 {
-                    H_EmployeeTransferHistory.Update(this.TransactionManager, h_EmployeeTransfer);
+                    if (H_EmployeeTransferHistory.Update(this.TransactionManager, h_EmployeeTransfer))
+                    {
+                        
+                    }
                 }
                 else
                 {
-                    H_EmployeeTransferHistory.Insert(this.TransactionManager, h_EmployeeTransfer);
+                    if (H_EmployeeTransferHistory.Insert(this.TransactionManager, h_EmployeeTransfer))
+                    {
+                        
+                    }
                 }
 
                 hdnId.Value = h_EmployeeTransfer.Id.ToString();
