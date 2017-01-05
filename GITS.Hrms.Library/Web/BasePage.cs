@@ -133,7 +133,7 @@ namespace GITS.Hrms.Library.Web
                     {
                         tool = new MenuItem("", propertyCommandView.CommandName, propertyCommandView.ImageUrl, propertyCommandView.NavigateUrl);
 
-                        if (propertyCommandView.ImageUrl == null || propertyCommandView.ImageUrl == "")
+                        if (string.IsNullOrEmpty(propertyCommandView.ImageUrl))
                         {
                             tool.Text = propertyCommandView.DisplayName;
                         }
