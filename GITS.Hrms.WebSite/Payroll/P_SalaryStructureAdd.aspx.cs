@@ -158,10 +158,10 @@ namespace GITS.Hrms.WebSite.Payroll
                 H_EmployeeDesignation eDesignation = H_EmployeeDesignation.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
                 txtDesignation.Text = H_Designation.GetById(eDesignation.H_DesignationId).Name;
                 //IList<P_Earning> earning = P_Earning.FindAll();
-                //IList<Asa.Hrms.Data.Entity.P_EmployeeEarning> eEarning = Asa.Hrms.Data.Entity.P_EmployeeEarning.FindByEmployeeId(h_Employee.Id, "");
+                //IList<GITS.Hrms.Data.Entity.P_EmployeeEarning> eEarning = GITS.Hrms.Data.Entity.P_EmployeeEarning.FindByEmployeeId(h_Employee.Id, "");
                 //var query = from ea in earning
                 //            join ee in eEarning on ea.Id equals ee.P_EarningId into gj
-                //            from subpet in gj.DefaultIfEmpty(new Asa.Hrms.Data.Entity.P_EmployeeEarning())
+                //            from subpet in gj.DefaultIfEmpty(new GITS.Hrms.Data.Entity.P_EmployeeEarning())
                 //            select new
                 //            {
                 //                ea.Id,

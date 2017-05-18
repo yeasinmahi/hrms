@@ -47,7 +47,7 @@ namespace GITS.Hrms.WebSite.Reports
                 gvList.DataBind();
             }
             //string sortedQuery = string.Empty;
-            //this.TransactionManager = new Asa.Hrms.Data.TransactionManager(false);
+            //this.TransactionManager = new GITS.Hrms.Data.TransactionManager(false);
             //sortedQuery = query + " ORDER BY " + e.SortExpression+" "+SortOrder;
             //DataSet ds = TransactionManager.GetDataSet(sortedQuery);
             //dataset = ds;

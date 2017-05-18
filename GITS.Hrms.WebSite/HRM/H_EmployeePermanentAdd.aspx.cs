@@ -109,7 +109,7 @@ namespace GITS.Hrms.WebSite.HRM
                 //h_Employee.PermanentLetterNo = DBUtility.ToString(txtLetterNo.Text);
                 //h_Employee.PermanentLetterDate = DBUtility.ToDateTime(txtLetterDate.Text);
                 //h_Employee.PermanentDate = DBUtility.ToDateTime(txtPermanentDate.Text);
-                //Asa.Hrms.Data.Entity.H_Employee.Update(h_Employee);
+                //GITS.Hrms.Data.Entity.H_Employee.Update(h_Employee);
                 this.Type = TYPE_EDIT;
 
                 this.TransactionManager.Commit();

@@ -195,7 +195,7 @@ namespace GITS.Hrms.WebSite.HRM
                     //   // h_Employee.EmploymentType = H_Employee.EmploymentTypes.None;
 
                     //    desc = "Update [H_Employee]";
-                    //    Asa.Hrms.Data.Entity.H_Employee.Update(this.TransactionManager, h_Employee);
+                    //    GITS.Hrms.Data.Entity.H_Employee.Update(this.TransactionManager, h_Employee);
                     //}                    
 
                     hdnId.Value = h_EmployeeLeave.Id.ToString();

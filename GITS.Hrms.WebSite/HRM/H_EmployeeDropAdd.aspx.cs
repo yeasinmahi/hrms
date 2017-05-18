@@ -192,23 +192,23 @@ namespace GITS.Hrms.WebSite.HRM
                     {
                         H_EmployeeDropHistory.Update(this.TransactionManager, h_EmployeeDrop);
                     }
-                   // Asa.Hrms.Data.Entity.H_Employee.Update(this.TransactionManager, h_Employee);
+                   // GITS.Hrms.Data.Entity.H_Employee.Update(this.TransactionManager, h_Employee);
                     //if (h_Employee.Status == H_Employee.Statuses.Consultancy)
                     //{
-                    //    IList<H_EmployeeConsultency> h_ConsultencyList = Asa.Hrms.Data.Entity.H_EmployeeConsultency.Find("H_EmployeeId=" + Convert.ToInt32(hdnId.Value) + " AND Status=1", "");
+                    //    IList<H_EmployeeConsultency> h_ConsultencyList = GITS.Hrms.Data.Entity.H_EmployeeConsultency.Find("H_EmployeeId=" + Convert.ToInt32(hdnId.Value) + " AND Status=1", "");
                     //    if (h_ConsultencyList.Count > 0)
                     //    {
                     //        foreach (H_EmployeeConsultency consultency in h_ConsultencyList)
                     //        {
                     //            consultency.Status = H_EmployeeConsultency.Statuses.INACTIVE;
                     //            consultency.EndDate = DBUtility.ToDateTime(txtDropDate.Text);
-                    //           // Asa.Hrms.Data.Entity.H_EmployeeConsultency.Update(this.TransactionManager, consultency);
+                    //           // GITS.Hrms.Data.Entity.H_EmployeeConsultency.Update(this.TransactionManager, consultency);
                     //        }
                     //    }
                     //}
                     //if (h_Employee.Status == H_Employee.Statuses.In_Leave)
                     //{
-                    //    IList<H_EmployeeLeave> list = Asa.Hrms.Data.Entity.H_EmployeeLeave.Find("H_EmployeeId=" + h_Employee.Id + " AND Status=1", "");
+                    //    IList<H_EmployeeLeave> list = GITS.Hrms.Data.Entity.H_EmployeeLeave.Find("H_EmployeeId=" + h_Employee.Id + " AND Status=1", "");
                     //    if (list.Count > 0)
                     //    {
                     //        foreach (H_EmployeeLeave leave in list)

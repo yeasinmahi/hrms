@@ -101,7 +101,7 @@ namespace GITS.Hrms.WebSite.HRM
                     this.TransactionManager = new TransactionManager(true, desc);
                     //if (h_Employee.Status == H_Employee.Statuses.Consultancy)
                     //{
-                    //    IList<H_EmployeeConsultency> list = Asa.Hrms.Data.Entity.H_EmployeeConsultency.Find("H_EmployeeId=" + h_Employee.Id + " AND Status=1", "");
+                    //    IList<H_EmployeeConsultency> list = GITS.Hrms.Data.Entity.H_EmployeeConsultency.Find("H_EmployeeId=" + h_Employee.Id + " AND Status=1", "");
                     //    if (list.Count > 0)
                     //    {
                     //        foreach (H_EmployeeConsultency h_Consultency in list)
@@ -114,7 +114,7 @@ namespace GITS.Hrms.WebSite.HRM
                     //}
                     //if (h_Employee.Status == H_Employee.Statuses.In_Leave)
                     //{
-                    //    IList<H_EmployeeLeave> list = Asa.Hrms.Data.Entity.H_EmployeeLeave.Find("H_EmployeeId=" + h_Employee.Id + " AND Status=1", "");
+                    //    IList<H_EmployeeLeave> list = GITS.Hrms.Data.Entity.H_EmployeeLeave.Find("H_EmployeeId=" + h_Employee.Id + " AND Status=1", "");
                     //    if (list.Count > 0)
                     //    {
                     //        foreach (H_EmployeeLeave leave in list)
@@ -140,8 +140,8 @@ namespace GITS.Hrms.WebSite.HRM
                     {
                         H_EmployeeRejoinHistory.Insert(this.TransactionManager, h_EmployeeRejoin);
                     }
-                    //Asa.Hrms.Data.Entity.H_EmployeeRejoinHistory.Insert(this.TransactionManager, h_EmployeeRejoin);
-                    //Asa.Hrms.Data.Entity.H_Employee.Update(this.TransactionManager, h_Employee);
+                    //GITS.Hrms.Data.Entity.H_EmployeeRejoinHistory.Insert(this.TransactionManager, h_EmployeeRejoin);
+                    //GITS.Hrms.Data.Entity.H_Employee.Update(this.TransactionManager, h_Employee);
 
                     hdnId.Value = h_EmployeeRejoin.Id.ToString();
                     this.Type = TYPE_EDIT;
@@ -170,7 +170,7 @@ namespace GITS.Hrms.WebSite.HRM
                     //    h_EmployeeTransfer.DestinationBranchId = DBUtility.ToInt32(ddlBranch.SelectedValue);
                     //    h_EmployeeTransfer.JoiningDate = h_EmployeeRejoin.RejoinDate;
                     //    h_EmployeeTransfer.Remarks = "Rejoin with Transfer";
-                    //    Asa.Hrms.Data.Entity.H_EmployeeTransfer.Insert(this.TransactionManager, h_EmployeeTransfer);
+                    //    GITS.Hrms.Data.Entity.H_EmployeeTransfer.Insert(this.TransactionManager, h_EmployeeTransfer);
                     //}
 
                     this.TransactionManager.Commit();

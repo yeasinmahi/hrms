@@ -131,7 +131,7 @@ namespace GITS.Hrms.WebSite.HRM
                 }
                 //if (this.Type == TYPE_EDIT)
                 //{
-                //    Asa.Hrms.Data.Entity.H_EmployeeTransferHistory h_history = H_EmployeeTransferHistory.Get("H_EmployeeId="+h_Employee.Id+" AND Status=1");
+                //    GITS.Hrms.Data.Entity.H_EmployeeTransferHistory h_history = H_EmployeeTransferHistory.Get("H_EmployeeId="+h_Employee.Id+" AND Status=1");
                 //    if (h_history.DestinationBranchId != Convert.ToInt32(ddlBranch.SelectedValue))
                 //    {
                 //        msg.Type = MessageType.Error;

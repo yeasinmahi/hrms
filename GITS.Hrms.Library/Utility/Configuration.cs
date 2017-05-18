@@ -176,7 +176,7 @@ namespace GITS.Hrms.Library.Utility
         {
             get
             {
-                return ConfigurationManager.ConnectionStrings["Asa.Hrms.Data.ConnectionString"].ConnectionString;
+                return ConfigurationManager.ConnectionStrings["GITS.Hrms.Data.ConnectionString"].ConnectionString;
             }
         }
 
@@ -184,7 +184,7 @@ namespace GITS.Hrms.Library.Utility
         {
             get
             {
-                return ConfigurationManager.ConnectionStrings["Asa.Hrms.Data.DataSourceName"].ConnectionString;
+                return ConfigurationManager.ConnectionStrings["GITS.Hrms.Data.DataSourceName"].ConnectionString;
             }
         }
 
@@ -192,7 +192,7 @@ namespace GITS.Hrms.Library.Utility
         {
             get
             {
-                return ConfigurationManager.ConnectionStrings["Asa.Hrms.Data.DatabaseName"].ConnectionString;
+                return ConfigurationManager.ConnectionStrings["GITS.Hrms.Data.DatabaseName"].ConnectionString;
             }
         }
 
@@ -202,7 +202,7 @@ namespace GITS.Hrms.Library.Utility
             {
                 if (_Provider == null)
                 {
-                    _Provider = ConfigurationManager.ConnectionStrings["Asa.Hrms.Data.Provider"].ConnectionString;
+                    _Provider = ConfigurationManager.ConnectionStrings["GITS.Hrms.Data.Provider"].ConnectionString;
                 }
 
                 return _Provider;
@@ -215,7 +215,7 @@ namespace GITS.Hrms.Library.Utility
             {
                 if (_Version == null)
                 {
-                    _Version = ConfigurationManager.ConnectionStrings["Asa.Hrms.Data.Version"].ConnectionString;
+                    _Version = ConfigurationManager.ConnectionStrings["GITS.Hrms.Data.Version"].ConnectionString;
                 }
 
                 return _Version;
@@ -226,7 +226,7 @@ namespace GITS.Hrms.Library.Utility
         {
             get
             {
-                _DBUserId = ConfigurationManager.ConnectionStrings["Asa.Hrms.Data.DatabaseUserId"].ConnectionString;
+                _DBUserId = ConfigurationManager.ConnectionStrings["GITS.Hrms.Data.DatabaseUserId"].ConnectionString;
                 return _DBUserId;
             }
         }
