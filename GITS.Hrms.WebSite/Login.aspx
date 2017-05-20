@@ -7,7 +7,7 @@
 </head>
 <body style="vertical-align: middle; text-align: center;">
     <form id="form1" runat="server">
-    <table border="0" align="center" cellpadding="0" cellspacing="0">
+    <table align="center" border="0" cellpadding="0" cellspacing="0">
         <tr valign="top">
             <td>
                 <img alt="" src="Images/LoginLeft.jpg" />

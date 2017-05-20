@@ -49,15 +49,6 @@ namespace GITS.Hrms.WebSite {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// lblTitle1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitle1;
-        
-        /// <summary>
         /// lblUserName control.
         /// </summary>
         /// <remarks>
@@ -65,15 +56,6 @@ namespace GITS.Hrms.WebSite {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserName;
-        
-        /// <summary>
-        /// lblTitle2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitle2;
         
         /// <summary>
         /// LoginStatus1 control.
@@ -103,13 +85,13 @@ namespace GITS.Hrms.WebSite {
         protected global::System.Web.UI.WebControls.Label lblNavigationTitle;
         
         /// <summary>
-        /// divMenu control.
+        /// mnuTitleMenubar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMenu;
+        protected global::System.Web.UI.WebControls.Menu mnuTitleMenubar;
         
         /// <summary>
         /// mnuMenubar control.
@@ -119,15 +101,6 @@ namespace GITS.Hrms.WebSite {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Menu mnuMenubar;
-        
-        /// <summary>
-        /// mnuTitleMenubar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Menu mnuTitleMenubar;
         
         /// <summary>
         /// ifPage control.

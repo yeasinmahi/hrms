@@ -5,7 +5,7 @@
 <head id="Head1" runat="server">
     <title>Personnel Management Information System - Site Master</title>
     <base target="_self" />
-    <script src="../Script/jquery-1.8.2.js" type="text/javascript"></script>
+    
     <script language="javascript" type="text/javascript" src="../Script/Global.js"></script>
 
     <script language="javascript" type="text/javascript" src="../Script/CalendarControl.js"></script>
