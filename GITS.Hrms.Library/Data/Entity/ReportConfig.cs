@@ -82,7 +82,7 @@ namespace GITS.Hrms.Library.Data.Entity
 			set {this._Query = value;}
 		}
 
-        public Int32 DateBetween
+        public int DateBetween
         {
             get { return this._DateBetween; }
             set { this._DateBetween = value; }

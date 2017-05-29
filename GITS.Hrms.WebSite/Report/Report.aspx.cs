@@ -1,28 +1,28 @@
 ﻿using System;
-using Asa.Hrms.Web;
-using Asa.Hrms.Utility;
-using System.Data;
-using Asa.ExcelXmlWriter;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using Asa.Hrms.Data.Entity;
-using Asa.Hrms.Data.Procedure;
+using System.Web.UI.WebControls;
+using Asa.ExcelXmlWriter;
+using GITS.Hrms.Library.Data.Entity;
+using GITS.Hrms.Library.Utility;
+using GITS.Hrms.Library.Web;
 
 public partial class Report : AddPage
 {
-    protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
+    protected override void HandleSpecialCommand(object sender, MenuEventArgs e)
     {
-        this.Validate();
+        Validate();
 
-        if (this.IsValid)
+        if (IsValid)
         {
             switch (e.Item.Value)
             {
                 case "EXCEL":
-                    this.ViewReport();
+                    ViewReport();
                     break;
                 default:
-                    this.HandleSpecialCommand(sender, e);
+                    HandleSpecialCommand(sender, e);
                     break;
             }
         }
@@ -63,22 +63,22 @@ public partial class Report : AddPage
     private void ViewReport()
     {
         Message msg = new Message();
-        Asa.Hrms.Data.Entity.ReportConfig report = Asa.Hrms.Data.Entity.ReportConfig.GetById(DBUtility.ToInt32(ddlReport.SelectedValue));
-        Nullable<Int32> DivisionId = DBUtility.ToInt32(ddlDivision.SelectedValue);
-        Nullable<Int32> zoneId = DBUtility.ToInt32(ddlDistrict.SelectedValue);
-        Nullable<Int32> regionId = DBUtility.ToInt32(ddlRegion.SelectedValue);
-        Nullable<Int32> branchCode = DBUtility.ToInt32(ddlBranch.SelectedValue);
-        Nullable<Int32> gradeId = DBUtility.ToInt32(ddlGrade.SelectedValue);
-        Nullable<Int32> designationId = DBUtility.ToInt32(ddlDesignation.SelectedValue);
-        Nullable<Int32> religionId = DBUtility.ToInt32(ddlReligion.SelectedValue);
-        Nullable<Int32> sexId = DBUtility.ToInt32(ddlSex.SelectedValue);
+        ReportConfig report = ReportConfig.GetById(DBUtility.ToInt32(ddlReport.SelectedValue));
+        int? DivisionId = DBUtility.ToInt32(ddlDivision.SelectedValue);
+        int? zoneId = DBUtility.ToInt32(ddlDistrict.SelectedValue);
+        int? regionId = DBUtility.ToInt32(ddlRegion.SelectedValue);
+        int? branchCode = DBUtility.ToInt32(ddlBranch.SelectedValue);
+        int? gradeId = DBUtility.ToInt32(ddlGrade.SelectedValue);
+        int? designationId = DBUtility.ToInt32(ddlDesignation.SelectedValue);
+        int? religionId = DBUtility.ToInt32(ddlReligion.SelectedValue);
+        int? sexId = DBUtility.ToInt32(ddlSex.SelectedValue);
 
         DateTime startDate = Configuration.StartDate = Convert.ToDateTime(txtStartDate.Text).Date;
         DateTime endDate = Configuration.EndDate = Convert.ToDateTime(txtEndDate.Text).Date;
 
-        this.TransactionManager = new Asa.Hrms.Data.TransactionManager(false);
+        TransactionManager = new GITS.Hrms.Data.TransactionManager(false);
 
-        DataSet ds = this.TransactionManager.GetDataSet(String.Format(report.Query,
+        DataSet ds = TransactionManager.GetDataSet(String.Format(report.Query,
             UIUtility.ToInt32(startDate),
             UIUtility.ToInt32(endDate),
             "'" + startDate.ToString(Configuration.DatabaseDateFormat) + "'",
@@ -112,7 +112,7 @@ public partial class Report : AddPage
 
             foreach (DataColumn dc in dt.Columns)
             {
-                header[i][2].Cells.Add(this.GetLabel(dc.ColumnName), DataType.String, "HeaderLeftAlign");
+                header[i][2].Cells.Add(GetLabel(dc.ColumnName), DataType.String, "HeaderLeftAlign");
             }
 
             i++;
@@ -125,7 +125,7 @@ public partial class Report : AddPage
 
         ExcelReportUtility.Instance.DataSource = tables.ToArray();
         ExcelReportUtility.Instance.Header = header;
-        ExcelReportUtility.Instance.Name = report.Name + "(" + DateTime.Now.Ticks + ")" + Asa.Hrms.Utility.Configuration.ReportExtension;
+        ExcelReportUtility.Instance.Name = report.Name + "(" + DateTime.Now.Ticks + ")" + GITS.Hrms.Utility.Configuration.ReportExtension;
         ExcelReportUtility.Instance.ViewReport();
     }
 
@@ -141,16 +141,16 @@ public partial class Report : AddPage
 
     protected override void LoadData()
     {
-        this.ddlReport.DataSource = Asa.Hrms.Data.Entity.ReportConfig.FindAll("Name");
-        this.ddlReport.DataBind();
+        ddlReport.DataSource = GITS.Hrms.Data.Entity.ReportConfig.FindAll("Name");
+        ddlReport.DataBind();
 
-        this.ddlReport_SelectedIndexChanged(this.ddlReport, new EventArgs());
+        ddlReport_SelectedIndexChanged(ddlReport, new EventArgs());
 
-        this.LoadDivision();
-        this.LoadGrade();
+        LoadDivision();
+        LoadGrade();
 
-        UIUtility.LoadEnums(this.ddlReligion, typeof(H_Employee.Religions), false, true, false);
-        UIUtility.LoadEnums(this.ddlSex, typeof(H_Employee.Sexes), false, true, false);
+        UIUtility.LoadEnums(ddlReligion, typeof(H_Employee.Religions), false, true, false);
+        UIUtility.LoadEnums(ddlSex, typeof(H_Employee.Sexes), false, true, false);
 
         txtStartDate.Text = UIUtility.Format(Configuration.StartDate);
         txtEndDate.Text = UIUtility.Format(Configuration.EndDate);
@@ -172,29 +172,29 @@ public partial class Report : AddPage
 
         if (divisionList != null && divisionList.Count > 0)
         {
-            this.ddlDivision.DataTextField = "Name";
-            this.ddlDivision.DataValueField = "Id";
-            this.ddlDivision.DataSource = divisionList;
-            this.ddlDivision.DataBind();
+            ddlDivision.DataTextField = "Name";
+            ddlDivision.DataValueField = "Id";
+            ddlDivision.DataSource = divisionList;
+            ddlDivision.DataBind();
 
-            if (divisionList.Count(z => z.Id == Asa.Hrms.Utility.Configuration.DivisionId) > 0)
+            if (divisionList.Count(z => z.Id == GITS.Hrms.Utility.Configuration.DivisionId) > 0)
             {
-                this.ddlDivision.SelectedValue = Asa.Hrms.Utility.Configuration.DivisionId.ToString();
+                ddlDivision.SelectedValue = GITS.Hrms.Utility.Configuration.DivisionId.ToString();
             }
 
-            this.LoadDistrict();
+            LoadDistrict();
         }
         else
         {
-            this.ddlDivision.DataSource = null;
+            ddlDivision.DataSource = null;
         }
     }
 
     protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Asa.Hrms.Utility.Configuration.DivisionId = DBUtility.ToInt32(this.ddlDivision.SelectedValue);
+        GITS.Hrms.Utility.Configuration.DivisionId = DBUtility.ToInt32(ddlDivision.SelectedValue);
 
-        this.LoadDistrict();
+        LoadDistrict();
     }
 
     private void LoadDistrict()
@@ -217,30 +217,30 @@ public partial class Report : AddPage
 
             if (districtList != null && districtList.Count > 0)
             {
-                this.ddlDistrict.DataTextField = "Name";
-                this.ddlDistrict.DataValueField = "Id";
-                this.ddlDistrict.DataSource = districtList;
-                this.ddlDistrict.DataBind();
+                ddlDistrict.DataTextField = "Name";
+                ddlDistrict.DataValueField = "Id";
+                ddlDistrict.DataSource = districtList;
+                ddlDistrict.DataBind();
 
-                if (districtList.Count(d => d.Id == Asa.Hrms.Utility.Configuration.DistrictId) > 0)
+                if (districtList.Count(d => d.Id == GITS.Hrms.Utility.Configuration.DistrictId) > 0)
                 {
-                    this.ddlDistrict.SelectedValue = Asa.Hrms.Utility.Configuration.DistrictId.ToString();
+                    ddlDistrict.SelectedValue = GITS.Hrms.Utility.Configuration.DistrictId.ToString();
                 }
 
-                this.LoadRegion();
+                LoadRegion();
             }
             else
             {
-                this.ddlDistrict.DataSource = null;
+                ddlDistrict.DataSource = null;
             }
         }
     }
 
     protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Asa.Hrms.Utility.Configuration.DistrictId = DBUtility.ToInt32(this.ddlDistrict.SelectedValue);
+        GITS.Hrms.Utility.Configuration.DistrictId = DBUtility.ToInt32(ddlDistrict.SelectedValue);
 
-        this.LoadRegion();
+        LoadRegion();
     }
 
     private void LoadRegion()
@@ -263,30 +263,30 @@ public partial class Report : AddPage
 
             if (regionList != null && regionList.Count > 0)
             {
-                this.ddlRegion.DataTextField = "Name";
-                this.ddlRegion.DataValueField = "Id";
-                this.ddlRegion.DataSource = regionList;
-                this.ddlRegion.DataBind();
+                ddlRegion.DataTextField = "Name";
+                ddlRegion.DataValueField = "Id";
+                ddlRegion.DataSource = regionList;
+                ddlRegion.DataBind();
 
-                if (regionList.Count(r => r.Id == Asa.Hrms.Utility.Configuration.RegionId) > 0)
+                if (regionList.Count(r => r.Id == GITS.Hrms.Utility.Configuration.RegionId) > 0)
                 {
-                    this.ddlRegion.SelectedValue = Asa.Hrms.Utility.Configuration.RegionId.ToString();
+                    ddlRegion.SelectedValue = GITS.Hrms.Utility.Configuration.RegionId.ToString();
                 }
 
-                this.LoadBranch();
+                LoadBranch();
             }
             else
             {
-                this.ddlRegion.DataSource = null;
+                ddlRegion.DataSource = null;
             }
         }
     }
 
     protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Asa.Hrms.Utility.Configuration.RegionId = DBUtility.ToInt32(this.ddlRegion.SelectedValue);
+        GITS.Hrms.Utility.Configuration.RegionId = DBUtility.ToInt32(ddlRegion.SelectedValue);
 
-        this.LoadBranch();
+        LoadBranch();
     }
 
     private void LoadBranch()
@@ -309,33 +309,33 @@ public partial class Report : AddPage
 
             if (branchList != null && branchList.Count > 0)
             {
-                this.ddlBranch.DataTextField = "Name";
-                this.ddlBranch.DataValueField = "Id";
-                this.ddlBranch.DataSource = branchList;
-                this.ddlBranch.DataBind();
+                ddlBranch.DataTextField = "Name";
+                ddlBranch.DataValueField = "Id";
+                ddlBranch.DataSource = branchList;
+                ddlBranch.DataBind();
 
-                if (branchList.Count(r => r.Id == Asa.Hrms.Utility.Configuration.BranchCode) > 0)
+                if (branchList.Count(r => r.Id == GITS.Hrms.Utility.Configuration.BranchCode) > 0)
                 {
-                    this.ddlBranch.SelectedValue = Asa.Hrms.Utility.Configuration.BranchCode.ToString();
+                    ddlBranch.SelectedValue = GITS.Hrms.Utility.Configuration.BranchCode.ToString();
                 }
             }
             else
             {
-                this.ddlBranch.DataSource = null;
+                ddlBranch.DataSource = null;
             }
         }
     }
 
     protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Asa.Hrms.Utility.Configuration.BranchCode = DBUtility.ToInt32(this.ddlBranch.SelectedValue);
+        GITS.Hrms.Utility.Configuration.BranchCode = DBUtility.ToInt32(ddlBranch.SelectedValue);
     }
 
     protected void ddlReport_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (ddlReport.SelectedValue != null)
         {
-            Asa.Hrms.Data.Entity.ReportConfig report = Asa.Hrms.Data.Entity.ReportConfig.GetById(DBUtility.ToInt32(ddlReport.SelectedValue));
+            GITS.Hrms.Data.Entity.ReportConfig report = GITS.Hrms.Data.Entity.ReportConfig.GetById(DBUtility.ToInt32(ddlReport.SelectedValue));
 
             if (report != null && report.Location)
             {
@@ -402,39 +402,39 @@ public partial class Report : AddPage
 
         if (gradeList != null && gradeList.Count > 0)
         {
-            this.ddlGrade.DataTextField = "Name";
-            this.ddlGrade.DataValueField = "Id";
-            this.ddlGrade.DataSource = gradeList;
-            this.ddlGrade.DataBind();
+            ddlGrade.DataTextField = "Name";
+            ddlGrade.DataValueField = "Id";
+            ddlGrade.DataSource = gradeList;
+            ddlGrade.DataBind();
 
-            if (gradeList.Count(z => z.Id == Asa.Hrms.Utility.Configuration.GradeId) > 0)
+            if (gradeList.Count(z => z.Id == GITS.Hrms.Utility.Configuration.GradeId) > 0)
             {
-                this.ddlGrade.SelectedValue = Asa.Hrms.Utility.Configuration.GradeId.ToString();
+                ddlGrade.SelectedValue = GITS.Hrms.Utility.Configuration.GradeId.ToString();
             }
 
-            this.LoadDesignation();
+            LoadDesignation();
         }
         else
         {
-            this.ddlGrade.DataSource = null;
+            ddlGrade.DataSource = null;
         }
 
     }
 
     protected void ddlGrade_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Asa.Hrms.Utility.Configuration.GradeId = DBUtility.ToInt32(this.ddlGrade.SelectedValue);
+        GITS.Hrms.Utility.Configuration.GradeId = DBUtility.ToInt32(ddlGrade.SelectedValue);
 
-        this.LoadDesignation();
+        LoadDesignation();
     }
 
     private void LoadDesignation()
     {
         if (ddlGrade.SelectedValue != null)
         {
-            Asa.Hrms.Data.TransactionManager tm = new Asa.Hrms.Data.TransactionManager(false);
+            GITS.Hrms.Data.TransactionManager tm = new GITS.Hrms.Data.TransactionManager(false);
 
-            DataTable dt = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + this.ddlGrade.SelectedValue + " ORDER BY SortOrder").Tables[0];
+            DataTable dt = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + ddlGrade.SelectedValue + " ORDER BY SortOrder").Tables[0];
             IList<H_Designation> designationList = new List<H_Designation>();
 
             H_Designation all = new H_Designation();
@@ -458,14 +458,14 @@ public partial class Report : AddPage
 
             if (designationList != null && designationList.Count > 0)
             {
-                this.ddlDesignation.DataTextField = "Name";
-                this.ddlDesignation.DataValueField = "Id";
-                this.ddlDesignation.DataSource = designationList;
-                this.ddlDesignation.DataBind();
+                ddlDesignation.DataTextField = "Name";
+                ddlDesignation.DataValueField = "Id";
+                ddlDesignation.DataSource = designationList;
+                ddlDesignation.DataBind();
 
-                if (designationList.Count(r => r.Id == Asa.Hrms.Utility.Configuration.DesignationId) > 0)
+                if (designationList.Count(r => r.Id == GITS.Hrms.Utility.Configuration.DesignationId) > 0)
                 {
-                    this.ddlDesignation.SelectedValue = Asa.Hrms.Utility.Configuration.DesignationId.ToString();
+                    ddlDesignation.SelectedValue = GITS.Hrms.Utility.Configuration.DesignationId.ToString();
                 }
             }
         }
@@ -473,6 +473,6 @@ public partial class Report : AddPage
 
     protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Asa.Hrms.Utility.Configuration.DesignationId = DBUtility.ToInt32(this.ddlDesignation.SelectedValue);
+        GITS.Hrms.Utility.Configuration.DesignationId = DBUtility.ToInt32(ddlDesignation.SelectedValue);
     }
 }

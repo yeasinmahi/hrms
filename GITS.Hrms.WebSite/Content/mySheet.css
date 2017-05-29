@@ -7,7 +7,7 @@
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
-    height:75vh;
+    height:75%;
 }
 
 body {
@@ -26,24 +26,113 @@ footer {
 footer a {
     color: black;
 }
-/* Set gray background color and 100% height */
-.sidenav {
-    padding-top: 20px;
-    background-color: #283792;
-    height: 100%;
-}
 
+.sidenav img {
+    vertical-align: middle;
+}
 .mainContent {
-    background: #0F75BD;
+    background: #efefef;
     height: 100%;
     overflow: auto;
 }
-
 .content {
     background: #0F75BD;
 }
+#mainContentHeader {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #556b2f;
+}
+.navbar-collapse {
+    padding-right: 0px; 
+    padding-left: 0px;
+}
+#mySidenav {
+}
+.sidenav {
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    width: 24%;
+    float: left;
+}
+.sidenav li{
+    width: 100%;
+    text-align: left;
+}
+.sidenav a {
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    vertical-align: middle;
+}
+.sidenav .selected {
+    color: #008000
+}
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+.sidenav .navController {
+    width: 100%;
+    top: 0;
+    position: absolute;
+    
+}
+.sidenav #closebtn {
+    font-size: 30px;
+    float: right;
+    padding-right: 35px;
+    cursor: pointer;
+}
+.sidenav #openNav {
+    font-size: 30px;
+    cursor: pointer;
+}
+#mainMenu {
+    font-size: 16px;
+    width: 50%;
+    float: left;
+    height: 100%;
+    background-color: blue;
+    overflow: hidden;
+    padding-top: 50px;
+}
+#subMenu {
+    font-size: 12px;
+    width: 50%;
+    height: 100%;
+    float: left;
+    background-color: blueviolet;
+    overflow: auto;
+    padding-top: 50px;
+}
+#main {
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    width: 76%;
+    float: right;
+}
 
-/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
 @media screen and (max-width: 767px) {
     .sidenav {
         height: auto;
@@ -57,10 +146,5 @@ footer a {
 @media (min-width: 768px) {
     .container {
         width: 100%;
-    }
-}
-@media (min-width: 1200px) {
-    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9 {
-        float: none;
     }
 }

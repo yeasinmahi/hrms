@@ -9,6 +9,8 @@
 //------------------------------------------------------------------------------
 
 
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 public partial class Report {
     
@@ -19,7 +21,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlReport;
+    protected DropDownList ddlReport;
     
     /// <summary>
     /// lblDivision control.
@@ -28,7 +30,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblDivision;
+    protected Label lblDivision;
     
     /// <summary>
     /// ddlDivision control.
@@ -37,7 +39,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
+    protected DropDownList ddlDivision;
     
     /// <summary>
     /// lblDistrict control.
@@ -46,7 +48,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblDistrict;
+    protected Label lblDistrict;
     
     /// <summary>
     /// ddlDistrict control.
@@ -55,7 +57,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlDistrict;
+    protected DropDownList ddlDistrict;
     
     /// <summary>
     /// lblRegion control.
@@ -64,7 +66,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblRegion;
+    protected Label lblRegion;
     
     /// <summary>
     /// ddlRegion control.
@@ -73,7 +75,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlRegion;
+    protected DropDownList ddlRegion;
     
     /// <summary>
     /// lblBranch control.
@@ -82,7 +84,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblBranch;
+    protected Label lblBranch;
     
     /// <summary>
     /// ddlBranch control.
@@ -91,7 +93,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlBranch;
+    protected DropDownList ddlBranch;
     
     /// <summary>
     /// lblGrade control.
@@ -100,7 +102,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblGrade;
+    protected Label lblGrade;
     
     /// <summary>
     /// ddlGrade control.
@@ -109,7 +111,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlGrade;
+    protected DropDownList ddlGrade;
     
     /// <summary>
     /// lblDesignation control.
@@ -118,7 +120,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblDesignation;
+    protected Label lblDesignation;
     
     /// <summary>
     /// ddlDesignation control.
@@ -127,7 +129,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
+    protected DropDownList ddlDesignation;
     
     /// <summary>
     /// lblReligion control.
@@ -136,7 +138,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblReligion;
+    protected Label lblReligion;
     
     /// <summary>
     /// ddlReligion control.
@@ -145,7 +147,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlReligion;
+    protected DropDownList ddlReligion;
     
     /// <summary>
     /// lblSex control.
@@ -154,7 +156,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblSex;
+    protected Label lblSex;
     
     /// <summary>
     /// ddlSex control.
@@ -163,7 +165,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.DropDownList ddlSex;
+    protected DropDownList ddlSex;
     
     /// <summary>
     /// trStartDate control.
@@ -172,7 +174,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlTableRow trStartDate;
+    protected HtmlTableRow trStartDate;
     
     /// <summary>
     /// txtStartDate control.
@@ -181,7 +183,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtStartDate;
+    protected TextBox txtStartDate;
     
     /// <summary>
     /// ibStartDate control.
@@ -190,7 +192,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.ImageButton ibStartDate;
+    protected ImageButton ibStartDate;
     
     /// <summary>
     /// rfvStartDate control.
@@ -199,7 +201,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStartDate;
+    protected RequiredFieldValidator rfvStartDate;
     
     /// <summary>
     /// rvStartDate control.
@@ -208,7 +210,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.RangeValidator rvStartDate;
+    protected RangeValidator rvStartDate;
     
     /// <summary>
     /// tdEndDate control.
@@ -217,7 +219,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlTableCell tdEndDate;
+    protected HtmlTableCell tdEndDate;
     
     /// <summary>
     /// txtEndDate control.
@@ -226,7 +228,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox txtEndDate;
+    protected TextBox txtEndDate;
     
     /// <summary>
     /// ibEndDate control.
@@ -235,7 +237,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.ImageButton ibEndDate;
+    protected ImageButton ibEndDate;
     
     /// <summary>
     /// rfvEndDate control.
@@ -244,7 +246,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEndDate;
+    protected RequiredFieldValidator rfvEndDate;
     
     /// <summary>
     /// rvEndDate control.
@@ -253,7 +255,7 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.RangeValidator rvEndDate;
+    protected RangeValidator rvEndDate;
     
     /// <summary>
     /// cvDate control.
@@ -262,5 +264,5 @@ public partial class Report {
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.CompareValidator cvDate;
+    protected CompareValidator cvDate;
 }

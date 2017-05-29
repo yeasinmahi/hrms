@@ -3,10 +3,7 @@
 	font-family: Tahoma;
 	font-size: 9pt;
 	font-weight:bold;
-	color: Black;    
-	border-left: solid 1px #6893CF;
-	border-bottom: solid 1px #6893CF;
-	background-image: url(../../Images/LMBackground.gif);
+	color: white;    
 	background-color:Transparent;
 }
 table.TitleMenuBarStaticMenuItemStyle td
@@ -15,16 +12,10 @@ table.TitleMenuBarStaticMenuItemStyle td
 }
 .TitleMenuBarStaticHoverStyle
 {
-	background-image: url(../../Images/LMHoverBackground.gif);
-	border-left: solid 1px #6893CF;
-	border-bottom: solid 1px #6893CF;
-	background-color:Transparent;
+    background-color: lightgrey;
 }
 .TitleMenuBarStaticSelectedStyle
 {
-	background-image: url(../../Images/LMSelect.gif);
-	border-left: solid 1px #6893CF;
-	border-bottom: solid 1px #6893CF;
 	background-color:Transparent;
 }
 .MenuBarStaticMenuItemStyle
@@ -81,8 +72,10 @@ table.MenuBarStaticMenuItemStyle td
 	font-weight:normal;
 }
 input {
+    -ms-border-radius: 5px;
     border-radius: 5px;
 }
+
 .TextBox
 {
 	border:solid 1px #193687;
@@ -131,11 +124,12 @@ input {
 {
 	display:none;
 }
-.DropDownList
-{
-	border:solid 1px #193687;
+.DropDownList {
+    border:solid 1px #193687;
+    -ms-border-radius: 5px;
     border-radius: 5px;
 }
+
 .DataGridFixedHeader
 {
 	position:relative; 
