@@ -16,7 +16,7 @@
             document.location = url;
         }
         $(document).ready(function () {
-            init();
+
         });
     </script>
 </head>
