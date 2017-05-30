@@ -24,22 +24,22 @@ function closeNav() {
 //    $("#main").css("background-color", "white");
 }
 
-function init() {
-    $("#slideUp").click(function () {
-        $("header").slideUp();
-//        $(".row.content").css("height", "88%");
-        $(".row.content").animate({
-            height: "88%"
-        }, 400);
-    });
-    $("#slideDown").click(function () {
-        $("header").slideDown();
-//        $(".row.content").css("height", "75%");
-        $(".row.content").animate({
-            height: "75%"
-        }, 400);
-    });
+function slideUp() {
+    $("#slideUp").hide();
+    $("#slideDown").show();
+    $("header").slideUp();
+    //        $(".row.content").css("height", "88%");
+    $(".row.content").animate({
+        height: "87.4%"
+    }, 400);
+}
 
-//    $("header").delay(5000).fadeOut('slow');
-//    $(".row.content").delay(5000).css("height", "89%");
+function slideDown() {
+    $("#slideUp").show();
+    $("#slideDown").hide();
+    $("header").slideDown();
+    //        $(".row.content").css("height", "75%");
+    $(".row.content").animate({
+        height: "75%"
+    }, 400);
 }

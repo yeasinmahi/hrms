@@ -118,8 +118,10 @@
                                     runat="server" ImageUrl="~/Images/MenuBullet.gif" />
                                 <asp:Label ID="lblNavigationTitle" runat="server" Style="vertical-align: middle; white-space: nowrap;"
                                     Text="" Font-Names="Tahoma" Font-Size="9pt" ForeColor="Black" Font-Bold="true"></asp:Label>
-                                <a id="slideUp" class="pull-right">Slide up</a>
-                                <a id="slideDown" class="pull-right">Slide Down</a>
+                                <div id="slideDiv" class="pull-right">
+                                    <span id="slideUp" class="glyphicon glyphicon-triangle-top" onclick="slideUp()" aria-hidden="false"></span>
+                                    <span id="slideDown" class="glyphicon glyphicon-triangle-bottom" style="display: none" onclick="slideDown()" aria-hidden="true"></span>
+                                </div>
                             </div>
                             <iframe id="ifPage" runat="server" frameborder="0" width="100%" height="100%" style="border-left: solid 1px #6893CF;" src="Home.aspx"></iframe>
                         </div>

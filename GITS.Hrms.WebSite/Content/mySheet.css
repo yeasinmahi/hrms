@@ -119,6 +119,10 @@ footer a {
     overflow: auto;
     padding-top: 50px;
 }
+#slideDiv {
+    font-size: 20px;
+    font-size: 20px;
+}
 #main {
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
