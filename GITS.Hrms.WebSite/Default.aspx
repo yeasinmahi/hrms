@@ -124,75 +124,13 @@
                             <iframe id="ifPage" runat="server" frameborder="0" width="100%" height="95%" style="border-left: solid 1px #6893CF;" src="Home.aspx"></iframe>
                         </div>
                     </div>
-                    <footer class="container-fluid text-center">
-                        <p>
-                            <a href="http://gits-bd.com/" target="blank">Global Info-Tech Systems Ltd.</a>
-                        </p>
-                    </footer>
-                    <%-- <table cellpadding="0" cellspacing="0" align="center" style="height: 97.25%; width: 100%;">
-                    <tr>
-                        $1$<td colspan="2" style="height: 40px; background-image: url('Images/header.png'); background-repeat: no-repeat; background-size: cover;">
-                            <table cellpadding="1" cellspacing="1" style="width: 100%;">
-                                <tr>
-                                    <td align="left" rowspan="3" style="height: 40px; width: 15%; background-image: url('Images/logo.png'); background-repeat: no-repeat; background-size: contain;">
-                                        $2$<asp:Label ForeColor="#D6E8FF" Font-Bold="true" ID="Label1" runat="server" Text="Logo" />#2#
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left">
-                                        $2$<asp:Label ForeColor="#D6E8FF" Font-Bold="true" ID="lblTitle1" runat="server" Text="Global Info-Tech Systems" />#2#
-                                    </td>
-                                    <td align="right">
-                                        $2$<asp:Label ForeColor="#D6E8FF" Font-Bold="true" ID="lblUserName" runat="server" Text="" />#2#
-                                    </td>
-                                </tr>
-                                <tr>
-                                    $2$<td align="left">
-                                        <asp:Label ForeColor="#D6E8FF" Font-Bold="true" ID="lblTitle2" runat="server" Text="Personnel Management Information System" /></td>
-                                    <td align="right">
-                                        <asp:LoginStatus ForeColor="#D6E8FF" ID="LoginStatus1" runat="server" LogoutAction="Redirect"
-                                            LogoutPageUrl="~/Login.aspx" />
-                                        <span style="color: #D6E8FF">| </span><a style="color: #D6E8FF;" href="ChangePassword.aspx">Change Password</a>
-                                    </td>#2#
-                                </tr>
-                            </table>
-                        </td>#1#
-                    </tr>
-                    <tr>
-                        <td style="width: 15%; height: 100%; vertical-align: top; background-color: #E7ECF6;">
-                            <table cellpadding="0" cellspacing="0" style="width: 100%; height: 100%">
-                                <tr>
-                                    <td style="text-align: left; vertical-align: middle; height: 24px; padding-left: 6px; white-space: nowrap; background-image: url('Images/TBBackground.gif'); border-bottom: solid 1px #6893CF;">
-                                        <asp:Image ID="Image1" Width="24px" Height="24px" Style="vertical-align: middle;"
-                                            runat="server" ImageUrl="~/Images/MenuBullet.gif" />
-                                        <asp:Label ID="lblNavigationTitle" runat="server" Style="vertical-align: middle; white-space: nowrap;"
-                                            Text="" Font-Names="Tahoma" Font-Size="9pt" ForeColor="Black" Font-Bold="true"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 100%; background-color: White; vertical-align: top;">
-                                        <div runat="server" id="divMenu" style="background-color: White; overflow-y: auto;">
-                                            $1$<asp:Menu ID="mnuMenubar" SkinID="MenuBar" Width="100%" runat="server" BackColor="White"
-                                                Orientation="Vertical" StaticEnableDefaultPopOutImage="False" OnMenuItemClick="mnuMenubar_MenuItemClick">
-                                            </asp:Menu>#1#
-                                        </div>
-                                    </td>
-                                    <tr>
-                                        <td style="width: 100%; background-color: White; vertical-align: bottom;">
-                                            <div style="border-top: solid 1px #6893CF;">
-                                                $1$<asp:Menu ID="mnuTitleMenubar" SkinID="TitleMenuBar" Width="100%" runat="server"
-                                                    Orientation="Vertical" StaticEnableDefaultPopOutImage="False" OnMenuItemClick="mnuTitleMenubar_MenuItemClick">
-                                                </asp:Menu>#1#
-                                            </div>
-                                        </td>
-                                    </tr>
-                            </table>
-                        </td>
-                        <td style="background-image: url(../Images/AppBackground.jpg); background-size: cover">
-                            $1$<iframe id="ifPage" runat="server" frameborder="0" width="100%" height="100%" style="border-left: solid 1px #6893CF;" src="Home.aspx"></iframe>#1#
-                        </td>
-                    </tr>
-                </table>--%>
+
+                </div>
+                <footer class="text-center">
+                    <p>
+                        <a href="http://gits-bd.com/" target="blank">Global Info-Tech Systems Ltd.</a>
+                    </p>
+                </footer>
             </ContentTemplate>
         </asp:UpdatePanel>
     </form>

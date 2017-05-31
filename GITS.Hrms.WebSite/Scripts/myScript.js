@@ -30,7 +30,7 @@ function slideUp() {
     $("header").slideUp();
     //        $(".row.content").css("height", "88%");
     $(".row.content").animate({
-        height: "87.4%"
+        height: "87.5%"
     }, 400);
 }
 
@@ -40,7 +40,7 @@ function slideDown() {
     $("header").slideDown();
     //        $(".row.content").css("height", "75%");
     $(".row.content").animate({
-        height: "75%"
+        height: "76%"
     }, 400);
 }
 

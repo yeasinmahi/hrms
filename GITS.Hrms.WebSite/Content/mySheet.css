@@ -7,7 +7,8 @@
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
-    height:75%;
+    height:76%;
+    z-index: 1;
 }
 
 body {
@@ -18,10 +19,11 @@ a {
     color: white;
 }
 footer {
-    position: fixed;
+    position: absolute;
     width: 100%;
     bottom: 0;
     background-color: #555;
+    z-index: 5;
 }
 footer a {
     color: black;
