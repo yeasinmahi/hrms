@@ -9,7 +9,7 @@
     <link href="Content/mySheet.css" rel="stylesheet" />
     <script src="Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
     <script src="Scripts/bootstrap.min.js" type="text/javascript"></script>
-    <script src="Scripts/myScript.js"></script>
+    <script src="Scripts/myScript.js" type="text/javascript"></script>
 
     <script language="javascript" type="text/javascript">
         function Transfer(url) {
@@ -85,7 +85,6 @@
                                 <div id="mainMenu">
 
                                     <asp:Menu ID="mnuTitleMenubar"
-                                        CssClass="navbar"
                                         RenderingMode="List"
                                         IncludeStyleBlock="false"
                                         StaticMenuStyle-CssClass="nav"
@@ -98,7 +97,6 @@
                                 </div>
                                 <div id="subMenu">
                                     <asp:Menu ID="mnuMenubar"
-                                        CssClass="navbar"
                                         RenderingMode="List"
                                         IncludeStyleBlock="false"
                                         StaticMenuStyle-CssClass="nav"
@@ -123,7 +121,7 @@
                                     <span id="slideDown" class="glyphicon glyphicon-triangle-bottom" style="display: none" onclick="slideDown()" aria-hidden="true"></span>
                                 </div>
                             </div>
-                            <iframe id="ifPage" runat="server" frameborder="0" width="100%" height="100%" style="border-left: solid 1px #6893CF;" src="Home.aspx"></iframe>
+                            <iframe id="ifPage" runat="server" frameborder="0" width="100%" height="95%" style="border-left: solid 1px #6893CF;" src="Home.aspx"></iframe>
                         </div>
                     </div>
                     <footer class="container-fluid text-center">

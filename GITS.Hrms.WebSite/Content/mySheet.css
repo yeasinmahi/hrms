@@ -61,7 +61,7 @@ footer a {
     -ms-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
-    width: 24%;
+    width: 20%;
     float: left;
 }
 .sidenav li{
@@ -70,7 +70,7 @@ footer a {
 }
 .sidenav a {
     text-decoration: none;
-    color: #818181;
+    color: #ffffff;
     display: block;
     -webkit-transition: 0.3s;
     -moz-transition: 0.3s;
@@ -79,11 +79,32 @@ footer a {
     transition: 0.3s;
     vertical-align: middle;
 }
-.sidenav .selected {
-    color: #008000
+.sidenav .selected{
+    color: #000000;
+    background-color: rgba(234, 251, 251, 0.3);
+}
+#ctl00_mnuPageToolbar ul>li>a {
+    
+}
+.myButton li{
+    float: left;
+    list-style: none;
+    text-align: center;
+    
+    margin-left: 10px;
+    padding: 5px;
+}
+.myButton li a{
+    text-decoration: none;
+    display: block;
 }
 .sidenav a:hover, .offcanvas a:focus{
     color: #f1f1f1;
+}
+.nav>li>a:hover {
+    text-decoration: none;
+    color: #000000;
+    background-color: rgba(234, 251, 251, 0.3);
 }
 .sidenav .navController {
     width: 100%;
@@ -103,19 +124,19 @@ footer a {
 }
 #mainMenu {
     font-size: 16px;
-    width: 50%;
+    width: 45%;
     float: left;
     height: 100%;
-    background-color: blue;
+    background-color: #273691;
     overflow: hidden;
     padding-top: 50px;
 }
 #subMenu {
     font-size: 12px;
-    width: 50%;
+    width: 55%;
     height: 100%;
     float: left;
-    background-color: blueviolet;
+    background-color: #0F75BD;
     overflow: auto;
     padding-top: 50px;
 }
@@ -129,7 +150,7 @@ footer a {
     -ms-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
-    width: 76%;
+    width: 80%;
     float: right;
 }
 

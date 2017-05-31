@@ -43,7 +43,7 @@ namespace GITS.Hrms.Library.Web
             {
                 this._PropertyName = Request.QueryString["propertyname"];
             }
-            else if (this.PropertyName == null || this.PropertyName == "")
+            else if (string.IsNullOrEmpty(this.PropertyName))
             {
                 Property property = Property.Get("Path = '" + Request.Path.Substring(1) + "'");
 
@@ -120,18 +120,17 @@ namespace GITS.Hrms.Library.Web
             {
                 mnuPageToolbar.Items.Clear();
             }
-
-            MenuItem tool = new MenuItem("", "", "~/Images/MenuBullet.gif", "");
-            tool.Selectable = false;
-            mnuPageToolbar.Items.Add(tool);
-
+//
+//            MenuItem tool = new MenuItem("", "", "~/Images/MenuBullet.gif", "");
+//            tool.Selectable = false;
+//            mnuPageToolbar.Items.Add(tool);
             if (propertyCommands != null)
             {
                 foreach (PropertyCommandView propertyCommandView in propertyCommands)
                 {
                     if (MmsPermissionProvider.HasPermission(User.Identity.Name, propertyCommandView.PropertyName, propertyCommandView.CommandName))
                     {
-                        tool = new MenuItem("", propertyCommandView.CommandName, propertyCommandView.ImageUrl, propertyCommandView.NavigateUrl);
+                        MenuItem tool = new MenuItem("", propertyCommandView.CommandName, propertyCommandView.ImageUrl, propertyCommandView.NavigateUrl);
 
                         if (string.IsNullOrEmpty(propertyCommandView.ImageUrl))
                         {
@@ -142,7 +141,7 @@ namespace GITS.Hrms.Library.Web
                             tool.Text = "&nbsp;" + propertyCommandView.DisplayName;
                         }
 
-                        tool.SeparatorImageUrl = propertyCommandView.SeperatorUrl;
+                        //tool.SeparatorImageUrl = propertyCommandView.SeperatorUrl;
                         tool.ToolTip = propertyCommandView.ToolTipText;
                         mnuPageToolbar.Items.Add(tool);
                     }
@@ -151,7 +150,7 @@ namespace GITS.Hrms.Library.Web
                 mnuPageToolbar.DataBind();
             }
 
-            if (mnuPageToolbar.Items.Count == 1)
+            if (mnuPageToolbar.Items.Count == 0)
             {
                 mnuPageToolbar.Visible = false;
             }
@@ -169,19 +168,19 @@ namespace GITS.Hrms.Library.Web
             switch (msg.Type)
             {
                 case MessageType.Error:
-                    lblMessage.Text = "Error: " + msg.Msg;
+                    lblMessage.Text = @"Error: " + msg.Msg;
                     imgMessage.ImageUrl = "~/Images/error.gif";
                     pnlMessage.CssClass = "LabelErrorMessage";
                     break;
                 case MessageType.Warning:
-                    lblMessage.Text = "Warning: " + msg.Msg;
+                    lblMessage.Text = @"Warning: " + msg.Msg;
                     imgMessage.ImageUrl = "~/Images/warning.gif";
                     pnlMessage.CssClass = "LabelWarningMessage";
                     break;
                 case MessageType.Information:
                     lblMessage.Text = msg.Msg;
 
-                    if (msg.Msg == null || msg.Msg == "")
+                    if (string.IsNullOrEmpty(msg.Msg))
                     {
                         imgMessage.ImageUrl = "";
                         pnlMessage.CssClass = "LabelEmptyMessage";

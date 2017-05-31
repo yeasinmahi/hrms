@@ -1,8 +1,8 @@
 ﻿function openNav() {
-    $(".sidenav").css("width", "24%");
-    $("#main").css("width", "76%");
-    $("#mainMenu").css("width", "50%");
-    $("#subMenu").css("width", "50%");
+    $(".sidenav").css("width", "20%");
+    $("#main").css("width", "80%");
+    $("#mainMenu").css("width", "45%");
+    $("#subMenu").css("width", "55%");
     $("#closebtn").toggleClass("hidden");
     $("#openNav").toggleClass("hidden");
     $(".hideText").show();
@@ -12,8 +12,8 @@
 }
 
 function closeNav() {
-    $(".sidenav").css("width", "6%");
-    $("#main").css("width", "94%");
+    $(".sidenav").css("width", "4%");
+    $("#main").css("width", "96%");
     $("#mainMenu").css("width","100%");
     $("#subMenu").css("width","0%");
     $("#openNav").toggleClass("hidden");
@@ -43,3 +43,11 @@ function slideDown() {
         height: "75%"
     }, 400);
 }
+
+$(document).ready(function() {
+    $(".myButton, .myButton li, .myButton li a").removeClass('level1 static');
+    $(".myButton, .myButton li").removeAttr('style');
+
+    $(".myButton li a").addClass("btn btn-primary btn-xs");
+
+});

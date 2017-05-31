@@ -5,62 +5,70 @@
 <head id="Head1" runat="server">
     <title>Personnel Management Information System - Site Master</title>
     <base target="_self" />
-    
-    <script language="javascript" type="text/javascript" src="../Script/Global.js"></script>
-
-    <script language="javascript" type="text/javascript" src="../Script/CalendarControl.js"></script>
+    <link  href="Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="Content/mySheet.css" rel="stylesheet" type="text/css" />
+    <script language="javascript "src="../Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script language="javascript "src="../Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script language="javascript" src="../Scripts/myScript.js" type="text/javascript"></script>
 
 </head>
 <body onload="if (navigator.appName != 'Microsoft Internet Explorer'){document.getElementById('ctl00_tdMenu').style.height = '24px';}" style="width: 100%; height: 100%; padding: 0px; margin: 0px;">
     <form id="form1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="600">
-    </asp:ScriptManager>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <Triggers>
-            <asp:PostBackTrigger ControlID="mnuPageToolbar" />
-        </Triggers>
-        <ContentTemplate>
-            <table cellpadding="0" cellspacing="0" style="width: 100%;" onclick="document.getElementById('ctl00_pnlMessage').className = 'LabelEmptyMessage';">
-                <tr>
-                    <td id="tdMenu" runat="server" style="height: 24px; width: 90%; background-image: url(../Images/TBBackground.gif);border-bottom:solid 1px #6893CF;">
-                        <asp:Menu ID="mnuPageToolbar" runat="server" SkinID="ToolBar">
-                        </asp:Menu>
-                    </td>
-                    <td style="background-image: url('../Images/TBBackground.gif'); width: 10%; text-align: right;border-bottom:solid 1px #6893CF;">
-                        <asp:Label ID="Label1" runat="server" Text="" Font-Names="Tahoma" Font-Size="9pt"
-                            ForeColor="Black" Font-Bold="true"></asp:Label>&nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <asp:Panel ID="pnlMessage" runat="server" CssClass="LabelEmptyMessage">
-                            <table style="vertical-align: top;">
-                                <tr>
-                                    <td>
-                                        <asp:Image ID="imgMessage" runat="server" Height="24px" Width="24px" />
-                                    </td>
-                                    <td style="white-space:normal;">
-                                        <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
-                                    </td>
-                                </tr>
-                            </table>
-                        </asp:Panel>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div style="padding-left:10px;">
-                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                            </asp:ContentPlaceHolder>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <asp:HiddenField runat="server" ID="hdnId" />
-        </ContentTemplate>
-    </asp:UpdatePanel>
-    <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
-    </asp:ContentPlaceHolder>
+        <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="600">
+        </asp:ScriptManager>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <Triggers>
+                <asp:PostBackTrigger ControlID="mnuPageToolbar" />
+            </Triggers>
+            <ContentTemplate>
+                <table cellpadding="0" cellspacing="0" style="width: 100%;" onclick="document.getElementById('ctl00_pnlMessage').className = 'LabelEmptyMessage';">
+                    <tr>
+                        <td id="tdMenu" runat="server" style="width: 90%; height: 14px; background-color: rgba(130, 177, 255, .5);">
+                            <asp:Menu ID="mnuPageToolbar"
+                                RenderingMode="List"
+                                IncludeStyleBlock="True"
+                                StaticMenuStyle-CssClass="myButton"
+                                StaticSelectedStyle-CssClass="active"
+                                DynamicMenuStyle-CssClass="dropdown-menu"
+                                runat="server"
+                                Orientation="Horizontal">
+                            </asp:Menu>
+                        </td>
+                        <td style="width: 10%;  background-color: rgba(130, 177, 255, .5); text-align: right;">
+                            <asp:Label ID="Label1" runat="server" Text="" Font-Names="Tahoma" Font-Size="9pt"
+                                ForeColor="Black" Font-Bold="true"></asp:Label>&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <asp:Panel ID="pnlMessage" runat="server" CssClass="LabelEmptyMessage">
+                                <table style="vertical-align: top;">
+                                    <tr>
+                                        <td>
+                                            <asp:Image ID="imgMessage" runat="server" Height="24px" Width="24px" />
+                                        </td>
+                                        <td style="white-space: normal;">
+                                            <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </asp:Panel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="padding-left: 10px;">
+                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                </asp:ContentPlaceHolder>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <asp:HiddenField runat="server" ID="hdnId" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+        </asp:ContentPlaceHolder>
     </form>
 </body>
 </html>
