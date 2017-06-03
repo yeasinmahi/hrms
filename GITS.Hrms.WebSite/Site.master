@@ -27,7 +27,7 @@
                         <td id="tdMenu" runat="server" style="width: 90%; height: 14px; background-color: rgba(130, 177, 255, .5);">
                             <asp:Menu ID="mnuPageToolbar"
                                 RenderingMode="List"
-                                IncludeStyleBlock="True"
+                                IncludeStyleBlock="true"
                                 StaticMenuStyle-CssClass="myButton"
                                 StaticSelectedStyle-CssClass="active"
                                 DynamicMenuStyle-CssClass="dropdown-menu"

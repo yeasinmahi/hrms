@@ -80,13 +80,11 @@ footer a {
     -o-transition: 0.3s;
     transition: 0.3s;
     vertical-align: middle;
+    z-index:5;
 }
 .sidenav .selected{
     color: #000000;
     background-color: rgba(234, 251, 251, 0.3);
-}
-#ctl00_mnuPageToolbar ul>li>a {
-    
 }
 .myButton li{
     float: left;
@@ -99,6 +97,7 @@ footer a {
 .myButton li a{
     text-decoration: none;
     display: block;
+    
 }
 .sidenav a:hover, .offcanvas a:focus{
     color: #f1f1f1;
@@ -119,6 +118,7 @@ footer a {
     float: right;
     padding-right: 35px;
     cursor: pointer;
+    z-index: 4;
 }
 .sidenav #openNav {
     font-size: 30px;
