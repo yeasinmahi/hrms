@@ -3,11 +3,12 @@
     $("#main").css("width", "80%");
     $("#mainMenu").css("width", "45%");
     $("#subMenu").css("width", "55%");
-    $("#closebtn").toggleClass("hidden");
-    $("#openNav").toggleClass("hidden");
+    $("#closebtn").removeClass("hidden");
+    $("#openNav").addClass("hidden");
     $(".hideText").show();
     $(".icon").css("width", "20px");
     $("#subMenu").fadeIn();
+    $.cookie("sideNav", 1);
 //    $("#main").css("background-color", "rgba(0,0,0,0.4)");
 }
 
@@ -16,15 +17,17 @@ function closeNav() {
     $("#main").css("width", "96%");
     $("#mainMenu").css("width","100%");
     $("#subMenu").css("width","0%");
-    $("#openNav").toggleClass("hidden");
-    $("#closebtn").toggleClass("hidden");
+    $("#openNav").removeClass("hidden");
+    $("#closebtn").addClass("hidden");
     $(".hideText").hide();
     $(".icon").css("width", "30px");
     $("#subMenu").fadeOut();
+    $.removeCookie("sideNav");
 //    $("#main").css("background-color", "white");
 }
 
 function slideUp() {
+    $.cookie("slide", 1);
     $("#slideUp").hide();
     $("#slideDown").show();
     $("header").slideUp();
@@ -35,6 +38,7 @@ function slideUp() {
 }
 
 function slideDown() {
+    $.removeCookie("slide");
     $("#slideUp").show();
     $("#slideDown").hide();
     $("header").slideDown();
@@ -47,7 +51,16 @@ function slideDown() {
 $(document).ready(function() {
     $(".myButton, .myButton li, .myButton li a").removeClass('level1 static');
     $(".myButton, .myButton li").removeAttr('style');
-
     $(".myButton li a").addClass("btn btn-primary btn-xs");
 
+    if (!!$.cookie('sideNav')) {
+        openNav();
+    } else {
+        closeNav();
+    }
+    if (!!$.cookie('slide')) {
+        slideUp();
+    } else {
+        slideDown();
+    }
 });

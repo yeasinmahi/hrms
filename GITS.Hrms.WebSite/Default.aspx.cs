@@ -33,26 +33,10 @@ namespace GITS.Hrms.WebSite
                 {
                     lblUserName.InnerText = User.Identity.Name;
                     BuildMenu();
-                    //BuildMunu2();
                 }
             }
         }
 
-        private void BuildMunu2()
-        {
-            IList<Module> modules = Module.Find("IsActive = 'True'", "SortOrder");
-
-            if (modules !=null)
-            {
-                foreach (Module module in modules)
-                {
-                    if ( UserPropertyView.Find("ModuleName = '" + module.Name + "' AND UserLogin = '" + User.Identity.Name + "'", "").Count > 0)
-                    {
-                        //sideMenu.InnerHtml += "<li><a href='" + module.Name + "'> <img src='" + module.ImageUrl + "' />  " + module.DisplayName + "</a></li>";
-                    }
-                }
-            }
-        }
         private void BuildMenu()
         {
             IList<Module> modules = Module.Find("IsActive = 'True'", "SortOrder");

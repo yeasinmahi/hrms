@@ -8,6 +8,7 @@
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/mySheet.css" rel="stylesheet" />
     <script src="Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.cookie.js" type="text/javascript"></script>
     <script src="Scripts/bootstrap.min.js" type="text/javascript"></script>
     <script src="Scripts/myScript.js" type="text/javascript"></script>
 
@@ -16,8 +17,10 @@
             document.location = url;
         }
         $(document).ready(function () {
-
+            
         });
+        
+        
     </script>
 </head>
 <body style="margin: 0px; padding: 0px; height: 100%; width: 100%;">

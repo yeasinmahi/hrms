@@ -18,7 +18,7 @@
                 <table>
                     <tr>
                         <td colspan="3" valign="top" width="5%" bgcolor="#003366">
-                            <img alt="" border="0" height="50" src="../Images/LoginlLogo.jpg" width="60" />
+                            <img alt="" border="0" height="50" src="../Images/logo.png" width="50" />
                         </td>
                     </tr>
                     <tr>
