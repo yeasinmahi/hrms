@@ -47,25 +47,25 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public Int32 P_ProcessId
         {
-            get { return this._P_ProcessId; }
-            set { this._P_ProcessId = value; }
+            get { return _P_ProcessId; }
+            set { _P_ProcessId = value; }
         }
         public Int32 P_LoanAccountId
         {
-            get { return this._P_LoanAccountId; }
-            set { this._P_LoanAccountId = value; }
+            get { return _P_LoanAccountId; }
+            set { _P_LoanAccountId = value; }
         }
 
         public Double Ammount
         {
-            get { return this._Ammount; }
-            set { this._Ammount = value; }
+            get { return _Ammount; }
+            set { _Ammount = value; }
         }
 
         public DateTime PaidDate
         {
-            get { return this._PaidDate; }
-            set { this._PaidDate = value; }
+            get { return _PaidDate; }
+            set { _PaidDate = value; }
         }
     }
 }

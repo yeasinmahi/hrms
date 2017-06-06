@@ -84,62 +84,62 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
         public H_EmployeeDrop.Types DropoutType
         {
-			get {return this._DropoutType;}
-			set {this._DropoutType = value;}
+			get {return _DropoutType;}
+			set {_DropoutType = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public DateTime FromDate
 		{
-			get {return this._FromDate;}
-			set {this._FromDate = value;}
+			get {return _FromDate;}
+			set {_FromDate = value;}
 		}
 
 		public DateTime ReemploymentDate
 		{
-			get {return this._ReemploymentDate;}
-			set {this._ReemploymentDate = value;}
+			get {return _ReemploymentDate;}
+			set {_ReemploymentDate = value;}
 		}
 
 		public Int32 SourceBranchId
 		{
-			get {return this._SourceBranchId;}
-			set {this._SourceBranchId = value;}
+			get {return _SourceBranchId;}
+			set {_SourceBranchId = value;}
 		}
 
 		public Int32 DestinationBranchId
 		{
-			get {return this._DestinationBranchId;}
-			set {this._DestinationBranchId = value;}
+			get {return _DestinationBranchId;}
+			set {_DestinationBranchId = value;}
 		}
 
         public H_Employee.EmploymentTypes ReemploymentType
         {
-            get { return this._ReemploymentType; }
-            set { this._ReemploymentType = value; }
+            get { return _ReemploymentType; }
+            set { _ReemploymentType = value; }
         }
 
 		public String Cause
 		{
-			get {return this._Cause;}
-			set {this._Cause = value;}
+			get {return _Cause;}
+			set {_Cause = value;}
 		}
 	}
 }

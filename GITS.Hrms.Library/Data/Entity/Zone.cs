@@ -104,23 +104,23 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
         public Statuses Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         public Nullable<DateTime> OpeningDate
         {
-            get { return this._OpeningDate; }
-            set { this._OpeningDate = value; }
+            get { return _OpeningDate; }
+            set { _OpeningDate = value; }
         }
         public Nullable<DateTime> ClosingDate
         {
-            get { return this._ClosingDate; }
-            set { this._ClosingDate = value; }
+            get { return _ClosingDate; }
+            set { _ClosingDate = value; }
         }
 	}
 }

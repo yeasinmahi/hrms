@@ -45,40 +45,40 @@ namespace GITS.Hrms.Library.Data.View
 
         public H_EmployeeDropHistory.Types Type
 		{
-			get {return this._Type;}
-			set {this._Type = value;}
+			get {return _Type;}
+			set {_Type = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 
 		public DateTime DropDate
 		{
-			get {return this._DropDate;}
-			set {this._DropDate = value;}
+			get {return _DropDate;}
+			set {_DropDate = value;}
 		}
 
 
 
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
         public Int32 Code
         {
-            get { return this._Code; }
-            set { this._Code = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
     }
 }

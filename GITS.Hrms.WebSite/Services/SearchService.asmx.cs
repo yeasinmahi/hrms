@@ -12,7 +12,7 @@ namespace GITS.Hrms.WebSite.Services
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [ToolboxItem(false)]
     [ScriptService]
-    public class SearchService : System.Web.Services.WebService
+    public class SearchService : WebService
     {
         [WebMethod(EnableSession = true)]
         public String[] GetSuggestions(String prefixText, Int32 count)

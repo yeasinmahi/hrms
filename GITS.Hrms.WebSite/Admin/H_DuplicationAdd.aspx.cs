@@ -28,7 +28,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (h_Duplication != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     txtName.Text = h_Duplication.Name;
                     txtSortOrder.Text = UIUtility.Format(h_Duplication.SortOrder);
                 }
@@ -43,7 +43,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             H_Duplication h_Duplication = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_Duplication = H_Duplication.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -65,7 +65,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -76,14 +76,14 @@ namespace GITS.Hrms.WebSite.Admin
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_Duplication h_Duplication = this.GetH_Duplication();
+                H_Duplication h_Duplication = GetH_Duplication();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_Duplication]";
                 }
@@ -92,21 +92,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [H_Duplication]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    H_Duplication.Insert(this.TransactionManager, h_Duplication);
+                    H_Duplication.Insert(TransactionManager, h_Duplication);
 
                     hdnId.Value = h_Duplication.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    H_Duplication.Update(this.TransactionManager, h_Duplication);
+                    H_Duplication.Update(TransactionManager, h_Duplication);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;

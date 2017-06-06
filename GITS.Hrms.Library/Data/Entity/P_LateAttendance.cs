@@ -48,36 +48,36 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
         public DateTime StartDate
         {
-            get { return this._StartDate; }
-            set { this._StartDate = value; }
+            get { return _StartDate; }
+            set { _StartDate = value; }
         }
 
         public DateTime EndDate
         {
-            get { return this._EndDate; }
-            set { this._EndDate = value; }
+            get { return _EndDate; }
+            set { _EndDate = value; }
         }
 
         public Nullable<Int32> Late96_930
         {
-            get { return this._Late96_930; }
-            set { this._Late96_930 = value; }
+            get { return _Late96_930; }
+            set { _Late96_930 = value; }
         }
         public Nullable<Int32> Late931_days
         {
-            get { return this._Late931_days; }
-            set { this._Late931_days = value; }
+            get { return _Late931_days; }
+            set { _Late931_days = value; }
         }
 
         public Nullable<Int32> Absent
         {
-            get { return this._Absent; }
-            set { this._Absent = value; }
+            get { return _Absent; }
+            set { _Absent = value; }
         }
     }
 }

@@ -44,9 +44,9 @@ namespace GITS.Hrms.WebSite.Payroll
         }
         protected override void HandleSpecialCommand(object sender, MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
@@ -54,7 +54,7 @@ namespace GITS.Hrms.WebSite.Payroll
                         //this.ExecuteSalaryProcess();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -81,7 +81,7 @@ namespace GITS.Hrms.WebSite.Payroll
                 return msg;
             }
             IList<P_LoanAccount> accountList = P_LoanAccount.Find("Status=1", "");
-            this.TransactionManager = new TransactionManager(true);
+            TransactionManager = new TransactionManager(true);
             //Start Process
             try
             {
@@ -189,7 +189,7 @@ namespace GITS.Hrms.WebSite.Payroll
             {
                 msg.Type = MessageType.Warning;
                 msg.Msg = "Process Already Ended for the month of " + executedProcess.SalaryDate.ToString("MMMM") + "," + executedProcess.SalaryDate.Year.ToString();
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return ;
             }
 
@@ -263,7 +263,7 @@ namespace GITS.Hrms.WebSite.Payroll
                     transaction.Rollback();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Process Execution Failed, Contact Administrator:" + sqlEx.Message;
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     e.Cancel = true;
                    // return;
                 }
@@ -273,7 +273,7 @@ namespace GITS.Hrms.WebSite.Payroll
                     cnn.Dispose();
                 }
 
-            ShowUIMessage(msg);
+            ShowUiMessage(msg);
             e.Result = "Process Completed Successfully.";
         }
 

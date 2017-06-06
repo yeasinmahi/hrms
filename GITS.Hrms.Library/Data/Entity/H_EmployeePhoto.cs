@@ -34,13 +34,13 @@ namespace GITS.Hrms.Library.Data.Entity
         }
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
         public Byte[] Photo
         {
-            get { return this._Photo; }
-            set { this._Photo = value; }
+            get { return _Photo; }
+            set { _Photo = value; }
         }
     }
 }

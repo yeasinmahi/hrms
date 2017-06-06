@@ -76,63 +76,63 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public Int32 Level
 		{
-			get {return this._Level;}
-			set {this._Level = value;}
+			get {return _Level;}
+			set {_Level = value;}
 		}
 
         public Int32 ExamNameId
 		{
-			get {return this._ExamNameId;}
-			set {this._ExamNameId = value;}
+			get {return _ExamNameId;}
+			set {_ExamNameId = value;}
 		}
 
         public Int32 GroupSubjectId
 		{
-			get {return this._GroupSubjectId;}
-			set {this._GroupSubjectId = value;}
+			get {return _GroupSubjectId;}
+			set {_GroupSubjectId = value;}
 		}
 
         public Int32 BoardUniversityId
 		{
-			get {return this._BoardUniversityId;}
-			set {this._BoardUniversityId = value;}
+			get {return _BoardUniversityId;}
+			set {_BoardUniversityId = value;}
 		}
 
         public String Institution
         {
-            get { return this._Institution; }
-            set { this._Institution = value; }
+            get { return _Institution; }
+            set { _Institution = value; }
         }
 
 		public String Result
 		{
-			get {return this._Result;}
-			set {this._Result = value;}
+			get {return _Result;}
+			set {_Result = value;}
 		}
         public Nullable<Double> GPA
         {
-            get { return this._GPA; }
-            set { this._GPA = value; }
+            get { return _GPA; }
+            set { _GPA = value; }
         }
 
 		public Int32 PassingYear
 		{
-			get {return this._PassingYear;}
-			set {this._PassingYear = value;}
+			get {return _PassingYear;}
+			set {_PassingYear = value;}
 		}
 
 		
 
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
 
 	}

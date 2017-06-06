@@ -31,7 +31,7 @@ namespace GITS.Hrms.WebSite.Reports
 
         protected override void LoadData()
         {
-            if (this.PropertyName == "H_GRADEDESIGNATIONWISETOTALSTAFF")
+            if (PropertyName == "H_GRADEDESIGNATIONWISETOTALSTAFF")
             {
                 trAsonDate.Visible = true;
                 trStartDate.Visible = false;
@@ -51,7 +51,7 @@ namespace GITS.Hrms.WebSite.Reports
                 txtAsOnDate.Text = DateTime.Today.ToString("dd/MM/yyyy");
                 rfvReportName.Enabled = false;
             }
-            else if (this.PropertyName == "H_OWNDISTRICTWISEREPORT")
+            else if (PropertyName == "H_OWNDISTRICTWISEREPORT")
             {
                 trAsonDate.Visible = true;
                 trStartDate.Visible = false;
@@ -71,7 +71,7 @@ namespace GITS.Hrms.WebSite.Reports
                 txtAsOnDate.Text = DateTime.Today.ToString("dd/MM/yyyy");
                 rfvReportName.Enabled = false;
             }
-            else if (this.PropertyName == "H_ATAGLANCETOTALSTAFFPOSITION")
+            else if (PropertyName == "H_ATAGLANCETOTALSTAFFPOSITION")
             {
                 trAsonDate.Visible = true;
                 trStartDate.Visible = false;
@@ -91,7 +91,7 @@ namespace GITS.Hrms.WebSite.Reports
                 txtAsOnDate.Text = DateTime.Today.ToString("dd/MM/yyyy");
                 rfvReportName.Enabled = false;
             }
-            else if (this.PropertyName == "H_ASADISTRICTWISETOTALSTAFF")
+            else if (PropertyName == "H_ASADISTRICTWISETOTALSTAFF")
             {
                 trAsonDate.Visible = true;
                 trStartDate.Visible = false;
@@ -111,7 +111,7 @@ namespace GITS.Hrms.WebSite.Reports
                 txtAsOnDate.Text = DateTime.Today.ToString("dd/MM/yyyy");
                 rfvReportName.Enabled = false;
             }
-            else if (this.PropertyName == "H_PUNISHMENTREPORT")
+            else if (PropertyName == "H_PUNISHMENTREPORT")
             {
                 trAsonDate.Visible = false;
                 trStartDate.Visible = false;
@@ -130,7 +130,7 @@ namespace GITS.Hrms.WebSite.Reports
                 trDMNote.Visible = false;
                 rfvReportName.Enabled = false;
             }
-            else if (this.PropertyName == "H_GOVTDISTRICTWISEBRANCH")
+            else if (PropertyName == "H_GOVTDISTRICTWISEBRANCH")
             {
                 trAsonDate.Visible = false;
                 trStartDate.Visible = false;
@@ -150,7 +150,7 @@ namespace GITS.Hrms.WebSite.Reports
                 lblBranchReport.Text = "Govt. District wise Branch";
                 rfvReportName.Enabled = false;
             }
-            else if (this.PropertyName == "H_ASADISTRICTWISEBRANCH")
+            else if (PropertyName == "H_ASADISTRICTWISEBRANCH")
             {
                 trAsonDate.Visible = false;
                 trStartDate.Visible = false;
@@ -170,7 +170,7 @@ namespace GITS.Hrms.WebSite.Reports
                 lblBranchReport.Text = "ASA District wise Branch";
                 rfvReportName.Enabled = false;
             }
-            else if (this.PropertyName == "H_EMPLOYEERESUME")
+            else if (PropertyName == "H_EMPLOYEERESUME")
             {
                 trAsonDate.Visible = false;
                 trStartDate.Visible = false;
@@ -189,7 +189,7 @@ namespace GITS.Hrms.WebSite.Reports
                 trDMNote.Visible = false;
                 rfvReportName.Enabled = false;
             }
-            else if (this.PropertyName == "H_MONTHLYREPORT")
+            else if (PropertyName == "H_MONTHLYREPORT")
             {
                 trAsonDate.Visible = false;
                 trStartDate.Visible = false;
@@ -209,10 +209,10 @@ namespace GITS.Hrms.WebSite.Reports
                 rfvReportName.Enabled = false;
                 for (int year = DateTime.Today.Year; year >= 2010; year--)
                 {
-                    ddlYear.Items.Add(new System.Web.UI.WebControls.ListItem(year.ToString(), year.ToString()));
+                    ddlYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
                 }
             }
-            else if (this.PropertyName == "H_TRANSFERLETTER")
+            else if (PropertyName == "H_TRANSFERLETTER")
             {
                 trAsonDate.Visible = false;
                 trStartDate.Visible = false;
@@ -248,19 +248,19 @@ namespace GITS.Hrms.WebSite.Reports
             {
             }
         }
-        protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
+        protected override void HandleSpecialCommand(object sender, MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
                     case "PRINT":
-                        this.PrintData();
+                        PrintData();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -273,13 +273,13 @@ namespace GITS.Hrms.WebSite.Reports
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
                 return msg;
             }
-            if (this.PropertyName == "H_TRANSFERLETTER")
+            if (PropertyName == "H_TRANSFERLETTER")
             {
                 if (string.IsNullOrEmpty(txtLetterNo.Text))
                 {
@@ -298,83 +298,83 @@ namespace GITS.Hrms.WebSite.Reports
         }
         protected override void PrintData()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
             if (msg.Type != MessageType.Information)
             {
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
             string query = string.Empty;
             string reportName = string.Empty;
             DataTable dt = null;
             DataSet ds = null;
-            if (this.PropertyName == "H_GRADEDESIGNATIONWISETOTALSTAFF")
+            if (PropertyName == "H_GRADEDESIGNATIONWISETOTALSTAFF")
             {
 
                 dt = GradeDesignationWiseStaffProcedure.GetDataSet(DBUtility.ToDateTime(txtAsOnDate.Text));
                 reportName = "GradeDesigWiseTotalStaff.rpt";
             }
-            if (this.PropertyName == "H_OWNDISTRICTWISEREPORT")
+            if (PropertyName == "H_OWNDISTRICTWISEREPORT")
             {
                 dt = OwnDistrictWiseTotalStaffProcedure.GetDataSet(DBUtility.ToDateTime(txtAsOnDate.Text));
                 reportName = "OwnDistrictWiseTotalStaff.rpt";
             }
-            if (this.PropertyName == "H_ATAGLANCETOTALSTAFFPOSITION")
+            if (PropertyName == "H_ATAGLANCETOTALSTAFFPOSITION")
             {
                 dt = AtaGlanceTotalStaffPositionProcedure.GetDataSet(DBUtility.ToDateTime(txtAsOnDate.Text));
                 reportName = "AtAGlanceTotalStaffPosition.rpt";
             }
-            if (this.PropertyName == "H_ASADISTRICTWISETOTALSTAFF")
+            if (PropertyName == "H_ASADISTRICTWISETOTALSTAFF")
             {
                 dt = AsaDistrictWiseTotalStaffProcedure.GetDataSet(DBUtility.ToDateTime(txtAsOnDate.Text));
                 reportName = "AsaDistrictWiseTotalStaff.rpt";
             }
-            if (this.PropertyName == "H_PUNISHMENTREPORT" && ddtPunishment.SelectedValue == "1")
+            if (PropertyName == "H_PUNISHMENTREPORT" && ddtPunishment.SelectedValue == "1")
             {
                 dt = EmployeePunishmentReportProcedure.GetDataSet(Convert.ToInt32(txtEmpIdD.Text), Convert.ToInt32(ddtPunishment.SelectedValue));
                 reportName = "PenaltyReport.rpt";
             }
-            if (this.PropertyName == "H_PUNISHMENTREPORT" && ddtPunishment.SelectedValue == "2")
+            if (PropertyName == "H_PUNISHMENTREPORT" && ddtPunishment.SelectedValue == "2")
             {
                 dt = EmployeePunishmentReportProcedure.GetDataSet(Convert.ToInt32(txtEmpIdD.Text), Convert.ToInt32(ddtPunishment.SelectedValue));
                 reportName = "IncreamentHeldupReport.rpt";
             }
-            if (this.PropertyName == "H_PUNISHMENTREPORT" && ddtPunishment.SelectedValue == "3")
+            if (PropertyName == "H_PUNISHMENTREPORT" && ddtPunishment.SelectedValue == "3")
             {
                 dt = EmployeePunishmentReportProcedure.GetDataSet(Convert.ToInt32(txtEmpIdD.Text), Convert.ToInt32(ddtPunishment.SelectedValue));
                 reportName = "WarningReport.rpt";
             }
-            if (this.PropertyName == "H_PUNISHMENTREPORT" && ddtPunishment.SelectedValue == "4")
+            if (PropertyName == "H_PUNISHMENTREPORT" && ddtPunishment.SelectedValue == "4")
             {
                 dt = EmployeePunishmentReportProcedure.GetDataSet(Convert.ToInt32(txtEmpIdD.Text), Convert.ToInt32(ddtPunishment.SelectedValue));
                 reportName = "LeaveReport.rpt";
             }
-            if (this.PropertyName == "H_GOVTDISTRICTWISEBRANCH")
+            if (PropertyName == "H_GOVTDISTRICTWISEBRANCH")
             {
                 TransactionManager tm = new TransactionManager(false);
                 string strquery = "Select div.Name AS Division,dis.Name AS District ,count(b.Id) AS Branch from Division div INNER JOIN District dis ON div.Id=dis.DivisionId INNER JOIN Thana t ON dis.Id=t.DistrictId INNER JOIN Branch b ON t.Id=b.ThanaId and b.Status=1 GROUP BY div.Name,dis.Name ORDER BY div.Name,dis.Name";
                 dt = tm.GetDataSet(strquery).Tables[0];
                 reportName = "GovtDistrictWiseBranch.rpt";
             }
-            if (this.PropertyName == "H_ASADISTRICTWISEBRANCH")
+            if (PropertyName == "H_ASADISTRICTWISEBRANCH")
             {
                 TransactionManager tm = new TransactionManager(false);
                 string strquery = "Select s.Name AS District,count(b.Id) AS Branch from Subzone s INNER JOIN Region r ON s.Id=r.SubzoneId INNER JOIN Branch b ON r.Id=b.RegionId and b.Status=1 GROUP BY s.Name ORDER BY s.Name";
                 dt = tm.GetDataSet(strquery).Tables[0];
                 reportName = "ASADistrictWiseBranch.rpt";
             }
-            if (this.PropertyName == "H_EMPLOYEERESUME")
+            if (PropertyName == "H_EMPLOYEERESUME")
             {
                 dt = Employee_Resume_Procedure.GetDataSet(Convert.ToInt32(txtEmpIdD.Text));
                 reportName = "EmployeeResume.rpt";
             }
-            if (this.PropertyName == "H_MONTHLYREPORT")
+            if (PropertyName == "H_MONTHLYREPORT")
             {
                 DateTime startdate = new DateTime(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue), 1);
                 dt = Monthly_Report_Procedure.GetDataSet(startdate);
                 reportName = "H_MonthlyReport.rpt";
             }
-            if (this.PropertyName == "H_TRANSFERLETTER")
+            if (PropertyName == "H_TRANSFERLETTER")
             {
                 IList<H_EmployeeTransferHistory> h_Trans = H_EmployeeTransferHistory.Find("LetterNo='" + txtLetterNo.Text + "'", "");
                 dt = new DataTable();
@@ -425,14 +425,14 @@ namespace GITS.Hrms.WebSite.Reports
                 msg.Type = MessageType.Error;
                 msg.Msg = "No employee found";
 
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
 
             ReportDocument rd = new ReportDocument();
 
             rd.Load(Server.MapPath("~/Reports/" + reportName));
-            if (this.PropertyName == "H_TRANSFERLETTER")
+            if (PropertyName == "H_TRANSFERLETTER")
             {
                 string designation = string.Empty;
                 foreach (DataRow dr in dt.Rows)
@@ -513,7 +513,7 @@ namespace GITS.Hrms.WebSite.Reports
 
         protected void rvAsOnDate_Init(object sender, EventArgs e)
         {
-            ((System.Web.UI.WebControls.RangeValidator)sender).MaximumValue = DateTime.Now.Date.ToString("dd/MM/yyyy");
+            ((RangeValidator)sender).MaximumValue = DateTime.Now.Date.ToString("dd/MM/yyyy");
         }
         private String NumberInBangla(Int32 num)
         {

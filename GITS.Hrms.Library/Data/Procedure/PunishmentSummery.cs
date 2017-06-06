@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[PunishmentSummery]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[2];
 
@@ -29,7 +29,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override PunishmentSummery Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override PunishmentSummery Map(SqlDataReader dataReader)
         {
             PunishmentSummery procedure = new PunishmentSummery();
 

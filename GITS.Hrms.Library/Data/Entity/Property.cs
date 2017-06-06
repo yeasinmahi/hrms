@@ -80,56 +80,56 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String ModuleName
 		{
-			get {return this._ModuleName;}
-			set {this._ModuleName = value;}
+			get {return _ModuleName;}
+			set {_ModuleName = value;}
 		}
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 		public String DisplayName
 		{
-			get {return this._DisplayName;}
-			set {this._DisplayName = value;}
+			get {return _DisplayName;}
+			set {_DisplayName = value;}
 		}
 
 		public String PermissionType
 		{
-			get {return this._PermissionType;}
-			set {this._PermissionType = value;}
+			get {return _PermissionType;}
+			set {_PermissionType = value;}
 		}
 
 		public String PermissionProperty
 		{
-			get {return this._PermissionProperty;}
-			set {this._PermissionProperty = value;}
+			get {return _PermissionProperty;}
+			set {_PermissionProperty = value;}
 		}
 
 		public String ImageUrl
 		{
-			get {return this._ImageUrl;}
-			set {this._ImageUrl = value;}
+			get {return _ImageUrl;}
+			set {_ImageUrl = value;}
 		}
 
 		public String Path
 		{
-			get {return this._Path;}
-			set {this._Path = value;}
+			get {return _Path;}
+			set {_Path = value;}
 		}
 
 		public Boolean IsActive
 		{
-			get {return this._IsActive;}
-			set {this._IsActive = value;}
+			get {return _IsActive;}
+			set {_IsActive = value;}
 		}
 
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
 
 	}

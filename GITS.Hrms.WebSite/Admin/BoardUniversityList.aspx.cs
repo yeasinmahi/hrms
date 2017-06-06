@@ -19,8 +19,8 @@ namespace GITS.Hrms.WebSite.Admin
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(BoardUniversity);
+            GridView = gvList;
+            EntityType = typeof(BoardUniversity);
         }
 
         protected override String GetAddPageUrl()

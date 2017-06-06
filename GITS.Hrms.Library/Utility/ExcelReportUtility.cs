@@ -21,8 +21,8 @@ namespace GITS.Hrms.Library.Utility
 
         public ExcelReportUtility()
         {
-            this.BoldRow += new RowEventHandler(DefaultEventHandler);
-            this.BoldColumn += new ColumnEventHandler(DefaultEventHandler);
+            BoldRow += new RowEventHandler(DefaultEventHandler);
+            BoldColumn += new ColumnEventHandler(DefaultEventHandler);
         }
 
         public static ExcelReportUtility Instance
@@ -68,42 +68,42 @@ namespace GITS.Hrms.Library.Utility
 
         public void ViewReport()
         {
-            if (this.DataSource != null)
+            if (DataSource != null)
             {
-                Type type = this.DataSource.GetType();
-                Workbook workbook = this.GetWorkbook();                
+                Type type = DataSource.GetType();
+                Workbook workbook = GetWorkbook();                
 
                 if (type == typeof(DataTable))
                 {
-                    this.AddWorksheet(workbook, (DataTable)this.DataSource, 0);
+                    AddWorksheet(workbook, (DataTable)DataSource, 0);
                 }
                 else if (type == typeof(DataTable[]))
                 {
-                    DataTable[] tables = (DataTable[])this.DataSource;
+                    DataTable[] tables = (DataTable[])DataSource;
 
                     for (Int32 i = 0; i < tables.Length; i++)
                     {
-                        this.AddWorksheet(workbook, tables[i], i);
+                        AddWorksheet(workbook, tables[i], i);
                     }
                 }
                 else if (type == typeof(GridView))
                 {
-                    this.AddWorksheet(workbook, (GridView)this.DataSource, 0);
+                    AddWorksheet(workbook, (GridView)DataSource, 0);
                 }
                 else if (type == typeof(GridView[]))
                 {
-                    GridView[] gridViews = (GridView[])this.DataSource;
+                    GridView[] gridViews = (GridView[])DataSource;
 
                     for (Int32 i = 0; i < gridViews.Length; i++)
                     {
-                        this.AddWorksheet(workbook, gridViews[i], i);
+                        AddWorksheet(workbook, gridViews[i], i);
                     }
                 }
                 else
                 {
                     try 
                     { 
-                        this.AddWorksheet(workbook, (DataTable)this.DataSource, 0); 
+                        AddWorksheet(workbook, (DataTable)DataSource, 0); 
                     }
                     catch 
                     { 
@@ -117,7 +117,7 @@ namespace GITS.Hrms.Library.Utility
                     workbook.Save(tempFile);
                     FileInfo fileInfo = new FileInfo(tempFile);
                     System.Web.HttpContext.Current.Response.Clear();
-                    System.Web.HttpContext.Current.Response.AddHeader("content-disposition", String.Format("attachment; filename={0}", this.Name));
+                    System.Web.HttpContext.Current.Response.AddHeader("content-disposition", String.Format("attachment; filename={0}", Name));
                     System.Web.HttpContext.Current.Response.Charset = "";
                     System.Web.HttpContext.Current.Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
                     System.Web.HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.UTF8;
@@ -152,25 +152,25 @@ namespace GITS.Hrms.Library.Utility
         private Workbook GetWorkbook()
         {
             Workbook workbook = new Workbook();
-            workbook.Styles.Add(this.GetWorksheetStyle("Default", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, false, 0, null, null, false));
+            workbook.Styles.Add(GetWorksheetStyle("Default", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, false, 0, null, null, false));
 
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, null, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, null, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultIntegerCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, Configuration.ExcelIntegerFormat, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultIntegerBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, Configuration.ExcelIntegerFormat, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultDoubleCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, Configuration.ExcelDoubleFormat, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultDoubleBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, Configuration.ExcelDoubleFormat, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultNumberCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, Configuration.ExcelDecimalFormat, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultNumberBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, Configuration.ExcelDecimalFormat, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultDateTimeCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, Configuration.ExcelDateFormat, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("DefaultDateTimeBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, Configuration.ExcelDateFormat, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("HeaderTop1", StyleHorizontalAlignment.Center, StyleVerticalAlignment.Center, true, false, 20, null, null, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("HeaderTop2", StyleHorizontalAlignment.Center, StyleVerticalAlignment.Center, true, false, 15, null, null, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("HeaderTop3", StyleHorizontalAlignment.Left, StyleVerticalAlignment.Center, true, false, 12, null, null, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("HeaderTop4", StyleHorizontalAlignment.Right, StyleVerticalAlignment.Center, true, false, 12, null, null, false));
-            workbook.Styles.Add(this.GetWorksheetStyle("HeaderCenterAlign", StyleHorizontalAlignment.Center, StyleVerticalAlignment.Center, true, true, 0, "#C0C0C0", null, true));
-            workbook.Styles.Add(this.GetWorksheetStyle("HeaderLeftAlign", StyleHorizontalAlignment.Left, StyleVerticalAlignment.Center, true, true, 0, "#C0C0C0", null, true));
-            workbook.Styles.Add(this.GetWorksheetStyle("HeaderRightAlign", StyleHorizontalAlignment.Right, StyleVerticalAlignment.Center, true, true, 0, "#C0C0C0", null, true));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, null, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, null, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultIntegerCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, Configuration.ExcelIntegerFormat, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultIntegerBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, Configuration.ExcelIntegerFormat, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultDoubleCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, Configuration.ExcelDoubleFormat, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultDoubleBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, Configuration.ExcelDoubleFormat, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultNumberCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, Configuration.ExcelDecimalFormat, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultNumberBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, Configuration.ExcelDecimalFormat, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultDateTimeCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, false, true, 0, null, Configuration.ExcelDateFormat, false));
+            workbook.Styles.Add(GetWorksheetStyle("DefaultDateTimeBoldCell", StyleHorizontalAlignment.Automatic, StyleVerticalAlignment.Automatic, true, true, 0, null, Configuration.ExcelDateFormat, false));
+            workbook.Styles.Add(GetWorksheetStyle("HeaderTop1", StyleHorizontalAlignment.Center, StyleVerticalAlignment.Center, true, false, 20, null, null, false));
+            workbook.Styles.Add(GetWorksheetStyle("HeaderTop2", StyleHorizontalAlignment.Center, StyleVerticalAlignment.Center, true, false, 15, null, null, false));
+            workbook.Styles.Add(GetWorksheetStyle("HeaderTop3", StyleHorizontalAlignment.Left, StyleVerticalAlignment.Center, true, false, 12, null, null, false));
+            workbook.Styles.Add(GetWorksheetStyle("HeaderTop4", StyleHorizontalAlignment.Right, StyleVerticalAlignment.Center, true, false, 12, null, null, false));
+            workbook.Styles.Add(GetWorksheetStyle("HeaderCenterAlign", StyleHorizontalAlignment.Center, StyleVerticalAlignment.Center, true, true, 0, "#C0C0C0", null, true));
+            workbook.Styles.Add(GetWorksheetStyle("HeaderLeftAlign", StyleHorizontalAlignment.Left, StyleVerticalAlignment.Center, true, true, 0, "#C0C0C0", null, true));
+            workbook.Styles.Add(GetWorksheetStyle("HeaderRightAlign", StyleHorizontalAlignment.Right, StyleVerticalAlignment.Center, true, true, 0, "#C0C0C0", null, true));
 
             return workbook;
         }
@@ -249,9 +249,9 @@ namespace GITS.Hrms.Library.Utility
                 worksheet.Options.Print.Scale = 100;
             }
 
-            if (this.Header != null)
+            if (Header != null)
             {
-                foreach (WorksheetRow header in this.Header[index])
+                foreach (WorksheetRow header in Header[index])
                 {
                     worksheet.Table.Rows.Add(header);
                 }
@@ -259,12 +259,12 @@ namespace GITS.Hrms.Library.Utility
 
             for (int rowIndex = 0; rowIndex < dataTable.Rows.Count; ++rowIndex)
             {
-                Boolean boldRow = this.BoldRow(dataTable.Rows[rowIndex]);
+                Boolean boldRow = BoldRow(dataTable.Rows[rowIndex]);
                 worksheetRow = worksheet.Table.Rows.Add();
 
                 for (int columnIndex = 0; columnIndex < dataTable.Columns.Count; ++columnIndex)
                 {
-                    Boolean boldColumn = this.BoldColumn(dataTable.Columns[columnIndex]);
+                    Boolean boldColumn = BoldColumn(dataTable.Columns[columnIndex]);
                     Object cell = dataTable.Rows[rowIndex][columnIndex];
                     DataType dataType = GetDataType(dataTable.Columns[columnIndex].DataType);
                     String format = "";
@@ -319,9 +319,9 @@ namespace GITS.Hrms.Library.Utility
             worksheet.Options.PageSetup.Layout.CenterHorizontal = true;
             worksheet.Options.PageSetup.Footer.Data = "Page &P of &N";
 
-            if (this.Header != null && this.Header.Length > 0)
+            if (Header != null && Header.Length > 0)
             {
-                worksheet.Names.Add(new WorksheetNamedRange("Print_Titles", "=" + "Sheet" + (index + 1) + "!R" + this.Header[0].Length, false));
+                worksheet.Names.Add(new WorksheetNamedRange("Print_Titles", "=" + "Sheet" + (index + 1) + "!R" + Header[0].Length, false));
             }
 
             foreach (DataControlField column in gridView.Columns)
@@ -355,9 +355,9 @@ namespace GITS.Hrms.Library.Utility
                 worksheet.Options.Print.Scale = 100;
             }
 
-            if (this.Header != null)
+            if (Header != null)
             {
-                foreach (WorksheetRow header in this.Header[index])
+                foreach (WorksheetRow header in Header[index])
                 {
                     worksheet.Table.Rows.Add(header);
                 }

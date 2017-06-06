@@ -64,38 +64,38 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 DbTransactionId
 		{
-			get {return this._DbTransactionId;}
-			set {this._DbTransactionId = value;}
+			get {return _DbTransactionId;}
+			set {_DbTransactionId = value;}
 		}
 
 		public String Type
 		{
-			get {return this._Type;}
-			set {this._Type = value;}
+			get {return _Type;}
+			set {_Type = value;}
 		}
 
 		public String TableName
 		{
-			get {return this._TableName;}
-			set {this._TableName = value;}
+			get {return _TableName;}
+			set {_TableName = value;}
 		}
 
 		public String IdentityColumn
 		{
-			get {return this._IdentityColumn;}
-			set {this._IdentityColumn = value;}
+			get {return _IdentityColumn;}
+			set {_IdentityColumn = value;}
 		}
 
 		public String IdentityValue
 		{
-			get {return this._IdentityValue;}
-			set {this._IdentityValue = value;}
+			get {return _IdentityValue;}
+			set {_IdentityValue = value;}
 		}
 
 		public String Value
 		{
-			get {return this._Value;}
-			set {this._Value = value;}
+			get {return _Value;}
+			set {_Value = value;}
 		}
 
 	}

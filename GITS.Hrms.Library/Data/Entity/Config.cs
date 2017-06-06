@@ -70,32 +70,32 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Key
 		{
-			get {return this._Key;}
-			set {this._Key = value;}
+			get {return _Key;}
+			set {_Key = value;}
 		}
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 		public String DataType
 		{
-			get {return this._DataType;}
-			set {this._DataType = value;}
+			get {return _DataType;}
+			set {_DataType = value;}
 		}
 
 		public String ReadableDataType
 		{
-			get {return this._ReadableDataType;}
-			set {this._ReadableDataType = value;}
+			get {return _ReadableDataType;}
+			set {_ReadableDataType = value;}
 		}
 
 		public String Value
 		{
-			get {return this._Value;}
-			set {this._Value = value;}
+			get {return _Value;}
+			set {_Value = value;}
 		}
 
 	}

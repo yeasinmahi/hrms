@@ -32,13 +32,13 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 string desc = string.Empty;
-                H_SpecialIncrement h_EmployeePenalty = this.GetH_SpecialIncrement();
-                if (this.Type == TYPE_EDIT)
+                H_SpecialIncrement h_EmployeePenalty = GetH_SpecialIncrement();
+                if (Type == TYPE_EDIT)
                 {
                     desc = "Update [H_SpecialIncrement]";
                 }
@@ -47,19 +47,19 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "Insert [H_SpecialIncrement]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
-                    H_SpecialIncrement.Update(this.TransactionManager, h_EmployeePenalty);
+                    H_SpecialIncrement.Update(TransactionManager, h_EmployeePenalty);
                 }
                 else
                 {
-                    H_SpecialIncrement.Insert(this.TransactionManager, h_EmployeePenalty);
+                    H_SpecialIncrement.Insert(TransactionManager, h_EmployeePenalty);
                 }
 
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
                 LoadGridView(Convert.ToInt32(hdnId.Value));
                 txtLetterNo.Text = "";
                 txtLetterDate.Text = "";
@@ -77,7 +77,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -90,7 +90,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_SpecialIncrement GetH_SpecialIncrement()
         {
             H_SpecialIncrement h_EmployeePenalty = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeePenalty = H_SpecialIncrement.GetById(Convert.ToInt32(hfPenalyId.Value));
             }
@@ -113,7 +113,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
@@ -203,7 +203,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Edit not Permitted after effective Date";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 txtLetterNo.Text = penalty.LetterNo;
@@ -213,7 +213,7 @@ namespace GITS.Hrms.WebSite.HRM
                 txtRemarks.Text = penalty.Remarks;
 
                 hfPenalyId.Value = penalty.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
             }
             

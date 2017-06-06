@@ -56,38 +56,38 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Village
 		{
-			get {return this._Village;}
-			set {this._Village = value;}
+			get {return _Village;}
+			set {_Village = value;}
 		}
 
 		public String PostOffice
 		{
-			get {return this._PostOffice;}
-			set {this._PostOffice = value;}
+			get {return _PostOffice;}
+			set {_PostOffice = value;}
 		}
 
 		public Nullable<Int32> PostCode
 		{
-			get {return this._PostCode;}
-			set {this._PostCode = value;}
+			get {return _PostCode;}
+			set {_PostCode = value;}
 		}
 
 		public Int32 ThanaId
 		{
-			get {return this._ThanaId;}
-			set {this._ThanaId = value;}
+			get {return _ThanaId;}
+			set {_ThanaId = value;}
 		}
 
 		public String Phone
 		{
-			get {return this._Phone;}
-			set {this._Phone = value;}
+			get {return _Phone;}
+			set {_Phone = value;}
 		}
 
 		public String Email
 		{
-			get {return this._Email;}
-			set {this._Email = value;}
+			get {return _Email;}
+			set {_Email = value;}
 		}
 
 	}

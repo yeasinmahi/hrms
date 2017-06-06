@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             Zone division = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 division = Zone.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -62,7 +62,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -74,14 +74,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                Zone division = this.GetZone();
+                Zone division = GetZone();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Zone]";
                 }
@@ -90,21 +90,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [Zone]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Zone.Insert(this.TransactionManager, division);
+                    Zone.Insert(TransactionManager, division);
 
                     hdnId.Value = division.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    Zone.Update(this.TransactionManager, division);
+                    Zone.Update(TransactionManager, division);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -122,7 +122,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (division != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = division.Name;
                     ddlStatus.SelectedValue = ((Int32)division.Status).ToString();

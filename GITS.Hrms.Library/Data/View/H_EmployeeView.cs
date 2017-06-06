@@ -130,192 +130,192 @@ namespace GITS.Hrms.Library.Data.View
         }
         public Int32 SL
         {
-            get { return this._SL; }
-            set { this._SL = value; }
+            get { return _SL; }
+            set { _SL = value; }
         }
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
         public String NameInBangla
         {
-            get { return this._NameInBangla; }
-            set { this._NameInBangla = value; }
+            get { return _NameInBangla; }
+            set { _NameInBangla = value; }
         }
         public Int32 Code
         {
-            get { return this._Code; }
-            set { this._Code = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
 
 		public String FatherName
 		{
-			get {return this._FatherName;}
-			set {this._FatherName = value;}
+			get {return _FatherName;}
+			set {_FatherName = value;}
 		}
 
 		public String MotherName
 		{
-			get {return this._MotherName;}
-			set {this._MotherName = value;}
+			get {return _MotherName;}
+			set {_MotherName = value;}
 		}
 
 		public DateTime DateOfBirth
 		{
-			get {return this._DateOfBirth;}
-			set {this._DateOfBirth = value;}
+			get {return _DateOfBirth;}
+			set {_DateOfBirth = value;}
 		}
 
         public H_Employee.BloodGroups BloodGroup
 		{
-			get {return this._BloodGroup;}
-			set {this._BloodGroup = value;}
+			get {return _BloodGroup;}
+			set {_BloodGroup = value;}
 		}
 
         public String Sex
 		{
-			get {return this._Sex;}
-			set {this._Sex = value;}
+			get {return _Sex;}
+			set {_Sex = value;}
 		}
 
         public String MaritalStatus
 		{
-			get {return this._MaritalStatus;}
-			set {this._MaritalStatus = value;}
+			get {return _MaritalStatus;}
+			set {_MaritalStatus = value;}
 		}
 
         public String Religion
 		{
-			get {return this._Religion;}
-			set {this._Religion = value;}
+			get {return _Religion;}
+			set {_Religion = value;}
 		}
 
 		public Int32 PermanentAddressId
 		{
-			get {return this._PermanentAddressId;}
-			set {this._PermanentAddressId = value;}
+			get {return _PermanentAddressId;}
+			set {_PermanentAddressId = value;}
 		}
 
 		public Int32 PresentAddressId
 		{
-			get {return this._PresentAddressId;}
-			set {this._PresentAddressId = value;}
+			get {return _PresentAddressId;}
+			set {_PresentAddressId = value;}
 		}
 
 		public DateTime AppointmentLetterDate
 		{
-			get {return this._AppointmentLetterDate;}
-			set {this._AppointmentLetterDate = value;}
+			get {return _AppointmentLetterDate;}
+			set {_AppointmentLetterDate = value;}
 		}
 
 		public String AppointmentLetterNo
 		{
-			get {return this._AppointmentLetterNo;}
-			set {this._AppointmentLetterNo = value;}
+			get {return _AppointmentLetterNo;}
+			set {_AppointmentLetterNo = value;}
 		}
 
 		public DateTime JoiningDate
 		{
-			get {return this._JoiningDate;}
-			set {this._JoiningDate = value;}
+			get {return _JoiningDate;}
+			set {_JoiningDate = value;}
 		}
 
         public String EmploymentType
         {
-            get { return this._EmploymentType; }
-            set { this._EmploymentType = value; }
+            get { return _EmploymentType; }
+            set { _EmploymentType = value; }
         }
 
         public String Status
 		{
-			get {return this._Status;}
-			set {this._Status = value;}
+			get {return _Status;}
+			set {_Status = value;}
 		}
 
 		public Int32 BranchId
 		{
-			get {return this._BranchId;}
-			set {this._BranchId = value;}
+			get {return _BranchId;}
+			set {_BranchId = value;}
 		}
 
 		public String BranchName
 		{
-			get {return this._BranchName;}
-			set {this._BranchName = value;}
+			get {return _BranchName;}
+			set {_BranchName = value;}
 		}
 
         public Int32 RegionId
         {
-            get { return this._RegionId; }
-            set { this._RegionId = value; }
+            get { return _RegionId; }
+            set { _RegionId = value; }
         }
 
         public String RegionName
         {
-            get { return this._RegionName; }
-            set { this._RegionName = value; }
+            get { return _RegionName; }
+            set { _RegionName = value; }
         }
 
         public Int32 SubzoneId
         {
-            get { return this._SubzoneId; }
-            set { this._SubzoneId = value; }
+            get { return _SubzoneId; }
+            set { _SubzoneId = value; }
         }
 
         public String SubzoneName
         {
-            get { return this._SubzoneName; }
-            set { this._SubzoneName = value; }
+            get { return _SubzoneName; }
+            set { _SubzoneName = value; }
         }
 
         public Int32 ZoneId
         {
-            get { return this._ZoneId; }
-            set { this._ZoneId = value; }
+            get { return _ZoneId; }
+            set { _ZoneId = value; }
         }
 
         public String ZoneName
         {
-            get { return this._ZoneName; }
-            set { this._ZoneName = value; }
+            get { return _ZoneName; }
+            set { _ZoneName = value; }
         }
 
 		public Int32 H_DepartmentId
 		{
-			get {return this._H_DepartmentId;}
-			set {this._H_DepartmentId = value;}
+			get {return _H_DepartmentId;}
+			set {_H_DepartmentId = value;}
 		}
 
 		public String DepartmentName
 		{
-			get {return this._DepartmentName;}
-			set {this._DepartmentName = value;}
+			get {return _DepartmentName;}
+			set {_DepartmentName = value;}
 		}
 
 		public Int32 H_DesignationId
 		{
-			get {return this._H_DesignationId;}
-			set {this._H_DesignationId = value;}
+			get {return _H_DesignationId;}
+			set {_H_DesignationId = value;}
 		}
 
 		public String DesignationName
 		{
-			get {return this._DesignationName;}
-			set {this._DesignationName = value;}
+			get {return _DesignationName;}
+			set {_DesignationName = value;}
 		}
 
 		public Int32 H_GradeId
 		{
-			get {return this._H_GradeId;}
-			set {this._H_GradeId = value;}
+			get {return _H_GradeId;}
+			set {_H_GradeId = value;}
 		}
 
 		public String GradeName
 		{
-			get {return this._GradeName;}
-			set {this._GradeName = value;}
+			get {return _GradeName;}
+			set {_GradeName = value;}
 		}
 
 	}

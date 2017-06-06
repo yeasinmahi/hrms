@@ -19,8 +19,8 @@ namespace GITS.Hrms.WebSite.Payroll
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(P_Loan);
+            GridView = gvList;
+            EntityType = typeof(P_Loan);
         }
 
         protected override string GetAddPageUrl()

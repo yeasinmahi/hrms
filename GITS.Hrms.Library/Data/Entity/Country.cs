@@ -47,8 +47,8 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
 
       

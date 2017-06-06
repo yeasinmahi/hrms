@@ -17,17 +17,17 @@ namespace GITS.Hrms.WebSite.Reports
 
         protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
                     case "PRINT":
-                        this.PrintData();
+                        PrintData();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -50,7 +50,7 @@ namespace GITS.Hrms.WebSite.Reports
 
         protected override void PrintData()
         {
-            DataTable dt = LetterOfIdCardProcedure.GetDataSet(DBUtility.ToInt32(this.txtStartId.Text), DBUtility.ToInt32(this.txtEndId.Text));
+            DataTable dt = LetterOfIdCardProcedure.GetDataSet(DBUtility.ToInt32(txtStartId.Text), DBUtility.ToInt32(txtEndId.Text));
 
             if (dt.Rows.Count <= 0)
             { 
@@ -58,7 +58,7 @@ namespace GITS.Hrms.WebSite.Reports
                 msg.Type = MessageType.Error;
                 msg.Msg = "No employee found";
 
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
 
@@ -67,7 +67,7 @@ namespace GITS.Hrms.WebSite.Reports
 
             rd.SetDataSource(dt);
             Session["note"] = txtNote.Text;
-            ReportUtility.ShowReport(this, GetParameters(DBUtility.ToInt32(this.txtStartId.Text), DBUtility.ToInt32(this.txtEndId.Text)), rd, false, false);
+            ReportUtility.ShowReport(this, GetParameters(DBUtility.ToInt32(txtStartId.Text), DBUtility.ToInt32(txtEndId.Text)), rd, false, false);
         }
 
         private new Message Validate()
@@ -78,7 +78,7 @@ namespace GITS.Hrms.WebSite.Reports
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";

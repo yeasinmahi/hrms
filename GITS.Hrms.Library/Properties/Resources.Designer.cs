@@ -94,5 +94,14 @@ namespace GITS.Hrms.Library.Properties {
                 return ResourceManager.GetString("DatabaseConfigSchema", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;nbsp;.
+        /// </summary>
+        internal static string Space {
+            get {
+                return ResourceManager.GetString("Space", resourceCulture);
+            }
+        }
     }
 }

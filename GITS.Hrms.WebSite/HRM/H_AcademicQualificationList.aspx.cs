@@ -28,14 +28,14 @@ namespace GITS.Hrms.WebSite.HRM
 
                 if (h_Employee != null)
                 {
-                    this.txtEmployeeName.Text = h_Employee.Name;
-                    this.hlBack.NavigateUrl = "~/HRM/H_EmployeeAdd.aspx?Id=" + h_Employee.Id;
+                    txtEmployeeName.Text = h_Employee.Name;
+                    hlBack.NavigateUrl = "~/HRM/H_EmployeeAdd.aspx?Id=" + h_Employee.Id;
 
-                    list = H_AcademicQualificationView.Find("H_EmployeeId = " + h_Employee.Id, "SortOrder", this.PageIndex * this.GridView.PageSize + 1, this.GridView.PageSize, out total);
+                    list = H_AcademicQualificationView.Find("H_EmployeeId = " + h_Employee.Id, "SortOrder", PageIndex * GridView.PageSize + 1, GridView.PageSize, out total);
                 }
             }
 
-            this.RecordCount = total;
+            RecordCount = total;
 
             return list;
         }
@@ -44,9 +44,9 @@ namespace GITS.Hrms.WebSite.HRM
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.BaseEntityType = typeof(H_AcademicQualification);
-            this.EntityType = typeof(H_AcademicQualificationView);
+            GridView = gvList;
+            BaseEntityType = typeof(H_AcademicQualification);
+            EntityType = typeof(H_AcademicQualificationView);
         }
 
         protected override string GetAddPageUrl()

@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             Config config = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 config = Config.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -54,7 +54,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -66,14 +66,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                Config p_Config = this.GetConfig();
+                Config p_Config = GetConfig();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Config]";
                 }
@@ -82,21 +82,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [Config]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Config.Insert(this.TransactionManager, p_Config);
+                    Config.Insert(TransactionManager, p_Config);
 
                     hdnId.Value = p_Config.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    Config.Update(this.TransactionManager, p_Config);
+                    Config.Update(TransactionManager, p_Config);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -113,7 +113,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (config != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = config.Name;
                     txtReadableDataType.Text = config.ReadableDataType;
@@ -124,7 +124,7 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected void cvValue_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            Config config = this.GetConfig();
+            Config config = GetConfig();
 
             try
             {

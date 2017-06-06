@@ -43,37 +43,37 @@ namespace GITS.Hrms.Library.Data.View
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 		public Int32 SubzoneId
 		{
-			get {return this._SubzoneId;}
-			set {this._SubzoneId = value;}
+			get {return _SubzoneId;}
+			set {_SubzoneId = value;}
 		}
 
 		public String SubzoneName
 		{
-			get {return this._SubzoneName;}
-			set {this._SubzoneName = value;}
+			get {return _SubzoneName;}
+			set {_SubzoneName = value;}
 		}
 
 		public Int32 ZoneId
 		{
-			get {return this._ZoneId;}
-			set {this._ZoneId = value;}
+			get {return _ZoneId;}
+			set {_ZoneId = value;}
 		}
 
 		public String ZoneName
 		{
-			get {return this._ZoneName;}
-			set {this._ZoneName = value;}
+			get {return _ZoneName;}
+			set {_ZoneName = value;}
 		}
         public Region.Statuses Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
 	}
 }

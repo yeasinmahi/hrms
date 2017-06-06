@@ -22,7 +22,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
 
             if (h_Employee != null)
             {
@@ -36,7 +36,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 IList<H_EmployeeTransferHistory> iTranList = H_EmployeeTransferHistory.Find(" H_EmployeeId=" + h_Employee.Id + " AND Status=1", "JoiningDate DESC");
@@ -50,11 +50,11 @@ namespace GITS.Hrms.WebSite.HRM
                         Message msg = new Message();
                         msg.Type = MessageType.Error;
                         msg.Msg = "Already Transfered to " + branch1.Name + " Joining Date: " + h_EmployeeTransfer.JoiningDate.ToString("dd/MM/yyyy");
-                        this.ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                         return;
                     }
                 }
-                this.Type = TYPE_ADD;
+                Type = TYPE_ADD;
                 hdnId.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 H_EmployeeDepartment eDepartment = H_EmployeeDepartment.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
@@ -78,12 +78,12 @@ namespace GITS.Hrms.WebSite.HRM
                 txtGrade.Text = "";
                 txtDesignation.Text = "";
 
-                if (this.txtEmployee.Text.Trim() != "")
+                if (txtEmployee.Text.Trim() != "")
                 {
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "No employee found";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                 }
             }
 
@@ -140,7 +140,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (h_Employee != null)
                 {
                     hdnId.Value = h_Employee.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                     H_EmployeeDepartment eDepartment = H_EmployeeDepartment.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
                     txtDepartment.Text = H_Department.GetById(eDepartment.H_DepartmentId).Name;
@@ -331,7 +331,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -369,22 +369,22 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 string desc = "INSER [H_EmployeeMultiLetter]";
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
                 H_EmployeeMultiLetter letter=null;
-                if (this.Type == TYPE_EDIT)
+                if (Type == TYPE_EDIT)
                 {
                     letter=H_EmployeeMultiLetter.GetById(Convert.ToInt32(hdnLetterId.Value));
-                    if (letter.H_EmployeeTransferHistoryId != null) H_EmployeeTransferHistory.Delete(this.TransactionManager, letter.H_EmployeeTransferHistoryId.Value);
-                    if (letter.H_EmployeePromotionHistoryId != null) H_EmployeePromotionHistory.Delete(this.TransactionManager, letter.H_EmployeePromotionHistoryId.Value);
-                    if (letter.H_EmployeePenatyId != null) H_EmployeePenalty.Delete(this.TransactionManager, letter.H_EmployeePenatyId.Value);
-                    if (letter.H_EmployeeWarningId != null) H_EmployeeWarning.Delete(this.TransactionManager, letter.H_EmployeeWarningId.Value);
-                    if (letter.H_EmployeeIncrementHeldupId != null) H_EmployeeIncrementHeldup.Delete(this.TransactionManager, letter.H_EmployeeIncrementHeldupId.Value);
-                    if (letter.H_EmployeeRejoinId != null) H_EmployeeRejoin.Delete(this.TransactionManager, letter.H_EmployeeRejoinId.Value);
+                    if (letter.H_EmployeeTransferHistoryId != null) H_EmployeeTransferHistory.Delete(TransactionManager, letter.H_EmployeeTransferHistoryId.Value);
+                    if (letter.H_EmployeePromotionHistoryId != null) H_EmployeePromotionHistory.Delete(TransactionManager, letter.H_EmployeePromotionHistoryId.Value);
+                    if (letter.H_EmployeePenatyId != null) H_EmployeePenalty.Delete(TransactionManager, letter.H_EmployeePenatyId.Value);
+                    if (letter.H_EmployeeWarningId != null) H_EmployeeWarning.Delete(TransactionManager, letter.H_EmployeeWarningId.Value);
+                    if (letter.H_EmployeeIncrementHeldupId != null) H_EmployeeIncrementHeldup.Delete(TransactionManager, letter.H_EmployeeIncrementHeldupId.Value);
+                    if (letter.H_EmployeeRejoinId != null) H_EmployeeRejoin.Delete(TransactionManager, letter.H_EmployeeRejoinId.Value);
                     
                 }
                 else
@@ -400,7 +400,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (selectedValues.Contains("1"))
                 {
                     H_EmployeeTransferHistory transfer = GetH_EmployeeTransfer();
-                    H_EmployeeTransferHistory.Insert(this.TransactionManager, transfer);
+                    H_EmployeeTransferHistory.Insert(TransactionManager, transfer);
                     letter.H_EmployeeTransferHistoryId = transfer.Id;
                 }
                 else
@@ -411,7 +411,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (selectedValues.Contains("2"))
                 {
                     H_EmployeePromotionHistory promotion = GetH_EmployeePromotion();
-                    H_EmployeePromotionHistory.Insert(this.TransactionManager, promotion);
+                    H_EmployeePromotionHistory.Insert(TransactionManager, promotion);
                     letter.H_EmployeePromotionHistoryId = promotion.Id;
                 }
                 else
@@ -422,7 +422,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (selectedValues.Contains("3"))
                 {
                     H_EmployeePenalty penalty = GetH_EmployeePenalty();
-                    H_EmployeePenalty.Insert(this.TransactionManager, penalty);
+                    H_EmployeePenalty.Insert(TransactionManager, penalty);
                     letter.H_EmployeePenatyId = penalty.Id;
                 }
                 else
@@ -433,7 +433,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (selectedValues.Contains("4"))
                 {
                     H_EmployeeWarning warning = GetH_EmployeeWarning();
-                    H_EmployeeWarning.Insert(this.TransactionManager, warning);
+                    H_EmployeeWarning.Insert(TransactionManager, warning);
                     letter.H_EmployeeWarningId = warning.Id;
                 }
                 else
@@ -444,7 +444,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (selectedValues.Contains("5"))
                 {
                     H_EmployeeIncrementHeldup increment = GetH_EmployeeIncrementHeldup();
-                    H_EmployeeIncrementHeldup.Insert(this.TransactionManager, increment);
+                    H_EmployeeIncrementHeldup.Insert(TransactionManager, increment);
                     letter.H_EmployeeIncrementHeldupId = increment.Id;
                 }
                 else
@@ -465,7 +465,7 @@ namespace GITS.Hrms.WebSite.HRM
                             {
                                 h_Consultency.EndDate = DBUtility.ToDateTime(txtEffectiveDate.Text).AddDays(-1);
                                 h_Consultency.Status = H_EmployeeConsultency.Statuses.INACTIVE;
-                                H_EmployeeConsultency.Update(this.TransactionManager, h_Consultency);
+                                H_EmployeeConsultency.Update(TransactionManager, h_Consultency);
                                 rejoin.FromDate = h_Consultency.StartDate;
                             }
                         }
@@ -479,15 +479,15 @@ namespace GITS.Hrms.WebSite.HRM
                             {
                                 leave.EndDate = DBUtility.ToDateTime(txtEffectiveDate.Text).AddDays(-1);
                                 leave.Status = 2;
-                                H_EmployeeLeave.Update(this.TransactionManager, leave);
+                                H_EmployeeLeave.Update(TransactionManager, leave);
                                 rejoin.FromDate = leave.StartDate;
                             }
                         }
                     }
                     h_Employee.Status = (H_Employee.Statuses)((Int32)H_Employee.Statuses.Working);
-                    H_Employee.Update(this.TransactionManager, h_Employee);
+                    H_Employee.Update(TransactionManager, h_Employee);
                     
-                    H_EmployeeRejoin.Insert(this.TransactionManager, rejoin);
+                    H_EmployeeRejoin.Insert(TransactionManager, rejoin);
                     letter.H_EmployeeRejoinId = rejoin.Id;
                 }
                 else
@@ -508,14 +508,14 @@ namespace GITS.Hrms.WebSite.HRM
                 letter.Designation = txtDesg.Text;
                 letter.Duplication = txtDuplication.Text;
                 letter.Note = DBUtility.ToNullableString(txtNote.Text);
-                if (this.Type == TYPE_EDIT)
+                if (Type == TYPE_EDIT)
                     H_EmployeeMultiLetter.Update(TransactionManager, letter);
                 else
                     H_EmployeeMultiLetter.Insert(TransactionManager, letter);
 
                 TransactionManager.Commit();
                 hdnLetterId.Value = letter.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
                 
             }
 
@@ -638,7 +638,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Warning;
                     msg.Msg = "Employee is not in leave/Consultancy";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     chkLetterTypes.Items.Cast<ListItem>().Where(li => li.Value == "6").Single().Selected = false;
                     return;
                 }
@@ -681,7 +681,7 @@ namespace GITS.Hrms.WebSite.HRM
                 ddlDesignation.Items.Clear();
                 TransactionManager tm = new TransactionManager(false);
 
-                ddlDesignation.DataSource = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + this.ddlGrade.SelectedValue + " ORDER BY Name").Tables[0];
+                ddlDesignation.DataSource = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + ddlGrade.SelectedValue + " ORDER BY Name").Tables[0];
                 ddlDesignation.DataBind();
                 ddlDesignation.Items.Insert(0, new ListItem("Select Designation", "0"));
             }

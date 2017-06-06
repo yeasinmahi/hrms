@@ -18,8 +18,8 @@ namespace GITS.Hrms.WebSite.Admin
         {
             base.OnInit(e);
             SortColumn = "SortOrder";
-            this.GridView = this.gvList;
-            this.EntityType = typeof(H_LetterFormats);
+            GridView = gvList;
+            EntityType = typeof(H_LetterFormats);
         }
         protected override string GetAddPageUrl()
         {

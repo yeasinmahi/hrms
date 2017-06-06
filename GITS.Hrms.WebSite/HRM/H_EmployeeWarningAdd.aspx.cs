@@ -40,7 +40,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_EmployeeWarning GetH_EmployeeWarning()
         {
             H_EmployeeWarning h_EmployeeWarning = new H_EmployeeWarning();
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeeWarning = H_EmployeeWarning.GetById(Convert.ToInt32(hfWarningId.Value));
             }
@@ -72,7 +72,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -80,7 +80,7 @@ namespace GITS.Hrms.WebSite.HRM
             }
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (h_Employee.AppointmentLetterDate >= DBUtility.ToDateTime(txtLetterDate.Text))
@@ -103,13 +103,13 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_EmployeeWarning h_EmployeeWarning = this.GetH_EmployeeWarning();
+                H_EmployeeWarning h_EmployeeWarning = GetH_EmployeeWarning();
                 string desc = "Insert [H_EmployeeWarning]";
-                if (this.Type == TYPE_EDIT)
+                if (Type == TYPE_EDIT)
                 {
                     desc = "UPDATE [H_EmployeeWarning]";
                 }
@@ -117,23 +117,23 @@ namespace GITS.Hrms.WebSite.HRM
                 {
                     desc = "Insert [H_EmployeeWarning]";
                 }
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
-                    H_EmployeeWarning.Update(this.TransactionManager, h_EmployeeWarning);
+                    H_EmployeeWarning.Update(TransactionManager, h_EmployeeWarning);
                 }
                 else
                 {
-                    H_EmployeeWarning.Insert(this.TransactionManager, h_EmployeeWarning);
+                    H_EmployeeWarning.Insert(TransactionManager, h_EmployeeWarning);
                 }
                 
 
                 
 
                 hdnId.Value = h_EmployeeWarning.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -141,9 +141,9 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override void LoadData()
         {
-            this.ddlSubzone.DataSource = Subzone.Find("Status=1", "Name");//, User.Identity.Name);
-            this.ddlSubzone.DataBind();
-            this.ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
+            ddlSubzone.DataSource = Subzone.Find("Status=1", "Name");//, User.Identity.Name);
+            ddlSubzone.DataBind();
+            ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
         }
 
         //protected void ddlZone_SelectedIndexChanged(object sender, EventArgs e)
@@ -158,31 +158,31 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected void ddlSubzone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlSubzone.SelectedValue != null && this.ddlSubzone.SelectedValue != "")
+            if (ddlSubzone.SelectedValue != null && ddlSubzone.SelectedValue != "")
             {
-                this.ddlRegion.DataSource = Region.Find("SubzoneId = " + this.ddlSubzone.SelectedValue, "Name");//, User.Identity.Name);
-                this.ddlRegion.DataBind();
-                this.ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
+                ddlRegion.DataSource = Region.Find("SubzoneId = " + ddlSubzone.SelectedValue, "Name");//, User.Identity.Name);
+                ddlRegion.DataBind();
+                ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
             }
         }
 
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlRegion.SelectedValue != null && this.ddlRegion.SelectedValue != "")
+            if (ddlRegion.SelectedValue != null && ddlRegion.SelectedValue != "")
             {
-                this.ddlBranch.DataSource = Branch.Find("RegionId = " + this.ddlRegion.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
-                this.ddlBranch.DataBind();
+                ddlBranch.DataSource = Branch.Find("RegionId = " + ddlRegion.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
+                ddlBranch.DataBind();
             }
             else
             {
-                this.ddlBranch.Items.Clear();
+                ddlBranch.Items.Clear();
             }
         }
 
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 hdnId.Value = h_Employee.Id.ToString();
@@ -220,7 +220,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                 hdnId.Value = "0";
 
-                this.ShowUIMessage(msg);
+                ShowUiMessage(msg);
             }
         }
 
@@ -247,7 +247,7 @@ namespace GITS.Hrms.WebSite.HRM
                 txtCause.Text = penalty.Cause;
                 hfWarningId.Value = penalty.Id.ToString();
                 ddlWarningType.SelectedValue = penalty.WarningType;
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
             }
             if (e.CommandName == "deleterow")
@@ -256,8 +256,8 @@ namespace GITS.Hrms.WebSite.HRM
                 string warningId = lnkView.CommandArgument;
                 string desc = "Delete [H_EmployeeWarning]";
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                H_EmployeeWarning.Delete(this.TransactionManager, Convert.ToInt32(warningId));
+                TransactionManager = new TransactionManager(true, desc);
+                H_EmployeeWarning.Delete(TransactionManager, Convert.ToInt32(warningId));
 
                 TransactionManager.Commit();
                 LoadGridView(TransactionManager, Convert.ToInt32(hdnId.Value));

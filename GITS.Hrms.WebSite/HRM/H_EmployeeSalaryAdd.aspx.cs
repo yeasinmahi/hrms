@@ -52,7 +52,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -60,7 +60,7 @@ namespace GITS.Hrms.WebSite.HRM
             }
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (h_Employee.AppointmentLetterDate >= DBUtility.ToDateTime(txtLastIncrementDate.Text))
@@ -76,27 +76,27 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
                 if (h_Employee != null)
                 {
                     hdnId.Value = h_Employee.Id.ToString();
 
-                    H_EmployeeSalary h_EmployeeSalary = this.GetH_EmployeeSalary();
+                    H_EmployeeSalary h_EmployeeSalary = GetH_EmployeeSalary();
                     string desc = "Insert [H_EmployeeSalary]";
 
-                    this.TransactionManager = new TransactionManager(true, desc);
+                    TransactionManager = new TransactionManager(true, desc);
 
-                    H_EmployeeSalary.Insert(this.TransactionManager, h_EmployeeSalary);
+                    H_EmployeeSalary.Insert(TransactionManager, h_EmployeeSalary);
 
                     hdnId.Value = h_EmployeeSalary.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
-                    this.TransactionManager.Commit();
+                    TransactionManager.Commit();
                 }
                 else
                 {

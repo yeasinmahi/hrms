@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Audit
         {
             DbTransactionDetails dbTransactionDetails = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 dbTransactionDetails = DbTransactionDetails.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -59,7 +59,7 @@ namespace GITS.Hrms.WebSite.Audit
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -71,14 +71,14 @@ namespace GITS.Hrms.WebSite.Audit
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                DbTransactionDetails dbTransactionDetails = this.GetDbTransactionDetails();
+                DbTransactionDetails dbTransactionDetails = GetDbTransactionDetails();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [DbTransactionDetails]";
                 }
@@ -87,21 +87,21 @@ namespace GITS.Hrms.WebSite.Audit
                     desc = "Update [DbTransactionDetails]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    DbTransactionDetails.Insert(this.TransactionManager, dbTransactionDetails);
+                    DbTransactionDetails.Insert(TransactionManager, dbTransactionDetails);
 
                     hdnId.Value = dbTransactionDetails.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    DbTransactionDetails.Update(this.TransactionManager, dbTransactionDetails);
+                    DbTransactionDetails.Update(TransactionManager, dbTransactionDetails);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -111,8 +111,8 @@ namespace GITS.Hrms.WebSite.Audit
         {
             DbTransactionDetails dbTransactionDetails = null;
 
-            this.ddlDbTransactionId.DataSource = DbTransaction.FindAll();
-            this.ddlDbTransactionId.DataBind();
+            ddlDbTransactionId.DataSource = DbTransaction.FindAll();
+            ddlDbTransactionId.DataBind();
 
             if (Request.QueryString["Id"] != null)
             {
@@ -121,7 +121,7 @@ namespace GITS.Hrms.WebSite.Audit
 
                 if (dbTransactionDetails != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     ddlDbTransactionId.SelectedValue = UIUtility.Format(dbTransactionDetails.DbTransactionId);
                     txtType.Text = dbTransactionDetails.Type;

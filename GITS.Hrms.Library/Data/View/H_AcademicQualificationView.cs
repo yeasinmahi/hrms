@@ -48,53 +48,53 @@ namespace GITS.Hrms.Library.Data.View
 		}
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
 		public H_AcademicQualification.Levels Level
 		{
-			get {return this._Level;}
-			set {this._Level = value;}
+			get {return _Level;}
+			set {_Level = value;}
 		}
 
         public String SubjectName
 		{
-			get {return this._SubjectName;}
-			set {this._SubjectName = value;}
+			get {return _SubjectName;}
+			set {_SubjectName = value;}
 		}
 
 		public String ExamName
 		{
-			get {return this._ExamName;}
-			set {this._ExamName = value;}
+			get {return _ExamName;}
+			set {_ExamName = value;}
 		}
         public String Institution
         {
-            get { return this._Institution; }
-            set { this._Institution = value; }
+            get { return _Institution; }
+            set { _Institution = value; }
         }
 
 		public String BoardName
 		{
-			get {return this._BoardName;}
-			set {this._BoardName = value;}
+			get {return _BoardName;}
+			set {_BoardName = value;}
 		}
 
         public Int32 PassingYear
         {
-            get { return this._PassingYear; }
-            set { this._PassingYear = value; }
+            get { return _PassingYear; }
+            set { _PassingYear = value; }
         }
 
         public String Result
         {
-            get { return this._Result; }
-            set { this._Result = value; }
+            get { return _Result; }
+            set { _Result = value; }
         }
         public Int32 SortOrder
         {
-            get { return this._SortOrder; }
-            set { this._SortOrder = value; }
+            get { return _SortOrder; }
+            set { _SortOrder = value; }
         }
     }
 }

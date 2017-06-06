@@ -31,7 +31,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             ReportConfig reportConfig = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 reportConfig = ReportConfig.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -59,7 +59,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -71,14 +71,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                ReportConfig reportConfig = this.GetReportConfig();
+                ReportConfig reportConfig = GetReportConfig();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [ReportConfig]";
                 }
@@ -87,21 +87,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [ReportConfig]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    ReportConfig.Insert(this.TransactionManager, reportConfig);
+                    ReportConfig.Insert(TransactionManager, reportConfig);
 
                     hdnId.Value = reportConfig.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    ReportConfig.Update(this.TransactionManager, reportConfig);
+                    ReportConfig.Update(TransactionManager, reportConfig);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -120,7 +120,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (reportConfig != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = reportConfig.Name;
                     if (reportConfig.Type == 0)

@@ -22,7 +22,7 @@ namespace GITS.Hrms.Library.Utility
 
         internal ClassAttribute(Attributes attribute)
         {
-            this._Attribute = attribute;
+            _Attribute = attribute;
         }
     }
 }

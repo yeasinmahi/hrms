@@ -22,25 +22,25 @@ namespace GITS.Hrms.WebSite.Reports
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.SortOrder = "ASC";
+            GridView = gvList;
+            SortOrder = "ASC";
         }
 
         protected override void gvList_Sorting(object sender, System.Web.UI.WebControls.GridViewSortEventArgs e)
         {
-            if (this.SortColumn != e.SortExpression)
+            if (SortColumn != e.SortExpression)
             {
-                this.SortColumn = e.SortExpression;
-                this.SortOrder = "ASC";
+                SortColumn = e.SortExpression;
+                SortOrder = "ASC";
             }
             else
             {
-                this.SortOrder = (this.SortOrder == "ASC") ? "DESC" : "ASC";
+                SortOrder = (SortOrder == "ASC") ? "DESC" : "ASC";
             }
             if (Session["ReportTable"] != null)
             {
                 DataTable rt = (DataTable)Session["ReportTable"];
-                rt.DefaultView.Sort = this.SortColumn + " " + this.SortOrder;
+                rt.DefaultView.Sort = SortColumn + " " + SortOrder;
                 rt.DefaultView.ToTable();
                 //this.ShowReport();
                 gvList.DataSource = rt;
@@ -59,20 +59,20 @@ namespace GITS.Hrms.WebSite.Reports
 
         protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
                     case "EXCEL":
-                        this.ViewReport();
+                        ViewReport();
                         break;
                     case "SEARCH":
-                        this.Search();
+                        Search();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -98,7 +98,7 @@ namespace GITS.Hrms.WebSite.Reports
                         Message msg = new Message();
                         msg.Type = MessageType.Error;
                         msg.Msg = "Invalid Employee ID";
-                        ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                         return;
                     }
                 }
@@ -107,7 +107,7 @@ namespace GITS.Hrms.WebSite.Reports
         }
         private void ShowReport()
         {
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             query = "SELECT e.Code, e.Name AS 'Name',e.DateOfBirth, e.JoiningDate ,H_Grade.Name as Grade,H_EmployeeGrade.StartDate as GradeDate, dbo.H_Designation.Name AS 'Designation'"
                 + ", dbo.Branch.Name AS 'BranchName',dbo.H_EmployeeBranch.StartDate as 'BranchDate' "
                 + ", dbo.SubZone.Name AS 'ASADistrict' ,dbo.fn_SubzoneDate(e.Id) as 'DistrictDate',wt.Name as [OwnThana],wd.Name AS [OwnDistrict] "
@@ -236,7 +236,7 @@ namespace GITS.Hrms.WebSite.Reports
                 query += " and e.Code IN (" +txtEmpId.Text+")";
             }
 
-            query += this.SortExpression == "" ? "" : " ORDER BY " + this.SortExpression;
+            query += SortExpression == "" ? "" : " ORDER BY " + SortExpression;
             DataSet ds = TransactionManager.GetDataSet(query);
             dataset = ds;
             Session.Remove("ReportTable");
@@ -252,7 +252,7 @@ namespace GITS.Hrms.WebSite.Reports
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "At First Load Data, then Export ";
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                     return;
             }
             IList<DataTable> tables = new List<DataTable>();
@@ -309,7 +309,7 @@ namespace GITS.Hrms.WebSite.Reports
         //}
         protected override void LoadData()
         {
-            this.LoadGrade();
+            LoadGrade();
             UIUtility.LoadEnums(ddlStatus,typeof( H_Employee.Statuses), false, false, false);
             ddlStatus.Items.Add(new System.Web.UI.WebControls.ListItem("All", "0", true));
             UIUtility.LoadEnums(ddlEmploymentType, typeof(H_Employee.EmploymentTypes), false, false, false);
@@ -349,7 +349,7 @@ namespace GITS.Hrms.WebSite.Reports
                         Message msg = new Message();
                         msg.Type = MessageType.Error;
                         msg.Msg = "Invalid Employee ID";
-                        ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                         return;
                     }
                 }

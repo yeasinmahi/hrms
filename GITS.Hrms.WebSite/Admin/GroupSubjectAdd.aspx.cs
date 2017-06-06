@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             GroupSubject groupSubject = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 groupSubject = GroupSubject.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -54,7 +54,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -66,14 +66,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                GroupSubject groupSubject = this.GetGroupSubject();
+                GroupSubject groupSubject = GetGroupSubject();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [GroupSubject]";
                 }
@@ -82,21 +82,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [GroupSubject]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    GroupSubject.Insert(this.TransactionManager, groupSubject);
+                    GroupSubject.Insert(TransactionManager, groupSubject);
 
                     hdnId.Value = groupSubject.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    GroupSubject.Update(this.TransactionManager, groupSubject);
+                    GroupSubject.Update(TransactionManager, groupSubject);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -113,7 +113,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (groupSubject != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = groupSubject.Name;
                 }

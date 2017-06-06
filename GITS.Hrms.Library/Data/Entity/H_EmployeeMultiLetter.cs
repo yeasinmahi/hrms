@@ -75,103 +75,103 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
         public Int32 Code
         {
-            get { return this._Code; }
-            set { this._Code = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
         
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
         public DateTime EffectiveDate
         {
-            get { return this._EffectiveDate; }
-            set { this._EffectiveDate = value; }
+            get { return _EffectiveDate; }
+            set { _EffectiveDate = value; }
         }
 
         public Nullable<Int32> H_EmployeeTransferHistoryId
         {
-            get { return this._H_EmployeeTransferHistoryId; }
-            set { this._H_EmployeeTransferHistoryId = value; }
+            get { return _H_EmployeeTransferHistoryId; }
+            set { _H_EmployeeTransferHistoryId = value; }
         }
         public Nullable<Int32> H_EmployeePromotionHistoryId
         {
-            get { return this._H_EmployeePromotionHistoryId; }
-            set { this._H_EmployeePromotionHistoryId = value; }
+            get { return _H_EmployeePromotionHistoryId; }
+            set { _H_EmployeePromotionHistoryId = value; }
         }
         public Nullable<Int32> H_EmployeePenatyId
         {
-            get { return this._H_EmployeePenatyId; }
-            set { this._H_EmployeePenatyId = value; }
+            get { return _H_EmployeePenatyId; }
+            set { _H_EmployeePenatyId = value; }
         }
         public Nullable<Int32> H_EmployeeWarningId
         {
-            get { return this._H_EmployeeWarningId; }
-            set { this._H_EmployeeWarningId = value; }
+            get { return _H_EmployeeWarningId; }
+            set { _H_EmployeeWarningId = value; }
         }
         public Nullable<Int32> H_EmployeeIncrementHeldupId
         {
-            get { return this._H_EmployeeIncrementHeldupId; }
-            set { this._H_EmployeeIncrementHeldupId = value; }
+            get { return _H_EmployeeIncrementHeldupId; }
+            set { _H_EmployeeIncrementHeldupId = value; }
         }
         public Nullable<Int32> H_EmployeeRejoinId
         {
-            get { return this._H_EmployeeRejoinId; }
-            set { this._H_EmployeeRejoinId = value; }
+            get { return _H_EmployeeRejoinId; }
+            set { _H_EmployeeRejoinId = value; }
         }
 
 
         public String Subject
 		{
-            get { return this._Subject; }
-            set { this._Subject = value; }
+            get { return _Subject; }
+            set { _Subject = value; }
 		}
         public String Body
         {
-            get { return this._Body; }
-            set { this._Body = value; }
+            get { return _Body; }
+            set { _Body = value; }
         }
         public String Conclution
         {
-            get { return this._Conclution; }
-            set { this._Conclution = value; }
+            get { return _Conclution; }
+            set { _Conclution = value; }
         }
         public String Signatory
         {
-            get { return this._Signatory; }
-            set { this._Signatory = value; }
+            get { return _Signatory; }
+            set { _Signatory = value; }
         }
         public String Designation
         {
-            get { return this._Designation; }
-            set { this._Designation = value; }
+            get { return _Designation; }
+            set { _Designation = value; }
         }
         public String Duplication
         {
-            get { return this._Duplication; }
-            set { this._Duplication = value; }
+            get { return _Duplication; }
+            set { _Duplication = value; }
         }
         public String Note
         {
-            get { return this._Note; }
-            set { this._Note = value; }
+            get { return _Note; }
+            set { _Note = value; }
         }
     }
 }

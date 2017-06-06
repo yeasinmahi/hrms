@@ -89,55 +89,55 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
         public Types Type
 		{
-			get {return this._Type;}
-			set {this._Type = value;}
+			get {return _Type;}
+			set {_Type = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public Int32 SourceBranchId
 		{
-			get {return this._SourceBranchId;}
-			set {this._SourceBranchId = value;}
+			get {return _SourceBranchId;}
+			set {_SourceBranchId = value;}
 		}
 
 		public Int32 DestinationBranchId
 		{
-			get {return this._DestinationBranchId;}
-			set {this._DestinationBranchId = value;}
+			get {return _DestinationBranchId;}
+			set {_DestinationBranchId = value;}
 		}
 
 		public DateTime JoiningDate
 		{
-			get {return this._JoiningDate;}
-			set {this._JoiningDate = value;}
+			get {return _JoiningDate;}
+			set {_JoiningDate = value;}
 		}
 
 		public String Remarks
 		{
-			get {return this._Remarks;}
-			set {this._Remarks = value;}
+			get {return _Remarks;}
+			set {_Remarks = value;}
 		}
         public String UserLogin
         {
-            get { return this._UserLogin; }
-            set { this._UserLogin = value; }
+            get { return _UserLogin; }
+            set { _UserLogin = value; }
         }
 	}
 }

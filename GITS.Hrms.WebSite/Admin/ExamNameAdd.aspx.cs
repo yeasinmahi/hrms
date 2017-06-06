@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             ExamName examName = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 examName = ExamName.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -54,7 +54,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -66,14 +66,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                ExamName examName = this.GetExamName();
+                ExamName examName = GetExamName();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [ExamName]";
                 }
@@ -82,21 +82,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [ExamName]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    ExamName.Insert(this.TransactionManager, examName);
+                    ExamName.Insert(TransactionManager, examName);
 
                     hdnId.Value = examName.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    ExamName.Update(this.TransactionManager, examName);
+                    ExamName.Update(TransactionManager, examName);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -113,7 +113,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (examName != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = examName.Name;
                 }

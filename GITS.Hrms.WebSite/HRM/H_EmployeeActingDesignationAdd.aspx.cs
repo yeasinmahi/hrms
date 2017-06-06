@@ -56,7 +56,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -71,7 +71,7 @@ namespace GITS.Hrms.WebSite.HRM
             }
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (h_Employee.AppointmentLetterDate >= DBUtility.ToDateTime(txtFromDate.Text))
@@ -82,7 +82,7 @@ namespace GITS.Hrms.WebSite.HRM
                 }
             }
 
-            if (DBUtility.ToDateTime(this.txtFromDate.Text.Trim()) > DBUtility.ToDateTime(this.txtToDate.Text.Trim()))
+            if (DBUtility.ToDateTime(txtFromDate.Text.Trim()) > DBUtility.ToDateTime(txtToDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "To date should be greater than or equal to from date";
@@ -101,22 +101,22 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_EmployeeActingDesignation h_EmployeeActingDesignation = this.GetH_EmployeeActingDesignation();
+                H_EmployeeActingDesignation h_EmployeeActingDesignation = GetH_EmployeeActingDesignation();
                 string desc = "Insert [H_EmployeeActingDesignation]";
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                H_EmployeeActingDesignation.Insert(this.TransactionManager, h_EmployeeActingDesignation);
+                H_EmployeeActingDesignation.Insert(TransactionManager, h_EmployeeActingDesignation);
 
                 hdnId.Value = h_EmployeeActingDesignation.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -124,18 +124,18 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override void LoadData()
         {
-            this.ddlGradeId.DataSource = H_Grade.FindAll();
-            this.ddlGradeId.DataBind();
-            this.ddlGradeId_SelectedIndexChanged(this.ddlGradeId, new EventArgs());
+            ddlGradeId.DataSource = H_Grade.FindAll();
+            ddlGradeId.DataBind();
+            ddlGradeId_SelectedIndexChanged(ddlGradeId, new EventArgs());
         }
 
         protected void ddlGradeId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlGradeId.SelectedValue != null && this.ddlGradeId.SelectedValue != "")
+            if (ddlGradeId.SelectedValue != null && ddlGradeId.SelectedValue != "")
             {
                 TransactionManager tm = new TransactionManager(false);
 
-                ddlDesignationId.DataSource = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + this.ddlGradeId.SelectedValue + " ORDER BY SortOrder").Tables[0];
+                ddlDesignationId.DataSource = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + ddlGradeId.SelectedValue + " ORDER BY SortOrder").Tables[0];
                 ddlDesignationId.DataBind();
             }
         }
@@ -143,7 +143,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 hdnId.Value = h_Employee.Id.ToString();
@@ -184,7 +184,7 @@ namespace GITS.Hrms.WebSite.HRM
                 txtRegion.Text = "";
                 txtBranch.Text = "";
 
-                this.ShowUIMessage(msg);
+                ShowUiMessage(msg);
             }
         }
     }

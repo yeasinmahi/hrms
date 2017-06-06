@@ -33,7 +33,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             H_Designation h_Designation = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_Designation = H_Designation.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -59,7 +59,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -71,14 +71,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_Designation h_Designation = this.GetH_Designation();
+                H_Designation h_Designation = GetH_Designation();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_Designation]";
                 }
@@ -87,21 +87,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [H_Designation]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    H_Designation.Insert(this.TransactionManager, h_Designation);
+                    H_Designation.Insert(TransactionManager, h_Designation);
 
                     hdnId.Value = h_Designation.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    H_Designation.Update(this.TransactionManager, h_Designation);
+                    H_Designation.Update(TransactionManager, h_Designation);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -120,7 +120,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (h_Designation != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = h_Designation.Name;
                     txtBanglaName.Text = h_Designation.BanglaName;
@@ -162,7 +162,7 @@ namespace GITS.Hrms.WebSite.Admin
                 }
                 catch (Exception ex)
                 {
-                    ShowUIMessage(ex);
+                    ShowUiMessage(ex);
                 }
             }
         }
@@ -182,7 +182,7 @@ namespace GITS.Hrms.WebSite.Admin
             }
             catch (Exception ex)
             {
-                ShowUIMessage(ex);
+                ShowUiMessage(ex);
             }
         }
 

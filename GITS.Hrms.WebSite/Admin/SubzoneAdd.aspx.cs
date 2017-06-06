@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             Subzone subzone = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 subzone = Subzone.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -64,7 +64,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -76,14 +76,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                Subzone zone = this.GetSubzone();
+                Subzone zone = GetSubzone();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Subzone]";
                 }
@@ -92,21 +92,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [Subzone]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Subzone.Insert(this.TransactionManager, zone);
+                    Subzone.Insert(TransactionManager, zone);
 
                     hdnId.Value = zone.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    Subzone.Update(this.TransactionManager, zone);
+                    Subzone.Update(TransactionManager, zone);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -117,8 +117,8 @@ namespace GITS.Hrms.WebSite.Admin
             UIUtility.LoadEnums(ddlStatus, typeof(Subzone.Statuses), false, false, false);
             Subzone zone = null;
 
-            this.ddlZoneId.DataSource = Zone.Find("Status=1","Name");
-            this.ddlZoneId.DataBind();
+            ddlZoneId.DataSource = Zone.Find("Status=1","Name");
+            ddlZoneId.DataBind();
 
             if (Request.QueryString["Id"] != null)
             {
@@ -127,7 +127,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (zone != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     ddlZoneId.SelectedValue = UIUtility.Format(zone.ZoneId);
                     txtName.Text = zone.Name;

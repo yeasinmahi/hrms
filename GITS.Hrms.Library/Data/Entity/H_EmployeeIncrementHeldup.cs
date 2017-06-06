@@ -81,80 +81,80 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public Int32 IncrementStop
 		{
-			get {return this._IncrementStop;}
-			set {this._IncrementStop = value;}
+			get {return _IncrementStop;}
+			set {_IncrementStop = value;}
 		}
 
 		public DateTime FromDate
 		{
-			get {return this._FromDate;}
-			set {this._FromDate = value;}
+			get {return _FromDate;}
+			set {_FromDate = value;}
 		}
 
 		public Nullable<DateTime> ToDate
 		{
-			get {return this._ToDate;}
-			set {this._ToDate = value;}
+			get {return _ToDate;}
+			set {_ToDate = value;}
 		}
 
 		public Int32 BranchId
 		{
-			get {return this._BranchId;}
-			set {this._BranchId = value;}
+			get {return _BranchId;}
+			set {_BranchId = value;}
 		}
 
 		public String Cause
 		{
-			get {return this._Cause;}
-			set {this._Cause = value;}
+			get {return _Cause;}
+			set {_Cause = value;}
 		}
         public String UserLogin
         {
-            get { return this._UserLogin; }
-            set { this._UserLogin = value; }
+            get { return _UserLogin; }
+            set { _UserLogin = value; }
         }
         public String ExemptionLetterNo
         {
-            get { return this._ExemptionLetterNo; }
-            set { this._ExemptionLetterNo = value; }
+            get { return _ExemptionLetterNo; }
+            set { _ExemptionLetterNo = value; }
         }
         public Nullable<DateTime> ExemptionLetterDate
         {
-            get { return this._ExemptionLetterDate; }
-            set { this._ExemptionLetterDate = value; }
+            get { return _ExemptionLetterDate; }
+            set { _ExemptionLetterDate = value; }
         }
         public Nullable<DateTime> ExemptionDate
         {
-            get { return this._ExemptionDate; }
-            set { this._ExemptionDate = value; }
+            get { return _ExemptionDate; }
+            set { _ExemptionDate = value; }
         }
         public Nullable<Int32> IncrementExempted
         {
-            get { return this._IncrementExempted; }
-            set { this._IncrementExempted = value; }
+            get { return _IncrementExempted; }
+            set { _IncrementExempted = value; }
         }
         public String ExemptionRemarks
         {
-            get { return this._ExemptionRemarks; }
-            set { this._ExemptionRemarks = value; }
+            get { return _ExemptionRemarks; }
+            set { _ExemptionRemarks = value; }
         }
 	}
 }

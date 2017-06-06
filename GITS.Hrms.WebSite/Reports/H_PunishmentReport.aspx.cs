@@ -26,10 +26,10 @@ namespace GITS.Hrms.WebSite.Reports
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "Enter Employee ID";
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
-            H_Employee employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmpId.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmpId.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
 
             if (employee != null)
             {
@@ -91,7 +91,7 @@ namespace GITS.Hrms.WebSite.Reports
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "No Employee Found";
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 txtEmpId.Focus();
 
             }
@@ -100,7 +100,7 @@ namespace GITS.Hrms.WebSite.Reports
 
         private void LoadTransferInfo(int p)
         {
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             string query = "SELECT t.LetterNo,t.LetterDate,t.JoiningDate,sb.Name AS From_Branch,db.Name AS To_Branch "
                         + " FROM H_EmployeeTransfer t"
                         + " INNER JOIN Branch sb ON sb.Id=t.SourceBranchId"
@@ -126,7 +126,7 @@ namespace GITS.Hrms.WebSite.Reports
         }
         private void LoadLeaveInfo(int p)
         {
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             string query = "SELECT Case When t.[Type]=15 Then 'Suspension' Else 'Force Leave' end AS [Type], t.LetterNo AS Letter_No,t.LetterDate AS Letter_Date,t.StartDate AS Start_Date,t.EndDate AS End_Date,t.Cause "
                         + " FROM H_EmployeeLeave t"
                         + " where t.H_EmployeeId=" + p+" AND [Type] IN (15,16) " 
@@ -150,7 +150,7 @@ namespace GITS.Hrms.WebSite.Reports
         }
         private void LoadPenaltyInfo(int p)
         {
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             string query = "SELECT t.LetterNo AS Letter_No,t.LetterDate AS Letter_Date,Case when t.FineType='F' then 'Fine' else 'Penalty' end AS Fine_Type,t.FineAmount AS Fine_Amount "
                         + " FROM H_EmployeePenalty t"
                         + " where t.H_EmployeeId=" + p
@@ -174,7 +174,7 @@ namespace GITS.Hrms.WebSite.Reports
         }
         private void WarningInfo(int p)
         {
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             string query = "SELECT t.LetterNo AS Letter_No,t.LetterDate AS Letter_Date,t.Duration,b.Name AS Branch ,t.Cause "
                         + " FROM H_EmployeeWarning t"
                         + " INNER JOIN Branch b ON b.Id=t.BranchId"
@@ -199,7 +199,7 @@ namespace GITS.Hrms.WebSite.Reports
         }
         private void IncreamentHeldup(int p)
         {
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             string query = "SELECT t.LetterNo AS Letter_No,t.LetterDate AS Letter_Date,t.FromDate AS From_Date,t.ToDate AS To_Date,b.Name AS Branch ,t.Cause "
                         + " FROM H_EmployeeIncrementHeldup t"
                         + " INNER JOIN Branch b ON b.Id=t.BranchId"
@@ -224,7 +224,7 @@ namespace GITS.Hrms.WebSite.Reports
         }
         private void PromotionInfo(int p)
         {
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             string query = "select p.LetterNo AS Letter_No,p.LetterDate AS Letter_Date,p.PromotionDate as Promotion_Date,sg.Name AS From_Grade ,ng.Name as To_Grade " +
                            ",sd.Name AS From_Designation,nd.Name AS To_Designation " +
                            "from H_EmployeePromotion p " +
@@ -259,7 +259,7 @@ namespace GITS.Hrms.WebSite.Reports
         {
             Message msg = new Message();
 
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "printDiv", "printDiv('Indiv');", true);
+            ScriptManager.RegisterStartupScript(Page, GetType(), "printDiv", "printDiv('Indiv');", true);
 
             return msg;
         }

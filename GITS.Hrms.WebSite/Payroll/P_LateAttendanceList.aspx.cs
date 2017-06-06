@@ -20,9 +20,9 @@ namespace GITS.Hrms.WebSite.Payroll
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.BaseEntityType = typeof(P_LateAttendance);
-            this.EntityType = typeof(P_LateAttendanceView);
+            GridView = gvList;
+            BaseEntityType = typeof(P_LateAttendance);
+            EntityType = typeof(P_LateAttendanceView);
 
         }
 

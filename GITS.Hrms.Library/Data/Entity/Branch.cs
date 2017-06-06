@@ -149,77 +149,77 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 ThanaId
 		{
-			get {return this._ThanaId;}
-			set {this._ThanaId = value;}
+			get {return _ThanaId;}
+			set {_ThanaId = value;}
 		}
 
 		public Int32 RegionId
 		{
-			get {return this._RegionId;}
-			set {this._RegionId = value;}
+			get {return _RegionId;}
+			set {_RegionId = value;}
 		}
 
 		public Nullable<Int32> Code
 		{
-			get {return this._Code;}
-			set {this._Code = value;}
+			get {return _Code;}
+			set {_Code = value;}
 		}
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
         public String NameInBangla
         {
-            get { return this._NameInBangla; }
-            set { this._NameInBangla = value; }
+            get { return _NameInBangla; }
+            set { _NameInBangla = value; }
         }
 
         public BranchTypes BranchType
         {
-            get { return this._BranchType; }
-            set { this._BranchType = value; }
+            get { return _BranchType; }
+            set { _BranchType = value; }
         }
 
 		public DateTime OpeningDate
 		{
-			get {return this._OpeningDate;}
-			set {this._OpeningDate = value;}
+			get {return _OpeningDate;}
+			set {_OpeningDate = value;}
 		}
 
 		public String MobileNumber
 		{
-			get {return this._MobileNumber;}
-			set {this._MobileNumber = value;}
+			get {return _MobileNumber;}
+			set {_MobileNumber = value;}
 		}
 
 		public Statuses Status
 		{
-			get {return this._Status;}
-			set {this._Status = value;}
+			get {return _Status;}
+			set {_Status = value;}
 		}
 
 		public LocationTypes LocationType
 		{
-			get {return this._LocationType;}
-			set {this._LocationType = value;}
+			get {return _LocationType;}
+			set {_LocationType = value;}
 		}
 
 		public String Village
 		{
-			get {return this._Village;}
-			set {this._Village = value;}
+			get {return _Village;}
+			set {_Village = value;}
 		}
         public String PostOffice
         {
-            get { return this._PostOffice; }
-            set { this._PostOffice = value; }
+            get { return _PostOffice; }
+            set { _PostOffice = value; }
         }
         public String PostCode
         {
-            get { return this._PostCode; }
-            set { this._PostCode = value; }
+            get { return _PostCode; }
+            set { _PostCode = value; }
         }
 
 	}

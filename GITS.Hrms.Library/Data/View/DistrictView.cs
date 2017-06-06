@@ -37,20 +37,20 @@ namespace GITS.Hrms.Library.Data.View
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 		public Int32 DivisionId
 		{
-			get {return this._DivisionId;}
-			set {this._DivisionId = value;}
+			get {return _DivisionId;}
+			set {_DivisionId = value;}
 		}
 
 		public String DivisionName
 		{
-			get {return this._DivisionName;}
-			set {this._DivisionName = value;}
+			get {return _DivisionName;}
+			set {_DivisionName = value;}
 		}
 	}
 }

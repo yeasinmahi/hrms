@@ -83,62 +83,62 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
         public H_EmployeeLeave.Types LeaveType
 		{
-			get {return this._LeaveType;}
-			set {this._LeaveType = value;}
+			get {return _LeaveType;}
+			set {_LeaveType = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public DateTime FromDate
 		{
-			get {return this._FromDate;}
-			set {this._FromDate = value;}
+			get {return _FromDate;}
+			set {_FromDate = value;}
 		}
 
 		public DateTime RejoinDate
 		{
-			get {return this._RejoinDate;}
-			set {this._RejoinDate = value;}
+			get {return _RejoinDate;}
+			set {_RejoinDate = value;}
 		}
 
 		public Int32 SourceBranchId
 		{
-			get {return this._SourceBranchId;}
-			set {this._SourceBranchId = value;}
+			get {return _SourceBranchId;}
+			set {_SourceBranchId = value;}
 		}
 
 		public Int32 DestinationBranchId
 		{
-			get {return this._DestinationBranchId;}
-			set {this._DestinationBranchId = value;}
+			get {return _DestinationBranchId;}
+			set {_DestinationBranchId = value;}
 		}
 
         public H_Employee.EmploymentTypes RejoinType
         {
-            get { return this._RejoinType; }
-            set { this._RejoinType = value; }
+            get { return _RejoinType; }
+            set { _RejoinType = value; }
         }
 
         public Boolean Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         [Property(PropertyAttribute.Attributes.NonTable)]
         public String Name

@@ -14,17 +14,17 @@ namespace GITS.Hrms.WebSite.Reports
     {
         protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
                     case "EXCEL":
-                        this.ViewReport();
+                        ViewReport();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -45,9 +45,9 @@ namespace GITS.Hrms.WebSite.Reports
             DateTime startDate = Configuration.StartDate = Convert.ToDateTime(txtStartDate.Text).Date;
             DateTime endDate = Configuration.EndDate = Convert.ToDateTime(txtEndDate.Text).Date;
 
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
 
-            DataSet ds = this.TransactionManager.GetDataSet(String.Format(report.Query,
+            DataSet ds = TransactionManager.GetDataSet(String.Format(report.Query,
                 UIUtility.ToInt32(startDate),
                 UIUtility.ToInt32(endDate),
                 "'" + startDate.ToString(Configuration.DatabaseDateFormat) + "'",
@@ -136,9 +136,9 @@ namespace GITS.Hrms.WebSite.Reports
             DateTime startDate = Configuration.StartDate = Convert.ToDateTime(txtStartDate.Text).Date;
             DateTime endDate = Configuration.EndDate = Convert.ToDateTime(txtEndDate.Text).Date;
 
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
 
-            DataSet ds = this.TransactionManager.GetDataSet(String.Format(report.Query,
+            DataSet ds = TransactionManager.GetDataSet(String.Format(report.Query,
                 UIUtility.ToInt32(startDate),
                 UIUtility.ToInt32(endDate),
                 "'" + startDate.ToString(Configuration.DatabaseDateFormat) + "'",
@@ -203,19 +203,19 @@ namespace GITS.Hrms.WebSite.Reports
 
         protected override void LoadData()
         {
-            UIUtility.LoadEnums(this.ddlReportType, typeof(ReportConfig.ReportType), false, false, true);
-            this.ddlReportType.Items.RemoveAt(this.ddlReportType.Items.Count-1);
+            UIUtility.LoadEnums(ddlReportType, typeof(ReportConfig.ReportType), false, false, true);
+            ddlReportType.Items.RemoveAt(ddlReportType.Items.Count-1);
 
-            this.ddlReport.DataSource = ReportConfig.Find("Type = " + this.ddlReportType.SelectedValue, "");
-            this.ddlReport.DataBind();
+            ddlReport.DataSource = ReportConfig.Find("Type = " + ddlReportType.SelectedValue, "");
+            ddlReport.DataBind();
 
-            this.ddlReport_SelectedIndexChanged(this.ddlReport, new EventArgs());
+            ddlReport_SelectedIndexChanged(ddlReport, new EventArgs());
 
-            this.LoadZone();
-            this.LoadGrade();
+            LoadZone();
+            LoadGrade();
 
-            UIUtility.LoadEnums(this.ddlReligion, typeof(H_Employee.Religions), false, true, false);
-            UIUtility.LoadEnums(this.ddlSex, typeof(H_Employee.Sexes), false, true, false);
+            UIUtility.LoadEnums(ddlReligion, typeof(H_Employee.Religions), false, true, false);
+            UIUtility.LoadEnums(ddlSex, typeof(H_Employee.Sexes), false, true, false);
 
             txtStartDate.Text = UIUtility.Format(Configuration.StartDate);
             txtEndDate.Text = UIUtility.Format(Configuration.EndDate);
@@ -237,21 +237,21 @@ namespace GITS.Hrms.WebSite.Reports
 
             if (divisionList != null && divisionList.Count > 0)
             {
-                this.ddlZone.DataTextField = "Name";
-                this.ddlZone.DataValueField = "Id";
-                this.ddlZone.DataSource = divisionList;
-                this.ddlZone.DataBind();
+                ddlZone.DataTextField = "Name";
+                ddlZone.DataValueField = "Id";
+                ddlZone.DataSource = divisionList;
+                ddlZone.DataBind();
 
                 //if (divisionList.Count(z => z.Id == Asa.Hrms.Utility.Configuration.ZoneId) > 0)
                 //{
                 //    this.ddlZone.SelectedValue = Asa.Hrms.Utility.Configuration.ZoneId.ToString();
                 //}
 
-                this.LoadSubzone();
+                LoadSubzone();
             }
             else
             {
-                this.ddlZone.DataSource = null;
+                ddlZone.DataSource = null;
             }
         }
 
@@ -259,7 +259,7 @@ namespace GITS.Hrms.WebSite.Reports
         {
             //Asa.Hrms.Utility.Configuration.ZoneId = DBUtility.ToInt32(this.ddlZone.SelectedValue);
 
-            this.LoadSubzone();
+            LoadSubzone();
         }
 
         private void LoadSubzone()
@@ -282,21 +282,21 @@ namespace GITS.Hrms.WebSite.Reports
 
                 if (subzoneList != null && subzoneList.Count > 0)
                 {
-                    this.ddlSubzone.DataTextField = "Name";
-                    this.ddlSubzone.DataValueField = "Id";
-                    this.ddlSubzone.DataSource = subzoneList;
-                    this.ddlSubzone.DataBind();
+                    ddlSubzone.DataTextField = "Name";
+                    ddlSubzone.DataValueField = "Id";
+                    ddlSubzone.DataSource = subzoneList;
+                    ddlSubzone.DataBind();
 
                     //if (subzoneList.Count(d => d.Id == Asa.Hrms.Utility.Configuration.SubzoneId) > 0)
                     //{
                     //    this.ddlSubzone.SelectedValue = Asa.Hrms.Utility.Configuration.SubzoneId.ToString();
                     //}
 
-                    this.LoadRegion();
+                    LoadRegion();
                 }
                 else
                 {
-                    this.ddlSubzone.DataSource = null;
+                    ddlSubzone.DataSource = null;
                 }
             }
         }
@@ -305,7 +305,7 @@ namespace GITS.Hrms.WebSite.Reports
         {
             //Asa.Hrms.Utility.Configuration.SubzoneId = DBUtility.ToInt32(this.ddlSubzone.SelectedValue);
 
-            this.LoadRegion();
+            LoadRegion();
         }
 
         private void LoadRegion()
@@ -327,30 +327,30 @@ namespace GITS.Hrms.WebSite.Reports
 
                 if (regionList != null && regionList.Count > 0)
                 {
-                    this.ddlRegion.DataTextField = "Name";
-                    this.ddlRegion.DataValueField = "Id";
-                    this.ddlRegion.DataSource = regionList;
-                    this.ddlRegion.DataBind();
+                    ddlRegion.DataTextField = "Name";
+                    ddlRegion.DataValueField = "Id";
+                    ddlRegion.DataSource = regionList;
+                    ddlRegion.DataBind();
 
                     if (regionList.Count(r => r.Id == Configuration.RegionId) > 0)
                     {
-                        this.ddlRegion.SelectedValue = Configuration.RegionId.ToString();
+                        ddlRegion.SelectedValue = Configuration.RegionId.ToString();
                     }
 
-                    this.LoadBranch();
+                    LoadBranch();
                 }
                 else
                 {
-                    this.ddlRegion.DataSource = null;
+                    ddlRegion.DataSource = null;
                 }
             }
         }
 
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.RegionId = DBUtility.ToInt32(this.ddlRegion.SelectedValue);
+            Configuration.RegionId = DBUtility.ToInt32(ddlRegion.SelectedValue);
 
-            this.LoadBranch();
+            LoadBranch();
         }
 
         private void LoadBranch()
@@ -373,34 +373,34 @@ namespace GITS.Hrms.WebSite.Reports
 
                 if (branchList != null && branchList.Count > 0)
                 {
-                    this.ddlBranch.DataTextField = "Name";
-                    this.ddlBranch.DataValueField = "Id";
-                    this.ddlBranch.DataSource = branchList;
-                    this.ddlBranch.DataBind();
+                    ddlBranch.DataTextField = "Name";
+                    ddlBranch.DataValueField = "Id";
+                    ddlBranch.DataSource = branchList;
+                    ddlBranch.DataBind();
 
                     if (branchList.Count(r => r.Id == Configuration.BranchCode) > 0)
                     {
-                        this.ddlBranch.SelectedValue = Configuration.BranchCode.ToString();
+                        ddlBranch.SelectedValue = Configuration.BranchCode.ToString();
                     }
                 }
                 else
                 {
-                    this.ddlBranch.DataSource = null;
+                    ddlBranch.DataSource = null;
                 }
             }
         }
 
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.BranchCode = DBUtility.ToInt32(this.ddlBranch.SelectedValue);
+            Configuration.BranchCode = DBUtility.ToInt32(ddlBranch.SelectedValue);
         }
 
         protected void ddlReportType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.ddlReport.DataSource = ReportConfig.Find("Type = " + this.ddlReportType.SelectedValue, "");
-            this.ddlReport.DataBind();
+            ddlReport.DataSource = ReportConfig.Find("Type = " + ddlReportType.SelectedValue, "");
+            ddlReport.DataBind();
 
-            this.ddlReport_SelectedIndexChanged(this.ddlReport, new EventArgs());
+            ddlReport_SelectedIndexChanged(ddlReport, new EventArgs());
         }
 
         protected void ddlReport_SelectedIndexChanged(object sender, EventArgs e)
@@ -499,30 +499,30 @@ namespace GITS.Hrms.WebSite.Reports
 
             if (gradeList != null && gradeList.Count > 0)
             {
-                this.ddlGrade.DataTextField = "Name";
-                this.ddlGrade.DataValueField = "Id";
-                this.ddlGrade.DataSource = gradeList;
-                this.ddlGrade.DataBind();
+                ddlGrade.DataTextField = "Name";
+                ddlGrade.DataValueField = "Id";
+                ddlGrade.DataSource = gradeList;
+                ddlGrade.DataBind();
 
                 if (gradeList.Count(z => z.Id == Configuration.GradeId) > 0)
                 {
-                    this.ddlGrade.SelectedValue = Configuration.GradeId.ToString();
+                    ddlGrade.SelectedValue = Configuration.GradeId.ToString();
                 }
 
-                this.LoadDesignation();
+                LoadDesignation();
             }
             else
             {
-                this.ddlGrade.DataSource = null;
+                ddlGrade.DataSource = null;
             }
 
         }
 
         protected void ddlGrade_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.GradeId = DBUtility.ToInt32(this.ddlGrade.SelectedValue);
+            Configuration.GradeId = DBUtility.ToInt32(ddlGrade.SelectedValue);
 
-            this.LoadDesignation();
+            LoadDesignation();
         }
 
         private void LoadDesignation()
@@ -531,7 +531,7 @@ namespace GITS.Hrms.WebSite.Reports
             {
                 TransactionManager tm = new TransactionManager(false);
 
-                DataTable dt = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + this.ddlGrade.SelectedValue + " ORDER BY Name").Tables[0];
+                DataTable dt = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + ddlGrade.SelectedValue + " ORDER BY Name").Tables[0];
                 IList<H_Designation> designationList = new List<H_Designation>();
 
                 H_Designation all = new H_Designation();
@@ -555,14 +555,14 @@ namespace GITS.Hrms.WebSite.Reports
 
                 if (designationList != null && designationList.Count > 0)
                 {
-                    this.ddlDesignation.DataTextField = "Name";
-                    this.ddlDesignation.DataValueField = "Id";
-                    this.ddlDesignation.DataSource = designationList;
-                    this.ddlDesignation.DataBind();
+                    ddlDesignation.DataTextField = "Name";
+                    ddlDesignation.DataValueField = "Id";
+                    ddlDesignation.DataSource = designationList;
+                    ddlDesignation.DataBind();
 
                     if (designationList.Count(r => r.Id == Configuration.DesignationId) > 0)
                     {
-                        this.ddlDesignation.SelectedValue = Configuration.DesignationId.ToString();
+                        ddlDesignation.SelectedValue = Configuration.DesignationId.ToString();
                     }
                 }
             }
@@ -570,7 +570,7 @@ namespace GITS.Hrms.WebSite.Reports
 
         protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.DesignationId = DBUtility.ToInt32(this.ddlDesignation.SelectedValue);
+            Configuration.DesignationId = DBUtility.ToInt32(ddlDesignation.SelectedValue);
         }
     }
 }

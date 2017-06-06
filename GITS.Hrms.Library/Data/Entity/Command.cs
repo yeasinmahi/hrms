@@ -61,56 +61,56 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 		public String DisplayName
 		{
-			get {return this._DisplayName;}
-			set {this._DisplayName = value;}
+			get {return _DisplayName;}
+			set {_DisplayName = value;}
 		}
 
 		public String PermissionType
 		{
-			get {return this._PermissionType;}
-			set {this._PermissionType = value;}
+			get {return _PermissionType;}
+			set {_PermissionType = value;}
 		}
 
 		public String PermissionCommand
 		{
-			get {return this._PermissionCommand;}
-			set {this._PermissionCommand = value;}
+			get {return _PermissionCommand;}
+			set {_PermissionCommand = value;}
 		}
 
 		public String ToolTipText
 		{
-			get {return this._ToolTipText;}
-			set {this._ToolTipText = value;}
+			get {return _ToolTipText;}
+			set {_ToolTipText = value;}
 		}
 
 		public String ImageUrl
 		{
-			get {return this._ImageUrl;}
-			set {this._ImageUrl = value;}
+			get {return _ImageUrl;}
+			set {_ImageUrl = value;}
 		}
 
 		public String SeperatorUrl
 		{
-			get {return this._SeperatorUrl;}
-			set {this._SeperatorUrl = value;}
+			get {return _SeperatorUrl;}
+			set {_SeperatorUrl = value;}
 		}
 
 		public String NavigateUrl
 		{
-			get {return this._NavigateUrl;}
-			set {this._NavigateUrl = value;}
+			get {return _NavigateUrl;}
+			set {_NavigateUrl = value;}
 		}
 
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
 
 	}

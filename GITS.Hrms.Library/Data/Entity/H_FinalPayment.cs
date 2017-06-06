@@ -42,30 +42,30 @@ namespace GITS.Hrms.Library.Data.Entity
 		}
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
         
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
         public DateTime LetterDate
         {
-            get { return this._LetterDate; }
-            set { this._LetterDate = value; }
+            get { return _LetterDate; }
+            set { _LetterDate = value; }
         }
 		
         public Double NetPay
         {
-            get { return this._NetPay; }
-            set { this._NetPay = value; }
+            get { return _NetPay; }
+            set { _NetPay = value; }
         }
         public DateTime ClosingDate
         {
-            get { return this._ClosingDate; }
-            set { this._ClosingDate = value; }
+            get { return _ClosingDate; }
+            set { _ClosingDate = value; }
         }
     }
 }

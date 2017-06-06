@@ -17,9 +17,9 @@ namespace GITS.Hrms.WebSite.Payroll
         protected override void LoadData()
         {
             txtDurationMonth.Visible = false;
-            this.ddlLoan.DataSource = P_Loan.Find("Status=1", "Name");
-            this.ddlLoan.DataBind();
-            this.ddlLoan.Items.Insert(0, new ListItem("Select Loan Type","0"));
+            ddlLoan.DataSource = P_Loan.Find("Status=1", "Name");
+            ddlLoan.DataBind();
+            ddlLoan.Items.Insert(0, new ListItem("Select Loan Type","0"));
             UIUtility.LoadEnums(ddlStatus, typeof(P_LoanAccount.Statuses), false, false,false);
             if (Request.QueryString["Id"] != null)
             {
@@ -51,7 +51,7 @@ namespace GITS.Hrms.WebSite.Payroll
         private P_LoanAccount GetP_LoanAccount()
         {
             P_LoanAccount p_LoanAccount = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 p_LoanAccount = P_LoanAccount.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -76,13 +76,13 @@ namespace GITS.Hrms.WebSite.Payroll
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 string desc = null;
-                P_LoanAccount p_LoanAccount = this.GetP_LoanAccount();
-                if (this.Type == TYPE_EDIT)
+                P_LoanAccount p_LoanAccount = GetP_LoanAccount();
+                if (Type == TYPE_EDIT)
                 {
                     desc = "Update [P_LoanAccount]";
                 }
@@ -91,21 +91,21 @@ namespace GITS.Hrms.WebSite.Payroll
                     desc = "Insert [P_LoanAccount]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
-                    P_LoanAccount.Update(this.TransactionManager, p_LoanAccount);
+                    P_LoanAccount.Update(TransactionManager, p_LoanAccount);
                 }
                 else
                 {
-                    P_LoanAccount.Insert(this.TransactionManager, p_LoanAccount);
+                    P_LoanAccount.Insert(TransactionManager, p_LoanAccount);
                 }
 
                 hdnId.Value = p_LoanAccount.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
                 
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -118,7 +118,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -129,7 +129,7 @@ namespace GITS.Hrms.WebSite.Payroll
         }
         protected void lbSearch_Click(object sender, EventArgs e)
         {
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 hdnId.Value = "0";
@@ -142,11 +142,11 @@ namespace GITS.Hrms.WebSite.Payroll
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 
-                this.Type = TYPE_ADD;
+                Type = TYPE_ADD;
                 hdnId.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 H_EmployeeDepartment eDepartment = H_EmployeeDepartment.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
@@ -186,12 +186,12 @@ namespace GITS.Hrms.WebSite.Payroll
                 txtDesignation.Text = "";
 
 
-                if (this.txtEmployee.Text.Trim() != "")
+                if (txtEmployee.Text.Trim() != "")
                 {
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "No employee found";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                 }
             }
         }

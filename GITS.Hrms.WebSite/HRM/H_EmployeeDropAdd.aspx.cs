@@ -40,7 +40,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_EmployeeDropHistory GetH_EmployeeDrop()
         {
             H_EmployeeDropHistory h_EmployeeDrop = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeeDrop = H_EmployeeDropHistory.GetById(Convert.ToInt32(hdnId.Value));
                 h_EmployeeDrop.Status = !chkCancel.Checked;
@@ -68,7 +68,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -76,7 +76,7 @@ namespace GITS.Hrms.WebSite.HRM
             }
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (h_Employee.AppointmentLetterDate >= DBUtility.ToDateTime(txtLetterDate.Text))
@@ -92,7 +92,7 @@ namespace GITS.Hrms.WebSite.HRM
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
                     return msg;
                 }
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     H_EmployeeDropHistory drop = H_EmployeeDropHistory.Get("H_EmployeeId=" + h_Employee.Id + " AND Status=1");
                     if (drop != null)
@@ -164,17 +164,17 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
                 if (h_Employee != null)
                 {
-                    H_EmployeeDropHistory h_EmployeeDrop = this.GetH_EmployeeDrop();
+                    H_EmployeeDropHistory h_EmployeeDrop = GetH_EmployeeDrop();
 
                     string desc = string.Empty;
-                    if (this.Type == TYPE_ADD)
+                    if (Type == TYPE_ADD)
                     {
                         desc = "Insert [H_EmployeeDropHistory]";
                     }
@@ -182,15 +182,15 @@ namespace GITS.Hrms.WebSite.HRM
                     {
                         desc = "Update [H_EmployeeDropHistory]";
                     }
-                    this.TransactionManager = new TransactionManager(true, desc);
-                    if (this.Type == TYPE_ADD)
+                    TransactionManager = new TransactionManager(true, desc);
+                    if (Type == TYPE_ADD)
                     {
 
-                        H_EmployeeDropHistory.Insert(this.TransactionManager, h_EmployeeDrop);
+                        H_EmployeeDropHistory.Insert(TransactionManager, h_EmployeeDrop);
                     }
                     else
                     {
-                        H_EmployeeDropHistory.Update(this.TransactionManager, h_EmployeeDrop);
+                        H_EmployeeDropHistory.Update(TransactionManager, h_EmployeeDrop);
                     }
                    // GITS.Hrms.Data.Entity.H_Employee.Update(this.TransactionManager, h_Employee);
                     //if (h_Employee.Status == H_Employee.Statuses.Consultancy)
@@ -221,8 +221,8 @@ namespace GITS.Hrms.WebSite.HRM
                     //}
 
                     hdnId.Value = h_EmployeeDrop.Id.ToString();
-                    this.Type = TYPE_EDIT;
-                    this.TransactionManager.Commit();
+                    Type = TYPE_EDIT;
+                    TransactionManager.Commit();
                 }
                 else
                 {
@@ -250,7 +250,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (h_EmployeeDropHistory != null)
                 {
                     chkCancel.Visible = true;
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     txtLetterNo.Text = h_EmployeeDropHistory.LetterNo;
                     txtLetterDate.Text = UIUtility.Format(h_EmployeeDropHistory.LetterDate);
                     txtDropDate.Text = UIUtility.Format(h_EmployeeDropHistory.DropDate);
@@ -322,7 +322,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;

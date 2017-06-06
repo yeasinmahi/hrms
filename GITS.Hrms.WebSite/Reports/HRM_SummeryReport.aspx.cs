@@ -17,41 +17,41 @@ namespace GITS.Hrms.WebSite.Reports
         {
             throw new NotImplementedException();
         }
-         protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
+         protected override void HandleSpecialCommand(object sender, MenuEventArgs e)
          {
-             this.Validate();
+             Validate();
 
-             if (this.IsValid)
+             if (IsValid)
              {
                  switch (e.Item.Value)
                  {
                      case "SEARCH":
-                         this.Search();
+                         Search();
                          break;
                      case "REFRESH":
-                         this.PunishmentReport();
+                         PunishmentReport();
                          break;
                      case "EXCEL":
-                         this.MaleFemaleReport(1); //Male
+                         MaleFemaleReport(1); //Male
                          pnlreport.GroupingText = "Male Summery Report";
                          break;
                      case "UPGRADE":
-                         this.LoanOfficer(); // 1 for Designation Type LO
+                         LoanOfficer(); // 1 for Designation Type LO
                          break;
                      case "RESTORE":
-                         this.BranchManager(); 
+                         BranchManager(); 
                          break;
                      case "BACKUP":
-                         this.RegionalManager(); 
+                         RegionalManager(); 
                          break;
                      case "EXECUTE":
-                         this.DistrictManager();
+                         DistrictManager();
                          break;
                      case "SHRINK":
-                         this.ZonalManager(); 
+                         ZonalManager(); 
                          break;
                      default:
-                         this.HandleSpecialCommand(sender, e);
+                         HandleSpecialCommand(sender, e);
                          break;
                  }
              }
@@ -59,13 +59,13 @@ namespace GITS.Hrms.WebSite.Reports
 
          private void RegionalManager()
          {
-             this.EmployeeSummery(4,0);
+             EmployeeSummery(4,0);
              pnlreport.GroupingText = "Regional Manager Summery";
          }
 
          private void DistrictManager()
          {
-             this.EmployeeSummery(5,6);
+             EmployeeSummery(5,6);
              pnlreport.GroupingText = "District Manager Summery";
          }
 
@@ -78,13 +78,13 @@ namespace GITS.Hrms.WebSite.Reports
 
          private void BranchManager()
          {
-             this.EmployeeSummery(2,0);
+             EmployeeSummery(2,0);
              pnlreport.GroupingText = "Branch Manager Summery";
          }
 
          private void LoanOfficer()
          {
-             this.EmployeeSummery(1,0);
+             EmployeeSummery(1,0);
              pnlreport.GroupingText = "Loan Officer Summery";
          }
 
@@ -151,7 +151,7 @@ namespace GITS.Hrms.WebSite.Reports
          }
          protected override void PrintData()
          {
-             this.MaleFemaleReport(2); // Female
+             MaleFemaleReport(2); // Female
              pnlreport.GroupingText = "Female Summery Report";
          }
          private void MaleFemaleReport(int mfFlag)

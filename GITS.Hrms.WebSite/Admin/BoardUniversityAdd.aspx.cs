@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             BoardUniversity boardUniversity = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 boardUniversity = BoardUniversity.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -54,7 +54,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -66,14 +66,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                BoardUniversity boardUniversity = this.GetBoardUniversity();
+                BoardUniversity boardUniversity = GetBoardUniversity();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [BoardUniversity]";
                 }
@@ -82,21 +82,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [BoardUniversity]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    BoardUniversity.Insert(this.TransactionManager, boardUniversity);
+                    BoardUniversity.Insert(TransactionManager, boardUniversity);
 
                     hdnId.Value = boardUniversity.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    BoardUniversity.Update(this.TransactionManager, boardUniversity);
+                    BoardUniversity.Update(TransactionManager, boardUniversity);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -113,7 +113,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (boardUniversity != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = boardUniversity.Name;
                 }

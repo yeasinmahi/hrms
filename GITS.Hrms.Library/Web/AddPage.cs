@@ -16,7 +16,7 @@ namespace GITS.Hrms.Library.Web
         protected const string TYPE_ADD = "ADD";
         protected const string TYPE_EDIT = "EDIT";
 
-        protected HiddenField hdnId = null;
+        protected HiddenField hdnId;
 
         protected string Type
         {
@@ -35,15 +35,11 @@ namespace GITS.Hrms.Library.Web
             }
         }
 
-        public AddPage()
-        {
-        }
-
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
 
-            this.hdnId = (HiddenField)Master.FindControl("hdnId");
+            hdnId = (HiddenField)Master.FindControl("hdnId");
         }
 
         protected override void OnLoad(EventArgs e)
@@ -83,21 +79,21 @@ namespace GITS.Hrms.Library.Web
             switch (e.Item.Value)
             {
                 case COMMAND_SAVE:
-                    msg = this.Save();
-                    this.ShowUIMessage(msg);
+                    msg = Save();
+                    ShowUiMessage(msg);
                     break;
                 case COMMAND_SAVE_AND_CLOSE:
-                    msg = this.Save();
-                    this.ShowUIMessage(msg);
+                    msg = Save();
+                    ShowUiMessage(msg);
 
                     if (msg.Type == MessageType.Information)
                     {
-                        UIUtility.Transfer(Page, this.GetListPageUrl());
+                        UIUtility.Transfer(Page, GetListPageUrl());
                     }
                     break;
                 case COMMAND_SAVE_AND_NEW:
-                    msg = this.Save();
-                    this.ShowUIMessage(msg);
+                    msg = Save();
+                    ShowUiMessage(msg);
 
                     if (msg.Type == MessageType.Information)
                     {
@@ -105,16 +101,16 @@ namespace GITS.Hrms.Library.Web
                     }
                     break;
                 case COMMAND_CANCEL:
-                    UIUtility.Transfer(Page, this.GetListPageUrl());
+                    UIUtility.Transfer(Page, GetListPageUrl());
                     break;
                 case COMMAND_SEARCH:
-                    this.Search();
+                    Search();
                     break;
                 case COMMAND_PRINT:
-                    this.PrintData();
+                    PrintData();
                     break;
                 default:
-                    this.HandleSpecialCommand(sender, e);
+                    HandleSpecialCommand(sender, e);
                     break;
 
             }

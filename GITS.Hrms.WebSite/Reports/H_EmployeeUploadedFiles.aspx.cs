@@ -30,7 +30,7 @@ namespace GITS.Hrms.WebSite.Reports
         }
         protected void lbSearch_Click(object sender, EventArgs e)
         {
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
 
             if (h_Employee != null)
             {

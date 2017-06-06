@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             H_Department h_Department = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_Department = H_Department.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -55,7 +55,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -67,14 +67,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_Department h_Department = this.GetH_Department();
+                H_Department h_Department = GetH_Department();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_Department]";
                 }
@@ -83,21 +83,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [H_Department]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    H_Department.Insert(this.TransactionManager, h_Department);
+                    H_Department.Insert(TransactionManager, h_Department);
 
                     hdnId.Value = h_Department.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    H_Department.Update(this.TransactionManager, h_Department);
+                    H_Department.Update(TransactionManager, h_Department);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -114,7 +114,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (h_Department != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = h_Department.Name;
                     txtSortOrder.Text = UIUtility.Format(h_Department.SortOrder);

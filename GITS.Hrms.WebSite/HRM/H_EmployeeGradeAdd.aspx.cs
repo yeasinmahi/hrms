@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.HRM
         {
             H_EmployeeGrade h_EmployeeGrade = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeeGrade = H_EmployeeGrade.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -57,7 +57,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -69,14 +69,14 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_EmployeeGrade h_EmployeeGrade = this.GetH_EmployeeGrade();
+                H_EmployeeGrade h_EmployeeGrade = GetH_EmployeeGrade();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_EmployeeGrade]";
                 }
@@ -85,21 +85,21 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "Update [H_EmployeeGrade]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    H_EmployeeGrade.Insert(this.TransactionManager, h_EmployeeGrade);
+                    H_EmployeeGrade.Insert(TransactionManager, h_EmployeeGrade);
 
                     hdnId.Value = h_EmployeeGrade.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    H_EmployeeGrade.Update(this.TransactionManager, h_EmployeeGrade);
+                    H_EmployeeGrade.Update(TransactionManager, h_EmployeeGrade);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -109,11 +109,11 @@ namespace GITS.Hrms.WebSite.HRM
         {
             H_EmployeeGrade h_EmployeeGrade = null;
 
-            this.ddlH_EmployeeId.DataSource = H_Employee.FindAll();
-            this.ddlH_EmployeeId.DataBind();
+            ddlH_EmployeeId.DataSource = H_Employee.FindAll();
+            ddlH_EmployeeId.DataBind();
 
-            this.ddlH_GradeId.DataSource = H_Grade.FindAll();
-            this.ddlH_GradeId.DataBind();
+            ddlH_GradeId.DataSource = H_Grade.FindAll();
+            ddlH_GradeId.DataBind();
 
             if (Request.QueryString["Id"] != null)
             {
@@ -122,7 +122,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                 if (h_EmployeeGrade != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     ddlH_EmployeeId.SelectedValue = UIUtility.Format(h_EmployeeGrade.H_EmployeeId);
                     ddlH_GradeId.SelectedValue = UIUtility.Format(h_EmployeeGrade.H_GradeId);

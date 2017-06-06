@@ -82,64 +82,64 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
         public Statuses Status
 		{
-			get {return this._Status;}
-			set {this._Status = value;}
+			get {return _Status;}
+			set {_Status = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
         public String NgoName
 		{
-			get {return this._NgoName;}
-			set {this._NgoName = value;}
+			get {return _NgoName;}
+			set {_NgoName = value;}
 		}
         public String Through
         {
-            get { return this._Through; }
-            set { this._Through = value; }
+            get { return _Through; }
+            set { _Through = value; }
         }
         public String Phone
         {
-            get { return this._Phone; }
-            set { this._Phone = value; }
+            get { return _Phone; }
+            set { _Phone = value; }
         }
         public String Fax
         {
-            get { return this._Fax; }
-            set { this._Fax = value; }
+            get { return _Fax; }
+            set { _Fax = value; }
         }
         public String Email
         {
-            get { return this._Email; }
-            set { this._Email = value; }
+            get { return _Email; }
+            set { _Email = value; }
         }
         
 
 		public DateTime StartDate
 		{
-			get {return this._StartDate;}
-			set {this._StartDate = value;}
+			get {return _StartDate;}
+			set {_StartDate = value;}
 		}
         public Nullable<DateTime> EndDate
         {
-            get { return this._EndDate; }
-            set { this._EndDate = value; }
+            get { return _EndDate; }
+            set { _EndDate = value; }
         }
 
         public Int32 CountryId
@@ -156,8 +156,8 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public Boolean IsProcessed
         {
-            get { return this._IsProcessed; }
-            set { this._IsProcessed = value; }
+            get { return _IsProcessed; }
+            set { _IsProcessed = value; }
         }
         
     }

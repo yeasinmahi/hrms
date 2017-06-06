@@ -19,9 +19,9 @@ namespace GITS.Hrms.WebSite.HRM
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.BaseEntityType = typeof(H_EmployeeRejoinHistory);
-            this.EntityType = typeof(H_EmployeeRejoinHistoryView);
+            GridView = gvList;
+            BaseEntityType = typeof(H_EmployeeRejoinHistory);
+            EntityType = typeof(H_EmployeeRejoinHistoryView);
         }
 
         protected override string GetAddPageUrl()

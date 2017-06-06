@@ -15,17 +15,17 @@ namespace GITS.Hrms.WebSite.Reports
     {
         protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
                     case "EXCEL":
-                        this.ViewReport();
+                        ViewReport();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -38,12 +38,12 @@ namespace GITS.Hrms.WebSite.Reports
 
             if (report.Name.Contains("At A Glance Report"))
             {
-                this.AtAGlanceReport(report.Query);
+                AtAGlanceReport(report.Query);
             }
 
             if (report.Name.Contains("Staff Information"))
             {
-                this.StaffInformation(report.Query);
+                StaffInformation(report.Query);
             }
         }
 
@@ -58,9 +58,9 @@ namespace GITS.Hrms.WebSite.Reports
 
             DateTime endDate = Configuration.EndDate = Convert.ToDateTime(txtAsOnDate.Text).Date;
 
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
 
-            DataSet ds = this.TransactionManager.GetDataSet(String.Format(queryString,
+            DataSet ds = TransactionManager.GetDataSet(String.Format(queryString,
                 "'" + endDate.ToString(Configuration.DatabaseDateFormat) + "'",
                 zoneId == 0 ? "NULL" : zoneId.ToString(),
                 subzoneId == 0 ? "NULL" : subzoneId.ToString(),
@@ -265,56 +265,56 @@ namespace GITS.Hrms.WebSite.Reports
 
             if (type != null)
             {
-                this.ddlReport.DataTextField = "Name";
-                this.ddlReport.DataValueField = "Id";
-                this.ddlReport.DataSource = type;
-                this.ddlReport.DataBind();
+                ddlReport.DataTextField = "Name";
+                ddlReport.DataValueField = "Id";
+                ddlReport.DataSource = type;
+                ddlReport.DataBind();
             }
 
-            this.LoadZone();
-            this.LoadGrade();
+            LoadZone();
+            LoadGrade();
 
             txtAsOnDate.Text = UIUtility.Format(Configuration.EndDate);
         }
 
         protected void ddlReport_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlRegion.SelectedValue != null)
+            if (ddlRegion.SelectedValue != null)
             {
                 ReportConfig report = ReportConfig.GetById(DBUtility.ToInt32(ddlReport.SelectedValue));
 
                 if (report.Location)
                 {
-                    this.ddlZone.Enabled = true;
-                    this.ddlSubzone.Enabled = true;
-                    this.ddlRegion.Enabled = true;
-                    this.ddlBranch.Enabled = true;
+                    ddlZone.Enabled = true;
+                    ddlSubzone.Enabled = true;
+                    ddlRegion.Enabled = true;
+                    ddlBranch.Enabled = true;
                 }
                 else
                 {
-                    this.ddlZone.SelectedIndex = 0;
-                    this.ddlSubzone.SelectedIndex = 0;
-                    this.ddlRegion.SelectedIndex = 0;
-                    this.ddlBranch.SelectedIndex = 0;
+                    ddlZone.SelectedIndex = 0;
+                    ddlSubzone.SelectedIndex = 0;
+                    ddlRegion.SelectedIndex = 0;
+                    ddlBranch.SelectedIndex = 0;
 
-                    this.ddlZone.Enabled = false;
-                    this.ddlSubzone.Enabled = false;
-                    this.ddlRegion.Enabled = false;
-                    this.ddlBranch.Enabled = false;
+                    ddlZone.Enabled = false;
+                    ddlSubzone.Enabled = false;
+                    ddlRegion.Enabled = false;
+                    ddlBranch.Enabled = false;
                 }
 
                 if (report.Position)
                 {
-                    this.ddlGrade.Enabled = true;
-                    this.ddlDesignation.Enabled = true;
+                    ddlGrade.Enabled = true;
+                    ddlDesignation.Enabled = true;
                 }
                 else
                 {
-                    this.ddlGrade.SelectedIndex = 0;
-                    this.ddlDesignation.SelectedIndex = 0;
+                    ddlGrade.SelectedIndex = 0;
+                    ddlDesignation.SelectedIndex = 0;
 
-                    this.ddlGrade.Enabled = false;
-                    this.ddlDesignation.Enabled = false;
+                    ddlGrade.Enabled = false;
+                    ddlDesignation.Enabled = false;
                 }
             }
         }
@@ -335,21 +335,21 @@ namespace GITS.Hrms.WebSite.Reports
 
             if (divisionList != null && divisionList.Count > 0)
             {
-                this.ddlZone.DataTextField = "Name";
-                this.ddlZone.DataValueField = "Id";
-                this.ddlZone.DataSource = divisionList;
-                this.ddlZone.DataBind();
+                ddlZone.DataTextField = "Name";
+                ddlZone.DataValueField = "Id";
+                ddlZone.DataSource = divisionList;
+                ddlZone.DataBind();
 
                 //if (divisionList.Count(z => z.Id == Asa.Hrms.Utility.Configuration.ZoneId) > 0)
                 //{
                 //    this.ddlZone.SelectedValue = Asa.Hrms.Utility.Configuration.ZoneId.ToString();
                 //}
 
-                this.LoadSubzone();
+                LoadSubzone();
             }
             else
             {
-                this.ddlZone.DataSource = null;
+                ddlZone.DataSource = null;
             }
         }
 
@@ -357,7 +357,7 @@ namespace GITS.Hrms.WebSite.Reports
         {
             //Asa.Hrms.Utility.Configuration.ZoneId = DBUtility.ToInt32(this.ddlZone.SelectedValue);
 
-            this.LoadSubzone();
+            LoadSubzone();
         }
 
         private void LoadSubzone()
@@ -380,21 +380,21 @@ namespace GITS.Hrms.WebSite.Reports
 
                 if (subzoneList != null && subzoneList.Count > 0)
                 {
-                    this.ddlSubzone.DataTextField = "Name";
-                    this.ddlSubzone.DataValueField = "Id";
-                    this.ddlSubzone.DataSource = subzoneList;
-                    this.ddlSubzone.DataBind();
+                    ddlSubzone.DataTextField = "Name";
+                    ddlSubzone.DataValueField = "Id";
+                    ddlSubzone.DataSource = subzoneList;
+                    ddlSubzone.DataBind();
 
                     //if (subzoneList.Count(d => d.Id == Asa.Hrms.Utility.Configuration.SubzoneId) > 0)
                     //{
                     //    this.ddlSubzone.SelectedValue = Asa.Hrms.Utility.Configuration.SubzoneId.ToString();
                     //}
 
-                    this.LoadRegion();
+                    LoadRegion();
                 }
                 else
                 {
-                    this.ddlSubzone.DataSource = null;
+                    ddlSubzone.DataSource = null;
                 }
             }
         }
@@ -403,7 +403,7 @@ namespace GITS.Hrms.WebSite.Reports
         {
             //Asa.Hrms.Utility.Configuration.SubzoneId = DBUtility.ToInt32(this.ddlSubzone.SelectedValue);
 
-            this.LoadRegion();
+            LoadRegion();
         }
 
         private void LoadRegion()
@@ -425,30 +425,30 @@ namespace GITS.Hrms.WebSite.Reports
 
                 if (regionList != null && regionList.Count > 0)
                 {
-                    this.ddlRegion.DataTextField = "Name";
-                    this.ddlRegion.DataValueField = "Id";
-                    this.ddlRegion.DataSource = regionList;
-                    this.ddlRegion.DataBind();
+                    ddlRegion.DataTextField = "Name";
+                    ddlRegion.DataValueField = "Id";
+                    ddlRegion.DataSource = regionList;
+                    ddlRegion.DataBind();
 
                     if (regionList.Count(r => r.Id == Configuration.RegionId) > 0)
                     {
-                        this.ddlRegion.SelectedValue = Configuration.RegionId.ToString();
+                        ddlRegion.SelectedValue = Configuration.RegionId.ToString();
                     }
 
-                    this.LoadBranch();
+                    LoadBranch();
                 }
                 else
                 {
-                    this.ddlRegion.DataSource = null;
+                    ddlRegion.DataSource = null;
                 }
             }
         }
 
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.RegionId = DBUtility.ToInt32(this.ddlRegion.SelectedValue);
+            Configuration.RegionId = DBUtility.ToInt32(ddlRegion.SelectedValue);
 
-            this.LoadBranch();
+            LoadBranch();
         }
 
         private void LoadBranch()
@@ -471,26 +471,26 @@ namespace GITS.Hrms.WebSite.Reports
 
                 if (branchList != null && branchList.Count > 0)
                 {
-                    this.ddlBranch.DataTextField = "Name";
-                    this.ddlBranch.DataValueField = "Id";
-                    this.ddlBranch.DataSource = branchList;
-                    this.ddlBranch.DataBind();
+                    ddlBranch.DataTextField = "Name";
+                    ddlBranch.DataValueField = "Id";
+                    ddlBranch.DataSource = branchList;
+                    ddlBranch.DataBind();
 
                     if (branchList.Count(r => r.Id == Configuration.BranchCode) > 0)
                     {
-                        this.ddlBranch.SelectedValue = Configuration.BranchCode.ToString();
+                        ddlBranch.SelectedValue = Configuration.BranchCode.ToString();
                     }
                 }
                 else
                 {
-                    this.ddlBranch.DataSource = null;
+                    ddlBranch.DataSource = null;
                 }
             }
         }
 
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.BranchCode = DBUtility.ToInt32(this.ddlBranch.SelectedValue);
+            Configuration.BranchCode = DBUtility.ToInt32(ddlBranch.SelectedValue);
         }
 
         private void LoadGrade()
@@ -509,30 +509,30 @@ namespace GITS.Hrms.WebSite.Reports
 
             if (gradeList != null && gradeList.Count > 0)
             {
-                this.ddlGrade.DataTextField = "Name";
-                this.ddlGrade.DataValueField = "Id";
-                this.ddlGrade.DataSource = gradeList;
-                this.ddlGrade.DataBind();
+                ddlGrade.DataTextField = "Name";
+                ddlGrade.DataValueField = "Id";
+                ddlGrade.DataSource = gradeList;
+                ddlGrade.DataBind();
 
                 if (gradeList.Count(z => z.Id == Configuration.GradeId) > 0)
                 {
-                    this.ddlGrade.SelectedValue = Configuration.GradeId.ToString();
+                    ddlGrade.SelectedValue = Configuration.GradeId.ToString();
                 }
 
-                this.LoadDesignation();
+                LoadDesignation();
             }
             else
             {
-                this.ddlGrade.DataSource = null;
+                ddlGrade.DataSource = null;
             }
 
         }
 
         protected void ddlGrade_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.GradeId = DBUtility.ToInt32(this.ddlGrade.SelectedValue);
+            Configuration.GradeId = DBUtility.ToInt32(ddlGrade.SelectedValue);
 
-            this.LoadDesignation();
+            LoadDesignation();
         }
 
         private void LoadDesignation()
@@ -541,7 +541,7 @@ namespace GITS.Hrms.WebSite.Reports
             {
                 TransactionManager tm = new TransactionManager(false);
 
-                DataTable dt = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + this.ddlGrade.SelectedValue + " ORDER BY SortOrder").Tables[0];
+                DataTable dt = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + ddlGrade.SelectedValue + " ORDER BY SortOrder").Tables[0];
                 IList<H_Designation> designationList = new List<H_Designation>();
 
                 H_Designation all = new H_Designation();
@@ -565,14 +565,14 @@ namespace GITS.Hrms.WebSite.Reports
 
                 if (designationList != null && designationList.Count > 0)
                 {
-                    this.ddlDesignation.DataTextField = "Name";
-                    this.ddlDesignation.DataValueField = "Id";
-                    this.ddlDesignation.DataSource = designationList;
-                    this.ddlDesignation.DataBind();
+                    ddlDesignation.DataTextField = "Name";
+                    ddlDesignation.DataValueField = "Id";
+                    ddlDesignation.DataSource = designationList;
+                    ddlDesignation.DataBind();
 
                     if (designationList.Count(r => r.Id == Configuration.DesignationId) > 0)
                     {
-                        this.ddlDesignation.SelectedValue = Configuration.DesignationId.ToString();
+                        ddlDesignation.SelectedValue = Configuration.DesignationId.ToString();
                     }
                 }
             }
@@ -580,7 +580,7 @@ namespace GITS.Hrms.WebSite.Reports
 
         protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.DesignationId = DBUtility.ToInt32(this.ddlDesignation.SelectedValue);
+            Configuration.DesignationId = DBUtility.ToInt32(ddlDesignation.SelectedValue);
         }
     }
 }

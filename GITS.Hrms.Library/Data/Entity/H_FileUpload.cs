@@ -44,24 +44,24 @@ namespace GITS.Hrms.Library.Data.Entity
         }
         public String Title
         {
-            get { return this._Title; }
-            set { this._Title = value; }
+            get { return _Title; }
+            set { _Title = value; }
         }
         public String FileName
         {
-            get { return this._FileName; }
-            set { this._FileName = value; }
+            get { return _FileName; }
+            set { _FileName = value; }
         }
 
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
         public DateTime UploadDate
         {
-            get { return this._UploadDate; }
-            set { this._UploadDate = value; }
+            get { return _UploadDate; }
+            set { _UploadDate = value; }
         }
     }
 }

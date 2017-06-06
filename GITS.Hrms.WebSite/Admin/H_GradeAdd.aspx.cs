@@ -33,7 +33,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             H_Grade h_Grade = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_Grade = H_Grade.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -56,7 +56,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -68,14 +68,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_Grade h_Grade = this.GetH_Grade();
+                H_Grade h_Grade = GetH_Grade();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_Grade]";
                 }
@@ -84,21 +84,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [H_Grade]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    H_Grade.Insert(this.TransactionManager, h_Grade);
+                    H_Grade.Insert(TransactionManager, h_Grade);
 
                     hdnId.Value = h_Grade.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    H_Grade.Update(this.TransactionManager, h_Grade);
+                    H_Grade.Update(TransactionManager, h_Grade);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -115,7 +115,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (h_Grade != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = h_Grade.Name;
                     txtSortOrder.Text = UIUtility.Format(h_Grade.SortOrder);
@@ -152,7 +152,7 @@ namespace GITS.Hrms.WebSite.Admin
                 }
                 catch (Exception ex)
                 {
-                    ShowUIMessage(ex);
+                    ShowUiMessage(ex);
                 }
             }
         }
@@ -172,7 +172,7 @@ namespace GITS.Hrms.WebSite.Admin
             }
             catch (Exception ex)
             {
-                ShowUIMessage(ex);
+                ShowUiMessage(ex);
             }
         }
 

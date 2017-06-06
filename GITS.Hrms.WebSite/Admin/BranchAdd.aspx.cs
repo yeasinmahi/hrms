@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             Branch branch = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 branch = Branch.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -66,7 +66,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -78,14 +78,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                Branch branch = this.GetBranch();
+                Branch branch = GetBranch();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Branch]";
                 }
@@ -94,11 +94,11 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [Branch]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Branch.Insert(this.TransactionManager, branch);
+                    Branch.Insert(TransactionManager, branch);
 
                     hdnId.Value = branch.Id.ToString();
                     BranchOpenClose boc = new BranchOpenClose();
@@ -108,8 +108,8 @@ namespace GITS.Hrms.WebSite.Admin
                     boc.Effectivedate = DBUtility.ToDateTime(txtOpeningDate.Text);
                     boc.Types = DBUtility.ToInt32(ddlStatus.SelectedValue);
                     boc.IsRecent = true;
-                    BranchOpenClose.Insert(this.TransactionManager, boc);
-                    this.Type = TYPE_EDIT;
+                    BranchOpenClose.Insert(TransactionManager, boc);
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace GITS.Hrms.WebSite.Admin
                             boc.LetterNo = txtLetterNo.Text;
                             boc.LetterDate = DBUtility.ToDateTime(txtLetterDate.Text);
                             boc.Effectivedate = DBUtility.ToDateTime(txtOpeningDate.Text);
-                            BranchOpenClose.Update(this.TransactionManager, boc);
+                            BranchOpenClose.Update(TransactionManager, boc);
                         }
                     }
                     else
@@ -131,7 +131,7 @@ namespace GITS.Hrms.WebSite.Admin
                         if (boc != null)
                         {
                             boc.IsRecent = false;
-                            BranchOpenClose.Update(this.TransactionManager, boc);
+                            BranchOpenClose.Update(TransactionManager, boc);
                         }
                         boc = new BranchOpenClose();
                         boc.BranchId = Convert.ToInt32(hdnId.Value);
@@ -140,14 +140,14 @@ namespace GITS.Hrms.WebSite.Admin
                         boc.Effectivedate = DBUtility.ToDateTime(txtOpeningDate.Text);
                         boc.Types = DBUtility.ToInt32(ddlStatus.SelectedValue);
                         boc.IsRecent = true;
-                        BranchOpenClose.Insert(this.TransactionManager, boc);
+                        BranchOpenClose.Insert(TransactionManager, boc);
                     }
 
-                    Branch.Update(this.TransactionManager, branch);
+                    Branch.Update(TransactionManager, branch);
                 
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -160,13 +160,13 @@ namespace GITS.Hrms.WebSite.Admin
             UIUtility.LoadEnums(ddlBranchType, typeof(Branch.BranchTypes), false, false, true);
             UIUtility.LoadEnums(ddlLocationType, typeof(Branch.LocationTypes), false, false, true);
 
-            this.ddlDistrictId.DataSource = District.Find("","Name");
-            this.ddlDistrictId.DataBind();
-            this.ddlDistrictId_OnSelectedIndexChanged(ddlDistrictId, new EventArgs());
+            ddlDistrictId.DataSource = District.Find("","Name");
+            ddlDistrictId.DataBind();
+            ddlDistrictId_OnSelectedIndexChanged(ddlDistrictId, new EventArgs());
 
-            this.ddlZoneId.DataSource = Zone.Find("Status=1","Name");
-            this.ddlZoneId.DataBind();
-            this.ddlZoneId_OnSelectedIndexChanged(ddlZoneId, new EventArgs());
+            ddlZoneId.DataSource = Zone.Find("Status=1","Name");
+            ddlZoneId.DataBind();
+            ddlZoneId_OnSelectedIndexChanged(ddlZoneId, new EventArgs());
 
             if (Request.QueryString["Id"] != null)
             {
@@ -175,19 +175,19 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (branch != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     Thana thana = Thana.GetById(Convert.ToInt32(branch.ThanaId));
                     Region region = Region.GetById(Convert.ToInt32(branch.RegionId));
 
                     ddlDistrictId.SelectedValue = UIUtility.Format(thana.DistrictId);
-                    ddlDistrictId_OnSelectedIndexChanged(this.ddlDistrictId, new EventArgs());
+                    ddlDistrictId_OnSelectedIndexChanged(ddlDistrictId, new EventArgs());
 
                     ddlZoneId.SelectedValue = UIUtility.Format(Subzone.GetById(region.SubzoneId).ZoneId);
-                    ddlZoneId_OnSelectedIndexChanged(this.ddlZoneId, new EventArgs());
+                    ddlZoneId_OnSelectedIndexChanged(ddlZoneId, new EventArgs());
 
                     ddlSubzoneId.SelectedValue = UIUtility.Format(region.SubzoneId);
-                    ddlSubzoneId_OnSelectedIndexChanged(this.ddlSubzoneId, new EventArgs());
+                    ddlSubzoneId_OnSelectedIndexChanged(ddlSubzoneId, new EventArgs());
 
                     ddlThanaId.SelectedValue = UIUtility.Format(branch.ThanaId);
                     ddlRegionId.SelectedValue = UIUtility.Format(branch.RegionId);
@@ -221,8 +221,8 @@ namespace GITS.Hrms.WebSite.Admin
         {
             if (ddlDistrictId.SelectedValue != null && ddlDistrictId.SelectedValue != "")
             {
-                this.ddlThanaId.DataSource = Thana.FindByDistrictId(Convert.ToInt32(this.ddlDistrictId.SelectedValue), "");
-                this.ddlThanaId.DataBind();
+                ddlThanaId.DataSource = Thana.FindByDistrictId(Convert.ToInt32(ddlDistrictId.SelectedValue), "");
+                ddlThanaId.DataBind();
             }
         }
 
@@ -230,8 +230,8 @@ namespace GITS.Hrms.WebSite.Admin
         {
             if (ddlZoneId.SelectedValue != null && ddlZoneId.SelectedValue != "")
             {
-                this.ddlSubzoneId.DataSource = Subzone.Find("ZoneId="+Convert.ToInt32(this.ddlZoneId.SelectedValue)+" AND Status=1", "");
-                this.ddlSubzoneId.DataBind();
+                ddlSubzoneId.DataSource = Subzone.Find("ZoneId="+Convert.ToInt32(ddlZoneId.SelectedValue)+" AND Status=1", "");
+                ddlSubzoneId.DataBind();
             }
         }
 
@@ -239,8 +239,8 @@ namespace GITS.Hrms.WebSite.Admin
         {
             if (ddlSubzoneId.SelectedValue != null && ddlSubzoneId.SelectedValue != "")
             {
-                this.ddlRegionId.DataSource = Region.Find("SubzoneId="+Convert.ToInt32(this.ddlSubzoneId.SelectedValue)+" AND Status=1", "");
-                this.ddlRegionId.DataBind();
+                ddlRegionId.DataSource = Region.Find("SubzoneId="+Convert.ToInt32(ddlSubzoneId.SelectedValue)+" AND Status=1", "");
+                ddlRegionId.DataBind();
             }
         }
 

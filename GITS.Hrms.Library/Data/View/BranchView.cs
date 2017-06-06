@@ -68,109 +68,109 @@ namespace GITS.Hrms.Library.Data.View
 
 		public Nullable<Int32> Code
 		{
-			get {return this._Code;}
-			set {this._Code = value;}
+			get {return _Code;}
+			set {_Code = value;}
 		}
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
         public String NameInBangla
         {
-            get { return this._NameInBangla; }
-            set { this._NameInBangla = value; }
+            get { return _NameInBangla; }
+            set { _NameInBangla = value; }
         }
 
         public Branch.BranchTypes BranchType
         {
-            get { return this._BranchType; }
-            set { this._BranchType = value; }
+            get { return _BranchType; }
+            set { _BranchType = value; }
         }
 
 		public DateTime OpeningDate
 		{
-			get {return this._OpeningDate;}
-			set {this._OpeningDate = value;}
+			get {return _OpeningDate;}
+			set {_OpeningDate = value;}
 		}
 
 		public String MobileNumber
 		{
-			get {return this._MobileNumber;}
-			set {this._MobileNumber = value;}
+			get {return _MobileNumber;}
+			set {_MobileNumber = value;}
 		}
 
         public String Status
 		{
-			get {return this._Status;}
-			set {this._Status = value;}
+			get {return _Status;}
+			set {_Status = value;}
 		}
 
 		public Branch.LocationTypes LocationType
 		{
-			get {return this._LocationType;}
-			set {this._LocationType = value;}
+			get {return _LocationType;}
+			set {_LocationType = value;}
 		}
 
 		public Int32 RegionId
 		{
-			get {return this._RegionId;}
-			set {this._RegionId = value;}
+			get {return _RegionId;}
+			set {_RegionId = value;}
 		}
 
 		public String RegionName
 		{
-			get {return this._RegionName;}
-			set {this._RegionName = value;}
+			get {return _RegionName;}
+			set {_RegionName = value;}
 		}
 
         public Int32 SubzoneId
         {
-            get { return this._SubzoneId; }
-            set { this._SubzoneId = value; }
+            get { return _SubzoneId; }
+            set { _SubzoneId = value; }
         }
 
         public String SubzoneName
         {
-            get { return this._SubzoneName; }
-            set { this._SubzoneName = value; }
+            get { return _SubzoneName; }
+            set { _SubzoneName = value; }
         }
 
 		public Int32 ZoneId
 		{
-			get {return this._ZoneId;}
-			set {this._ZoneId = value;}
+			get {return _ZoneId;}
+			set {_ZoneId = value;}
 		}
 
 		public String ZoneName
 		{
-			get {return this._ZoneName;}
-			set {this._ZoneName = value;}
+			get {return _ZoneName;}
+			set {_ZoneName = value;}
 		}
 
         public Int32 DistrictId
         {
-            get { return this._DistrictId; }
-            set { this._DistrictId = value; }
+            get { return _DistrictId; }
+            set { _DistrictId = value; }
         }
 
         public String DistrictName
         {
-            get { return this._DistrictName; }
-            set { this._DistrictName = value; }
+            get { return _DistrictName; }
+            set { _DistrictName = value; }
         }
 
 		public Int32 ThanaId
 		{
-			get {return this._ThanaId;}
-			set {this._ThanaId = value;}
+			get {return _ThanaId;}
+			set {_ThanaId = value;}
 		}
 
 		public String ThanaName
 		{
-			get {return this._ThanaName;}
-			set {this._ThanaName = value;}
+			get {return _ThanaName;}
+			set {_ThanaName = value;}
 		}
 
 		

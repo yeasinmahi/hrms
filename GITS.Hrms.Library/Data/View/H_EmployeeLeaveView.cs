@@ -55,63 +55,63 @@ namespace GITS.Hrms.Library.Data.View
         
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
         public Int32 Code
         {
-            get { return this._Code; }
-            set { this._Code = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
         public H_EmployeeLeave.Types Type
 		{
-			get {return this._Type;}
-			set {this._Type = value;}
+			get {return _Type;}
+			set {_Type = value;}
 		}
 
         public H_EmployeeLeave.JoinTypes JoinType
         {
-            get { return this._JoinType; }
-            set { this._JoinType = value; }
+            get { return _JoinType; }
+            set { _JoinType = value; }
         }
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public DateTime StartDate
 		{
-			get {return this._StartDate;}
-			set {this._StartDate = value;}
+			get {return _StartDate;}
+			set {_StartDate = value;}
 		}
 
 		public Nullable<DateTime> EndDate
 		{
-			get {return this._EndDate;}
-			set {this._EndDate = value;}
+			get {return _EndDate;}
+			set {_EndDate = value;}
 		}
 
 		public String Cause
 		{
-			get {return this._Cause;}
-			set {this._Cause = value;}
+			get {return _Cause;}
+			set {_Cause = value;}
 		}
         public Int32 Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
     }
 }

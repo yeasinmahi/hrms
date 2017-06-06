@@ -64,62 +64,62 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public String CompanyName
 		{
-			get {return this._CompanyName;}
-			set {this._CompanyName = value;}
+			get {return _CompanyName;}
+			set {_CompanyName = value;}
 		}
 
 		public String CompanyBusiness
 		{
-			get {return this._CompanyBusiness;}
-			set {this._CompanyBusiness = value;}
+			get {return _CompanyBusiness;}
+			set {_CompanyBusiness = value;}
 		}
 
 		public String CompanyLocation
 		{
-			get {return this._CompanyLocation;}
-			set {this._CompanyLocation = value;}
+			get {return _CompanyLocation;}
+			set {_CompanyLocation = value;}
 		}
 
 		public String PositionHeld
 		{
-			get {return this._PositionHeld;}
-			set {this._PositionHeld = value;}
+			get {return _PositionHeld;}
+			set {_PositionHeld = value;}
 		}
 
 		public String Department
 		{
-			get {return this._Department;}
-			set {this._Department = value;}
+			get {return _Department;}
+			set {_Department = value;}
 		}
 
 		public String Responsibilities
 		{
-			get {return this._Responsibilities;}
-			set {this._Responsibilities = value;}
+			get {return _Responsibilities;}
+			set {_Responsibilities = value;}
 		}
 
 		public DateTime StartDate
 		{
-			get {return this._StartDate;}
-			set {this._StartDate = value;}
+			get {return _StartDate;}
+			set {_StartDate = value;}
 		}
 
 		public Nullable<DateTime> EndDate
 		{
-			get {return this._EndDate;}
-			set {this._EndDate = value;}
+			get {return _EndDate;}
+			set {_EndDate = value;}
 		}
 
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
 
 	}

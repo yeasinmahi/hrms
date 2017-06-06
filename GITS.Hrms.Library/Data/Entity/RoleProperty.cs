@@ -66,14 +66,14 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String RoleName
 		{
-			get {return this._RoleName;}
-			set {this._RoleName = value;}
+			get {return _RoleName;}
+			set {_RoleName = value;}
 		}
 
 		public String PropertyName
 		{
-			get {return this._PropertyName;}
-			set {this._PropertyName = value;}
+			get {return _PropertyName;}
+			set {_PropertyName = value;}
 		}
 
 	}

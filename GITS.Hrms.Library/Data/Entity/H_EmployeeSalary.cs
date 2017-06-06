@@ -50,20 +50,20 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public Double BasicSalary
 		{
-			get {return this._BasicSalary;}
-			set {this._BasicSalary = value;}
+			get {return _BasicSalary;}
+			set {_BasicSalary = value;}
 		}
 
 		public DateTime LastIncrementDate
 		{
-			get {return this._LastIncrementDate;}
-			set {this._LastIncrementDate = value;}
+			get {return _LastIncrementDate;}
+			set {_LastIncrementDate = value;}
 		}
 
 	}

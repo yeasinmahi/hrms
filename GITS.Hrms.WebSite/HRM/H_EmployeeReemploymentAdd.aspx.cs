@@ -45,7 +45,7 @@ namespace GITS.Hrms.WebSite.HRM
             h_EmployeeReemployment.LetterDate = DBUtility.ToDateTime(txtLetterDate.Text);
             h_EmployeeReemployment.FromDate = DBUtility.ToDateTime(txtFromDate.Text);
             h_EmployeeReemployment.ReemploymentDate = DBUtility.ToDateTime(txtReemploymentDate.Text);
-            h_EmployeeReemployment.SourceBranchId = DBUtility.ToInt32(this.hdnBranch.Value);
+            h_EmployeeReemployment.SourceBranchId = DBUtility.ToInt32(hdnBranch.Value);
             h_EmployeeReemployment.DestinationBranchId = DBUtility.ToInt32(ddlBranch.SelectedValue);
             h_EmployeeReemployment.Cause = DBUtility.ToString(txtCause.Text);
 
@@ -60,14 +60,14 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
                 return msg;
             }
 
-            if (this.txtFromDate.Text == "")
+            if (txtFromDate.Text == "")
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Employee is not currently dropped";
@@ -79,44 +79,44 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
                 if (h_Employee != null)
                 {
-                    H_EmployeeReemployment h_EmployeeReemployment = this.GetH_EmployeeReemployment();
+                    H_EmployeeReemployment h_EmployeeReemployment = GetH_EmployeeReemployment();
 
                     h_Employee.Status = (H_Employee.Statuses)((Int32)H_Employee.Statuses.Working);
                     h_Employee.EmploymentType = (H_Employee.EmploymentTypes)DBUtility.ToInt32(ddlReemploymentType.SelectedValue);
 
                     string desc = "Insert [H_EmployeeReemployment]";
-                    this.TransactionManager = new TransactionManager(true, desc);
+                    TransactionManager = new TransactionManager(true, desc);
 
-                    H_EmployeeReemployment.Insert(this.TransactionManager, h_EmployeeReemployment);
-                    H_Employee.Update(this.TransactionManager, h_Employee);
+                    H_EmployeeReemployment.Insert(TransactionManager, h_EmployeeReemployment);
+                    H_Employee.Update(TransactionManager, h_Employee);
 
                     hdnId.Value = h_EmployeeReemployment.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
-                    H_EmployeeBranch eBranch = H_EmployeeBranch.Find(this.TransactionManager, "H_EmployeeId=" + h_EmployeeReemployment.H_EmployeeId, "EndDate DESC")[0];
+                    H_EmployeeBranch eBranch = H_EmployeeBranch.Find(TransactionManager, "H_EmployeeId=" + h_EmployeeReemployment.H_EmployeeId, "EndDate DESC")[0];
 
-                    if (eBranch.BranchId != DBUtility.ToInt32(this.ddlBranch.SelectedValue))
+                    if (eBranch.BranchId != DBUtility.ToInt32(ddlBranch.SelectedValue))
                     {
                         eBranch.EndDate = h_EmployeeReemployment.FromDate.AddDays(-1);
-                        H_EmployeeBranch.Update(this.TransactionManager, eBranch);
+                        H_EmployeeBranch.Update(TransactionManager, eBranch);
 
                         eBranch = new H_EmployeeBranch();
                         eBranch.H_EmployeeId = h_EmployeeReemployment.H_EmployeeId;
                         eBranch.BranchId = DBUtility.ToInt32(ddlBranch.SelectedValue);
                         eBranch.StartDate = h_EmployeeReemployment.ReemploymentDate;
                         eBranch.EndDate = new DateTime(2099, 12, 31);
-                        H_EmployeeBranch.Insert(this.TransactionManager, eBranch);
+                        H_EmployeeBranch.Insert(TransactionManager, eBranch);
                     }
 
-                    this.TransactionManager.Commit();
+                    TransactionManager.Commit();
                 }
                 else
                 {
@@ -133,9 +133,9 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override void LoadData()
         {
-            this.ddlZone.DataSource = Zone.Find("Status=1", "Name");//, User.Identity.Name);
-            this.ddlZone.DataBind();
-            this.ddlZone_SelectedIndexChanged(this.ddlZone, new EventArgs());
+            ddlZone.DataSource = Zone.Find("Status=1", "Name");//, User.Identity.Name);
+            ddlZone.DataBind();
+            ddlZone_SelectedIndexChanged(ddlZone, new EventArgs());
 
             UIUtility.LoadEnums(ddlDropoutType, typeof(H_EmployeeDrop.Types), false, false, true);
 
@@ -145,41 +145,41 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected void ddlZone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlZone.SelectedValue != null && this.ddlZone.SelectedValue != "")
+            if (ddlZone.SelectedValue != null && ddlZone.SelectedValue != "")
             {
-                this.ddlSubzone.DataSource = Subzone.Find("ZoneId = " + this.ddlZone.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
-                this.ddlSubzone.DataBind();
-                this.ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
+                ddlSubzone.DataSource = Subzone.Find("ZoneId = " + ddlZone.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
+                ddlSubzone.DataBind();
+                ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
             }
         }
 
         protected void ddlSubzone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlSubzone.SelectedValue != null && this.ddlSubzone.SelectedValue != "")
+            if (ddlSubzone.SelectedValue != null && ddlSubzone.SelectedValue != "")
             {
-                this.ddlRegion.DataSource = Region.Find("SubzoneId = " + this.ddlSubzone.SelectedValue, "Name");//, User.Identity.Name);
-                this.ddlRegion.DataBind();
-                this.ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
+                ddlRegion.DataSource = Region.Find("SubzoneId = " + ddlSubzone.SelectedValue, "Name");//, User.Identity.Name);
+                ddlRegion.DataBind();
+                ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
             }
         }
 
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlRegion.SelectedValue != null && this.ddlRegion.SelectedValue != "")
+            if (ddlRegion.SelectedValue != null && ddlRegion.SelectedValue != "")
             {
-                this.ddlBranch.DataSource = Branch.Find("RegionId = " + this.ddlRegion.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
-                this.ddlBranch.DataBind();
+                ddlBranch.DataSource = Branch.Find("RegionId = " + ddlRegion.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
+                ddlBranch.DataBind();
             }
             else
             {
-                this.ddlBranch.Items.Clear();
+                ddlBranch.Items.Clear();
             }
         }
 
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 hdnId.Value = h_Employee.Id.ToString();
@@ -218,7 +218,7 @@ namespace GITS.Hrms.WebSite.HRM
                     txtBranchDate.Text = "";
                     hdnBranch.Value = "";
 
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                 }
             }
             else
@@ -236,7 +236,7 @@ namespace GITS.Hrms.WebSite.HRM
                 txtBranchDate.Text = "";
                 hdnBranch.Value = "";
 
-                this.ShowUIMessage(msg);
+                ShowUiMessage(msg);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[LetterOfIdCardProcedure]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[2];
 
@@ -28,7 +28,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override LetterOfIdCardProcedure Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override LetterOfIdCardProcedure Map(SqlDataReader dataReader)
         {
             LetterOfIdCardProcedure procedure = new LetterOfIdCardProcedure();
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="GITS.Hrms.WebSite._Default" CodeBehind="Default.aspx.cs" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="GITS.Hrms.WebSite._Default" CodeBehind="Default.aspx.cs" maintainScrollPositionOnPostBack="true"%>
 
 
 

@@ -80,82 +80,82 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public String Duration
 		{
-			get {return this._Duration;}
-			set {this._Duration = value;}
+			get {return _Duration;}
+			set {_Duration = value;}
 		}
 
 		public Int32 TotalWarningTime
 		{
-			get {return this._TotalWarningTime;}
-			set {this._TotalWarningTime = value;}
+			get {return _TotalWarningTime;}
+			set {_TotalWarningTime = value;}
 		}
 
 		public Int32 BranchId
 		{
-			get {return this._BranchId;}
-			set {this._BranchId = value;}
+			get {return _BranchId;}
+			set {_BranchId = value;}
 		}
 
 		public String Cause
 		{
-			get {return this._Cause;}
-			set {this._Cause = value;}
+			get {return _Cause;}
+			set {_Cause = value;}
 		}
         public String WarningType
         {
-            get { return this._WarningType; }
-            set { this._WarningType = value; }
+            get { return _WarningType; }
+            set { _WarningType = value; }
         }
 
         public String UserLogin
         {
-            get { return this._UserLogin; }
-            set { this._UserLogin = value; }
+            get { return _UserLogin; }
+            set { _UserLogin = value; }
         }
         public bool IsExempted
         {
-            get { return this._IsExempted; }
-            set { this._IsExempted = value; }
+            get { return _IsExempted; }
+            set { _IsExempted = value; }
         }
         public String ExemptedLetterNo
         {
-            get { return this._ExemptedLetterNo; }
-            set { this._ExemptedLetterNo = value; }
+            get { return _ExemptedLetterNo; }
+            set { _ExemptedLetterNo = value; }
         }
         public Nullable<DateTime> ExemptedLetterDate
         {
-            get { return this._ExemptedLetterDate; }
-            set { this._ExemptedLetterDate = value; }
+            get { return _ExemptedLetterDate; }
+            set { _ExemptedLetterDate = value; }
         }
         public String ExemptedRemarks
         {
-            get { return this._ExemptedRemarks; }
-            set { this._ExemptedRemarks = value; }
+            get { return _ExemptedRemarks; }
+            set { _ExemptedRemarks = value; }
         }
         [Property(PropertyAttribute.Attributes.NonTable)]
         public String Exempted
         {
             get
             {
-                if (this.IsExempted)
+                if (IsExempted)
                 {
                     return "Yes";
                 }

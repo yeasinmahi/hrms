@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -63,7 +63,7 @@ namespace GITS.Hrms.WebSite.HRM
         private WF_WelfareFundAssistance GetWF_WelfareFundAssistance()
         {
             WF_WelfareFundAssistance wfa = new WF_WelfareFundAssistance();
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 wfa = WF_WelfareFundAssistance.GetById(Convert.ToInt32(hdnId.Value));
 
@@ -76,7 +76,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             wfa.LetterNo = DBUtility.ToString(txtLetterNo.Text);
             wfa.LetterDate = DBUtility.ToDateTime(txtLetterDate.Text);
-            wfa.BranchId = DBUtility.ToInt32(this.hdnBranch.Value);
+            wfa.BranchId = DBUtility.ToInt32(hdnBranch.Value);
             wfa.Amount = DBUtility.ToDouble(txtAmount.Text);
             wfa.WF_DiseasesId = DBUtility.ToInt32(ddlDiseases.SelectedValue);
             wfa.Remarks = DBUtility.ToNullableString(txtRemarks.Text);
@@ -86,13 +86,13 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 string desc = null;
-                WF_WelfareFundAssistance h_EmployeeTransfer = this.GetWF_WelfareFundAssistance();
-                if (this.Type == TYPE_EDIT)
+                WF_WelfareFundAssistance h_EmployeeTransfer = GetWF_WelfareFundAssistance();
+                if (Type == TYPE_EDIT)
                 {
                     desc = "Update [WF_WelfareFundAssistance]";
                 }
@@ -101,20 +101,20 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "Insert [WF_WelfareFundAssistance]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
-                    WF_WelfareFundAssistance.Update(this.TransactionManager, h_EmployeeTransfer);
+                    WF_WelfareFundAssistance.Update(TransactionManager, h_EmployeeTransfer);
                 }
                 else
                 {
-                    WF_WelfareFundAssistance.Insert(this.TransactionManager, h_EmployeeTransfer);
+                    WF_WelfareFundAssistance.Insert(TransactionManager, h_EmployeeTransfer);
                 }
 
                 hdnId.Value = h_EmployeeTransfer.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
                 LoadGrid(h_EmployeeTransfer.H_EmployeeId);
             }
 
@@ -136,7 +136,7 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected void lbSearch_Click(object sender, EventArgs e)
         {
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
 
             if (h_Employee != null)
             {
@@ -172,7 +172,7 @@ namespace GITS.Hrms.WebSite.HRM
                 //        return;
                 //    }
                 //}
-                this.Type = TYPE_ADD;
+                Type = TYPE_ADD;
                 hdnId.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 H_EmployeeDepartment eDepartment = H_EmployeeDepartment.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
@@ -236,12 +236,12 @@ namespace GITS.Hrms.WebSite.HRM
                 txtRegion.Text = "";
                 txtBranch.Text = "";
 
-                if (this.txtEmployee.Text.Trim() != "")
+                if (txtEmployee.Text.Trim() != "")
                 {
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "No employee found";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                 }
             }
         }

@@ -54,20 +54,20 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Description
 		{
-			get {return this._Description;}
-			set {this._Description = value;}
+			get {return _Description;}
+			set {_Description = value;}
 		}
 
 		public String CreatedBy
 		{
-			get {return this._CreatedBy;}
-			set {this._CreatedBy = value;}
+			get {return _CreatedBy;}
+			set {_CreatedBy = value;}
 		}
 
 		public DateTime CreatedDate
 		{
-			get {return this._CreatedDate;}
-			set {this._CreatedDate = value;}
+			get {return _CreatedDate;}
+			set {_CreatedDate = value;}
 		}
 
 	}

@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[GradeQualificationWiseReport]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[10];
 
@@ -36,7 +36,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override GradeQualificationWiseReport Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override GradeQualificationWiseReport Map(SqlDataReader dataReader)
         {
             GradeQualificationWiseReport procedure = new GradeQualificationWiseReport();
 

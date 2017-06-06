@@ -26,7 +26,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
@@ -144,18 +144,18 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                this.TransactionManager = new TransactionManager( true,"INSERT [H_EmployeeAppraisalMaster]");
+                TransactionManager = new TransactionManager( true,"INSERT [H_EmployeeAppraisalMaster]");
                 H_EmployeeAppraisalMaster master = new H_EmployeeAppraisalMaster();
                 master.H_AppraisalId = Convert.ToInt32(hfAppraisalId.Value);
                 master.H_EmployeeId = Convert.ToInt32(hdnId.Value);
                 master.Appraiser = Convert.ToInt32(hfApp.Value);
                 master.AppraisalDate = DateTime.Today.Date;
                 master.EntryUser = User.Identity.Name;
-                H_EmployeeAppraisalMaster.Insert(this.TransactionManager, master);
+                H_EmployeeAppraisalMaster.Insert(TransactionManager, master);
                 foreach (GridViewRow dr in gvAppraisal.Rows)
                 {
 
@@ -166,7 +166,7 @@ namespace GITS.Hrms.WebSite.HRM
                     detail.H_EmployeeAppraisalMasterId = master.Id;
                     detail.H_AppraisalQuestionId = QuestionId;
                     detail.Marks = AnswerId;
-                    H_EmployeeAppraisalDetails.Insert(this.TransactionManager, detail);
+                    H_EmployeeAppraisalDetails.Insert(TransactionManager, detail);
                     
                 }
 
@@ -183,7 +183,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";

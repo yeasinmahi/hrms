@@ -16,10 +16,10 @@ namespace GITS.Hrms.WebSite.HRM
         public void ProcessRequest(HttpContext context)
         {
             String filePath = ConfigurationManager.AppSettings["FileUploadPath"].ToString();
-            System.Web.HttpRequest request = System.Web.HttpContext.Current.Request;
+            HttpRequest request = HttpContext.Current.Request;
             string id = request.QueryString["Id"];
             H_FileUpload file = H_FileUpload.GetById(Convert.ToInt32(id));
-            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            HttpResponse response = HttpContext.Current.Response;
             response.ClearContent();
             response.Clear();
             response.ContentType = GetMimeType(file.FileName);// "text/plain";

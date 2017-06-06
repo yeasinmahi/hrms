@@ -38,13 +38,13 @@ namespace GITS.Hrms.Library.Data.Entity
 		
 		public String QuestionText
 		{
-			get {return this._QuestionText;}
-			set {this._QuestionText = value;}
+			get {return _QuestionText;}
+			set {_QuestionText = value;}
 		}
         public Int32 H_AppraisalId
         {
-            get { return this._H_AppraisalId; }
-            set { this._H_AppraisalId = value; }
+            get { return _H_AppraisalId; }
+            set { _H_AppraisalId = value; }
         }
         
 

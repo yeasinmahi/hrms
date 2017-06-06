@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[Own_District_Designation_Wise_Total_Staff]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[1];
 
@@ -28,7 +28,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override OwnDistrictWiseTotalStaffProcedure Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override OwnDistrictWiseTotalStaffProcedure Map(SqlDataReader dataReader)
         {
             OwnDistrictWiseTotalStaffProcedure procedure = new OwnDistrictWiseTotalStaffProcedure();
 

@@ -162,7 +162,7 @@ namespace GITS.Hrms.Library.Utility
 
         public static string Decrypt(Stream fsIn)
         {
-            string temp = System.IO.Path.GetTempFileName();
+            string temp = Path.GetTempFileName();
             FileStream msOut = new FileStream(temp, FileMode.OpenOrCreate, FileAccess.Write);
             TripleDES algValue = TripleDES.Create();
 

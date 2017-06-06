@@ -71,78 +71,78 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public String FineType
 		{
-			get {return this._FineType;}
-			set {this._FineType = value;}
+			get {return _FineType;}
+			set {_FineType = value;}
 		}
 
 		public Int32 FineTime
 		{
-			get {return this._FineTime;}
-			set {this._FineTime = value;}
+			get {return _FineTime;}
+			set {_FineTime = value;}
 		}
 
 		public Double FineAmount
 		{
-			get {return this._FineAmount;}
-			set {this._FineAmount = value;}
+			get {return _FineAmount;}
+			set {_FineAmount = value;}
 		}
         public Int32 Duration
         {
-            get { return this._Duration; }
-            set { this._Duration = value; }
+            get { return _Duration; }
+            set { _Duration = value; }
         }
         public Int32 BranchId
         {
-            get { return this._BranchId; }
-            set { this._BranchId = value; }
+            get { return _BranchId; }
+            set { _BranchId = value; }
         }
         public String Remarks
         {
-            get { return this._Remarks; }
-            set { this._Remarks = value; }
+            get { return _Remarks; }
+            set { _Remarks = value; }
         }
         public String UserLogin
         {
-            get { return this._UserLogin; }
-            set { this._UserLogin = value; }
+            get { return _UserLogin; }
+            set { _UserLogin = value; }
         }
         public String RemissionLetterNo
         {
-            get { return this._RemissionLetterNo; }
-            set { this._RemissionLetterNo = value; }
+            get { return _RemissionLetterNo; }
+            set { _RemissionLetterNo = value; }
         }
         public Nullable<DateTime> RemissionLetterDate
         {
-            get { return this._RemissionLetterDate; }
-            set { this._RemissionLetterDate = value; }
+            get { return _RemissionLetterDate; }
+            set { _RemissionLetterDate = value; }
         }
         public Nullable<Double> RemissionAmount
         {
-            get { return this._RemissionAmount; }
-            set { this._RemissionAmount = value; }
+            get { return _RemissionAmount; }
+            set { _RemissionAmount = value; }
         }
         public String RemissionUser
         {
-            get { return this._RemissionUser; }
-            set { this._RemissionUser = value; }
+            get { return _RemissionUser; }
+            set { _RemissionUser = value; }
         }
 	}
 }

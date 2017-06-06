@@ -38,7 +38,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_EmployeeRejoinHistory GetH_EmployeeRejoin()
         {
             H_EmployeeRejoinHistory h_EmployeeRejoin = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeeRejoin = H_EmployeeRejoinHistory.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -55,7 +55,7 @@ namespace GITS.Hrms.WebSite.HRM
             h_EmployeeRejoin.LetterDate = DBUtility.ToDateTime(txtLetterDate.Text);
             h_EmployeeRejoin.FromDate = DBUtility.ToDateTime(txtFromDate.Text);
             h_EmployeeRejoin.RejoinDate = DBUtility.ToDateTime(txtRejoinDate.Text);
-            h_EmployeeRejoin.SourceBranchId = DBUtility.ToInt32(this.hdnBranch.Value);
+            h_EmployeeRejoin.SourceBranchId = DBUtility.ToInt32(hdnBranch.Value);
             h_EmployeeRejoin.DestinationBranchId = DBUtility.ToInt32(ddlBranch.SelectedValue);
             h_EmployeeRejoin.Status = true;
             
@@ -70,14 +70,14 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
                 return msg;
             }
 
-            if (this.txtFromDate.Text == "")
+            if (txtFromDate.Text == "")
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Employee is not in leave";
@@ -89,16 +89,16 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
                 if (h_Employee != null)
                 {
                     string desc = "Insert [H_EmployeeRejoinHistory]";
-                    this.TransactionManager = new TransactionManager(true, desc);
+                    TransactionManager = new TransactionManager(true, desc);
                     //if (h_Employee.Status == H_Employee.Statuses.Consultancy)
                     //{
                     //    IList<H_EmployeeConsultency> list = GITS.Hrms.Data.Entity.H_EmployeeConsultency.Find("H_EmployeeId=" + h_Employee.Id + " AND Status=1", "");
@@ -125,26 +125,26 @@ namespace GITS.Hrms.WebSite.HRM
                     //        }
                     //    }
                     //}
-                    H_EmployeeRejoinHistory h_EmployeeRejoin = this.GetH_EmployeeRejoin();
+                    H_EmployeeRejoinHistory h_EmployeeRejoin = GetH_EmployeeRejoin();
 
                    // h_Employee.Status = (H_Employee.Statuses)((Int32)H_Employee.Statuses.Working);
                    // h_Employee.EmploymentType = (H_Employee.EmploymentTypes)DBUtility.ToInt32(ddlRejoinType.SelectedValue);
 
                     
                     h_EmployeeRejoin.RejoinType = h_Employee.EmploymentType;
-                    if (this.Type == TYPE_EDIT)
+                    if (Type == TYPE_EDIT)
                     {
-                        H_EmployeeRejoinHistory.Update(this.TransactionManager, h_EmployeeRejoin);
+                        H_EmployeeRejoinHistory.Update(TransactionManager, h_EmployeeRejoin);
                     }
                     else
                     {
-                        H_EmployeeRejoinHistory.Insert(this.TransactionManager, h_EmployeeRejoin);
+                        H_EmployeeRejoinHistory.Insert(TransactionManager, h_EmployeeRejoin);
                     }
                     //GITS.Hrms.Data.Entity.H_EmployeeRejoinHistory.Insert(this.TransactionManager, h_EmployeeRejoin);
                     //GITS.Hrms.Data.Entity.H_Employee.Update(this.TransactionManager, h_Employee);
 
                     hdnId.Value = h_EmployeeRejoin.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                    // H_EmployeeBranch eBranch = H_EmployeeBranch.Find(this.TransactionManager, "H_EmployeeId=" + h_EmployeeRejoin.H_EmployeeId, "EndDate DESC")[0];
 
@@ -173,7 +173,7 @@ namespace GITS.Hrms.WebSite.HRM
                     //    GITS.Hrms.Data.Entity.H_EmployeeTransfer.Insert(this.TransactionManager, h_EmployeeTransfer);
                     //}
 
-                    this.TransactionManager.Commit();
+                    TransactionManager.Commit();
                 }
                 else
                 {
@@ -195,9 +195,9 @@ namespace GITS.Hrms.WebSite.HRM
             //this.ddlZone.DataBind();
             //this.ddlZone_SelectedIndexChanged(this.ddlZone, new EventArgs());
 
-            this.ddlSubzone.DataSource = Subzone.FindByLogin("Status=1", "Name", User.Identity.Name);
-            this.ddlSubzone.DataBind();
-            this.ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
+            ddlSubzone.DataSource = Subzone.FindByLogin("Status=1", "Name", User.Identity.Name);
+            ddlSubzone.DataBind();
+            ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
 
             UIUtility.LoadEnums(ddlLeaveType, typeof(H_EmployeeLeave.Types), false, false, true);
             if (Request.QueryString["Id"] != null)
@@ -208,7 +208,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                 if (h_History != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     txtLetterNo.Text = h_History.LetterNo;
                     txtLetterDate.Text = UIUtility.Format(h_History.LetterDate);
                     txtRejoinDate.Text = UIUtility.Format(h_History.RejoinDate);
@@ -217,7 +217,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Branch branch = Branch.GetById(h_History.DestinationBranchId);
                     Region region = Region.GetById(branch.RegionId);
                     ddlSubzone.SelectedValue = region.SubzoneId.ToString();
-                    this.ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
+                    ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
                     ddlRegion.SelectedValue = region.Id.ToString();
                     ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
                     ddlBranch.SelectedValue = branch.Id.ToString();
@@ -296,30 +296,30 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected void ddlSubzone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlSubzone.SelectedValue != null && this.ddlSubzone.SelectedValue != "")
+            if (ddlSubzone.SelectedValue != null && ddlSubzone.SelectedValue != "")
             {
-                this.ddlRegion.DataSource = Region.FindByLogin("SubzoneId = " + this.ddlSubzone.SelectedValue, "Name", User.Identity.Name);
-                this.ddlRegion.DataBind();
-                this.ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
+                ddlRegion.DataSource = Region.FindByLogin("SubzoneId = " + ddlSubzone.SelectedValue, "Name", User.Identity.Name);
+                ddlRegion.DataBind();
+                ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
             }
         }
 
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlRegion.SelectedValue != null && this.ddlRegion.SelectedValue != "")
+            if (ddlRegion.SelectedValue != null && ddlRegion.SelectedValue != "")
             {
-                this.ddlBranch.DataSource = Branch.FindByLogin("RegionId = " + this.ddlRegion.SelectedValue + " AND Status=1", "Name", User.Identity.Name);
-                this.ddlBranch.DataBind();
+                ddlBranch.DataSource = Branch.FindByLogin("RegionId = " + ddlRegion.SelectedValue + " AND Status=1", "Name", User.Identity.Name);
+                ddlBranch.DataBind();
             }
             else
             {
-                this.ddlBranch.Items.Clear();
+                ddlBranch.Items.Clear();
             }
         }
 
         protected void lbSearch_Click(object sender, EventArgs e)
         {
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
 
             if (h_Employee != null)
@@ -338,7 +338,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Warning;
                     msg.Msg = "Employee is not in leave/Consultancy";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 hdnId.Value = h_Employee.Id.ToString();
@@ -391,7 +391,7 @@ namespace GITS.Hrms.WebSite.HRM
                         txtSourceBranchDate.Text = "";
                         hdnBranch.Value = "";
 
-                        this.ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                     }
                 }
                 if (h_Employee.Status == H_Employee.Statuses.Consultancy)
@@ -442,7 +442,7 @@ namespace GITS.Hrms.WebSite.HRM
                         txtSourceBranchDate.Text = "";
                         hdnBranch.Value = "";
 
-                        this.ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                     }
                 }
             }
@@ -463,7 +463,7 @@ namespace GITS.Hrms.WebSite.HRM
                 txtSourceBranchDate.Text = "";
                 hdnBranch.Value = "";
 
-                this.ShowUIMessage(msg);
+                ShowUiMessage(msg);
             }
         }
     }

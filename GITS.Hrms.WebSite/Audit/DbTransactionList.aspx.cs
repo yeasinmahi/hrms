@@ -19,8 +19,8 @@ namespace GITS.Hrms.WebSite.Audit
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(DbTransaction);
+            GridView = gvList;
+            EntityType = typeof(DbTransaction);
         }
 
         protected override string GetAddPageUrl()

@@ -51,32 +51,32 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 		public String DisplayName
 		{
-			get {return this._DisplayName;}
-			set {this._DisplayName = value;}
+			get {return _DisplayName;}
+			set {_DisplayName = value;}
 		}
 
 		public String ImageUrl
 		{
-			get {return this._ImageUrl;}
-			set {this._ImageUrl = value;}
+			get {return _ImageUrl;}
+			set {_ImageUrl = value;}
 		}
 
 		public Boolean IsActive
 		{
-			get {return this._IsActive;}
-			set {this._IsActive = value;}
+			get {return _IsActive;}
+			set {_IsActive = value;}
 		}
 
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
 
 	}

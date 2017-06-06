@@ -59,44 +59,44 @@ namespace GITS.Hrms.Library.Data.Entity
         }
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
 
         public Int32 BranchId
         {
-            get { return this._BranchId; }
-            set { this._BranchId = value; }
+            get { return _BranchId; }
+            set { _BranchId = value; }
         }
         public Int32 WF_DiseasesId
         {
-            get { return this._WF_DiseasesId; }
-            set { this._WF_DiseasesId = value; }
+            get { return _WF_DiseasesId; }
+            set { _WF_DiseasesId = value; }
         }
         public String LetterNo
         {
-            get { return this._LetterNo; }
-            set { this._LetterNo = value; }
+            get { return _LetterNo; }
+            set { _LetterNo = value; }
         }
         public DateTime LetterDate
         {
-            get { return this._LetterDate; }
-            set { this._LetterDate = value; }
+            get { return _LetterDate; }
+            set { _LetterDate = value; }
         }
         public Double Amount
         {
-            get { return this._Amount; }
-            set { this._Amount = value; }
+            get { return _Amount; }
+            set { _Amount = value; }
         }
 		public String Remarks
 		{
-			get {return this._Remarks;}
-			set {this._Remarks = value;}
+			get {return _Remarks;}
+			set {_Remarks = value;}
 		}
         public Int32 FundType
         {
-            get { return this._FundType; }
-            set { this._FundType = value; }
+            get { return _FundType; }
+            set { _FundType = value; }
         }
 		
     }

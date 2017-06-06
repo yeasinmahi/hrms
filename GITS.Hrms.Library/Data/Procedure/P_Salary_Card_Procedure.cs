@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[P_Salary_Card_Procedure]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[1];
 
@@ -28,7 +28,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override P_Salary_Card_Procedure Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override P_Salary_Card_Procedure Map(SqlDataReader dataReader)
         {
             P_Salary_Card_Procedure procedure = new P_Salary_Card_Procedure();
 

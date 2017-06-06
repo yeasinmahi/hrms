@@ -51,25 +51,25 @@ namespace GITS.Hrms.Library.Data.Entity
         }
         public DateTime SalaryDate
         {
-            get { return this._SalaryDate; }
-            set { this._SalaryDate = value; }
+            get { return _SalaryDate; }
+            set { _SalaryDate = value; }
         }
         public DateTime ExecutionDate
         {
-            get { return this._ExecutionDate; }
-            set { this._ExecutionDate = value; }
+            get { return _ExecutionDate; }
+            set { _ExecutionDate = value; }
         }
 
         public String UserLogin
         {
-            get { return this._UserLogin; }
-            set { this._UserLogin = value; }
+            get { return _UserLogin; }
+            set { _UserLogin = value; }
         }
 
         public Boolean IsProcessEnd
         {
-            get { return this._IsProcessEnd; }
-            set { this._IsProcessEnd = value; }
+            get { return _IsProcessEnd; }
+            set { _IsProcessEnd = value; }
         }
     }
 }

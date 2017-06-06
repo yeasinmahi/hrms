@@ -45,33 +45,33 @@ namespace GITS.Hrms.Library.Data.Entity
         
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
         public DateTime LetterDate
         {
-            get { return this._LetterDate; }
-            set { this._LetterDate = value; }
+            get { return _LetterDate; }
+            set { _LetterDate = value; }
         }
 		public Int32 BranchId
 		{
-			get {return this._BranchId;}
-			set {this._BranchId = value;}
+			get {return _BranchId;}
+			set {_BranchId = value;}
 		}
         public Int32 SourceRegionId
         {
-            get { return this._SourceRegionId; }
-            set { this._SourceRegionId = value; }
+            get { return _SourceRegionId; }
+            set { _SourceRegionId = value; }
         }
         public Int32 DestinationRegionId
         {
-            get { return this._DestinationRegionId; }
-            set { this._DestinationRegionId = value; }
+            get { return _DestinationRegionId; }
+            set { _DestinationRegionId = value; }
         }
         public DateTime TransferDate
         {
-            get { return this._TransferDate; }
-            set { this._TransferDate = value; }
+            get { return _TransferDate; }
+            set { _TransferDate = value; }
         }
     }
 }

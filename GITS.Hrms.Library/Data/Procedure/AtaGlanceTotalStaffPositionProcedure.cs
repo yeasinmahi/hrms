@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[At_A_Glance_Total_Staff_Position]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[1];
 
@@ -28,7 +28,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override AtaGlanceTotalStaffPositionProcedure Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override AtaGlanceTotalStaffPositionProcedure Map(SqlDataReader dataReader)
         {
             AtaGlanceTotalStaffPositionProcedure procedure = new AtaGlanceTotalStaffPositionProcedure();
 

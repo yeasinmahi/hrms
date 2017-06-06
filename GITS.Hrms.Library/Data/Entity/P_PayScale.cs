@@ -44,42 +44,42 @@ namespace GITS.Hrms.Library.Data.Entity
         }
         public static P_PayScale GetByGradeId(Int32 gradeId)
         {
-            return P_PayScale.Get("H_GradeId=" + gradeId);
+            return Get("H_GradeId=" + gradeId);
         }
         public Int32 H_GradeId
         {
-            get { return this._H_GradeId; }
-            set { this._H_GradeId = value; }
+            get { return _H_GradeId; }
+            set { _H_GradeId = value; }
         }
         public Double StartBasic
         {
-            get { return this._StartBasic; }
-            set { this._StartBasic = value; }
+            get { return _StartBasic; }
+            set { _StartBasic = value; }
         }
 
 
         public Double Increment
         {
-            get { return this._Increment; }
-            set { this._Increment = value; }
+            get { return _Increment; }
+            set { _Increment = value; }
         }
         public Double TargetBasic
         {
-            get { return this._TargetBasic; }
-            set { this._TargetBasic = value; }
+            get { return _TargetBasic; }
+            set { _TargetBasic = value; }
         }
 
         [Property(PropertyAttribute.Attributes.NonTable)]
         public String Scale
         {
-            get { return this._StartBasic.ToString()+"-"+this.Increment.ToString()+"-"+ this._TargetBasic.ToString(); }
+            get { return _StartBasic.ToString()+"-"+Increment.ToString()+"-"+ _TargetBasic.ToString(); }
 
         }
 
         [Property(PropertyAttribute.Attributes.NonTable)]
         public String Grade
         {
-            get { return H_Grade.GetById(this._H_GradeId).Name; }
+            get { return H_Grade.GetById(_H_GradeId).Name; }
 
         }
     }

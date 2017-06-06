@@ -45,25 +45,25 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
         public Double InterestRate
         {
-            get { return this._InterestRate; }
-            set { this._InterestRate = value; }
+            get { return _InterestRate; }
+            set { _InterestRate = value; }
         }
 
                
         public Statuses Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         public Int32 SortOrder
         {
-            get { return this._SortOrder; }
-            set { this._SortOrder = value; }
+            get { return _SortOrder; }
+            set { _SortOrder = value; }
         }
     }
 }

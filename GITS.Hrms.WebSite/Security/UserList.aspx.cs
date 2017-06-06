@@ -18,10 +18,10 @@ namespace GITS.Hrms.WebSite.Security
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(User);
-            this.SortColumn = "Login";
-            this.SortOrder = "ASC";
+            GridView = gvList;
+            EntityType = typeof(User);
+            SortColumn = "Login";
+            SortOrder = "ASC";
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -33,11 +33,11 @@ namespace GITS.Hrms.WebSite.Security
             switch (e.Item.Value)
             {
                 case "RESET PASSWORD":
-                    this.ResetPassword();
+                    ResetPassword();
                     Message msg = new Message();
                     msg.Type = MessageType.Information;
                     msg.Msg = "Selected user(s) password reseted successfully";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     break;
                 default:
                     throw new NotImplementedException();
@@ -51,7 +51,7 @@ namespace GITS.Hrms.WebSite.Security
 
         private void ResetPassword()
         {
-            this.TransactionManager = new TransactionManager(true, "Reset [User] Password");
+            TransactionManager = new TransactionManager(true, "Reset [User] Password");
 
             for (int i = 0; i < gvList.Rows.Count; i++)
             {
@@ -62,16 +62,16 @@ namespace GITS.Hrms.WebSite.Security
                 {
                     int id = Convert.ToInt32(gvList.DataKeys[i].Value);
 
-                    User user = Library.Data.Entity.User.GetById(this.TransactionManager, id);
+                    User user = Library.Data.Entity.User.GetById(TransactionManager, id);
                     user.Password = "123";// user.Login;
                     user.IsReset = false;
-                    Library.Data.Entity.User.Update(this.TransactionManager, user);
+                    Library.Data.Entity.User.Update(TransactionManager, user);
                 }
             }
 
-            this.TransactionManager.Commit();
+            TransactionManager.Commit();
 
-            this.LoadData();
+            LoadData();
         }
 
         protected void gvList_RowDataBound(object sender, GridViewRowEventArgs e)

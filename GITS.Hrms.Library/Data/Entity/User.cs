@@ -60,41 +60,41 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Login
 		{
-			get {return this._Login;}
-			set {this._Login = value;}
+			get {return _Login;}
+			set {_Login = value;}
 		}
 
 		public String Password
 		{
-			get {return this._Password;}
-			set {this._Password = value;}
+			get {return _Password;}
+			set {_Password = value;}
 		}
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 		public Boolean IsActive
 		{
-			get {return this._IsActive;}
-			set {this._IsActive = value;}
+			get {return _IsActive;}
+			set {_IsActive = value;}
 		}
         public Boolean IsReset
         {
-            get { return this._IsReset; }
-            set { this._IsReset = value; }
+            get { return _IsReset; }
+            set { _IsReset = value; }
         }
         public Nullable<DateTime> LastResetDate
         {
-            get { return this._LastResetDate; }
-            set { this._LastResetDate = value; }
+            get { return _LastResetDate; }
+            set { _LastResetDate = value; }
         }
         public UserTypes UserType
         {
-            get { return this._UserType; }
-            set { this._UserType = value; }
+            get { return _UserType; }
+            set { _UserType = value; }
         }
 	}
 }

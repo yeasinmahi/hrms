@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             Country country = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 country = Country.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -55,7 +55,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -67,14 +67,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                Country country = this.GetCountry();
+                Country country = GetCountry();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Country]";
                 }
@@ -83,21 +83,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [Country]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Country.Insert(this.TransactionManager, country);
+                    Country.Insert(TransactionManager, country);
 
                     hdnId.Value = country.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    Country.Update(this.TransactionManager, country);
+                    Country.Update(TransactionManager, country);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -114,7 +114,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (country != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = country.Name;
                    

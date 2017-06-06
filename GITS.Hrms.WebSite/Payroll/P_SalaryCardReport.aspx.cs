@@ -44,7 +44,7 @@ namespace GITS.Hrms.WebSite.Payroll
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "No Data Found for the Month of " + salaryDate.ToString("MMMM, yyyy");
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
             }
         }
         

@@ -56,39 +56,39 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
         public Int32 NumberOfIncrement
 		{
-            get { return this._NumberOfIncrement; }
-            set { this._NumberOfIncrement = value; }
+            get { return _NumberOfIncrement; }
+            set { _NumberOfIncrement = value; }
 		}
 
         public DateTime EffectiveDate
 		{
-            get { return this._EffectiveDate; }
-            set { this._EffectiveDate = value; }
+            get { return _EffectiveDate; }
+            set { _EffectiveDate = value; }
 		}
 
 		
         public String Remarks
         {
-            get { return this._Remarks; }
-            set { this._Remarks = value; }
+            get { return _Remarks; }
+            set { _Remarks = value; }
         }
     }
 }

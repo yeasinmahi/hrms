@@ -29,7 +29,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (config != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     ddlLetterType.SelectedValue=((Int32)config.LetterType).ToString();
                     txtName.Text = config.Name;
                     txtInsideAddress.Text = config.InsideAddress;
@@ -51,7 +51,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             H_LetterFormats letterFormats = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 letterFormats = H_LetterFormats.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -79,7 +79,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -90,14 +90,14 @@ namespace GITS.Hrms.WebSite.Admin
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_LetterFormats h_LetterFormats = this.GetLetterFormats();
+                H_LetterFormats h_LetterFormats = GetLetterFormats();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_LetterFormats]";
                 }
@@ -106,21 +106,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [H_LetterFormats]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    H_LetterFormats.Insert(this.TransactionManager, h_LetterFormats);
+                    H_LetterFormats.Insert(TransactionManager, h_LetterFormats);
 
                     hdnId.Value = h_LetterFormats.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    H_LetterFormats.Update(this.TransactionManager, h_LetterFormats);
+                    H_LetterFormats.Update(TransactionManager, h_LetterFormats);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;

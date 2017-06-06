@@ -158,61 +158,61 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public Int32 Code
         {
-            get { return this._Code; }
-            set { this._Code = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
         public String NameInBangla
         {
-            get { return this._NameInBangla; }
-            set { this._NameInBangla = value; }
+            get { return _NameInBangla; }
+            set { _NameInBangla = value; }
         }
 
 		public String FatherName
 		{
-			get {return this._FatherName;}
-			set {this._FatherName = value;}
+			get {return _FatherName;}
+			set {_FatherName = value;}
 		}
 
 		public String MotherName
 		{
-			get {return this._MotherName;}
-			set {this._MotherName = value;}
+			get {return _MotherName;}
+			set {_MotherName = value;}
 		}
 
         public Nullable<DateTime> DateOfBirth
 		{
-			get {return this._DateOfBirth;}
-			set {this._DateOfBirth = value;}
+			get {return _DateOfBirth;}
+			set {_DateOfBirth = value;}
 		}
 
         public BloodGroups BloodGroup
 		{
-			get {return this._BloodGroup;}
-			set {this._BloodGroup = value;}
+			get {return _BloodGroup;}
+			set {_BloodGroup = value;}
 		}
 
         public Sexes Sex
 		{
-			get {return this._Sex;}
-			set {this._Sex = value;}
+			get {return _Sex;}
+			set {_Sex = value;}
 		}
 
         public MaritalStatuses MaritalStatus
 		{
-			get {return this._MaritalStatus;}
-			set {this._MaritalStatus = value;}
+			get {return _MaritalStatus;}
+			set {_MaritalStatus = value;}
 		}
 
         public Religions Religion
 		{
-			get {return this._Religion;}
-			set {this._Religion = value;}
+			get {return _Religion;}
+			set {_Religion = value;}
 		}
 
         //public Byte[] Photo
@@ -223,62 +223,62 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public Int32 PermanentAddressId
 		{
-			get {return this._PermanentAddressId;}
-			set {this._PermanentAddressId = value;}
+			get {return _PermanentAddressId;}
+			set {_PermanentAddressId = value;}
 		}
 
 		public Int32 PresentAddressId
 		{
-			get {return this._PresentAddressId;}
-			set {this._PresentAddressId = value;}
+			get {return _PresentAddressId;}
+			set {_PresentAddressId = value;}
 		}
 
         public Nullable<DateTime> AppointmentLetterDate
 		{
-            get {return this._AppointmentLetterDate;}
-			set {this._AppointmentLetterDate = value;}
+            get {return _AppointmentLetterDate;}
+			set {_AppointmentLetterDate = value;}
 		}
 
 		public String AppointmentLetterNo
 		{
-			get {return this._AppointmentLetterNo;}
-			set {this._AppointmentLetterNo = value;}
+			get {return _AppointmentLetterNo;}
+			set {_AppointmentLetterNo = value;}
 		}
 
         public Nullable<DateTime> JoiningDate
         {
-            get { return this._JoiningDate; }
-            set { this._JoiningDate = value; }
+            get { return _JoiningDate; }
+            set { _JoiningDate = value; }
         }
 
         public Nullable<DateTime> PermanentLetterDate
         {
-            get { return this._PermanentLetterDate; }
-            set { this._PermanentLetterDate = value; }
+            get { return _PermanentLetterDate; }
+            set { _PermanentLetterDate = value; }
         }
 
         public String PermanentLetterNo
         {
-            get { return this._PermanentLetterNo; }
-            set { this._PermanentLetterNo = value; }
+            get { return _PermanentLetterNo; }
+            set { _PermanentLetterNo = value; }
         }
 
         public Nullable<DateTime> PermanentDate
         {
-            get { return this._PermanentDate; }
-            set { this._PermanentDate = value; }
+            get { return _PermanentDate; }
+            set { _PermanentDate = value; }
         }
 
         public EmploymentTypes EmploymentType
         {
-            get { return this._EmploymentType; }
-            set { this._EmploymentType = value; }
+            get { return _EmploymentType; }
+            set { _EmploymentType = value; }
         }
 
         public Statuses Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
 
         [Property(PropertyAttribute.Attributes.NonTable)]
@@ -286,13 +286,13 @@ namespace GITS.Hrms.Library.Data.Entity
         {
             get
             {
-                if (this.Name != null)
+                if (Name != null)
                 {
-                    return this.Code + ": " + this.Name + "(" + this.Code.ToString() + ")";
+                    return Code + ": " + Name + "(" + Code.ToString() + ")";
                 }
                 else
                 {
-                    return this.Name;
+                    return Name;
                 }
             }
         }
@@ -303,13 +303,13 @@ namespace GITS.Hrms.Library.Data.Entity
         {
             get
             {
-                if (this.Name != null)
+                if (Name != null)
                 {
-                    return this.Code + ": " + this.Name;
+                    return Code + ": " + Name;
                 }
                 else
                 {
-                    return this.Name;
+                    return Name;
                 }
             }
         }
@@ -317,21 +317,21 @@ namespace GITS.Hrms.Library.Data.Entity
         [Property(PropertyAttribute.Attributes.NonTable)]
         public H_Address PermanentAddress
         {
-            get { return this._PermanentAddress; }
-            set { this._PermanentAddress = value; }
+            get { return _PermanentAddress; }
+            set { _PermanentAddress = value; }
         }
 
         [Property(PropertyAttribute.Attributes.NonTable)]
         public H_Address PresentAddress
         {
-            get { return this._PresentAddress; }
-            set { this._PresentAddress = value; }
+            get { return _PresentAddress; }
+            set { _PresentAddress = value; }
         }
 
         public Nullable<Int64> NationalId
         {
-            get { return this._NationalId; }
-            set { this._NationalId = value; }
+            get { return _NationalId; }
+            set { _NationalId = value; }
         }
 	}
 }

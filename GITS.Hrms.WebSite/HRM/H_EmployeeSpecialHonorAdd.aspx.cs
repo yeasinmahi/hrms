@@ -56,7 +56,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -64,7 +64,7 @@ namespace GITS.Hrms.WebSite.HRM
             }
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (h_Employee.AppointmentLetterDate >= DBUtility.ToDateTime(txtLetterDate.Text))
@@ -80,7 +80,7 @@ namespace GITS.Hrms.WebSite.HRM
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
                     return msg;
                 }
-                IList<H_EmployeeSpecialHonor> honorList = H_EmployeeSpecialHonor.Find("H_EmployeeID = " + h_Employee.Id + " AND LetterDate= '" + DBUtility.ToDateTime(this.txtLetterDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "");// + "' AND '" + DBUtility.ToDateTime(this.txtEndDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "Id DESC");
+                IList<H_EmployeeSpecialHonor> honorList = H_EmployeeSpecialHonor.Find("H_EmployeeID = " + h_Employee.Id + " AND LetterDate= '" + DBUtility.ToDateTime(txtLetterDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "");// + "' AND '" + DBUtility.ToDateTime(this.txtEndDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "Id DESC");
 
                 if (honorList.Count > 0)
                 {
@@ -95,27 +95,27 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
                 if (h_Employee != null)
                 {
                     hdnId.Value = h_Employee.Id.ToString();
 
-                    H_EmployeeSpecialHonor h_EmployeeSpecialHonor = this.GetH_EmployeeSpecialHonor();
+                    H_EmployeeSpecialHonor h_EmployeeSpecialHonor = GetH_EmployeeSpecialHonor();
                     string desc = "Insert [H_EmployeeSpecialHonor]";
 
-                    this.TransactionManager = new TransactionManager(true, desc);
+                    TransactionManager = new TransactionManager(true, desc);
 
-                    H_EmployeeSpecialHonor.Insert(this.TransactionManager, h_EmployeeSpecialHonor);
+                    H_EmployeeSpecialHonor.Insert(TransactionManager, h_EmployeeSpecialHonor);
 
                     hdnId.Value = h_EmployeeSpecialHonor.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
-                    this.TransactionManager.Commit();
+                    TransactionManager.Commit();
                 }
                 else
                 {
@@ -136,7 +136,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;

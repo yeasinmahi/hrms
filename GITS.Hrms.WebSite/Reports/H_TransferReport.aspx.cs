@@ -22,13 +22,13 @@ namespace GITS.Hrms.WebSite.Reports
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
-            this.GridView = this.gvList;
-            this.SortOrder = "ASC";
+            GridView = gvList;
+            SortOrder = "ASC";
         }
         protected override void gvList_Sorting(object sender, System.Web.UI.WebControls.GridViewSortEventArgs e)
         {
             string sortedQuery = string.Empty;
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             sortedQuery = query + " ORDER BY " + e.SortExpression +" "+SortOrder;
             DataSet ds = TransactionManager.GetDataSet(sortedQuery);
             dataset = ds;
@@ -46,27 +46,27 @@ namespace GITS.Hrms.WebSite.Reports
             }
             gvList.DataSource = dt;
             gvList.DataBind();
-            this.SortOrder = this.SortOrder == "ASC" ? "DESC" : "ASC";
+            SortOrder = SortOrder == "ASC" ? "DESC" : "ASC";
         }
         protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
                     case "EXCEL":
-                        this.ViewReport();
+                        ViewReport();
                         break;
                     case "SEARCH":
-                        this.Search();
+                        Search();
                         break;
                     case "PRINT":
-                        this.Print();
+                        Print();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -79,7 +79,7 @@ namespace GITS.Hrms.WebSite.Reports
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "At First Load Data, then Print ";
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
             string reportName = "H_EmployeeTransferReport.rpt";
@@ -97,7 +97,7 @@ namespace GITS.Hrms.WebSite.Reports
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid Data provided by the user";
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
             if (txtEmpId.Text == "" && txtBranch.Text == "" && txtAsaDistrict.Text == "")
@@ -105,7 +105,7 @@ namespace GITS.Hrms.WebSite.Reports
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "Enter value at least one field";
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
             if (!String.IsNullOrEmpty(txtEmpId.Text))
@@ -119,7 +119,7 @@ namespace GITS.Hrms.WebSite.Reports
                         Message msg = new Message();
                         msg.Type = MessageType.Error;
                         msg.Msg = "Invalid Employee ID";
-                        ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                         return;
                     }
                 }
@@ -128,7 +128,7 @@ namespace GITS.Hrms.WebSite.Reports
         }
         private void ShowReport()
         {
-            this.TransactionManager = new TransactionManager(false);
+            TransactionManager = new TransactionManager(false);
             if (string.IsNullOrEmpty(txtEmpId.Text))
             {
 
@@ -221,7 +221,7 @@ namespace GITS.Hrms.WebSite.Reports
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "At First Load Data, then Export ";
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
             IList<DataTable> tables = new List<DataTable>();
@@ -278,7 +278,7 @@ namespace GITS.Hrms.WebSite.Reports
                 Message msg = new Message();
                 msg.Type = MessageType.Error;
                 msg.Msg = "Enter value at least one field";
-                ShowUIMessage(msg);
+                ShowUiMessage(msg);
                 return;
             }
             ShowReport();

@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[SubzoneWiseEmpoyeeSummery]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[2];
 
@@ -27,7 +27,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override SubzoneWiseEmpoyeeSummery Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override SubzoneWiseEmpoyeeSummery Map(SqlDataReader dataReader)
         {
             SubzoneWiseEmpoyeeSummery procedure = new SubzoneWiseEmpoyeeSummery();
 

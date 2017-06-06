@@ -29,7 +29,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
                 if (h_Designation != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = h_Designation.Name;
                     chkIsFixed.Checked = h_Designation.IsFixed;
@@ -49,7 +49,7 @@ namespace GITS.Hrms.WebSite.Payroll
         {
             P_Deduction h_Designation = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_Designation = P_Deduction.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -73,7 +73,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -85,14 +85,14 @@ namespace GITS.Hrms.WebSite.Payroll
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                P_Deduction h_Designation = this.GetP_Earning();
+                P_Deduction h_Designation = GetP_Earning();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [P_Deduction]";
                 }
@@ -101,21 +101,21 @@ namespace GITS.Hrms.WebSite.Payroll
                     desc = "Update [P_Deduction]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    P_Deduction.Insert(this.TransactionManager, h_Designation);
+                    P_Deduction.Insert(TransactionManager, h_Designation);
 
                     hdnId.Value = h_Designation.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    P_Deduction.Update(this.TransactionManager, h_Designation);
+                    P_Deduction.Update(TransactionManager, h_Designation);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;

@@ -56,48 +56,48 @@ namespace GITS.Hrms.Library.Data.View
 
 		public String EmployeeName
 		{
-			get {return this._EmployeeName;}
-			set {this._EmployeeName = value;}
+			get {return _EmployeeName;}
+			set {_EmployeeName = value;}
 		}
 
         public H_EmployeeTransferHistory.Types Type
         {
-            get { return this._Type; }
-            set { this._Type = value; }
+            get { return _Type; }
+            set { _Type = value; }
         }
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
         public DateTime JoiningDate
         {
-            get { return this._JoiningDate; }
-            set { this._JoiningDate = value; }
+            get { return _JoiningDate; }
+            set { _JoiningDate = value; }
         }
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public String SourceBranch
 		{
-			get {return this._SourceBranch;}
-			set {this._SourceBranch = value;}
+			get {return _SourceBranch;}
+			set {_SourceBranch = value;}
 		}
 
         public String DestinationBranch
         {
-            get { return this._DestinationBranch; }
-            set { this._DestinationBranch = value; }
+            get { return _DestinationBranch; }
+            set { _DestinationBranch = value; }
         }
 
 		public String Remarks
 		{
-			get {return this._Remarks;}
-			set {this._Remarks = value;}
+			get {return _Remarks;}
+			set {_Remarks = value;}
 		}
         //public String PresentMobile
         //{
@@ -111,8 +111,8 @@ namespace GITS.Hrms.Library.Data.View
         //}
         public Int32 Emp_ID
         {
-            get { return this._Emp_ID; }
-            set { this._Emp_ID = value; }
+            get { return _Emp_ID; }
+            set { _Emp_ID = value; }
         }
 
        

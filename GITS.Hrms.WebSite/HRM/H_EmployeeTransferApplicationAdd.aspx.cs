@@ -33,7 +33,7 @@ namespace GITS.Hrms.WebSite.HRM
                     UIUtility.Transfer(Page, Request.Path);
                     break;               
                 default:
-                    this.HandleSpecialCommand(sender, e);
+                    HandleSpecialCommand(sender, e);
                     break;
             }
         }
@@ -50,7 +50,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -60,7 +60,7 @@ namespace GITS.Hrms.WebSite.HRM
           
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (h_Employee.AppointmentLetterDate >= DBUtility.ToDateTime(txtApplicationDate.Text))
@@ -92,7 +92,7 @@ namespace GITS.Hrms.WebSite.HRM
                         }
                     }
                 }
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     IList<H_EmployeeTransferApplication> iTranList =
                         H_EmployeeTransferApplication.Find(" H_EmployeeId=" + h_Employee.Id + " AND Status=2", "");
@@ -105,7 +105,7 @@ namespace GITS.Hrms.WebSite.HRM
                                   ((H_EmployeeTransferApplication.Statuses)(iTranList[0].Status)).ToString()
                                                                                                 .Replace("_", " ")
                                                                                                 .ToLower();
-                        this.ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                         return msg;
                     }
                 }
@@ -117,7 +117,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_EmployeeTransferApplication GetH_EmployeeTransferApplication()
         {
             H_EmployeeTransferApplication hEmployeeTransferApplication = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 hEmployeeTransferApplication = H_EmployeeTransferApplication.GetById(Convert.ToInt32(hdnId.Value));
                
@@ -146,13 +146,13 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 string desc = null;
-                H_EmployeeTransferApplication hEmployeeTransferApplication = this.GetH_EmployeeTransferApplication();
-                if (this.Type == TYPE_EDIT)
+                H_EmployeeTransferApplication hEmployeeTransferApplication = GetH_EmployeeTransferApplication();
+                if (Type == TYPE_EDIT)
                 {
                     desc = "Update [H_EmployeeTransferApplication]";
                 }
@@ -162,10 +162,10 @@ namespace GITS.Hrms.WebSite.HRM
                     
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
-                    H_EmployeeTransferApplication.Update(this.TransactionManager, hEmployeeTransferApplication);
+                    H_EmployeeTransferApplication.Update(TransactionManager, hEmployeeTransferApplication);
                 }
                 else
                 {
@@ -173,14 +173,14 @@ namespace GITS.Hrms.WebSite.HRM
                     string query = "Select ISNULL(Max(convert(int,SUBSTRING(ApplicationNo," + (groupType.Length + 2) + ",len(ApplicationNo)-" + (groupType.Length + 1) + "))),0)+1 FROM H_EmployeeTransferApplication WHERE LEFT(ApplicationNo," + groupType.Length + ")='" + groupType + "'";
                     DataTable dt = TransactionManager.GetDataSet(query).Tables[0] ;
                     hEmployeeTransferApplication.ApplicationNo = groupType +"-" + dt.Rows[0][0].ToString();
-                    H_EmployeeTransferApplication.Insert(this.TransactionManager, hEmployeeTransferApplication);
+                    H_EmployeeTransferApplication.Insert(TransactionManager, hEmployeeTransferApplication);
                     txtApplicationNo.Text = hEmployeeTransferApplication.ApplicationNo;
                 }
 
                 hdnId.Value = hEmployeeTransferApplication.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -224,11 +224,11 @@ namespace GITS.Hrms.WebSite.HRM
                         Message msg = new Message();
                         msg.Type = MessageType.Error;
                         msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
-                        this.ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                         return;
                     }
                   
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     //hdnId.Value = h_Employee.Id.ToString();
                     txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                     H_EmployeeDepartment eDepartment = H_EmployeeDepartment.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
@@ -311,7 +311,7 @@ namespace GITS.Hrms.WebSite.HRM
       
         protected void lbSearch_Click(object sender, EventArgs e)
         {
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
 
             if (h_Employee != null)
             {
@@ -342,7 +342,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 IList<H_EmployeeTransferApplication> iTranList = H_EmployeeTransferApplication.Find(" H_EmployeeId=" + h_Employee.Id + " AND Status=2", "");
@@ -352,10 +352,10 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Invalid operation. Employee transfer applicaiton presently " + ((H_EmployeeTransferApplication.Statuses)(iTranList[0].Status)).ToString().Replace("_", " ").ToLower();
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
-                this.Type = TYPE_ADD;
+                Type = TYPE_ADD;
                 hdnId.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 H_EmployeeDepartment eDepartment = H_EmployeeDepartment.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
@@ -451,12 +451,12 @@ namespace GITS.Hrms.WebSite.HRM
                 txtRemarks.Text = "";
                 txtApplicationNo.Text = "";
                 ddlStatus.SelectedValue = "1";
-                if (this.txtEmployee.Text.Trim() != "")
+                if (txtEmployee.Text.Trim() != "")
                 {
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "No employee found";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                 }
             }
         }

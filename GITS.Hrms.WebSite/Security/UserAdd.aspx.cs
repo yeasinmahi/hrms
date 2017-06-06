@@ -33,7 +33,7 @@ namespace GITS.Hrms.WebSite.Security
         {
             User user = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 user = Library.Data.Entity.User.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -60,7 +60,7 @@ namespace GITS.Hrms.WebSite.Security
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -72,14 +72,14 @@ namespace GITS.Hrms.WebSite.Security
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information || msg.Type == MessageType.Information)
             {
-                User user = this.GetUser();
+                User user = GetUser();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [User]";
                 }
@@ -87,11 +87,11 @@ namespace GITS.Hrms.WebSite.Security
                     desc = "Update [User]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Library.Data.Entity.User.Insert(this.TransactionManager, user);
+                    Library.Data.Entity.User.Insert(TransactionManager, user);
 
                     hdnId.Value = user.Id.ToString();
 
@@ -103,16 +103,16 @@ namespace GITS.Hrms.WebSite.Security
                             ur.UserLogin = user.Login;
                             ur.RoleName = li.Value;
 
-                            UserRole.Insert(this.TransactionManager, ur);
+                            UserRole.Insert(TransactionManager, ur);
                         }
                     }
 
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     trPassword.Visible = false;
                 }
                 else
                 {
-                    Library.Data.Entity.User.Update(this.TransactionManager, user);
+                    Library.Data.Entity.User.Update(TransactionManager, user);
 
                     foreach (ListItem li in cblRole.Items)
                     {
@@ -126,17 +126,17 @@ namespace GITS.Hrms.WebSite.Security
                                 ur.UserLogin = user.Login;
                                 ur.RoleName = li.Value;
 
-                                UserRole.Insert(this.TransactionManager, ur);
+                                UserRole.Insert(TransactionManager, ur);
                             }
                         }
                         else if (ur != null)
                         {
-                            UserRole.Delete(this.TransactionManager, ur.Id);
+                            UserRole.Delete(TransactionManager, ur.Id);
                         }
                     }
                 }
 
-                UserLocation ul = UserLocation.GetByLogin(this.TransactionManager, user.Login);
+                UserLocation ul = UserLocation.GetByLogin(TransactionManager, user.Login);
 
                 if (ul == null)
                 {
@@ -148,31 +148,31 @@ namespace GITS.Hrms.WebSite.Security
 
                 if (rbBranch.Checked)
                 {
-                    ul.BranchId = DBUtility.ToInt32(this.ddlBranch.SelectedValue);
+                    ul.BranchId = DBUtility.ToInt32(ddlBranch.SelectedValue);
                 }
                 else if (rbRegion.Checked)
                 {
-                    ul.RegionId = DBUtility.ToInt32(this.ddlRegion.SelectedValue);
+                    ul.RegionId = DBUtility.ToInt32(ddlRegion.SelectedValue);
                 }
                 else if (rbSubzone.Checked)
                 {
-                    ul.SubzoneId = DBUtility.ToInt32(this.ddlSubzone.SelectedValue);
+                    ul.SubzoneId = DBUtility.ToInt32(ddlSubzone.SelectedValue);
                 }
                 else if (rbZone.Checked)
                 {
-                    ul.ZoneId = DBUtility.ToInt32(this.ddlZone.SelectedValue);
+                    ul.ZoneId = DBUtility.ToInt32(ddlZone.SelectedValue);
                 }
 
                 if (ul.EntityState == EntityStates.New)
                 {
-                    UserLocation.Insert(this.TransactionManager, ul);
+                    UserLocation.Insert(TransactionManager, ul);
                 }
                 else
                 {
-                    UserLocation.Update(this.TransactionManager, ul);
+                    UserLocation.Update(TransactionManager, ul);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
 
                 if (User.Identity.Name == user.Login)
                 {
@@ -192,9 +192,9 @@ namespace GITS.Hrms.WebSite.Security
             cblRole.DataSource = Role.FindAll();
             cblRole.DataBind();
 
-            this.ddlZone.DataSource = Zone.FindAll("Name");
-            this.ddlZone.DataBind();
-            this.ddlZone_SelectedIndexChanged(this.ddlZone, new EventArgs());
+            ddlZone.DataSource = Zone.FindAll("Name");
+            ddlZone.DataBind();
+            ddlZone_SelectedIndexChanged(ddlZone, new EventArgs());
 
             if (Request.QueryString["Id"] != null)
             {
@@ -203,7 +203,7 @@ namespace GITS.Hrms.WebSite.Security
 
                 if (user != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     trPassword.Visible = false;
                     ddlUserType.SelectedValue = ((Int32)user.UserType).ToString();
                     txtLogin.Text = user.Login;
@@ -223,65 +223,65 @@ namespace GITS.Hrms.WebSite.Security
                     {
                         if (ul.BranchId != null)
                         {
-                            this.rbBranch.Checked = true;
-                            this.rbBranch_CheckedChanged(this.rbBranch, new EventArgs());
+                            rbBranch.Checked = true;
+                            rbBranch_CheckedChanged(rbBranch, new EventArgs());
 
                             Branch b = Branch.GetById(ul.BranchId.Value);
                             Region r = Region.GetById(b.RegionId);
                             Subzone s = Subzone.GetById(r.SubzoneId);
 
-                            this.ddlZone.SelectedValue = s.ZoneId.ToString();
-                            this.ddlZone_SelectedIndexChanged(this.ddlZone, new EventArgs());
+                            ddlZone.SelectedValue = s.ZoneId.ToString();
+                            ddlZone_SelectedIndexChanged(ddlZone, new EventArgs());
 
-                            this.ddlSubzone.SelectedValue = r.SubzoneId.ToString();
-                            this.ddlSubzone_SelectedIndexChanged(this.ddlSubzone, new EventArgs());
+                            ddlSubzone.SelectedValue = r.SubzoneId.ToString();
+                            ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
 
-                            this.ddlRegion.SelectedValue = b.RegionId.ToString();
-                            this.ddlRegion_SelectedIndexChanged(this.ddlRegion, new EventArgs());
+                            ddlRegion.SelectedValue = b.RegionId.ToString();
+                            ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
 
-                            this.ddlBranch.SelectedValue = ul.BranchId.ToString();
+                            ddlBranch.SelectedValue = ul.BranchId.ToString();
                         }
                         else if (ul.RegionId != null)
                         {
-                            this.rbRegion.Checked = true;
-                            this.rbRegion_CheckedChanged(this.rbRegion, new EventArgs());
+                            rbRegion.Checked = true;
+                            rbRegion_CheckedChanged(rbRegion, new EventArgs());
 
                             Region r = Region.GetById(ul.RegionId.Value);
                             Subzone s = Subzone.GetById(r.SubzoneId);
 
-                            this.ddlZone.SelectedValue = s.ZoneId.ToString();
-                            this.ddlZone_SelectedIndexChanged(this.ddlZone, new EventArgs());
+                            ddlZone.SelectedValue = s.ZoneId.ToString();
+                            ddlZone_SelectedIndexChanged(ddlZone, new EventArgs());
 
-                            this.ddlSubzone.SelectedValue = r.SubzoneId.ToString();
-                            this.ddlSubzone_SelectedIndexChanged(this.ddlSubzone, new EventArgs());
+                            ddlSubzone.SelectedValue = r.SubzoneId.ToString();
+                            ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
 
-                            this.ddlRegion.SelectedValue = ul.RegionId.ToString();
-                            this.ddlRegion_SelectedIndexChanged(this.ddlRegion, new EventArgs());
+                            ddlRegion.SelectedValue = ul.RegionId.ToString();
+                            ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
                         }
                         else if (ul.SubzoneId != null)
                         {
-                            this.rbSubzone.Checked = true;
-                            this.rbSubzone_CheckedChanged(this.rbSubzone, new EventArgs());
+                            rbSubzone.Checked = true;
+                            rbSubzone_CheckedChanged(rbSubzone, new EventArgs());
 
-                            this.ddlSubzone.SelectedValue = ul.SubzoneId.ToString();
-                            this.ddlSubzone_SelectedIndexChanged(this.ddlSubzone, new EventArgs());
+                            ddlSubzone.SelectedValue = ul.SubzoneId.ToString();
+                            ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
 
-                            this.ddlRegion_SelectedIndexChanged(this.ddlRegion, new EventArgs());
+                            ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
                         }
                         else if (ul.ZoneId != null)
                         {
-                            this.rbZone.Checked = true;
-                            this.rbZone_CheckedChanged(this.rbZone, new EventArgs());
+                            rbZone.Checked = true;
+                            rbZone_CheckedChanged(rbZone, new EventArgs());
 
-                            this.ddlZone.SelectedValue = ul.ZoneId.ToString();
-                            this.ddlZone_SelectedIndexChanged(this.ddlZone, new EventArgs());
+                            ddlZone.SelectedValue = ul.ZoneId.ToString();
+                            ddlZone_SelectedIndexChanged(ddlZone, new EventArgs());
 
-                            this.ddlRegion_SelectedIndexChanged(this.ddlRegion, new EventArgs());
+                            ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
                         }
                         else
                         {
-                            this.rbAll.Checked = true;
-                            this.rbAll_CheckedChanged(this.rbAll, new EventArgs());
+                            rbAll.Checked = true;
+                            rbAll_CheckedChanged(rbAll, new EventArgs());
                         }
                     }
                 }
@@ -290,72 +290,72 @@ namespace GITS.Hrms.WebSite.Security
 
         protected void rbAll_CheckedChanged(object sender, EventArgs e)
         {
-            this.rbZone.Checked = false;
-            this.rbSubzone.Checked = false;
-            this.rbRegion.Checked = false;
-            this.rbBranch.Checked = false;
+            rbZone.Checked = false;
+            rbSubzone.Checked = false;
+            rbRegion.Checked = false;
+            rbBranch.Checked = false;
         }
 
         protected void rbZone_CheckedChanged(object sender, EventArgs e)
         {
-            this.rbAll.Checked = false;
-            this.rbSubzone.Checked = false;
-            this.rbRegion.Checked = false;
-            this.rbBranch.Checked = false;
+            rbAll.Checked = false;
+            rbSubzone.Checked = false;
+            rbRegion.Checked = false;
+            rbBranch.Checked = false;
         }
 
         protected void rbSubzone_CheckedChanged(object sender, EventArgs e)
         {
-            this.rbAll.Checked = false;
-            this.rbZone.Checked = false;
-            this.rbRegion.Checked = false;
-            this.rbBranch.Checked = false;
+            rbAll.Checked = false;
+            rbZone.Checked = false;
+            rbRegion.Checked = false;
+            rbBranch.Checked = false;
         }
 
         protected void rbRegion_CheckedChanged(object sender, EventArgs e)
         {
-            this.rbAll.Checked = false;
-            this.rbZone.Checked = false;
-            this.rbSubzone.Checked = false;
-            this.rbBranch.Checked = false;
+            rbAll.Checked = false;
+            rbZone.Checked = false;
+            rbSubzone.Checked = false;
+            rbBranch.Checked = false;
         }
 
         protected void rbBranch_CheckedChanged(object sender, EventArgs e)
         {
-            this.rbAll.Checked = false;
-            this.rbZone.Checked = false;
-            this.rbSubzone.Checked = false;
-            this.rbRegion.Checked = false;
+            rbAll.Checked = false;
+            rbZone.Checked = false;
+            rbSubzone.Checked = false;
+            rbRegion.Checked = false;
         }
 
         protected void ddlZone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlZone.SelectedValue != null && this.ddlZone.SelectedValue != "")
+            if (ddlZone.SelectedValue != null && ddlZone.SelectedValue != "")
             {
-                this.ddlSubzone.DataSource = Subzone.FindByZoneId(Convert.ToInt32(this.ddlZone.SelectedValue), "Name");
-                this.ddlSubzone.DataBind();
+                ddlSubzone.DataSource = Subzone.FindByZoneId(Convert.ToInt32(ddlZone.SelectedValue), "Name");
+                ddlSubzone.DataBind();
 
-                this.ddlSubzone_SelectedIndexChanged(ddlRegion, new EventArgs());
+                ddlSubzone_SelectedIndexChanged(ddlRegion, new EventArgs());
             }
         }
 
         protected void ddlSubzone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlSubzone.SelectedValue != null && this.ddlSubzone.SelectedValue != "")
+            if (ddlSubzone.SelectedValue != null && ddlSubzone.SelectedValue != "")
             {
-                this.ddlRegion.DataSource = Region.FindBySubzoneId(Convert.ToInt32(this.ddlSubzone.SelectedValue), "Name");
-                this.ddlRegion.DataBind();
+                ddlRegion.DataSource = Region.FindBySubzoneId(Convert.ToInt32(ddlSubzone.SelectedValue), "Name");
+                ddlRegion.DataBind();
 
-                this.ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
+                ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
             }
         }
 
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlRegion.SelectedValue != null && this.ddlRegion.SelectedValue != "")
+            if (ddlRegion.SelectedValue != null && ddlRegion.SelectedValue != "")
             {
-                this.ddlBranch.DataSource = Branch.FindByRegionId(Convert.ToInt32(this.ddlRegion.SelectedValue), "Name");
-                this.ddlBranch.DataBind();
+                ddlBranch.DataSource = Branch.FindByRegionId(Convert.ToInt32(ddlRegion.SelectedValue), "Name");
+                ddlBranch.DataBind();
             }
         }
     }

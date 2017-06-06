@@ -29,17 +29,17 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override void HandleSpecialCommand(object sender, MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
                     case "EXECUTE":
-                        this.ExecuteProcess();
+                        ExecuteProcess();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -66,7 +66,7 @@ namespace GITS.Hrms.WebSite.HRM
             //    ms.Type = MessageType.Error;
             //}
 
-            ShowUIMessage(ms);
+            ShowUiMessage(ms);
             
         }
     }

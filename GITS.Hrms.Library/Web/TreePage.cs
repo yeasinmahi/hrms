@@ -15,25 +15,12 @@ namespace GITS.Hrms.Library.Web
         protected const string COMMAND_EXCEL = "EXCEL";
         protected const string COMMAND_REFRESH = "REFRESH";
 
-        private GridView _GridView;
-        private TreeView _TreeView;
         private Type _EntityType;
         private Type _BaseEntityType;
 
-        private String _IdField;
-        private String _ParentIdField;
+        protected virtual TreeView TreeView { get; set; }
 
-        protected virtual TreeView TreeView
-        {
-            get { return this._TreeView; }
-            set { this._TreeView = value; }
-        }
-
-        protected virtual GridView GridView
-        {
-            get { return this._GridView; }
-            set { this._GridView = value; }
-        }
+        protected virtual GridView GridView { get; set; }
 
         protected virtual Type EntityType
         {
@@ -63,28 +50,16 @@ namespace GITS.Hrms.Library.Web
             }
         }
 
-        protected virtual String IdField
-        {
-            get { return this._IdField; }
-            set { this._IdField = value; }
-        }
+        protected virtual String IdField { get; set; }
 
-        protected virtual String ParentIdField
-        {
-            get { return this._ParentIdField; }
-            set { this._ParentIdField = value; }
-        }
-
-        public TreePage()
-        {
-        }
+        protected virtual String ParentIdField { get; set; }
 
         protected virtual void LoadData()
         {
-            if (this.TreeView != null && this.EntityType != null && this.IdField != null && this.ParentIdField != null)
+            if (TreeView != null && EntityType != null && IdField != null && ParentIdField != null)
             {
-                this.TreeView.DataSource = this.GetDataSource();
-                this.TreeView.DataBind();
+                TreeView.DataSource = GetDataSource();
+                TreeView.DataBind();
             }
             else
             {
@@ -104,12 +79,12 @@ namespace GITS.Hrms.Library.Web
 
         protected virtual IHierarchicalDataSource GetDataSource()
         {
-            if (this.TreeView != null && this.EntityType != null && this.IdField != null && this.ParentIdField != null)
+            if (TreeView != null && EntityType != null && IdField != null && ParentIdField != null)
             {
-                this.TransactionManager = new TransactionManager(false);
-                DataSet ds = this.TransactionManager.GetDataSet("SELECT * FROM [" + this.EntityType.Name + "]");
+                TransactionManager = new TransactionManager(false);
+                DataSet ds = TransactionManager.GetDataSet("SELECT * FROM [" + EntityType.Name + "]");
 
-                return new HierarchicalDataSet(ds, this.IdField, this.ParentIdField);
+                return new HierarchicalDataSet(ds, IdField, ParentIdField);
             }
             else
             {
@@ -140,17 +115,17 @@ namespace GITS.Hrms.Library.Web
 
         protected virtual Message Delete(TransactionManager transactionManager, Int32 id)
         {
-            Message msg = this.ValidateDelating(id);
+            Message msg = ValidateDelating(id);
 
             if (msg.Type == MessageType.Information)
             {
-                if (this.BaseEntityType != null)
+                if (BaseEntityType != null)
                 {
-                    this.BaseEntityType.BaseType.InvokeMember("Delete", System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, null, new Object[] { transactionManager, id });
+                    BaseEntityType.BaseType.InvokeMember("Delete", System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, null, new Object[] { transactionManager, id });
                 }
                 else
                 {
-                    this.EntityType.BaseType.InvokeMember("Delete", System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, null, new Object[] { transactionManager, id });
+                    EntityType.BaseType.InvokeMember("Delete", System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, null, new Object[] { transactionManager, id });
                 }
             }
 
@@ -159,28 +134,28 @@ namespace GITS.Hrms.Library.Web
 
         protected virtual Message DeleteSelected()
         {
-            if (this.TreeView != null && this.EntityType != null)
+            if (TreeView != null && EntityType != null)
             {
                 Message msg = new Message();
-                this.TransactionManager = new TransactionManager(true, "Delete [" + this.EntityType.Name + "]");
+                TransactionManager = new TransactionManager(true, "Delete [" + EntityType.Name + "]");
                 msg.Type = MessageType.Information;
                 msg.Msg = "Selected item(s) deleted successfully";
 
-                foreach (TreeNode node in this.TreeView.CheckedNodes)
+                foreach (TreeNode node in TreeView.CheckedNodes)
                 {
                     Int32 id = Convert.ToInt32(node.Value);
-                    msg = this.Delete(this.TransactionManager, id);
+                    msg = Delete(TransactionManager, id);
 
                     if (msg.Type != MessageType.Information)
                     {
-                        this.TransactionManager.Rollback();
+                        TransactionManager.Rollback();
                         return msg;
                     }
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
 
-                this.LoadData();
+                LoadData();
 
                 return msg;
             }
@@ -194,16 +169,16 @@ namespace GITS.Hrms.Library.Web
         {
             Message msg = new Message();
 
-            if (this.GridView != null)
+            if (GridView != null)
             {
-                if (this.GridView.Rows.Count > 65500)
+                if (GridView.Rows.Count > 65500)
                 {
                     msg.Msg = "Too many rows to display in excel";
                     msg.Type = MessageType.Information;
                     return msg;
                 }
 
-                if (this.GridView.Rows.Count == 0)
+                if (GridView.Rows.Count == 0)
                 {
                     msg.Type = MessageType.Information;
                     return msg;
@@ -214,7 +189,7 @@ namespace GITS.Hrms.Library.Web
                 header[1] = new WorksheetRow();
                 header[2] = new WorksheetRow();
 
-                foreach (DataControlField column in this.GridView.Columns)
+                foreach (DataControlField column in GridView.Columns)
                 {
                     if (column.Visible)
                     {
@@ -244,7 +219,7 @@ namespace GITS.Hrms.Library.Web
                     //header[1].Cells.Add("Branch Name: " + Branch.CurrentBranch.FullName, DataType.String, "HeaderTop3");
                 }
 
-                ExcelReportUtility.Instance.DataSource = this.GridView;
+                ExcelReportUtility.Instance.DataSource = GridView;
                 ExcelReportUtility.Instance.Header = new WorksheetRow[][] { header };
                 ExcelReportUtility.Instance.ViewReport();
             }
@@ -268,24 +243,24 @@ namespace GITS.Hrms.Library.Web
                 case COMMAND_ADD:
                     Message msg = ValidateAdd();
                     if (msg.Type != MessageType.Information) 
-                        this.ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                     else
-                        UIUtility.Transfer(Page, this.GetAddPageUrl());
+                        UIUtility.Transfer(Page, GetAddPageUrl());
                     break;
                 case COMMAND_DELETE:
-                    msg = this.DeleteSelected();
-                    this.ShowUIMessage(msg);
+                    msg = DeleteSelected();
+                    ShowUiMessage(msg);
                     break;
                 case COMMAND_EXCEL:
-                    msg = this.ExportToExcel();
-                    this.ShowUIMessage(msg);
+                    msg = ExportToExcel();
+                    ShowUiMessage(msg);
                     break;
                 case COMMAND_REFRESH:
-                    msg = this.Refresh();
-                    this.ShowUIMessage(msg);
+                    msg = Refresh();
+                    ShowUiMessage(msg);
                     break;
                 default:
-                    this.HandleSpecialCommand(sender, e);
+                    HandleSpecialCommand(sender, e);
                     break;
 
             }

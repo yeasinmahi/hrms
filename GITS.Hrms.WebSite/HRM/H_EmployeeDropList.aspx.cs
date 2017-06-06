@@ -19,9 +19,9 @@ namespace GITS.Hrms.WebSite.HRM
         {
             base.OnInit(e);
            // this.gvspList.WhereClause = this.gvspList.WhereClause + " Status=1";
-            this.GridView = this.gvList;
-            this.BaseEntityType = typeof(H_EmployeeDropHistory);
-            this.EntityType = typeof(H_EmployeeDropHistoryView);
+            GridView = gvList;
+            BaseEntityType = typeof(H_EmployeeDropHistory);
+            EntityType = typeof(H_EmployeeDropHistoryView);
         }
 
         protected override string GetAddPageUrl()

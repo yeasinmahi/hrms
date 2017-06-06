@@ -51,40 +51,40 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
         public Boolean IsBasic
         {
-            get { return this._IsBasic; }
-            set { this._IsBasic = value; }
+            get { return _IsBasic; }
+            set { _IsBasic = value; }
         }
 
         public Boolean IsFixed
         {
-            get { return this._IsFixed; }
-            set { this._IsFixed = value; }
+            get { return _IsFixed; }
+            set { _IsFixed = value; }
         }
         public Boolean IsPaySlip
         {
-            get { return this._IsPaySlip; }
-            set { this._IsPaySlip = value; }
+            get { return _IsPaySlip; }
+            set { _IsPaySlip = value; }
         }
         public Nullable<Int32> ParentId
         {
-            get { return this._ParentId; }
-            set { this._ParentId = value; }
+            get { return _ParentId; }
+            set { _ParentId = value; }
         }
        
         public Statuses Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         public Int32 SortOrder
         {
-            get { return this._SortOrder; }
-            set { this._SortOrder = value; }
+            get { return _SortOrder; }
+            set { _SortOrder = value; }
         }
 
         [Property(PropertyAttribute.Attributes.NonTable)]
@@ -95,7 +95,7 @@ namespace GITS.Hrms.Library.Data.Entity
         [Property(PropertyAttribute.Attributes.NonTable)]
         public string Parent
         {
-            get { return ParentId==null? "" : P_Earning.GetById(ParentId.Value).Name; }
+            get { return ParentId==null? "" : GetById(ParentId.Value).Name; }
         }
     }
 }

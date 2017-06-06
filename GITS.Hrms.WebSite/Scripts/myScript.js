@@ -52,6 +52,8 @@ $(document).ready(function() {
     $(".myButton, .myButton li, .myButton li a").removeClass('level1 static');
     $(".myButton, .myButton li").removeAttr('style');
     $(".myButton li a").addClass("btn btn-primary btn-xs");
+    $(".myButton li a img").css("cssText", "width: 20px !important;");
+    $(".myButton li a img").css("height", "20px");
 
     if (!!$.cookie('sideNav')) {
         openNav();
@@ -63,4 +65,17 @@ $(document).ready(function() {
     } else {
         slideDown();
     }
+
+    
 });
+
+function pageLoad(sender, args) {
+    $(document).ready(function () {
+        $(".myButton, .myButton li, .myButton li a").removeClass('level1 static');
+        $(".myButton, .myButton li").removeAttr('style');
+        $(".myButton li a").addClass("btn btn-primary btn-xs");
+        $(".myButton li a img").css("cssText", "width: 20px !important;");
+        $(".myButton li a img").css("height", "20px");
+
+    });
+}

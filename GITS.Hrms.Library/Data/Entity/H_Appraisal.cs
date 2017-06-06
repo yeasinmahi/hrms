@@ -40,23 +40,23 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public String Name
 		{
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
 		}
         public DateTime StartDate
         {
-            get { return this._StartDate; }
-            set { this._StartDate = value; }
+            get { return _StartDate; }
+            set { _StartDate = value; }
         }
         public DateTime EndDate
         {
-            get { return this._EndDate; }
-            set { this._EndDate = value; }
+            get { return _EndDate; }
+            set { _EndDate = value; }
         }
         public Boolean Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
 
     }

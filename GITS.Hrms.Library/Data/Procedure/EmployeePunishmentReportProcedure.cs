@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[EmployeePunishmentReport]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[2];
 
@@ -28,7 +28,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override EmployeePunishmentReportProcedure Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override EmployeePunishmentReportProcedure Map(SqlDataReader dataReader)
         {
             EmployeePunishmentReportProcedure procedure = new EmployeePunishmentReportProcedure();
 

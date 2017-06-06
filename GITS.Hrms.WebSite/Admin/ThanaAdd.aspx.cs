@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             Thana thana = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 thana = Thana.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -55,7 +55,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -67,14 +67,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                Thana thana = this.GetThana();
+                Thana thana = GetThana();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Thana]";
                 }
@@ -83,21 +83,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [Thana]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Thana.Insert(this.TransactionManager, thana);
+                    Thana.Insert(TransactionManager, thana);
 
                     hdnId.Value = thana.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    Thana.Update(this.TransactionManager, thana);
+                    Thana.Update(TransactionManager, thana);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -105,8 +105,8 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override void LoadData()
         {
-            this.ddlDistrictId.DataSource = District.FindAll();
-            this.ddlDistrictId.DataBind();
+            ddlDistrictId.DataSource = District.FindAll();
+            ddlDistrictId.DataBind();
         
             Thana thana = null;
 
@@ -117,9 +117,9 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (thana != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
-                    this.txtName.Text = thana.Name;
+                    txtName.Text = thana.Name;
                 }
             }
         }

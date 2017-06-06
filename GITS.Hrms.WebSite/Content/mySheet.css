@@ -4,6 +4,13 @@
     -ms-border-radius: 0;
     border-radius: 0;
 }
+.notransition {
+    -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+    -ms-transition: none !important;
+    transition: none !important;
+}
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
@@ -43,6 +50,7 @@ footer a {
 #mainContentHeader {
     width: 100%;
     margin: 0 auto;
+    padding: 4px;
     background-color: #556b2f;
 }
 .navbar-collapse {
@@ -143,8 +151,13 @@ footer a {
     padding-top: 50px;
 }
 #slideDiv {
+    color: #d1d1d1;
     font-size: 20px;
-    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+#slideDiv:hover{
+    color: white;
 }
 #main {
     -webkit-transition: 0.5s;

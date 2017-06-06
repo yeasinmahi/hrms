@@ -34,7 +34,7 @@ namespace GITS.Hrms.WebSite.Payroll
         {
             P_LateAttendance attendance = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 attendance = P_LateAttendance.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -60,7 +60,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -83,14 +83,14 @@ namespace GITS.Hrms.WebSite.Payroll
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                P_LateAttendance division = this.GetAttendance();
+                P_LateAttendance division = GetAttendance();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [P_LateAttendance]";
                 }
@@ -99,21 +99,21 @@ namespace GITS.Hrms.WebSite.Payroll
                     desc = "Update [P_LateAttendance]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    P_LateAttendance.Insert(this.TransactionManager, division);
+                    P_LateAttendance.Insert(TransactionManager, division);
 
                     hdnId.Value = division.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    P_LateAttendance.Update(this.TransactionManager, division);
+                    P_LateAttendance.Update(TransactionManager, division);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -174,7 +174,7 @@ namespace GITS.Hrms.WebSite.Payroll
                 txtBranch.Text = branch.Name;  
                 if (division != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     ddlYear.SelectedValue = division.StartDate.Year.ToString();
                     ddlMonth.SelectedValue = division.StartDate.Month.ToString();
                     txtLate96_930.Text = DBUtility.ToNullableString( division.Late96_930);
@@ -189,7 +189,7 @@ namespace GITS.Hrms.WebSite.Payroll
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;

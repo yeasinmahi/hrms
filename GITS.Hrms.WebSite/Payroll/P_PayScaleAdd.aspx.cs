@@ -24,7 +24,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
                 if (p_Loan != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     ddlGrade.SelectedValue = p_Loan.H_GradeId.ToString();
                     txtStartBasic.Text =UIUtility.Format( p_Loan.StartBasic);
                     txtIncrement.Text = UIUtility.Format(p_Loan.Increment);
@@ -47,13 +47,13 @@ namespace GITS.Hrms.WebSite.Payroll
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
                 return msg;
             }
-            if (this.Type == TYPE_ADD)
+            if (Type == TYPE_ADD)
             {
                 P_PayScale p_PayScale = P_PayScale.GetByGradeId(Convert.ToInt32(ddlGrade.SelectedValue));
                 if (p_PayScale != null)
@@ -69,7 +69,7 @@ namespace GITS.Hrms.WebSite.Payroll
         private P_PayScale Get_PayScale()
         {
             P_PayScale entity = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 entity = P_PayScale.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -86,14 +86,14 @@ namespace GITS.Hrms.WebSite.Payroll
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                P_PayScale p_Loan = this.Get_PayScale();
+                P_PayScale p_Loan = Get_PayScale();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [P_PayScale]";
                 }
@@ -102,21 +102,21 @@ namespace GITS.Hrms.WebSite.Payroll
                     desc = "Update [P_PayScale]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    P_PayScale.Insert(this.TransactionManager, p_Loan);
+                    P_PayScale.Insert(TransactionManager, p_Loan);
 
                     hdnId.Value = p_Loan.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    P_PayScale.Update(this.TransactionManager, p_Loan);
+                    P_PayScale.Update(TransactionManager, p_Loan);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;

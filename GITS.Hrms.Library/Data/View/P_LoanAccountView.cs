@@ -48,44 +48,44 @@ namespace GITS.Hrms.Library.Data.View
 
         public DateTime DisbursDate
         {
-            get { return this._DisbursDate; }
-            set { this._DisbursDate = value; }
+            get { return _DisbursDate; }
+            set { _DisbursDate = value; }
         }
 
         public Double LoanAmount
         {
-            get { return this._LoanAmount; }
-            set { this._LoanAmount = value; }
+            get { return _LoanAmount; }
+            set { _LoanAmount = value; }
         }
         public Double InterestRate
         {
-            get { return this._InterestRate; }
-            set { this._InterestRate = value; }
+            get { return _InterestRate; }
+            set { _InterestRate = value; }
         }
         public Double InterestAmount
         {
-            get { return this._InterestAmount; }
-            set { this._InterestAmount = value; }
+            get { return _InterestAmount; }
+            set { _InterestAmount = value; }
         }
         public Double TotalAmount
         {
-            get { return this._TotalAmount; }
-            set { this._TotalAmount = value; }
+            get { return _TotalAmount; }
+            set { _TotalAmount = value; }
         }
         public String Employee
         {
-            get { return this._Employee; }
-            set { this._Employee = value; }
+            get { return _Employee; }
+            set { _Employee = value; }
         }
         public Int32 Code
         {
-            get { return this._Code; }
-            set { this._Code = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
         public String LoanType
         {
-            get { return this._LoanType; }
-            set { this._LoanType = value; }
+            get { return _LoanType; }
+            set { _LoanType = value; }
         }
     }
 }

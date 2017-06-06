@@ -45,44 +45,44 @@ namespace GITS.Hrms.Library.Data.View
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 
 		public DateTime PermanentDate
 		{
-			get {return this._PermanentDate;}
-			set {this._PermanentDate = value;}
+			get {return _PermanentDate;}
+			set {_PermanentDate = value;}
 		}
 
 		public String Remarks
 		{
-			get {return this._Remarks;}
-			set {this._Remarks = value;}
+			get {return _Remarks;}
+			set {_Remarks = value;}
 		}
 
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
         public Int32 Code
         {
-            get { return this._Code; }
-            set { this._Code = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
     }
 }

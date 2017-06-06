@@ -19,8 +19,8 @@ namespace GITS.Hrms.WebSite.HRM
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(H_MonthlyReport);
+            GridView = gvList;
+            EntityType = typeof(H_MonthlyReport);
 
         }
 

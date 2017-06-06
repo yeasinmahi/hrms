@@ -16,7 +16,7 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!MmsPermissionProvider.HasPermission(User.Identity.Name, this.PropertyName, "SEARCH")) // Search => Transfer Letter Menu
+            if (!MmsPermissionProvider.HasPermission(User.Identity.Name, PropertyName, "SEARCH")) // Search => Transfer Letter Menu
             {
                 gvList.Columns[1].Visible = false;
             }
@@ -26,8 +26,8 @@ namespace GITS.Hrms.WebSite.HRM
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(H_EmployeeTransferView);
+            GridView = gvList;
+            EntityType = typeof(H_EmployeeTransferView);
         }
 
         protected override void HandleSpecialCommand(object sender, MenuEventArgs e)
@@ -39,7 +39,7 @@ namespace GITS.Hrms.WebSite.HRM
                     UIUtility.Transfer(Page, "H_TransferAdd.aspx");
                     break;
                 default:
-                    this.HandleSpecialCommand(sender, e);
+                    HandleSpecialCommand(sender, e);
                     break;
 
             }

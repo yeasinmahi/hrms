@@ -68,14 +68,14 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_GradeId
 		{
-			get {return this._H_GradeId;}
-			set {this._H_GradeId = value;}
+			get {return _H_GradeId;}
+			set {_H_GradeId = value;}
 		}
 
 		public Int32 H_DesignationId
 		{
-			get {return this._H_DesignationId;}
-			set {this._H_DesignationId = value;}
+			get {return _H_DesignationId;}
+			set {_H_DesignationId = value;}
 		}
 
 	}

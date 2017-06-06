@@ -47,19 +47,19 @@ namespace GITS.Hrms.Library.Data.Entity
         }
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
         public Int32 P_EarningId
         {
-            get { return this._P_EarningId; }
-            set { this._P_EarningId = value; }
+            get { return _P_EarningId; }
+            set { _P_EarningId = value; }
         }
 
         public Double Amount
         {
-            get { return this._Amount; }
-            set { this._Amount = value; }
+            get { return _Amount; }
+            set { _Amount = value; }
         }
 
        

@@ -71,7 +71,7 @@ namespace GITS.Hrms.WebSite.Payroll
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
@@ -82,7 +82,7 @@ namespace GITS.Hrms.WebSite.Payroll
                     desc = "Insert [P_EmployeeEarning]";
 
 
-                    this.TransactionManager = new TransactionManager(true, desc);
+                    TransactionManager = new TransactionManager(true, desc);
                     P_EmployeeEarning.Delete(TransactionManager, "H_EmployeeId=" + hdnId.Value);
                     foreach (P_EmployeeEarning entity in earningList)
                     {
@@ -95,7 +95,7 @@ namespace GITS.Hrms.WebSite.Payroll
                     desc = "Insert [P_EmployeeDeduction]";
 
 
-                    this.TransactionManager = new TransactionManager(true, desc);
+                    TransactionManager = new TransactionManager(true, desc);
                     P_EmployeeDeduction.Delete(TransactionManager, "H_EmployeeId=" + hdnId.Value);
                     foreach (P_EmployeeDeduction entity in earningList)
                     {
@@ -105,7 +105,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
                 
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -118,7 +118,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -129,7 +129,7 @@ namespace GITS.Hrms.WebSite.Payroll
         }
         protected void lbSearch_Click(object sender, EventArgs e)
         {
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 hdnId.Value = "0";
@@ -142,11 +142,11 @@ namespace GITS.Hrms.WebSite.Payroll
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
 
-                this.Type = TYPE_ADD;
+                Type = TYPE_ADD;
                 hdnId.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 H_EmployeeDepartment eDepartment = H_EmployeeDepartment.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
@@ -184,12 +184,12 @@ namespace GITS.Hrms.WebSite.Payroll
                 txtDesignation.Text = "";
 
 
-                if (this.txtEmployee.Text.Trim() != "")
+                if (txtEmployee.Text.Trim() != "")
                 {
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "No employee found";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                 }
             }
         }

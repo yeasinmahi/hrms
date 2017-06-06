@@ -48,18 +48,18 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
         public String RomanName
         {
-            get { return this._RomanName; }
-            set { this._RomanName = value; }
+            get { return _RomanName; }
+            set { _RomanName = value; }
         }
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
 
 	}

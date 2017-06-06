@@ -62,26 +62,26 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public Int32 H_GradeId
 		{
-			get {return this._H_GradeId;}
-			set {this._H_GradeId = value;}
+			get {return _H_GradeId;}
+			set {_H_GradeId = value;}
 		}
 
 		public DateTime StartDate
 		{
-			get {return this._StartDate;}
-			set {this._StartDate = value;}
+			get {return _StartDate;}
+			set {_StartDate = value;}
 		}
 
 		public DateTime EndDate
 		{
-			get {return this._EndDate;}
-			set {this._EndDate = value;}
+			get {return _EndDate;}
+			set {_EndDate = value;}
 		}
 
 	}

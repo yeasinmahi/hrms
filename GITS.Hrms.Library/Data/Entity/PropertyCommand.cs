@@ -70,27 +70,27 @@ namespace GITS.Hrms.Library.Data.Entity
 		
 		public String PropertyName
 		{
-			get {return this._PropertyName;}
-			set {this._PropertyName = value;}
+			get {return _PropertyName;}
+			set {_PropertyName = value;}
 		}
 
 		public String CommandName
 		{
-			get {return this._CommandName;}
-			set {this._CommandName = value;}
+			get {return _CommandName;}
+			set {_CommandName = value;}
 		}
 
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
 
         [Property(PropertyAttribute.Attributes.NonTable)]
         public String DisplayName
         {
-            get { return this._DisplayName; }
-            set { this._DisplayName = value; }
+            get { return _DisplayName; }
+            set { _DisplayName = value; }
         }
 
 	}

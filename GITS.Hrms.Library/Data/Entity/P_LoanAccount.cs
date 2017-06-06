@@ -63,73 +63,73 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
         public Int32 P_LoanId
         {
-            get { return this._P_LoanId; }
-            set { this._P_LoanId = value; }
+            get { return _P_LoanId; }
+            set { _P_LoanId = value; }
         }
         public DateTime DisbursDate
         {
-            get { return this._DisbursDate; }
-            set { this._DisbursDate = value; }
+            get { return _DisbursDate; }
+            set { _DisbursDate = value; }
         }
 
         public Double LoanAmount
         {
-            get { return this._LoanAmount; }
-            set { this._LoanAmount = value; }
+            get { return _LoanAmount; }
+            set { _LoanAmount = value; }
         }
         public Double InterestRate
         {
-            get { return this._InterestRate; }
-            set { this._InterestRate = value; }
+            get { return _InterestRate; }
+            set { _InterestRate = value; }
         }
         public Double InterestAmount
         {
-            get { return this._InterestAmount; }
-            set { this._InterestAmount = value; }
+            get { return _InterestAmount; }
+            set { _InterestAmount = value; }
         }
         public Double TotalAmount
         {
-            get { return this._TotalAmount; }
-            set { this._TotalAmount = value; }
+            get { return _TotalAmount; }
+            set { _TotalAmount = value; }
         }
         public Int32 NumberOfInstallment
         {
-            get { return this._NumberOfInstallment; }
-            set { this._NumberOfInstallment = value; }
+            get { return _NumberOfInstallment; }
+            set { _NumberOfInstallment = value; }
         }
         public Nullable<Int32> PaidInstallment
         {
-            get { return this._PaidInstallment; }
-            set { this._PaidInstallment = value; }
+            get { return _PaidInstallment; }
+            set { _PaidInstallment = value; }
         }
         public Double InstallmentAmount
         {
-            get { return this._InstallmentAmount; }
-            set { this._InstallmentAmount = value; }
+            get { return _InstallmentAmount; }
+            set { _InstallmentAmount = value; }
         }
         
         public Nullable<Double> PaidAmount
         {
-            get { return this._PaidAmount; }
-            set { this._PaidAmount = value; }
+            get { return _PaidAmount; }
+            set { _PaidAmount = value; }
         }
         
         
         public Nullable<DateTime> LastPaidDate
         {
-            get { return this._LastPaidDate; }
-            set { this._LastPaidDate = value; }
+            get { return _LastPaidDate; }
+            set { _LastPaidDate = value; }
         }
                
         public Statuses Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         
     }

@@ -104,32 +104,32 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Login
 		{
-			get {return this._Login;}
-			set {this._Login = value;}
+			get {return _Login;}
+			set {_Login = value;}
 		}
 
 		public Nullable<Int32> ZoneId
 		{
-			get {return this._ZoneId;}
-			set {this._ZoneId = value;}
+			get {return _ZoneId;}
+			set {_ZoneId = value;}
 		}
 
         public Nullable<Int32> SubzoneId
         {
-            get { return this._SubzoneId; }
-            set { this._SubzoneId = value; }
+            get { return _SubzoneId; }
+            set { _SubzoneId = value; }
         }
 
 		public Nullable<Int32> RegionId
 		{
-			get {return this._RegionId;}
-			set {this._RegionId = value;}
+			get {return _RegionId;}
+			set {_RegionId = value;}
 		}
 
 		public Nullable<Int32> BranchId
 		{
-			get {return this._BranchId;}
-			set {this._BranchId = value;}
+			get {return _BranchId;}
+			set {_BranchId = value;}
 		}
 
 	}

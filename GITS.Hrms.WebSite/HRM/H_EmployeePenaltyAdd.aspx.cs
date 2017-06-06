@@ -40,7 +40,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_EmployeePenalty GetH_EmployeePenalty()
         {
             H_EmployeePenalty h_EmployeePenalty = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeePenalty = H_EmployeePenalty.GetById(Convert.ToInt32(hfPenalyId.Value));
             }
@@ -71,7 +71,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -79,10 +79,10 @@ namespace GITS.Hrms.WebSite.HRM
             }
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
-                if (h_Employee.JoiningDate >= DBUtility.ToDateTime(this.txtLetterDate.Text.Trim()))
+                if (h_Employee.JoiningDate >= DBUtility.ToDateTime(txtLetterDate.Text.Trim()))
                 {
                     msg.Type = MessageType.Error;
                     msg.Msg = "Letter date should be greater than employee's joining date (" + h_Employee.JoiningDate + ")";
@@ -95,7 +95,7 @@ namespace GITS.Hrms.WebSite.HRM
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
                     return msg;
                 }
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     H_EmployeePenalty penalty = H_EmployeePenalty.Get("H_EmployeeId=" + h_Employee.Id + " AND LetterDate='" + DBUtility.ToDateTime(txtLetterDate.Text).ToString(Configuration.DatabaseDateFormat) + "'");
                     if (penalty != null)
@@ -112,7 +112,7 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
@@ -122,23 +122,23 @@ namespace GITS.Hrms.WebSite.HRM
                 //{
                    // hdnId.Value = h_Employee.Id.ToString();
 
-                    H_EmployeePenalty h_EmployeePenalty = this.GetH_EmployeePenalty();
+                    H_EmployeePenalty h_EmployeePenalty = GetH_EmployeePenalty();
                     string desc = "Insert [H_EmployeePenalty]";
 
-                    this.TransactionManager = new TransactionManager(true, desc);
-                    if (this.Type == TYPE_EDIT)
+                    TransactionManager = new TransactionManager(true, desc);
+                    if (Type == TYPE_EDIT)
                     {
-                        H_EmployeePenalty.Update(this.TransactionManager, h_EmployeePenalty);
+                        H_EmployeePenalty.Update(TransactionManager, h_EmployeePenalty);
                     }
                     else
                     {
-                        H_EmployeePenalty.Insert(this.TransactionManager, h_EmployeePenalty);
+                        H_EmployeePenalty.Insert(TransactionManager, h_EmployeePenalty);
                     }
 
                     //hdnId.Value = h_EmployeePenalty.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
-                    this.TransactionManager.Commit();
+                    TransactionManager.Commit();
                 //}
                 //else
                 //{
@@ -155,23 +155,23 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override void LoadData()
         {
-            this.ddlSubzone.DataSource = Subzone.Find("Status=1", "Name");//, User.Identity.Name);
-            this.ddlSubzone.DataBind();
-            this.ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
+            ddlSubzone.DataSource = Subzone.Find("Status=1", "Name");//, User.Identity.Name);
+            ddlSubzone.DataBind();
+            ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
         }
         protected void ddlSubzone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlSubzone.SelectedValue != null && this.ddlSubzone.SelectedValue != "")
+            if (ddlSubzone.SelectedValue != null && ddlSubzone.SelectedValue != "")
             {
-                this.ddlBranch.DataSource =Branch.Find("Status=1 AND RegionId IN ( SELECT Id FROM Region where SubzoneId="+ddlSubzone.SelectedValue+")","Name");
-                this.ddlBranch.DataBind();
+                ddlBranch.DataSource =Branch.Find("Status=1 AND RegionId IN ( SELECT Id FROM Region where SubzoneId="+ddlSubzone.SelectedValue+")","Name");
+                ddlBranch.DataBind();
                 
             }
         }
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
@@ -285,7 +285,7 @@ namespace GITS.Hrms.WebSite.HRM
                 ddlBranch.SelectedValue = branch.Id.ToString();
                 txtRemarks.Text = penalty.Remarks;
                 hfPenalyId.Value = penalty.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
             }
             if (e.CommandName == "deleterow")
@@ -294,8 +294,8 @@ namespace GITS.Hrms.WebSite.HRM
                 string penaltyId = lnkView.CommandArgument;
                 string desc = "Delete [H_EmployeePenalty]";
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                H_EmployeePenalty.Delete(this.TransactionManager, Convert.ToInt32(penaltyId));
+                TransactionManager = new TransactionManager(true, desc);
+                H_EmployeePenalty.Delete(TransactionManager, Convert.ToInt32(penaltyId));
 
                 TransactionManager.Commit();
                 LoadGridView(TransactionManager, Convert.ToInt32(hdnId.Value));

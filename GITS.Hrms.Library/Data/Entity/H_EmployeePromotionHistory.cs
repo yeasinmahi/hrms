@@ -107,73 +107,73 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
         public H_EmployeePromotion.Types Type
 		{
-			get {return this._Type;}
-			set {this._Type = value;}
+			get {return _Type;}
+			set {_Type = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public Int32 OldH_GradeId
 		{
-			get {return this._OldH_GradeId;}
-			set {this._OldH_GradeId = value;}
+			get {return _OldH_GradeId;}
+			set {_OldH_GradeId = value;}
 		}
 
 		public Int32 NewH_GradeId
 		{
-			get {return this._NewH_GradeId;}
-			set {this._NewH_GradeId = value;}
+			get {return _NewH_GradeId;}
+			set {_NewH_GradeId = value;}
 		}
 
 		public Int32 OldH_DesignationId
 		{
-			get {return this._OldH_DesignationId;}
-			set {this._OldH_DesignationId = value;}
+			get {return _OldH_DesignationId;}
+			set {_OldH_DesignationId = value;}
 		}
 
 		public Int32 NewH_DesignationId
 		{
-			get {return this._NewH_DesignationId;}
-			set {this._NewH_DesignationId = value;}
+			get {return _NewH_DesignationId;}
+			set {_NewH_DesignationId = value;}
 		}
 
 		public DateTime PromotionDate
 		{
-			get {return this._PromotionDate;}
-			set {this._PromotionDate = value;}
+			get {return _PromotionDate;}
+			set {_PromotionDate = value;}
 		}
 
 		public String Remarks
 		{
-			get {return this._Remarks;}
-			set {this._Remarks = value;}
+			get {return _Remarks;}
+			set {_Remarks = value;}
 		}
 
         public Int32 Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         public String UserLogin
         {
-            get { return this._UserLogin; }
-            set { this._UserLogin = value; }
+            get { return _UserLogin; }
+            set { _UserLogin = value; }
         }
     }
 }

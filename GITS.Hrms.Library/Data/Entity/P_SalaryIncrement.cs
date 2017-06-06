@@ -44,31 +44,31 @@ namespace GITS.Hrms.Library.Data.Entity
         }
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
         
         public Nullable<DateTime> LastIncrementDate
         {
-            get { return this._LastIncrementDate; }
-            set { this._LastIncrementDate = value; }
+            get { return _LastIncrementDate; }
+            set { _LastIncrementDate = value; }
         }
         public Double LastBasic
         {
-            get { return this._LastBasic; }
-            set { this._LastBasic = value; }
+            get { return _LastBasic; }
+            set { _LastBasic = value; }
         }
 
         public Double PresentBasic
         {
-            get { return this._PresentBasic; }
-            set { this._PresentBasic = value; }
+            get { return _PresentBasic; }
+            set { _PresentBasic = value; }
         }
 
         public Boolean Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         [Property(PropertyAttribute.Attributes.NonTable)]
         public String IsActive

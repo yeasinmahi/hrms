@@ -18,17 +18,17 @@ namespace GITS.Hrms.WebSite.Reports
         }
         protected override void HandleSpecialCommand(object sender, System.Web.UI.WebControls.MenuEventArgs e)
         {
-            this.Validate();
+            Validate();
 
-            if (this.IsValid)
+            if (IsValid)
             {
                 switch (e.Item.Value)
                 {
                     case "EXCEL":
-                        this.ViewReport();
+                        ViewReport();
                         break;
                     default:
-                        this.HandleSpecialCommand(sender, e);
+                        HandleSpecialCommand(sender, e);
                         break;
                 }
             }
@@ -36,7 +36,7 @@ namespace GITS.Hrms.WebSite.Reports
         private void ViewReport()
         {
             string query = string.Empty;
-            if (this.IsValid)
+            if (IsValid)
             {
                 DataSet ds = GradeQualificationWiseReport.GetDataSet(Convert.ToInt32(ddlGrade.SelectedValue),txtDesignation.Text,Convert.ToInt32(ddlMastersFilter.SelectedValue),DBUtility.ToNullableDateTime(txtMastersDate.Text),Convert.ToInt32(ddlBachelorFilter.SelectedValue),DBUtility.ToNullableDateTime(txtBachelorDate.Text),Convert.ToInt32(ddlHSCFilter.SelectedValue),DBUtility.ToNullableDateTime(txtHSCDate.Text),Convert.ToInt32(ddlBelowHSCFilter.SelectedValue),DBUtility.ToNullableDateTime(txtBelowHSCDate.Text));
 

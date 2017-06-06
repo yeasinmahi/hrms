@@ -34,8 +34,8 @@ namespace GITS.Hrms.Library.Data
         [Property(PropertyAttribute.Attributes.AutoIncrement)]
         public Int32 Id
         {
-            get { return this._Id; }
-            set { this._Id = value; }
+            get { return _Id; }
+            set { _Id = value; }
         }
 
         public static T GetById(Int32 id)
@@ -137,7 +137,7 @@ namespace GITS.Hrms.Library.Data
             
             SqlCommand cmd = transactionManager.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT COUNT(*) AS Total FROM " + Instance.AbstractName + " WHERE " + whereClause; ;
+            cmd.CommandText = "SELECT COUNT(*) AS Total FROM " + Instance.AbstractName + " WHERE " + whereClause;
             total = Convert.ToInt32(cmd.ExecuteScalar());
 
             if (total == 0)

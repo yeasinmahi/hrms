@@ -94,17 +94,17 @@ namespace GITS.Hrms.Library.Data
         {
             if (_Transaction != null)
             {
-                this._Transaction.Rollback();
+                _Transaction.Rollback();
             }
 
             if (_Connection != null && _Connection.State == ConnectionState.Open)
             {
-                this._Connection.Close();
+                _Connection.Close();
             }
 
             if (_Transaction != null)
             {
-                this._Transaction.Dispose();
+                _Transaction.Dispose();
             }
         }
 
@@ -112,24 +112,24 @@ namespace GITS.Hrms.Library.Data
         {
             if (_Transaction != null)
             {
-                if (this.RecordAffected > 1)
+                if (RecordAffected > 1)
                 {
-                    this._Transaction.Commit();
+                    _Transaction.Commit();
                 }
                 else
                 {
-                    this.Rollback();
+                    Rollback();
                 }
             }
 
             if (_Connection != null && _Connection.State == ConnectionState.Open)
             {
-                this._Connection.Close();
+                _Connection.Close();
             }
 
             if (_Transaction != null)
             {
-                this._Transaction.Dispose();
+                _Transaction.Dispose();
             }
         }
 
@@ -143,7 +143,7 @@ namespace GITS.Hrms.Library.Data
 
         public int ExecuteUpdate(string sql)
         {
-            SqlCommand cmd = this.CreateCommand();
+            SqlCommand cmd = CreateCommand();
             cmd.CommandText = sql;
 
             int effectedRows = cmd.ExecuteNonQuery();
@@ -152,23 +152,23 @@ namespace GITS.Hrms.Library.Data
             return effectedRows;
         }
 
-        public System.Data.DataSet GetDataSet(string sql)
+        public DataSet GetDataSet(string sql)
         {
             DataSet dataSet = new DataSet();
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             
-            dataAdapter.SelectCommand = this.CreateCommand();
+            dataAdapter.SelectCommand = CreateCommand();
             dataAdapter.SelectCommand.CommandText = sql;
             dataAdapter.Fill(dataSet);
             
             return dataSet;
         }
 
-        public System.Data.DataSet GetDataSet(string sql, DataSet ds)
+        public DataSet GetDataSet(string sql, DataSet ds)
         {
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
 
-            dataAdapter.SelectCommand = this.CreateCommand();
+            dataAdapter.SelectCommand = CreateCommand();
             dataAdapter.SelectCommand.CommandText = sql;
             dataAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
             dataAdapter.Fill(ds);
@@ -225,7 +225,7 @@ namespace GITS.Hrms.Library.Data
                     nt.Create();
                 }
 
-                System.Data.SqlClient.SqlBulkCopy bulkCopy = new System.Data.SqlClient.SqlBulkCopy(_Connection);
+                SqlBulkCopy bulkCopy = new SqlBulkCopy(_Connection);
 
                 foreach (DataTable dt in ds.Tables)
                 {

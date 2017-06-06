@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.HRM
         {
             H_ProfessionalQualification h_ProfessionalQualification = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_ProfessionalQualification = H_ProfessionalQualification.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -60,7 +60,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -72,14 +72,14 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_ProfessionalQualification h_ProfessionalQualification = this.GetH_ProfessionalQualification();
+                H_ProfessionalQualification h_ProfessionalQualification = GetH_ProfessionalQualification();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_ProfessionalQualification]";
                 }
@@ -88,21 +88,21 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "Update [H_ProfessionalQualification]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    H_ProfessionalQualification.Insert(this.TransactionManager, h_ProfessionalQualification);
+                    H_ProfessionalQualification.Insert(TransactionManager, h_ProfessionalQualification);
 
                     hdnId.Value = h_ProfessionalQualification.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    H_ProfessionalQualification.Update(this.TransactionManager, h_ProfessionalQualification);
+                    H_ProfessionalQualification.Update(TransactionManager, h_ProfessionalQualification);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -115,8 +115,8 @@ namespace GITS.Hrms.WebSite.HRM
 
             if (h_Employee != null)
             {
-                this.txtEmployeeName.Text = h_Employee.Name;
-                this.hlBack.NavigateUrl = "~/HRM/H_ProfessionalQualificationList.aspx?H_EmployeeId=" + h_Employee.Id;
+                txtEmployeeName.Text = h_Employee.Name;
+                hlBack.NavigateUrl = "~/HRM/H_ProfessionalQualificationList.aspx?H_EmployeeId=" + h_Employee.Id;
             }
 
             if (Request.QueryString["Id"] != null)
@@ -126,7 +126,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                 if (h_ProfessionalQualification != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtCertification.Text = h_ProfessionalQualification.Certification;
                     txtInstituteName.Text = h_ProfessionalQualification.InstituteName;
@@ -145,8 +145,8 @@ namespace GITS.Hrms.WebSite.HRM
             switch (e.Item.Value)
             {
                 case COMMAND_SAVE_AND_NEW:
-                    msg = this.Save();
-                    this.ShowUIMessage(msg);
+                    msg = Save();
+                    ShowUiMessage(msg);
 
                     if (msg.Type == MessageType.Information)
                     {

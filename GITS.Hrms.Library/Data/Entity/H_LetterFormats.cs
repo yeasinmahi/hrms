@@ -67,51 +67,51 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public LetterTypes LetterType
         {
-            get { return this._LetterType; }
-            set { this._LetterType = value; }
+            get { return _LetterType; }
+            set { _LetterType = value; }
         }
 
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
 
         public String Subject
         {
-            get { return this._Subject; }
-            set { this._Subject = value; }
+            get { return _Subject; }
+            set { _Subject = value; }
         }
 
         public String LetterBody
         {
-            get { return this._LetterBody; }
-            set { this._LetterBody = value; }
+            get { return _LetterBody; }
+            set { _LetterBody = value; }
         }
         public String Conclusion
         {
-            get { return this._Conclusion; }
-            set { this._Conclusion = value; }
+            get { return _Conclusion; }
+            set { _Conclusion = value; }
         }
         public String Signatory
         {
-            get { return this._Signatory; }
-            set { this._Signatory = value; }
+            get { return _Signatory; }
+            set { _Signatory = value; }
         }
         public String Designation
         {
-            get { return this._Designation; }
-            set { this._Designation = value; }
+            get { return _Designation; }
+            set { _Designation = value; }
         }
         public String InsideAddress
         {
-            get { return this._InsideAddress; }
-            set { this._InsideAddress = value; }
+            get { return _InsideAddress; }
+            set { _InsideAddress = value; }
         }
         public Int32  SortOrder
         {
-            get { return this._SortOrder; }
-            set { this._SortOrder = value; }
+            get { return _SortOrder; }
+            set { _SortOrder = value; }
         }
     }
 }

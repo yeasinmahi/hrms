@@ -35,7 +35,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -47,7 +47,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_MonthlyReport GetH_MonthlyReport()
         {
             H_MonthlyReport h_MonthlyReport = null;
-            if (this.Type == TYPE_ADD)
+            if (Type == TYPE_ADD)
             {
                 h_MonthlyReport = new H_MonthlyReport();
                 h_MonthlyReport.EntryDateTime = DateTime.Now;
@@ -126,24 +126,24 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 H_MonthlyReport h_MonthlyReport=GetH_MonthlyReport();
                 String desc = string.Empty;
-                if (this.Type == TYPE_EDIT)
+                if (Type == TYPE_EDIT)
                     desc = "UPDATE H_MonthlyReport";
                 else
                     desc = "INSERT H_MonthlyReport";
-                this.TransactionManager = new TransactionManager(true,desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true,desc);
+                if (Type == TYPE_EDIT)
                 {
-                    H_MonthlyReport.Update(this.TransactionManager, h_MonthlyReport);
+                    H_MonthlyReport.Update(TransactionManager, h_MonthlyReport);
                 }
                 else
                 {
-                    H_MonthlyReport.Insert(this.TransactionManager, h_MonthlyReport);
+                    H_MonthlyReport.Insert(TransactionManager, h_MonthlyReport);
                 }
 
                 TransactionManager.Commit();
@@ -163,7 +163,7 @@ namespace GITS.Hrms.WebSite.HRM
                 H_MonthlyReport h_MonthlyReport = H_MonthlyReport.GetById(Convert.ToInt32(Request.QueryString["Id"]));
                 if (h_MonthlyReport != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     hdnId.Value = h_MonthlyReport.Id.ToString();
                     ddlYear.SelectedValue = h_MonthlyReport.ReportDate.Year.ToString();
                     ddlMonth.SelectedValue = h_MonthlyReport.ReportDate.Month.ToString();

@@ -43,18 +43,18 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public Int32 H_EmployeeAppraisalMasterId
 		{
-            get { return this._H_EmployeeAppraisalMasterId; }
-            set { this._H_EmployeeAppraisalMasterId = value; }
+            get { return _H_EmployeeAppraisalMasterId; }
+            set { _H_EmployeeAppraisalMasterId = value; }
 		}
         public Int32 H_AppraisalQuestionId
         {
-            get { return this._H_AppraisalQuestionId; }
-            set { this._H_AppraisalQuestionId = value; }
+            get { return _H_AppraisalQuestionId; }
+            set { _H_AppraisalQuestionId = value; }
         }
         public Int32 Marks
         {
-            get { return this._Marks; }
-            set { this._Marks = value; }
+            get { return _Marks; }
+            set { _Marks = value; }
         }
        
     }

@@ -16,10 +16,10 @@ namespace GITS.Hrms.WebSite.Security
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(Role);
-            this.SortColumn = "Name";
-            this.SortOrder = "ASC";
+            GridView = gvList;
+            EntityType = typeof(Role);
+            SortColumn = "Name";
+            SortOrder = "ASC";
         }
 
         protected void Page_Load(object sender, EventArgs e)

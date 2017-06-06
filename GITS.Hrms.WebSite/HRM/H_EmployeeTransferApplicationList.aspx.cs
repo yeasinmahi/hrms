@@ -19,8 +19,8 @@ namespace GITS.Hrms.WebSite.HRM
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(H_EmployeeTransferApplicationView);
+            GridView = gvList;
+            EntityType = typeof(H_EmployeeTransferApplicationView);
         }
         protected override string GetAddPageUrl()
         {

@@ -48,14 +48,14 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 DistrictId
 		{
-			get {return this._DistrictId;}
-			set {this._DistrictId = value;}
+			get {return _DistrictId;}
+			set {_DistrictId = value;}
 		}
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 	}

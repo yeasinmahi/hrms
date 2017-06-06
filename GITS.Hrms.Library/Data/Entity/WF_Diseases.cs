@@ -43,14 +43,14 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
 		public Statuses Status
 		{
-			get {return this._Status;}
-			set {this._Status = value;}
+			get {return _Status;}
+			set {_Status = value;}
 		}
 
     }

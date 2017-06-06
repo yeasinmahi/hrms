@@ -28,7 +28,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
@@ -124,7 +124,7 @@ namespace GITS.Hrms.WebSite.HRM
                 //ddlBranch.SelectedValue = branch.Id.ToString();
                 //txtRemarks.Text = penalty.Remarks;
                 hfPenalyId.Value = penalty.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
             }
         }
@@ -149,7 +149,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -165,19 +165,19 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_EmployeePenalty h_EmployeePenalty = this.GetH_EmployeePenalty();
+                H_EmployeePenalty h_EmployeePenalty = GetH_EmployeePenalty();
                 string desc = "Update [H_EmployeePenalty]";
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                H_EmployeePenalty.Update(this.TransactionManager, h_EmployeePenalty);
+                TransactionManager = new TransactionManager(true, desc);
+                H_EmployeePenalty.Update(TransactionManager, h_EmployeePenalty);
                                 
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
                 LoadGridView(h_EmployeePenalty.H_EmployeeId);
 
                 txtDistrict.Text = "";

@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             District district = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 district = District.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -54,7 +54,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -66,14 +66,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                District district = this.GetDistrict();
+                District district = GetDistrict();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [District]";
                 }
@@ -82,21 +82,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [District]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    District.Insert(this.TransactionManager, district);
+                    District.Insert(TransactionManager, district);
 
                     hdnId.Value = district.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    District.Update(this.TransactionManager, district);
+                    District.Update(TransactionManager, district);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -115,7 +115,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (district != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     ddlDivision.SelectedValue = district.DivisionId.ToString();
                     txtName.Text = district.Name;
                 }

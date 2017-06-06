@@ -24,7 +24,7 @@ namespace GITS.Hrms.Library.Utility
 
         internal PropertyAttribute(Attributes attribute)
         {
-            this._Attribute = attribute;
+            _Attribute = attribute;
         }
     }
 }

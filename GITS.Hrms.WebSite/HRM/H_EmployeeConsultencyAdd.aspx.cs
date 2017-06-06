@@ -31,14 +31,14 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
                 return msg;
                 
             }
-            if (this.Type == TYPE_ADD)
+            if (Type == TYPE_ADD)
             {
                 H_Employee employee = H_Employee.GetById(Convert.ToInt32(hdnId.Value));
                 if (employee.Status.Equals(H_Employee.Statuses.Consultancy))
@@ -53,14 +53,14 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_EmployeeConsultency h_Consultency = this.GetH_EmployeeConsultency();
+                H_EmployeeConsultency h_Consultency = GetH_EmployeeConsultency();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_EmployeeConsultency]";
                 }
@@ -69,20 +69,20 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "Update [H_EmployeeConsultency]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_ADD)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_ADD)
                 {
-                    H_EmployeeConsultency.Insert(this.TransactionManager,h_Consultency);
+                    H_EmployeeConsultency.Insert(TransactionManager,h_Consultency);
                     H_Employee employee = H_Employee.GetById(h_Consultency.H_EmployeeId);
                     employee.Status = H_Employee.Statuses.Consultancy;
-                    H_Employee.Update(this.TransactionManager,employee);
+                    H_Employee.Update(TransactionManager,employee);
                 }
                 else
                 {
-                    H_EmployeeConsultency.Update(this.TransactionManager,h_Consultency);
+                    H_EmployeeConsultency.Update(TransactionManager,h_Consultency);
                 }
-                this.TransactionManager.Commit();
-                this.TransactionManager = new TransactionManager(false);
+                TransactionManager.Commit();
+                TransactionManager = new TransactionManager(false);
                 string query = "SELECT "
                         + "hec.LetterNo,"
                         + " hec.LetterDate,"
@@ -101,7 +101,7 @@ namespace GITS.Hrms.WebSite.HRM
                 gvList.DataSource = dtleave;
                 gvList.DataBind();
 
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
                 hfConsultId.Value = h_Consultency.Id.ToString();
             }
             
@@ -113,7 +113,7 @@ namespace GITS.Hrms.WebSite.HRM
             
             H_EmployeeConsultency h_Consultency = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                IList<H_EmployeeConsultency> list = H_EmployeeConsultency.Find("H_EmployeeId="+Convert.ToInt32(hdnId.Value)+" AND Status=1","");
                h_Consultency = list[0];
@@ -141,19 +141,19 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override void LoadData()
         {
-            this.ddlCountry.DataSource = Country.Find("", "Name");
-            this.ddlCountry.DataBind();
-            this.ddlCountry.Items.Insert(0, new ListItem("Select Country","0"));
+            ddlCountry.DataSource = Country.Find("", "Name");
+            ddlCountry.DataBind();
+            ddlCountry.Items.Insert(0, new ListItem("Select Country","0"));
             
-            this.ddlNgo.DataSource = Organization.Find("", "Name");
-            this.ddlNgo.DataBind();
-            this.ddlNgo.Items.Insert(0, new ListItem("Select Fund", "0"));
+            ddlNgo.DataSource = Organization.Find("", "Name");
+            ddlNgo.DataBind();
+            ddlNgo.Items.Insert(0, new ListItem("Select Fund", "0"));
 
         }
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (h_Employee.Status != H_Employee.Statuses.Working)
@@ -161,11 +161,11 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 hdnId.Value = h_Employee.Id.ToString();
-                this.Type = TYPE_ADD;
+                Type = TYPE_ADD;
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
                 H_EmployeeDesignation eDesignation = H_EmployeeDesignation.FindByH_EmployeeId(h_Employee.Id, "EndDate DESC")[0];
@@ -207,7 +207,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                // IList<H_EmployeeConsultency> h_EmployeeConsultList = H_EmployeeConsultency.Find("H_EmployeeID = " + h_Employee.Id, "LetterDate Desc");
 
-                this.TransactionManager = new TransactionManager(false);
+                TransactionManager = new TransactionManager(false);
                 string query = "SELECT "
                         + "hec.LetterNo,"
                         + " hec.LetterDate,"

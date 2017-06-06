@@ -15,16 +15,11 @@ namespace GITS.Hrms.Library.Web
         protected const string COMMAND_DELETE = "DELETE";
         protected const string COMMAND_EXCEL = "EXCEL";
 
-        private GridViewSearchPanel gvspList = null;
-        private GridView _GridView;
+        private GridViewSearchPanel gvspList;
         private Type _EntityType;
         private Type _BaseEntityType;
 
-        protected virtual GridView GridView
-        {
-            get { return this._GridView; }
-            set { this._GridView = value; }
-        }
+        protected virtual GridView GridView { get; set; }
 
         protected virtual Type EntityType
         {
@@ -102,7 +97,7 @@ namespace GITS.Hrms.Library.Web
         {
             get 
             {
-                return (Int32)Math.Ceiling(Convert.ToDouble(this.RecordCount) / this.GridView.PageSize);
+                return (Int32)Math.Ceiling(Convert.ToDouble(RecordCount) / GridView.PageSize);
             }
         }
 
@@ -116,9 +111,9 @@ namespace GITS.Hrms.Library.Web
         {
             get
             {
-                if (this.SortColumn != null && this.SortColumn != "")
+                if (SortColumn != null && SortColumn != "")
                 {
-                    return this.SortColumn + " " + this.SortOrder;
+                    return SortColumn + " " + SortOrder;
                 }
 
                 return "";
@@ -129,25 +124,21 @@ namespace GITS.Hrms.Library.Web
         {
             get
             {
-                if (this.gvspList != null)
+                if (gvspList != null)
                 {
-                    return this.gvspList.WhereClause;
+                    return gvspList.WhereClause;
                 }
 
                 return "";
             }
         }
 
-        public GridPage()
-        {
-        }
-
         protected virtual void LoadData()
         {
-            if (this.GridView != null && this.EntityType != null)
+            if (GridView != null && EntityType != null)
             {
-                this.GridView.DataSource = this.GetDataSource();
-                this.GridView.DataBind();
+                GridView.DataSource = GetDataSource();
+                GridView.DataBind();
             }
             else
             {
@@ -159,7 +150,7 @@ namespace GITS.Hrms.Library.Web
         {
             base.OnInit(e);
 
-            this.gvspList = (GridViewSearchPanel)Page.Master.FindControl("ContentPlaceHolder1").FindControl("gvspList");
+            gvspList = (GridViewSearchPanel)Page.Master.FindControl("ContentPlaceHolder1").FindControl("gvspList");
         }
 
         protected override void OnLoad(EventArgs e)
@@ -174,21 +165,21 @@ namespace GITS.Hrms.Library.Web
 
         protected virtual Object GetDataSource()
         {
-            if (this.GridView != null && this.EntityType != null)
+            if (GridView != null && EntityType != null)
             {
                 ParameterModifier[] modifiers = new ParameterModifier[1];
                 modifiers[0] = new ParameterModifier(5);
                 modifiers[0][4] = true;
                 Object[] values = new Object[5];
 
-                values[0] = this.FilterExpression;
-                values[1] = this.SortExpression;
-                values[2] = this.PageIndex * this.GridView.PageSize + 1;
-                values[3] = this.GridView.PageSize;
+                values[0] = FilterExpression;
+                values[1] = SortExpression;
+                values[2] = PageIndex * GridView.PageSize + 1;
+                values[3] = GridView.PageSize;
 
-                Object list = this.EntityType.BaseType.BaseType.InvokeMember("Find", System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, null, values, modifiers, null, null);
+                Object list = EntityType.BaseType.BaseType.InvokeMember("Find", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null, values, modifiers, null, null);
 
-                this.RecordCount = Convert.ToInt32(values[4]);
+                RecordCount = Convert.ToInt32(values[4]);
 
                 return list;
             }
@@ -212,17 +203,17 @@ namespace GITS.Hrms.Library.Web
 
         protected virtual void gvList_Sorting(object sender, GridViewSortEventArgs e)
         {
-            if (this.SortColumn != e.SortExpression)
+            if (SortColumn != e.SortExpression)
             {
-                this.SortColumn = e.SortExpression;
-                this.SortOrder = "ASC";
+                SortColumn = e.SortExpression;
+                SortOrder = "ASC";
             }
             else
             {
-                this.SortOrder = (this.SortOrder == "ASC") ? "DESC" : "ASC";
+                SortOrder = (SortOrder == "ASC") ? "DESC" : "ASC";
             }
 
-            object ds = this.GetDataSource();
+            object ds = GetDataSource();
 
             if (ds != null)
             {
@@ -248,31 +239,31 @@ namespace GITS.Hrms.Library.Web
                 cell.ColumnSpan = columnSpan;
                 tr.Controls.Add(cell);
 
-                if (this.PageIndex > 0)
+                if (PageIndex > 0)
                 {
                     ImageButton firstPage = new ImageButton();
                     firstPage.ImageUrl = "~/Images/XGridFirstPage.gif";
                     firstPage.ToolTip = "First Page";
-                    firstPage.Click += new ImageClickEventHandler(firstPage_Click);
+                    firstPage.Click += firstPage_Click;
                     cell.Controls.Add(firstPage);
                     cell.Controls.Add(space);
 
                     ImageButton previousPage = new ImageButton();
                     previousPage.ImageUrl = "~/Images/XGridPreviousPage.gif";
                     previousPage.ToolTip = "Previous Page";
-                    previousPage.Click += new ImageClickEventHandler(previousPage_Click);
+                    previousPage.Click += previousPage_Click;
                     cell.Controls.Add(previousPage);
                     space = new Label();
                     space.Text = "&nbsp;";
                     cell.Controls.Add(space);
                 }
 
-                if (this.PageIndex < this.PageCount - 1)
+                if (PageIndex < PageCount - 1)
                 {
                     ImageButton nextPage = new ImageButton();
                     nextPage.ImageUrl = "~/Images/XGridNextPage.gif";
                     nextPage.ToolTip = "Next Page";
-                    nextPage.Click += new ImageClickEventHandler(nextPage_Click);
+                    nextPage.Click += nextPage_Click;
                     cell.Controls.Add(nextPage);
                     space = new Label();
                     space.Text = "&nbsp;";
@@ -281,7 +272,7 @@ namespace GITS.Hrms.Library.Web
                     ImageButton lastPage = new ImageButton();
                     lastPage.ImageUrl = "~/Images/XGridLastPage.gif";
                     lastPage.ToolTip = "Last Page";
-                    lastPage.Click += new ImageClickEventHandler(lastPage_Click);
+                    lastPage.Click += lastPage_Click;
                     cell.Controls.Add(lastPage);
                     space = new Label();
                     space.Text = "&nbsp;";
@@ -290,12 +281,12 @@ namespace GITS.Hrms.Library.Web
 
                 HtmlInputText label = new HtmlInputText();
                 label.Style.Add(HtmlTextWriterStyle.TextAlign, "right");
-                label.Style.Add(HtmlTextWriterStyle.Width, this.PageCount == 1 ? "99%" : this.PageIndex == 0 || this.PageIndex == this.PageCount - 1 ? "95%" : "91%");
+                label.Style.Add(HtmlTextWriterStyle.Width, PageCount == 1 ? "99%" : PageIndex == 0 || PageIndex == PageCount - 1 ? "95%" : "91%");
                 label.Style.Add(HtmlTextWriterStyle.BackgroundColor, "transparent");
                 label.Style.Add("border", "none");
                 label.Attributes.Add("readonly", "true");
 
-                label.Value = "Records: " + (this.PageIndex * this.GridView.PageSize + 1) + " - " + (this.PageIndex == this.PageCount - 1 ? this.RecordCount : ((this.PageIndex + 1) * this.GridView.PageSize)) + " of " + this.RecordCount;
+                label.Value = "Records: " + (PageIndex * GridView.PageSize + 1) + " - " + (PageIndex == PageCount - 1 ? RecordCount : ((PageIndex + 1) * GridView.PageSize)) + " of " + RecordCount;
                 cell.Controls.Add(label);
                  
             }
@@ -303,38 +294,38 @@ namespace GITS.Hrms.Library.Web
 
         void lastPage_Click(object sender, ImageClickEventArgs e)
         {
-            this.PageIndex = this.PageCount - 1;
-            this.LoadData();
+            PageIndex = PageCount - 1;
+            LoadData();
         }
 
         void nextPage_Click(object sender, ImageClickEventArgs e)
         {
-            this.PageIndex++;
-            this.LoadData();
+            PageIndex++;
+            LoadData();
         }
 
         void previousPage_Click(object sender, ImageClickEventArgs e)
         {
-            this.PageIndex--;
-            this.LoadData();
+            PageIndex--;
+            LoadData();
         }
 
         void firstPage_Click(object sender, ImageClickEventArgs e)
         {
-            this.PageIndex = 0;
-            this.LoadData();
+            PageIndex = 0;
+            LoadData();
         }
 
         protected void gvspList_SearchButtonClicked(object sender, EventArgs e)
         {
             try
             {
-                this.PageIndex = 0;
+                PageIndex = 0;
                 LoadData();
             }
             catch (Exception ex)
             {
-                ShowUIMessage(ex);
+                ShowUiMessage(ex);
             }
         }
 
@@ -342,12 +333,12 @@ namespace GITS.Hrms.Library.Web
         {
             try
             {
-                this.PageIndex = 0;
+                PageIndex = 0;
                 LoadData();
             }
             catch (Exception ex)
             {
-                ShowUIMessage(ex);
+                ShowUiMessage(ex);
             }
         }
 
@@ -374,17 +365,17 @@ namespace GITS.Hrms.Library.Web
 
         protected virtual Message Delete(TransactionManager transactionManager, Int32 id)
         {
-            Message msg = this.ValidateDelating(id);
+            Message msg = ValidateDelating(id);
 
             if (msg.Type == MessageType.Information)
             {
-                if (this.BaseEntityType != null)
+                if (BaseEntityType != null)
                 {
-                    this.BaseEntityType.BaseType.InvokeMember("Delete", System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, null, new Object[] { transactionManager, id });
+                    BaseEntityType.BaseType.InvokeMember("Delete", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null, new Object[] { transactionManager, id });
                 }
                 else
                 {
-                    this.EntityType.BaseType.InvokeMember("Delete", System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public, null, null, new Object[] { transactionManager, id });
+                    EntityType.BaseType.InvokeMember("Delete", BindingFlags.InvokeMethod | BindingFlags.Static | BindingFlags.Public, null, null, new Object[] { transactionManager, id });
                 }
             }
 
@@ -393,34 +384,34 @@ namespace GITS.Hrms.Library.Web
 
         protected virtual Message DeleteSelected()
         {
-            if (this.GridView != null && this.EntityType != null)
+            if (GridView != null && EntityType != null)
             {
                 Message msg = new Message();
-                this.TransactionManager = new TransactionManager(true, "Delete [" + this.EntityType.Name + "]");
+                TransactionManager = new TransactionManager(true, "Delete [" + EntityType.Name + "]");
                 msg.Type = MessageType.Information;
                 msg.Msg = "Selected item(s) deleted successfully";
 
-                for (int i = 0; i < this.GridView.Rows.Count; i++)
+                for (int i = 0; i < GridView.Rows.Count; i++)
                 {
-                    GridViewRow row = this.GridView.Rows[i];
+                    GridViewRow row = GridView.Rows[i];
                     Boolean selected = ((CheckBox)row.FindControl("chkSelect")).Checked;
 
                     if (selected)
                     {
-                        Int32 id = Convert.ToInt32(this.GridView.DataKeys[i].Value);
-                        msg = this.Delete(this.TransactionManager, id);
+                        Int32 id = Convert.ToInt32(GridView.DataKeys[i].Value);
+                        msg = Delete(TransactionManager, id);
 
                         if (msg.Type != MessageType.Information)
                         {
-                            this.TransactionManager.Rollback();
+                            TransactionManager.Rollback();
                             return msg;
                         }
                     }
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
 
-                this.LoadData();
+                LoadData();
 
                 return msg;
             }
@@ -434,16 +425,16 @@ namespace GITS.Hrms.Library.Web
         {
             Message msg = new Message();
 
-            if (this.GridView != null)
+            if (GridView != null)
             {
-                if (this.GridView.Rows.Count > 65500)
+                if (GridView.Rows.Count > 65500)
                 {
                     msg.Msg = "Too many rows to display in excel";
                     msg.Type = MessageType.Information;
                     return msg;
                 }
 
-                if (this.GridView.Rows.Count == 0)
+                if (GridView.Rows.Count == 0)
                 {
                     msg.Type = MessageType.Information;
                     return msg;
@@ -454,7 +445,7 @@ namespace GITS.Hrms.Library.Web
                 header[1] = new WorksheetRow();
                 header[2] = new WorksheetRow();
 
-                foreach (DataControlField column in this.GridView.Columns)
+                foreach (DataControlField column in GridView.Columns)
                 {
                     if (column.Visible)
                     {
@@ -484,7 +475,7 @@ namespace GITS.Hrms.Library.Web
                     //header[1].Cells.Add("Branch Name: " + Branch.CurrentBranch.FullName, DataType.String, "HeaderTop3");
                 }
 
-                ExcelReportUtility.Instance.DataSource = this.GridView;
+                ExcelReportUtility.Instance.DataSource = GridView;
                 ExcelReportUtility.Instance.Header = new WorksheetRow[][] { header };
                 ExcelReportUtility.Instance.ViewReport();
             }
@@ -503,20 +494,20 @@ namespace GITS.Hrms.Library.Web
                 case COMMAND_ADD:
                     Message msg = ValidateAdd();
                     if (msg.Type != MessageType.Information) 
-                        this.ShowUIMessage(msg);
+                        ShowUiMessage(msg);
                     else
-                        UIUtility.Transfer(Page, this.GetAddPageUrl());
+                        UIUtility.Transfer(Page, GetAddPageUrl());
                     break;
                 case COMMAND_DELETE:
-                    msg = this.DeleteSelected();
-                    this.ShowUIMessage(msg);
+                    msg = DeleteSelected();
+                    ShowUiMessage(msg);
                     break;
                 case COMMAND_EXCEL:
-                    msg = this.ExportToExcel();
-                    this.ShowUIMessage(msg);
+                    msg = ExportToExcel();
+                    ShowUiMessage(msg);
                     break;
                 default:
-                    this.HandleSpecialCommand(sender, e);
+                    HandleSpecialCommand(sender, e);
                     break;
 
             }

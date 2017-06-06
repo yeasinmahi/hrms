@@ -23,7 +23,7 @@ namespace GITS.Hrms.Library.Utility
         }
     }
 
-    public class Comparator<T> : System.Collections.Generic.IComparer<T>
+    public class Comparator<T> : IComparer<T>
     {
         public SortOrder Order;
         public System.Reflection.PropertyInfo PropertyInfo;
@@ -36,17 +36,17 @@ namespace GITS.Hrms.Library.Utility
 
         public Comparator()
         {
-            this.Order = SortOrder.Ascending;
+            Order = SortOrder.Ascending;
         }
 
         public Comparator(SortOrder so)
         {
-            this.Order = so;
+            Order = so;
         }
 
         private int Compare(double x, double y)
         {
-            if (this.Order == SortOrder.Ascending)
+            if (Order == SortOrder.Ascending)
             {
                 if (x.CompareTo(y) > 0)
                 {
@@ -80,21 +80,21 @@ namespace GITS.Hrms.Library.Utility
 
         public int Compare(T x, T y)
         {
-            object obj1 = this.PropertyInfo.GetValue(x, null);
-            object obj2 = this.PropertyInfo.GetValue(y, null);
+            object obj1 = PropertyInfo.GetValue(x, null);
+            object obj2 = PropertyInfo.GetValue(y, null);
 
             if (obj1 == null || obj2 == null)
             {
                 return 1;
             }
 
-            if (this.PropertyInfo.PropertyType == typeof(int) || this.PropertyInfo.PropertyType == typeof(long) || this.PropertyInfo.PropertyType == typeof(double))
+            if (PropertyInfo.PropertyType == typeof(int) || PropertyInfo.PropertyType == typeof(long) || PropertyInfo.PropertyType == typeof(double))
             {
                 return Compare(Convert.ToDouble(obj1), Convert.ToDouble(obj2));
             }
-            else if (this.PropertyInfo.PropertyType == typeof(DateTime))
+            else if (PropertyInfo.PropertyType == typeof(DateTime))
             {
-                if (this.Order == SortOrder.Ascending)
+                if (Order == SortOrder.Ascending)
                 {
                     if ((Convert.ToDateTime(obj1).CompareTo(Convert.ToDateTime(obj2))) > 0)
                     {
@@ -127,7 +127,7 @@ namespace GITS.Hrms.Library.Utility
             }
             else
             {
-                if (this.Order == SortOrder.Ascending)
+                if (Order == SortOrder.Ascending)
                 {
                     if (obj1.ToString().CompareTo(obj2.ToString()) > 0)
                     {

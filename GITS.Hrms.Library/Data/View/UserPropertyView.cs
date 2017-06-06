@@ -38,26 +38,26 @@ namespace GITS.Hrms.Library.Data.View
 
 		public String ModuleName
 		{
-			get {return this._ModuleName;}
-			set {this._ModuleName = value;}
+			get {return _ModuleName;}
+			set {_ModuleName = value;}
 		}
 
 		public String UserLogin
 		{
-			get {return this._UserLogin;}
-			set {this._UserLogin = value;}
+			get {return _UserLogin;}
+			set {_UserLogin = value;}
 		}
 
 		public String RoleName
 		{
-			get {return this._RoleName;}
-			set {this._RoleName = value;}
+			get {return _RoleName;}
+			set {_RoleName = value;}
 		}
 
 		public String PropertyName
 		{
-			get {return this._PropertyName;}
-			set {this._PropertyName = value;}
+			get {return _PropertyName;}
+			set {_PropertyName = value;}
 		}
 
 	}

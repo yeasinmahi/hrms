@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.HRM
                 ddlReportName.DataBind();
                 ddlReportName.Items.Insert(0, new ListItem { Value = "0", Text = "Select Report Format" });
             }
-            this.RegisterPostBackControl();
+            RegisterPostBackControl();
         }
 
         private void RegisterPostBackControl()
@@ -142,7 +142,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Select Correct Branch then add";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (!String.IsNullOrEmpty(txtCode.Text))
@@ -256,7 +256,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                 if (h_History != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     txtLetterNo.Text = h_History.LetterNo;
                     txtLetterDate.Text = UIUtility.Format(h_History.LetterDate);
                     txtTransferDate.Text = UIUtility.Format(h_History.JoiningDate);
@@ -312,7 +312,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -335,13 +335,13 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
             if (msg.Type == MessageType.Information)
             {
                 string desc = "INSERT H_EmployeeTransferHistory";
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
                     H_EmployeeTransferHistory emp = H_EmployeeTransferHistory.GetById(Convert.ToInt32(hdnId.Value));
                     IList<H_EmployeeTransferHistory> list = H_EmployeeTransferHistory.Find("LetterNo='" + emp.LetterNo + "'", "");
@@ -367,11 +367,11 @@ namespace GITS.Hrms.WebSite.HRM
                     entity.Status = H_EmployeeTransferHistory.Statuses.ACTIVE;
                     entity.H_LetterFormatsId = Convert.ToInt32(ddlReportName.SelectedValue);
                     entity.Duplication = GetDuplication();
-                    H_EmployeeTransferHistory.Insert(this.TransactionManager, entity);
+                    H_EmployeeTransferHistory.Insert(TransactionManager, entity);
                 }
 
-                this.Type = TYPE_EDIT;
-                this.TransactionManager.Commit();
+                Type = TYPE_EDIT;
+                TransactionManager.Commit();
                 ShowReport();
             }
 

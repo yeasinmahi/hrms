@@ -42,19 +42,19 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_EmployeeIncrementHeldup h_EmployeeIncrementHeldup = this.GetH_EmployeeIncrementHeldup();
+                H_EmployeeIncrementHeldup h_EmployeeIncrementHeldup = GetH_EmployeeIncrementHeldup();
                 string desc = "Update [H_EmployeeIncrementHeldup]";
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                H_EmployeeIncrementHeldup.Update(this.TransactionManager, h_EmployeeIncrementHeldup);
+                TransactionManager = new TransactionManager(true, desc);
+                H_EmployeeIncrementHeldup.Update(TransactionManager, h_EmployeeIncrementHeldup);
 
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
                 LoadGridView(h_EmployeeIncrementHeldup.H_EmployeeId);
 
                 txtLetterNo.Text = "";
@@ -93,7 +93,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -110,7 +110,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 //hdnId.Value = h_Employee.Id.ToString();
@@ -139,7 +139,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                 hdnId.Value = "";
 
-                this.ShowUIMessage(msg);
+                ShowUiMessage(msg);
             }
         }
         
@@ -158,7 +158,7 @@ namespace GITS.Hrms.WebSite.HRM
                 Branch branch = Branch.GetById(penalty.BranchId);
                 Region region = Region.GetById(branch.RegionId);
                 hdnId.Value = penalty.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
             }
         }

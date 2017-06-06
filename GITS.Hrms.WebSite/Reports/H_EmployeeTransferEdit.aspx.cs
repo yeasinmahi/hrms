@@ -115,7 +115,7 @@ namespace GITS.Hrms.WebSite.Reports
             string ToDistrictId = gvTransfer.DataKeys[e.NewEditIndex]["DestinationDistrictId"].ToString();
             string ToBranchId = gvTransfer.DataKeys[e.NewEditIndex]["DestinationBranchId"].ToString();
             gvTransfer.EditIndex = e.NewEditIndex;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadGrid(Convert.ToInt32(hdnid.Value));
             DropDownList ddlFDist = (DropDownList)gvTransfer.Rows[e.NewEditIndex].FindControl("ddlFromDistrict");
             DropDownList ddlTDist = (DropDownList)gvTransfer.Rows[e.NewEditIndex].FindControl("ddlToDistrict");
@@ -154,7 +154,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvTransfer_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvTransfer.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadGrid(Convert.ToInt32(hdnid.Value));
         }
 
@@ -172,7 +172,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeeTransfer.Update(tm, h_trans);
             tm.Commit();
             gvTransfer.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadGrid(Convert.ToInt32(hdnid.Value));
         }
         private IList<Branch> GetBranchBySubzoneId(int subzoneId)
@@ -212,10 +212,10 @@ namespace GITS.Hrms.WebSite.Reports
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -234,7 +234,7 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeTransfer.Delete(tm, h_TransferId);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadGrid(Convert.ToInt32(hdnid.Value));
             }
         }
@@ -284,7 +284,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvBranch_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvBranch.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadEmployeeBranch(Convert.ToInt32(hdnid.Value));
         }
 
@@ -301,7 +301,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeeBranch.Update(tm, h_trans);
             tm.Commit();
             gvBranch.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadEmployeeBranch(Convert.ToInt32(hdnid.Value));
         }
 
@@ -313,7 +313,7 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeBranch.Delete(tm, h_EmployeeBranchId);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadEmployeeBranch(Convert.ToInt32(hdnid.Value));
             }
         }
@@ -335,7 +335,7 @@ namespace GITS.Hrms.WebSite.Reports
             pnlPromoEdit.Visible = false;
             pnlTransferEdit.Visible = false;
             pnlLeave.Visible = true;
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (!HasEditPermission(h_Employee.Id))
@@ -343,11 +343,11 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Information;
                     msg.Msg = "You have no Update Permission for this Employee";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 LoadEmployeeLeave(h_Employee.Id);
                 
@@ -434,7 +434,7 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeLeave.Delete(tm, h_EmployeeLeaveId);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadEmployeeLeave(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
@@ -445,7 +445,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Letter No";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvLeave.FooterRow.FindControl("txtLetterDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvLeave.FooterRow.FindControl("txtLetterDateAdd")).Text, out temp))
@@ -453,7 +453,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Letter Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvLeave.FooterRow.FindControl("txtStartDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvLeave.FooterRow.FindControl("txtStartDateAdd")).Text, out temp))
@@ -461,7 +461,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Start Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvLeave.FooterRow.FindControl("txtEndDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvLeave.FooterRow.FindControl("txtEndDateAdd")).Text, out temp))
@@ -469,10 +469,10 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid End Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeeLeave h_trans = new H_EmployeeLeave();
@@ -507,10 +507,10 @@ namespace GITS.Hrms.WebSite.Reports
             pnlPromoEdit.Visible = false;
             pnlTransferEdit.Visible = false;
             //TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -538,7 +538,7 @@ namespace GITS.Hrms.WebSite.Reports
             pnlTransferEdit.Visible = false;
             pnlPenalty.Visible = true;
             //TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (!HasEditPermission(h_Employee.Id))
@@ -546,10 +546,10 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Information;
                     msg.Msg = "You have no Update Permission for this Employee";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -677,7 +677,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeePenalty.Update(tm, h_trans);
             tm.Commit();
             gvPenalty.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadPenalty(Convert.ToInt32(hdnid.Value));
         }
 
@@ -689,7 +689,7 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeePenalty.Delete(tm, h_EmployeePenaltyId);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadPenalty(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
@@ -701,7 +701,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Letter No";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvPenalty.FooterRow.FindControl("txtLetterDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvPenalty.FooterRow.FindControl("txtLetterDateAdd")).Text, out temp))
@@ -709,7 +709,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Letter Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvPenalty.FooterRow.FindControl("txtAmountAdd")).Text) || !Int32.TryParse(((TextBox)gvPenalty.FooterRow.FindControl("txtAmountAdd")).Text, out amount))
@@ -717,11 +717,11 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Amount";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeePenalty h_trans = new H_EmployeePenalty();
@@ -847,7 +847,7 @@ namespace GITS.Hrms.WebSite.Reports
             pnlRejoin.Visible = false;
             pnlTransferEdit.Visible = false;
             pnlWarning.Visible = true;
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (!HasEditPermission(h_Employee.Id))
@@ -855,10 +855,10 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Information;
                     msg.Msg = "You have no Update Permission for this Employee";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -919,7 +919,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeeWarning.Update(tm, h_trans);
             tm.Commit();
             gvWarning.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadWarning(Convert.ToInt32(hdnid.Value));
         }
 
@@ -931,7 +931,7 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeWarning.Delete(tm, WarningId);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadWarning(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
@@ -943,7 +943,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Letter No";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvWarning.FooterRow.FindControl("txtLetterDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvWarning.FooterRow.FindControl("txtLetterDateAdd")).Text, out temp))
@@ -951,7 +951,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Letter Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvWarning.FooterRow.FindControl("txtDurationAdd")).Text) || !Int32.TryParse(((TextBox)gvWarning.FooterRow.FindControl("txtDurationAdd")).Text, out amount))
@@ -959,7 +959,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Year of Letter Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvWarning.FooterRow.FindControl("txtTotalWarningTimeAdd")).Text) || !Int32.TryParse(((TextBox)gvWarning.FooterRow.FindControl("txtTotalWarningTimeAdd")).Text, out amount))
@@ -967,11 +967,11 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Warning Time";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
 
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeeWarning h_trans = new H_EmployeeWarning();
@@ -1020,10 +1020,10 @@ namespace GITS.Hrms.WebSite.Reports
             pnlRejoin.Visible = false;
             pnlPromoEdit.Visible = false;
             pnlTransferEdit.Visible = false;
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -1246,7 +1246,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeeDesignation.Update(tm, h_trans);
             tm.Commit();
             gvDesignation.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadDesignation(Convert.ToInt32(hdnid.Value));
         }
 
@@ -1258,12 +1258,12 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeDesignation.Delete(tm, Id);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadDesignation(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeeDesignation h_trans = new H_EmployeeDesignation();
@@ -1301,7 +1301,7 @@ namespace GITS.Hrms.WebSite.Reports
             string NewDesignationId = gvPromotion.DataKeys[e.NewEditIndex]["NewDesignationId"].ToString();
             string NewType = gvPromotion.DataKeys[e.NewEditIndex]["Type"].ToString();
             gvPromotion.EditIndex = e.NewEditIndex;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadPromotion(Convert.ToInt32(hdnid.Value));
             DropDownList ddlOG = (DropDownList)gvPromotion.Rows[e.NewEditIndex].FindControl("ddlOldGrade");
             DropDownList ddlOD = (DropDownList)gvPromotion.Rows[e.NewEditIndex].FindControl("ddlOldDesignation");
@@ -1346,7 +1346,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvPromotion_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvPromotion.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadPromotion(Convert.ToInt32(hdnid.Value));
         }
 
@@ -1367,7 +1367,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeePromotion.Update(tm, h_trans);
             tm.Commit();
             gvPromotion.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadPromotion(Convert.ToInt32(hdnid.Value));
         }
 
@@ -1379,12 +1379,12 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeePromotion.Delete(tm, Id);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadPromotion(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeePromotion h_trans = new H_EmployeePromotion();
@@ -1448,10 +1448,10 @@ namespace GITS.Hrms.WebSite.Reports
             pnlPromoEdit.Visible = false;
             pnlTransferEdit.Visible = false;
 
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 LoadConsultancy(h_Employee.Id);
             }
@@ -1481,7 +1481,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvConsultancy_RowEditing(object sender, GridViewEditEventArgs e)
         {
             gvConsultancy.EditIndex = e.NewEditIndex;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadConsultancy(Convert.ToInt32(hdnid.Value));
             DropDownList ddlOrganization = (DropDownList)gvConsultancy.Rows[e.NewEditIndex].FindControl("ddlOrganization");
             DropDownList ddlCountry = (DropDownList)gvConsultancy.Rows[e.NewEditIndex].FindControl("ddlCountry");
@@ -1506,7 +1506,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvConsultancy_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvConsultancy.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadConsultancy(Convert.ToInt32(hdnid.Value));
         }
 
@@ -1533,7 +1533,7 @@ namespace GITS.Hrms.WebSite.Reports
                 H_EmployeeConsultency.Update(tm, consuntancy);
                 tm.Commit();
                 gvConsultancy.EditIndex = -1;
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadConsultancy(Convert.ToInt32(hdnid.Value));
             }
         }
@@ -1546,7 +1546,7 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeConsultency.Delete(tm, Id);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadConsultancy(Convert.ToInt32(hdnid.Value));
             }
         }
@@ -1629,7 +1629,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeeGrade.Update(tm, h_trans);
             tm.Commit();
             gvGrade.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadGrade(Convert.ToInt32(hdnid.Value));
         }
 
@@ -1641,12 +1641,12 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeGrade.Delete(tm, Id);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadGrade(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeeGrade h_trans = new H_EmployeeGrade();
@@ -1678,10 +1678,10 @@ namespace GITS.Hrms.WebSite.Reports
             pnlRejoin.Visible = false;
             pnlPromoEdit.Visible = false;
             pnlTransferEdit.Visible = false;
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -1723,7 +1723,7 @@ namespace GITS.Hrms.WebSite.Reports
         {
             string NewType = gvDropout.DataKeys[e.NewEditIndex]["Type"].ToString();
             gvDropout.EditIndex = e.NewEditIndex;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadDropOut(Convert.ToInt32(hdnid.Value));
             DropDownList ddlType = (DropDownList)gvDropout.Rows[e.NewEditIndex].FindControl("ddlType");
 
@@ -1735,7 +1735,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvDropout_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvDropout.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadDropOut(Convert.ToInt32(hdnid.Value));
         }
 
@@ -1753,7 +1753,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeeDrop.Update(tm, h_trans);
             tm.Commit();
             gvDropout.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadDropOut(Convert.ToInt32(hdnid.Value));
         }
 
@@ -1765,12 +1765,12 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeDrop.Delete(tm, Id);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadDropOut(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeeDrop h_trans = new H_EmployeeDrop();
@@ -1804,7 +1804,7 @@ namespace GITS.Hrms.WebSite.Reports
             pnlPromoEdit.Visible = false;
             pnlTransferEdit.Visible = false;
             pnlRejoin.Visible = true;
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (!HasEditPermission(h_Employee.Id))
@@ -1812,11 +1812,11 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Information;
                     msg.Msg = "You have no Update Permission for this Employee";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 LoadEmployeeRejoin(h_Employee.Id);
                 
@@ -1905,7 +1905,7 @@ namespace GITS.Hrms.WebSite.Reports
             string LeaveTypeId = gvRejoin.DataKeys[e.NewEditIndex]["LeaveTypeId"].ToString();
             string RejoinTypeId = gvRejoin.DataKeys[e.NewEditIndex]["RejoinTypeId"].ToString();
             gvRejoin.EditIndex = e.NewEditIndex;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadEmployeeRejoin(Convert.ToInt32(hdnid.Value));
             DropDownList ddlFDist = (DropDownList)gvRejoin.Rows[e.NewEditIndex].FindControl("ddlRejoinFromDistrict");
             DropDownList ddlTDist = (DropDownList)gvRejoin.Rows[e.NewEditIndex].FindControl("ddlRejoinToDistrict");
@@ -1951,7 +1951,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvRejoin_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvRejoin.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadEmployeeRejoin(Convert.ToInt32(hdnid.Value));
         }
 
@@ -2026,7 +2026,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeeRejoin.Update(tm, h_Rejoin);
             tm.Commit();
             gvRejoin.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadEmployeeRejoin(Convert.ToInt32(hdnid.Value));
         }
 
@@ -2038,7 +2038,7 @@ namespace GITS.Hrms.WebSite.Reports
                 TransactionManager tm = new TransactionManager(true);
                 H_EmployeeRejoin.Delete(tm, h_RejoinId);
                 tm.Commit();
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadEmployeeRejoin(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
@@ -2050,7 +2050,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Letter No";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvRejoin.FooterRow.FindControl("txtLetterDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvRejoin.FooterRow.FindControl("txtLetterDateAdd")).Text, out temp))
@@ -2058,7 +2058,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Letter Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvRejoin.FooterRow.FindControl("txtFromDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvRejoin.FooterRow.FindControl("txtFromDateAdd")).Text, out temp))
@@ -2066,7 +2066,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid From Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvRejoin.FooterRow.FindControl("txtRejoinDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvRejoin.FooterRow.FindControl("txtRejoinDateAdd")).Text, out temp))
@@ -2074,12 +2074,12 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Rejoin Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 
 
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeeRejoin h_Rejoin = new H_EmployeeRejoin();
@@ -2116,7 +2116,7 @@ namespace GITS.Hrms.WebSite.Reports
             pnlRejoin.Visible = false;
             pnlTransferEdit.Visible = false;
             pnlPromoEdit.Visible = true;
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (!HasEditPermission(h_Employee.Id))
@@ -2124,10 +2124,10 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Information;
                     msg.Msg = "You have no Update Permission for this Employee";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -2266,7 +2266,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvPromotionEdit_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvPromotionEdit.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadPromotionEdit(Convert.ToInt32(hdnid.Value));
         }
 
@@ -2284,7 +2284,7 @@ namespace GITS.Hrms.WebSite.Reports
                 dt.DefaultView.Sort = "PromotionDate";
                 dt = dt.DefaultView.ToTable();
                 Session["PromotionEdit"] = dt;
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadPromotionEdit(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
@@ -2294,7 +2294,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Letter No";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvPromotionEdit.FooterRow.FindControl("txtLetterDateAdd")).Text))
@@ -2302,7 +2302,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Letter Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 DataTable dt = (DataTable)Session["PromotionEdit"];
@@ -2326,7 +2326,7 @@ namespace GITS.Hrms.WebSite.Reports
                 dt.DefaultView.Sort = "PromotionDate";
                 dt = dt.DefaultView.ToTable();
                 Session["PromotionEdit"] = dt;
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadPromotionEdit(Convert.ToInt32(hdnid.Value));
             }
         }
@@ -2339,7 +2339,7 @@ namespace GITS.Hrms.WebSite.Reports
             string NewDesignationId = gvPromotionEdit.DataKeys[e.NewEditIndex]["NewDesignationId"].ToString();
             string NewType = gvPromotionEdit.DataKeys[e.NewEditIndex]["Type"].ToString();
             gvPromotionEdit.EditIndex = e.NewEditIndex;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadPromotionEdit(Convert.ToInt32(hdnid.Value));
             DropDownList ddlOG = (DropDownList)gvPromotionEdit.Rows[e.NewEditIndex].FindControl("ddlOldGradeE");
             DropDownList ddlOD = (DropDownList)gvPromotionEdit.Rows[e.NewEditIndex].FindControl("ddlOldDesignation");
@@ -2404,7 +2404,7 @@ namespace GITS.Hrms.WebSite.Reports
             dt = dt.DefaultView.ToTable();
             Session["PromotionEdit"] = dt;
             gvPromotionEdit.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             LoadPromotionEdit(Convert.ToInt32(hdnid.Value));
         }
 
@@ -2430,7 +2430,7 @@ namespace GITS.Hrms.WebSite.Reports
             msg.Msg = "Data Updated successfully";
             if (Session["PromotionEdit"] != null && ((DataTable)Session["PromotionEdit"]).Rows.Count > 0)
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 DataTable dt = (DataTable)Session["PromotionEdit"];
                 int lastRowIndex = dt.Rows.Count - 1;
 
@@ -2438,20 +2438,20 @@ namespace GITS.Hrms.WebSite.Reports
                 IList<H_EmployeeGrade> gradeList = H_EmployeeGrade.Find("H_EmployeeId=" + Convert.ToInt32(hdnid.Value), "");
                 IList<H_EmployeePromotion> promoList = H_EmployeePromotion.Find("H_EmployeeId=" + Convert.ToInt32(hdnid.Value), " LetterDate");
                 H_Employee employee = H_Employee.GetById(Convert.ToInt32(hdnid.Value));
-                this.TransactionManager = new TransactionManager(true, "Update [Promotion]");
+                TransactionManager = new TransactionManager(true, "Update [Promotion]");
                 try
                 {
                     foreach (H_EmployeeGrade eg in gradeList)
                     {
-                        H_EmployeeGrade.Delete(this.TransactionManager, eg);
+                        H_EmployeeGrade.Delete(TransactionManager, eg);
                     }
                     foreach (H_EmployeeDesignation ed in desigList)
                     {
-                        H_EmployeeDesignation.Delete(this.TransactionManager, ed);
+                        H_EmployeeDesignation.Delete(TransactionManager, ed);
                     }
                     foreach (H_EmployeePromotion promotion in promoList)
                     {
-                        H_EmployeePromotion.Delete(this.TransactionManager, promotion);
+                        H_EmployeePromotion.Delete(TransactionManager, promotion);
                     }
 
                     DateTime GradeStartDate = employee.JoiningDate.Value;
@@ -2557,7 +2557,7 @@ namespace GITS.Hrms.WebSite.Reports
                 msg.Type = MessageType.Error;
 
             }
-            ShowUIMessage(msg);
+            ShowUiMessage(msg);
         }
         private DataTable GetEmptyDataTable()
         {
@@ -2616,7 +2616,7 @@ namespace GITS.Hrms.WebSite.Reports
             pnlRejoin.Visible = false;
             pnlPromoEdit.Visible = false;
             pnlTransferEdit.Visible = true;
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (!HasEditPermission(h_Employee.Id))
@@ -2624,10 +2624,10 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Information;
                     msg.Msg = "You have no Update Permission for this Employee";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -2652,7 +2652,7 @@ namespace GITS.Hrms.WebSite.Reports
                 dt.DefaultView.Sort = "JoiningDate";
                 dt = dt.DefaultView.ToTable();
                 Session["EmployeeTransferInfo"] = dt;
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 Load_gvTransferEdit(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
@@ -2662,7 +2662,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Letter No";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvTransferEdit.FooterRow.FindControl("txtLetterDateAdd")).Text))
@@ -2670,7 +2670,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Letter Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvTransferEdit.FooterRow.FindControl("txtJoiningDateAdd")).Text))
@@ -2678,7 +2678,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Transfer Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 DataTable dt = (DataTable)Session["EmployeeTransferInfo"];
@@ -2702,7 +2702,7 @@ namespace GITS.Hrms.WebSite.Reports
                 dt.DefaultView.Sort = "JoiningDate";
                 dt = dt.DefaultView.ToTable();
                 Session["EmployeeTransferInfo"] = dt;
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 Load_gvTransferEdit(Convert.ToInt32(hdnid.Value));
             }
         }
@@ -2715,7 +2715,7 @@ namespace GITS.Hrms.WebSite.Reports
             string DestinationDistrictId = gvTransferEdit.DataKeys[e.NewEditIndex]["DestinationDistrictId"].ToString();
             string TypeId = gvTransferEdit.DataKeys[e.NewEditIndex]["Type"].ToString();
             gvTransferEdit.EditIndex = e.NewEditIndex;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             Load_gvTransferEdit(Convert.ToInt32(hdnid.Value));
             DropDownList ddlFromDistrict = (DropDownList)gvTransferEdit.Rows[e.NewEditIndex].FindControl("ddlFromDistrictEdit");
             DropDownList ddlFromBranch = (DropDownList)gvTransferEdit.Rows[e.NewEditIndex].FindControl("ddlFromBranch");
@@ -2760,7 +2760,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvTransferEdit_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvTransferEdit.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             Load_gvTransferEdit(Convert.ToInt32(hdnid.Value));
         }
 
@@ -2787,7 +2787,7 @@ namespace GITS.Hrms.WebSite.Reports
             dt = dt.DefaultView.ToTable();
             Session["EmployeeTransferInfo"] = dt;
             gvTransferEdit.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             Load_gvTransferEdit(Convert.ToInt32(hdnid.Value));
         }
         protected void ddlFromDistrictEdit_SelectedIndexChanged(object sender, EventArgs e)
@@ -2978,7 +2978,7 @@ namespace GITS.Hrms.WebSite.Reports
             msg.Msg = "Data Updated successfully";
             if (Session["EmployeeTransferInfo"] != null && ((DataTable)Session["EmployeeTransferInfo"]).Rows.Count > 0)
             {
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 DataTable dt = (DataTable)Session["EmployeeTransferInfo"];
                 int lastRowIndex = dt.Rows.Count - 1;
 
@@ -2986,16 +2986,16 @@ namespace GITS.Hrms.WebSite.Reports
                 IList<H_EmployeeTransfer> transferList = H_EmployeeTransfer.Find("H_EmployeeId=" + Convert.ToInt32(hdnid.Value), " JoiningDate");
                 H_Employee employee = H_Employee.GetById(Convert.ToInt32(hdnid.Value));
 
-                this.TransactionManager = new TransactionManager(true, "Update [H_EmployeeTransfer]");
+                TransactionManager = new TransactionManager(true, "Update [H_EmployeeTransfer]");
                 try
                 {
                     foreach (H_EmployeeBranch eb in branchList)
                     {
-                        H_EmployeeBranch.Delete(this.TransactionManager, eb);
+                        H_EmployeeBranch.Delete(TransactionManager, eb);
                     }
                     foreach (H_EmployeeTransfer transfer in transferList)
                     {
-                        H_EmployeeTransfer.Delete(this.TransactionManager, transfer);
+                        H_EmployeeTransfer.Delete(TransactionManager, transfer);
                     }
 
                     for (int row = 0; row < dt.Rows.Count; row++)
@@ -3033,7 +3033,7 @@ namespace GITS.Hrms.WebSite.Reports
                 }
                 catch (Exception ex)
                 {
-                    this.TransactionManager.Rollback();
+                    TransactionManager.Rollback();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Update Failed. " + ex.Message;
                 }
@@ -3045,7 +3045,7 @@ namespace GITS.Hrms.WebSite.Reports
                 msg.Type = MessageType.Error;
 
             }
-            ShowUIMessage(msg);
+            ShowUiMessage(msg);
         }
 
         private bool HasEditPermission(int h_EmployeeId)
@@ -3102,7 +3102,7 @@ namespace GITS.Hrms.WebSite.Reports
             pnlPromoEdit.Visible = false;
             pnlTransferEdit.Visible = false;
             pnlIncHeldup.Visible = true;
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 if (!HasEditPermission(h_Employee.Id))
@@ -3110,10 +3110,10 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Information;
                     msg.Msg = "You have no Update Permission for this Employee";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 hdnid.Value = h_Employee.Id.ToString();
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                 txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -3217,7 +3217,7 @@ namespace GITS.Hrms.WebSite.Reports
             string BranchId =gvIncrementHelup.DataKeys[e.NewEditIndex]["BranchId"].ToString();
             string DistrictId = gvIncrementHelup.DataKeys[e.NewEditIndex]["DistrictId"].ToString();
             gvIncrementHelup.EditIndex = e.NewEditIndex;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             Load_gvIncrementHeldup(Convert.ToInt32(hdnid.Value));
             DropDownList ddlFromDistrict = (DropDownList)gvIncrementHelup.Rows[e.NewEditIndex].FindControl("ddlDistrictInc");
             DropDownList ddlFromBranch = (DropDownList)gvIncrementHelup.Rows[e.NewEditIndex].FindControl("ddlBranchInc");
@@ -3245,7 +3245,7 @@ namespace GITS.Hrms.WebSite.Reports
         protected void gvIncrementHelup_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvIncrementHelup.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             Load_gvIncrementHeldup(Convert.ToInt32(hdnid.Value));
         }
 
@@ -3268,7 +3268,7 @@ namespace GITS.Hrms.WebSite.Reports
             H_EmployeeIncrementHeldup.Update(tm, h_Rejoin);
             tm.Commit();
             gvIncrementHelup.EditIndex = -1;
-            HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+            HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
             Load_gvIncrementHeldup(Convert.ToInt32(hdnid.Value));
         }
 
@@ -3281,7 +3281,7 @@ namespace GITS.Hrms.WebSite.Reports
                 H_EmployeeIncrementHeldup.Delete(tm, id);
                 tm.Commit();
                 
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 Load_gvIncrementHeldup(Convert.ToInt32(hdnid.Value));
             }
             if (e.CommandName == "addrow")
@@ -3293,7 +3293,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Letter No";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvIncrementHelup.FooterRow.FindControl("txtLetterDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvIncrementHelup.FooterRow.FindControl("txtLetterDateAdd")).Text, out temp))
@@ -3301,7 +3301,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid Letter Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (string.IsNullOrEmpty(((TextBox)gvIncrementHelup.FooterRow.FindControl("txtFromDateAdd")).Text) || !DateTime.TryParse(((TextBox)gvIncrementHelup.FooterRow.FindControl("txtFromDateAdd")).Text, out temp))
@@ -3309,7 +3309,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid From Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (!string.IsNullOrEmpty(((TextBox)gvIncrementHelup.FooterRow.FindControl("txtToDateAdd")).Text) && !DateTime.TryParse(((TextBox)gvIncrementHelup.FooterRow.FindControl("txtToDateAdd")).Text, out temp))
@@ -3317,7 +3317,7 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter valid To Date";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 if (!string.IsNullOrEmpty(((TextBox)gvIncrementHelup.FooterRow.FindControl("txtIncrementStopAdd")).Text) && !Int32.TryParse(((TextBox)gvIncrementHelup.FooterRow.FindControl("txtIncrementStopAdd")).Text, out amount))
@@ -3325,12 +3325,12 @@ namespace GITS.Hrms.WebSite.Reports
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Enter Number of Increment Stop";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
 
 
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 TransactionManager tm = new TransactionManager(true);
 
                 H_EmployeeIncrementHeldup h_Rejoin =new  H_EmployeeIncrementHeldup();

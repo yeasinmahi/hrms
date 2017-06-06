@@ -66,89 +66,89 @@ namespace GITS.Hrms.Library.Data.View
         
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
         public String Name
         {
-            get { return this._Name; }
-            set { this._Name = value; }
+            get { return _Name; }
+            set { _Name = value; }
         }
         public Int32 Code
         {
-            get { return this._Code; }
-            set { this._Code = value; }
+            get { return _Code; }
+            set { _Code = value; }
         }
         public String Type
 		{
-			get {return this._Type;}
-			set {this._Type = value;}
+			get {return _Type;}
+			set {_Type = value;}
 		}
 
         
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
        
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 		public DateTime PromotionDate
 		{
-			get {return this._PromotionDate;}
-			set {this._PromotionDate = value;}
+			get {return _PromotionDate;}
+			set {_PromotionDate = value;}
 		}
 
 		
 		public String Remarks
 		{
-			get {return this._Remarks;}
-			set {this._Remarks = value;}
+			get {return _Remarks;}
+			set {_Remarks = value;}
 		}
         public Int32 OldH_GradeId
         {
-            get { return this._OldH_GradeId; }
-            set { this._OldH_GradeId = value; }
+            get { return _OldH_GradeId; }
+            set { _OldH_GradeId = value; }
         }
         public Int32 NewH_GradeId
         {
-            get { return this._NewH_GradeId; }
-            set { this._NewH_GradeId = value; }
+            get { return _NewH_GradeId; }
+            set { _NewH_GradeId = value; }
         }
         public Int32 OldH_DesignationId
         {
-            get { return this._OldH_DesignationId; }
-            set { this._OldH_DesignationId = value; }
+            get { return _OldH_DesignationId; }
+            set { _OldH_DesignationId = value; }
         }
         public Int32 NewH_DesignationId
         {
-            get { return this._NewH_DesignationId; }
-            set { this._NewH_DesignationId = value; }
+            get { return _NewH_DesignationId; }
+            set { _NewH_DesignationId = value; }
         }
         public String OldGrade
         {
-            get { return this._OldGrade; }
-            set { this._OldGrade = value; }
+            get { return _OldGrade; }
+            set { _OldGrade = value; }
         }
         public String NewGrade
         {
-            get { return this._NewGrade; }
-            set { this._NewGrade = value; }
+            get { return _NewGrade; }
+            set { _NewGrade = value; }
         }
         public String OldDesignation
         {
-            get { return this._OldDesignation; }
-            set { this._OldDesignation = value; }
+            get { return _OldDesignation; }
+            set { _OldDesignation = value; }
         }
         public String NewDesignation
         {
-            get { return this._NewDesignation; }
-            set { this._NewDesignation = value; }
+            get { return _NewDesignation; }
+            set { _NewDesignation = value; }
         }
     }
 }

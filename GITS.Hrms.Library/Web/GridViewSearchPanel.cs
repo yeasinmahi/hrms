@@ -34,10 +34,6 @@ namespace GITS.Hrms.Library.Web
             Advance
         }
 
-        public GridViewSearchPanel()
-        {
-        }
-
         #region Properties
         [
         Browsable(true),
@@ -297,13 +293,13 @@ namespace GITS.Hrms.Library.Web
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            base.EnsureChildControls();
+            EnsureChildControls();
 
             if (Page.IsPostBack == false)
             {
                 if ((string.IsNullOrEmpty(txtKeyword.Text) == false && string.IsNullOrEmpty(cboFieldName.SelectedValue) == false) || string.IsNullOrEmpty(Filter) == false)
                 {
-                    this.DataBind();
+                    DataBind();
                 }
             }
         }
@@ -316,7 +312,7 @@ namespace GITS.Hrms.Library.Web
 
         protected override void Render(HtmlTextWriter writer)
         {
-            base.EnsureChildControls();
+            EnsureChildControls();
             base.Render(writer);
         }
 
@@ -336,7 +332,7 @@ namespace GITS.Hrms.Library.Web
 
             fieldName.ID = "cboFieldName" + rowIndex;
 
-            foreach (ListItem li in this.cboFieldName.Items)
+            foreach (ListItem li in cboFieldName.Items)
             {
                 ListItem li2 = new ListItem();
                 li2.Text = li.Text;
@@ -353,10 +349,10 @@ namespace GITS.Hrms.Library.Web
             fieldName.Items[rowIndex].Selected = true;
 
             fieldName.AutoPostBack = true;
-            fieldName.SelectedIndexChanged += new EventHandler(cboFieldName_SelectedIndexChanged);
+            fieldName.SelectedIndexChanged += cboFieldName_SelectedIndexChanged;
 
             operatorName.ID = "cboOperator" + rowIndex;
-            this.LoadOperator(fieldName, operatorName);
+            LoadOperator(fieldName, operatorName);
 
             keyword.ID = "txtKeyword" + rowIndex;
 
@@ -399,14 +395,14 @@ namespace GITS.Hrms.Library.Web
 
         protected override void CreateChildControls()
         {
-            base.Controls.Clear();
+            Controls.Clear();
 
             cboFieldName = new DropDownList();
             cboFieldName.ID = "cboFieldName";
 
-            if (base.DesignMode == false)
+            if (DesignMode == false)
             {
-                GridView1 = (GridView)this.Parent.FindControl(this.GridViewControlID);
+                GridView1 = (GridView)Parent.FindControl(GridViewControlID);
 
                 if (GridView1 != null && ShowGridColumns)
                 {
@@ -490,13 +486,13 @@ namespace GITS.Hrms.Library.Web
                 cboFieldName.Items.Add(new ListItem("FieldName", "FieldValue"));
             }
 
-            this.cboFieldName.AutoPostBack = true;
-            this.cboFieldName.SelectedIndexChanged += new EventHandler(cboFieldName_SelectedIndexChanged);
+            cboFieldName.AutoPostBack = true;
+            cboFieldName.SelectedIndexChanged += cboFieldName_SelectedIndexChanged;
 
             #region UI implementation
             cboOperator = new DropDownList();
             cboOperator.ID = "cboOperator";
-            this.LoadOperator(cboFieldName, cboOperator);
+            LoadOperator(cboFieldName, cboOperator);
 
             txtKeyword = new TextBox();
             txtKeyword.ID = "txtKeyword";
@@ -513,13 +509,13 @@ namespace GITS.Hrms.Library.Web
             cmdSearch.ID = "cmdSearch";
             cmdSearch.Text = "Search";
             cmdSearch.CausesValidation = CausesValidation;
-            cmdSearch.Click += new EventHandler(cmdSearch_Click);
+            cmdSearch.Click += cmdSearch_Click;
 
             Button cmdReset = new Button();
             cmdReset.ID = "cmdReset";
             cmdReset.Text = "Reset";
             cmdReset.CausesValidation = CausesValidation;
-            cmdReset.Click += new EventHandler(cmdReset_Click);
+            cmdReset.Click += cmdReset_Click;
 
             Table tbl = new Table();
             tbl.ID = "tblSearchPanel";
@@ -559,7 +555,7 @@ namespace GITS.Hrms.Library.Web
             lbAdvance.ID = "lbAdvance";
             lbAdvance.Text = "Advance";
             lbAdvance.CausesValidation = CausesValidation;
-            lbAdvance.Click += new EventHandler(lbAdvance_Click);
+            lbAdvance.Click += lbAdvance_Click;
 
             td = new TableCell();
             td.Controls.Add(lbAdvance);
@@ -577,7 +573,7 @@ namespace GITS.Hrms.Library.Web
             tr.Cells.Add(td);
             tbl.Rows.Add(tr);
 
-            base.Controls.Add(tbl);
+            Controls.Add(tbl);
 
             tbl = new Table();
             tbl.ID = "tblAdvance";
@@ -585,7 +581,7 @@ namespace GITS.Hrms.Library.Web
 
             for (int i = 0; i < cboFieldName.Items.Count - 1; i++)
             {
-                tbl.Rows.Add(this.GetTableRow(tbl.Rows.Count));
+                tbl.Rows.Add(GetTableRow(tbl.Rows.Count));
 
                 CheckBox chkOr = new CheckBox();
                 chkOr.ID = "chkOr" + i;
@@ -598,14 +594,14 @@ namespace GITS.Hrms.Library.Web
                 tbl.Rows[tbl.Rows.Count - 1].Cells.Add(td);
             }
 
-            tbl.Rows.Add(this.GetTableRow(tbl.Rows.Count));
+            tbl.Rows.Add(GetTableRow(tbl.Rows.Count));
             tr = tbl.Rows[tbl.Rows.Count - 1];
 
             Button cmdAdvanceSearch = new Button();
             cmdAdvanceSearch.ID = "cmdAdvanceSearch";
             cmdAdvanceSearch.Text = "Search";
             cmdAdvanceSearch.CausesValidation = CausesValidation;
-            cmdAdvanceSearch.Click += new EventHandler(cmdSearch_Click);
+            cmdAdvanceSearch.Click += cmdSearch_Click;
 
             //Button cmdAdvanceReset = new Button();
             //cmdAdvanceReset.ID = "cmdAdvanceReset";
@@ -617,7 +613,7 @@ namespace GITS.Hrms.Library.Web
             lbSimple.ID = "lbSimple";
             lbSimple.Text = "Simple";
             lbSimple.CausesValidation = CausesValidation;
-            lbSimple.Click += new EventHandler(lbAdvance_Click);
+            lbSimple.Click += lbAdvance_Click;
 
             td = new TableCell();
             td.Controls.Add(cmdAdvanceSearch);
@@ -633,7 +629,7 @@ namespace GITS.Hrms.Library.Web
 
             #endregion
 
-            base.ClearChildViewState();
+            ClearChildViewState();
         }
 
         void cboFieldName_SelectedIndexChanged(object sender, EventArgs e)
@@ -644,12 +640,12 @@ namespace GITS.Hrms.Library.Web
 
             if (fieldName.ID != "cboFieldName")
             {
-                operatorName = (DropDownList)this.FindControl("tblSearchPanel").FindControl("trAdvance").FindControl("tdAdvance").FindControl("tblAdvance").FindControl("cboOperator" + fieldName.ID.Replace("cboFieldName", ""));
+                operatorName = (DropDownList)FindControl("tblSearchPanel").FindControl("trAdvance").FindControl("tdAdvance").FindControl("tblAdvance").FindControl("cboOperator" + fieldName.ID.Replace("cboFieldName", ""));
             }
 
             if (operatorName != null)
             {
-                this.LoadOperator(fieldName, operatorName);
+                LoadOperator(fieldName, operatorName);
             }
         }
 
@@ -697,7 +693,7 @@ namespace GITS.Hrms.Library.Web
 
         void cmdSearch_Click(object sender, EventArgs e)
         {
-            this.DataBind();
+            DataBind();
 
             if (SearchButtonClicked != null)
             {
@@ -711,7 +707,7 @@ namespace GITS.Hrms.Library.Web
             TableRow trAdvance = (TableRow)lbAdvance.Parent.Parent.Parent.Parent.FindControl("trAdvance");
             TableRow trSimple = (TableRow)lbAdvance.Parent.Parent.Parent.Parent.FindControl("trSimple");
 
-            if (this.DisplayMode == Mode.Simple)
+            if (DisplayMode == Mode.Simple)
             {
                 DisplayMode = Mode.Advance;
 
@@ -797,11 +793,11 @@ namespace GITS.Hrms.Library.Web
         {
             if (DisplayMode == Mode.Simple)
             {
-                WhereClause = this.SimpleSearch(cboOperator.SelectedValue, cboFieldName.SelectedValue, txtKeyword, cboFieldName.SelectedItem.Attributes["FieldType"]);
+                WhereClause = SimpleSearch(cboOperator.SelectedValue, cboFieldName.SelectedValue, txtKeyword, cboFieldName.SelectedItem.Attributes["FieldType"]);
             }
             else
             {
-                Table tblAdvance = (Table)this.FindControl("tblSearchPanel").FindControl("trAdvance").FindControl("tdAdvance").FindControl("tblAdvance");
+                Table tblAdvance = (Table)FindControl("tblSearchPanel").FindControl("trAdvance").FindControl("tdAdvance").FindControl("tblAdvance");
                 string search = "";
 
                 for (int i = 0; i < tblAdvance.Rows.Count; i++)
@@ -815,7 +811,7 @@ namespace GITS.Hrms.Library.Web
                         TextBox txtKeyword = (TextBox)tblAdvance.Rows[i].FindControl("txtKeyword" + i);
                         CheckBox chkOr = (CheckBox)tblAdvance.Rows[i].FindControl("chkOr" + i);
 
-                        search += this.SimpleSearch(cboOperator.SelectedValue, cboFieldName.SelectedValue, txtKeyword, cboFieldName.SelectedItem.Attributes["FieldType"]);
+                        search += SimpleSearch(cboOperator.SelectedValue, cboFieldName.SelectedValue, txtKeyword, cboFieldName.SelectedItem.Attributes["FieldType"]);
 
                         if (chkOr != null)
                         {

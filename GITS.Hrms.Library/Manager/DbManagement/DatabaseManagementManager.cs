@@ -32,8 +32,8 @@ namespace GITS.Hrms.Library.Manager.DbManagement
 
         public DatabaseManagementManager()
         {
-            this.dbDefault = new TransactionManager(false, null, null);
-            this.CompletePercent += new CompletePercentEventHandler(DatabaseManagementManager_CompletePercent);
+            dbDefault = new TransactionManager(false, null, null);
+            CompletePercent += new CompletePercentEventHandler(DatabaseManagementManager_CompletePercent);
         }
 
         protected void PercentComplete(object sender, PercentCompleteEventArgs e)
@@ -65,7 +65,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                             "DEALLOCATE SPCursor" + Environment.NewLine +
                             "ALTER DATABASE [" + databaseName + "] SET " + accessMode + " WITH ROLLBACK IMMEDIATE";
 
-                this.dbDefault.ExecuteUpdate(sql);
+                dbDefault.ExecuteUpdate(sql);
 
                 if (accessMode == ACCESS_MODE_MULTI_USER)
                 {
@@ -90,7 +90,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
 
         public bool CheckDatabase()
         {
-            return this.dbDefault.GetDataSet("SELECT name FROM sys.databases WHERE name = N'" + Configuration.DatabaseName + "'").Tables[0].Rows.Count > 0;
+            return dbDefault.GetDataSet("SELECT name FROM sys.databases WHERE name = N'" + Configuration.DatabaseName + "'").Tables[0].Rows.Count > 0;
         }
 
         public Message ShrinkDatabase(String databaseName)
@@ -125,7 +125,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
 
             try
             {
-                msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_SINGLE_USER);
+                msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_SINGLE_USER);
 
                 if (msg.Type != MessageType.Information)
                 {
@@ -146,7 +146,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                 bu.PercentComplete += new PercentCompleteEventHandler(PercentComplete);
                 bu.SqlBackup(server);
 
-                msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
+                msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
 
                 if (msg.Type != MessageType.Information)
                 {
@@ -158,7 +158,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
             }
             catch (Exception ex)
             {
-                msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
+                msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
 
                 if (msg.Type != MessageType.Information)
                 {
@@ -179,7 +179,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
 
             try
             {
-                msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_SINGLE_USER);
+                msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_SINGLE_USER);
 
                 if (msg.Type != MessageType.Information)
                 {
@@ -209,7 +209,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                 res.PercentComplete += new PercentCompleteEventHandler(PercentComplete);
                 res.SqlRestore(server);
 
-                msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
+                msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
 
                 if (msg.Type != MessageType.Information)
                 {
@@ -220,7 +220,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
             }
             catch (Exception ex)
             {
-                msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
+                msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
 
                 if (msg.Type != MessageType.Information)
                 {
@@ -258,18 +258,18 @@ namespace GITS.Hrms.Library.Manager.DbManagement
 
                     bool create = false;
 
-                    if (this.dbDefault.GetDataSet("SELECT name FROM sys.databases WHERE name = N'" + Configuration.DatabaseName + "'").Tables[0].Rows.Count > 0)
+                    if (dbDefault.GetDataSet("SELECT name FROM sys.databases WHERE name = N'" + Configuration.DatabaseName + "'").Tables[0].Rows.Count > 0)
                     {
                         if (drop)
                         {
-                            msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_SINGLE_USER);
+                            msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_SINGLE_USER);
 
                             if (msg.Type != MessageType.Information)
                             {
                                 return msg;
                             }
 
-                            if (this.dbDefault.ExecuteUpdate("DROP DATABASE [" + Configuration.DatabaseName + "]") == 0)
+                            if (dbDefault.ExecuteUpdate("DROP DATABASE [" + Configuration.DatabaseName + "]") == 0)
                             {
                                 msg.Type = MessageType.Error;
                                 msg.Msg = "Unable to drop " + Configuration.DatabaseName + " database";
@@ -290,28 +290,28 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                     {
                         fresh = true;
 
-                        if (this.dbDefault.ExecuteUpdate("CREATE DATABASE [" + Configuration.DatabaseName + "]") == 0)
+                        if (dbDefault.ExecuteUpdate("CREATE DATABASE [" + Configuration.DatabaseName + "]") == 0)
                         {
                             msg.Type = MessageType.Error;
                             msg.Msg = "Unable to create" + Configuration.DatabaseName + " database";
                             return msg;
                         }
 
-                        msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
+                        msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
 
                         if (msg.Type != MessageType.Information)
                         {
                             return msg;
                         }
 
-                        if (this.dbDefault.ExecuteUpdate("ALTER DATABASE [" + Configuration.DatabaseName + "] SET RECOVERY FULL") == 0)
+                        if (dbDefault.ExecuteUpdate("ALTER DATABASE [" + Configuration.DatabaseName + "] SET RECOVERY FULL") == 0)
                         {
                             msg.Type = MessageType.Error;
                             msg.Msg = "Unable to set recovery mode for " + Configuration.DatabaseName + " database";
                             return msg;
                         }
 
-                        if (this.dbDefault.ExecuteUpdate("ALTER DATABASE [" + Configuration.DatabaseName + "] SET AUTO_SHRINK ON") == 0)
+                        if (dbDefault.ExecuteUpdate("ALTER DATABASE [" + Configuration.DatabaseName + "] SET AUTO_SHRINK ON") == 0)
                         {
                             msg.Type = MessageType.Error;
                             msg.Msg = "Unable to set auto shrink on for " + Configuration.DatabaseName + " database";
@@ -321,7 +321,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                 }
                 catch (Exception ex)
                 {
-                    msg = this.SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
+                    msg = SetAccessMode(Configuration.DatabaseName, ACCESS_MODE_MULTI_USER);
 
                     if (msg.Type != MessageType.Information)
                     {
@@ -466,7 +466,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
             double progress = 10;
             double increment = 90.0 / databaseConfig.Count / 2;
 
-            this.dbDefault = new TransactionManager(false, null, database);
+            dbDefault = new TransactionManager(false, null, database);
 
             foreach (DatabaseConfiguration dc in databaseConfig)
             {
@@ -479,15 +479,15 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                         if (old == null)
                         {
                             dc.InstallationId = installationId;
-                            this.dbDefault.ExecuteUpdate(dc.Script);
-                            DatabaseConfiguration.Insert(this.dbDefault, dc);
+                            dbDefault.ExecuteUpdate(dc.Script);
+                            DatabaseConfiguration.Insert(dbDefault, dc);
                         }
                         else
                         {
                             old.Script = dc.Script;
                             old.InstallationId = installationId;
-                            this.dbDefault.ExecuteUpdate("ALTER " + dc.Script.Trim().Substring(6));
-                            DatabaseConfiguration.Update(this.dbDefault, old);
+                            dbDefault.ExecuteUpdate("ALTER " + dc.Script.Trim().Substring(6));
+                            DatabaseConfiguration.Update(dbDefault, old);
                         }
                     }
                     catch (Exception ex)
@@ -495,7 +495,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                         msg.Type = MessageType.Error;
                         msg.Msg = "Unable to execute " + dc.Sequence + "(" + ex.Message + ")";
 
-                        this.dbDefault.Commit();
+                        dbDefault.Commit();
 
                         return msg;
                     }
@@ -506,7 +506,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                 _CompletePercent.Invoke(Convert.ToInt32(Math.Round(progress)));
             }
 
-            this.dbDefault.Commit();
+            dbDefault.Commit();
 
             return msg;
         }
@@ -517,9 +517,9 @@ namespace GITS.Hrms.Library.Manager.DbManagement
             bool fresh = false;
             bool ins = false;
             bool dcs = false;
-            DatabaseConfig databaseConfig = this.LoadDatabaseConfig(Resources.DatabaseConfig);
+            DatabaseConfig databaseConfig = LoadDatabaseConfig(Resources.DatabaseConfig);
 
-            msg = this.CreateDatabase(drop, out fresh);
+            msg = CreateDatabase(drop, out fresh);
 
             if (msg.Type != MessageType.Information)
             {
@@ -528,7 +528,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
 
             _CompletePercent.Invoke(10);
 
-            this.dbDefault = new TransactionManager(false, null, "");
+            dbDefault = new TransactionManager(false, null, "");
 
             if (databaseConfig.Installation != null && dbDefault.GetDataSet("SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'Installation') AND OBJECTPROPERTY(id, N'IsUserTable') = 1").Tables[0].Rows.Count == 0)
             {
@@ -567,14 +567,14 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                 DatabaseConfiguration.Insert(dbDefault, databaseConfig.DatabaseConfiguration);
             }
 
-            msg = this.ExecuteConfiguration(databaseConfig, installation.Id, fresh, "");
+            msg = ExecuteConfiguration(databaseConfig, installation.Id, fresh, "");
 
             if (msg.Type != MessageType.Information)
             {
                 return msg;
             }
 
-            this.dbDefault = new TransactionManager(false);
+            dbDefault = new TransactionManager(false);
             
             installation.EndDate = DateTime.Now;
             installation.Status = Installation.STATUS_COMPLETE;
@@ -592,7 +592,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
 
             try
             {
-                 databaseConfig = this.LoadDatabaseConfig(script);
+                 databaseConfig = LoadDatabaseConfig(script);
             }
             catch (Exception ex)
             {
@@ -614,7 +614,7 @@ namespace GITS.Hrms.Library.Manager.DbManagement
                 Installation.Insert(tm, installation);
             }
 
-            msg = this.ExecuteConfiguration(databaseConfig, installation.Id, false, "");
+            msg = ExecuteConfiguration(databaseConfig, installation.Id, false, "");
 
             if (msg.Type != MessageType.Information)
             {

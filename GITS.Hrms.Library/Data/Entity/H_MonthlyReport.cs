@@ -158,290 +158,290 @@ namespace GITS.Hrms.Library.Data.Entity
 		
 		public DateTime ReportDate
 		{
-			get {return this._ReportDate;}
-			set {this._ReportDate = value;}
+			get {return _ReportDate;}
+			set {_ReportDate = value;}
 		}
         public String EmpNote1
         {
-            get { return this._EmpNote1; }
-            set { this._EmpNote1 = value; }
+            get { return _EmpNote1; }
+            set { _EmpNote1 = value; }
         }
         public String EmpNote2
         {
-            get { return this._EmpNote2; }
-            set { this._EmpNote2 = value; }
+            get { return _EmpNote2; }
+            set { _EmpNote2 = value; }
         }
         public String EmpNote3
         {
-            get { return this._EmpNote3; }
-            set { this._EmpNote3 = value; }
+            get { return _EmpNote3; }
+            set { _EmpNote3 = value; }
         }
         public Int32 EmpEduProgram
         {
-            get { return this._EmpEduProgram; }
-            set { this._EmpEduProgram = value; }
+            get { return _EmpEduProgram; }
+            set { _EmpEduProgram = value; }
         }
         public Int32 EmpAsaHealthProgram
         {
-            get { return this._EmpAsaHealthProgram; }
-            set { this._EmpAsaHealthProgram = value; }
+            get { return _EmpAsaHealthProgram; }
+            set { _EmpAsaHealthProgram = value; }
         }
         public Int32 EmpHabigongHealthprogram
         {
-            get { return this._EmpHabigongHealthprogram; }
-            set { this._EmpHabigongHealthprogram = value; }
+            get { return _EmpHabigongHealthprogram; }
+            set { _EmpHabigongHealthprogram = value; }
         }
         public Nullable<Int32> ExcessEmpDistrict
         {
-            get { return this._ExcessEmpDistrict; }
-            set { this._ExcessEmpDistrict = value; }
+            get { return _ExcessEmpDistrict; }
+            set { _ExcessEmpDistrict = value; }
         }
         public Nullable<Int32> ExcessEmpLO
         {
-            get { return this._ExcessEmpLO; }
-            set { this._ExcessEmpLO = value; }
+            get { return _ExcessEmpLO; }
+            set { _ExcessEmpLO = value; }
         }
         public Nullable<Int32> ExcessEmpABM
         {
-            get { return this._ExcessEmpABM; }
-            set { this._ExcessEmpABM = value; }
+            get { return _ExcessEmpABM; }
+            set { _ExcessEmpABM = value; }
         }
         public Nullable<Int32> ExcessEmpBM
         {
-            get { return this._ExcessEmpBM; }
-            set { this._ExcessEmpBM = value; }
+            get { return _ExcessEmpBM; }
+            set { _ExcessEmpBM = value; }
         }
         public Nullable<Int32> ExcessEmpRM
         {
-            get { return this._ExcessEmpRM; }
-            set { this._ExcessEmpRM = value; }
+            get { return _ExcessEmpRM; }
+            set { _ExcessEmpRM = value; }
         }
         public Nullable<Int32> ExcessEmpDM
         {
-            get { return this._ExcessEmpDM; }
-            set { this._ExcessEmpDM = value; }
+            get { return _ExcessEmpDM; }
+            set { _ExcessEmpDM = value; }
         }
         public Nullable<Int32> ExcessEmpZM
         {
-            get { return this._ExcessEmpZM; }
-            set { this._ExcessEmpZM = value; }
+            get { return _ExcessEmpZM; }
+            set { _ExcessEmpZM = value; }
         }
         public Nullable<Int32> ExcessEmpOthers
         {
-            get { return this._ExcessEmpOthers; }
-            set { this._ExcessEmpOthers = value; }
+            get { return _ExcessEmpOthers; }
+            set { _ExcessEmpOthers = value; }
         }
         public Nullable<Int32> EmpDemandLO
         {
-            get { return this._EmpDemandLO; }
-            set { this._EmpDemandLO = value; }
+            get { return _EmpDemandLO; }
+            set { _EmpDemandLO = value; }
         }
         public Nullable<Int32> EmpDemandABM
         {
-            get { return this._EmpDemandABM; }
-            set { this._EmpDemandABM = value; }
+            get { return _EmpDemandABM; }
+            set { _EmpDemandABM = value; }
         }
         public Nullable<Int32> EmpDemandBM
         {
-            get { return this._EmpDemandBM; }
-            set { this._EmpDemandBM = value; }
+            get { return _EmpDemandBM; }
+            set { _EmpDemandBM = value; }
         }
         public Nullable<Int32> EmpDemandRM
         {
-            get { return this._EmpDemandRM; }
-            set { this._EmpDemandRM = value; }
+            get { return _EmpDemandRM; }
+            set { _EmpDemandRM = value; }
         }
         public Nullable<Int32> EmpDemandDM
         {
-            get { return this._EmpDemandDM; }
-            set { this._EmpDemandDM = value; }
+            get { return _EmpDemandDM; }
+            set { _EmpDemandDM = value; }
         }
         public Nullable<Int32> EmpDemandZM
         {
-            get { return this._EmpDemandZM; }
-            set { this._EmpDemandZM = value; }
+            get { return _EmpDemandZM; }
+            set { _EmpDemandZM = value; }
         }
         public Nullable<Int32> EmpDemandFillLO
         {
-            get { return this._EmpDemandFillLO; }
-            set { this._EmpDemandFillLO = value; }
+            get { return _EmpDemandFillLO; }
+            set { _EmpDemandFillLO = value; }
         }
         public Nullable<Int32> EmpDemandFillABM
         {
-            get { return this._EmpDemandFillABM; }
-            set { this._EmpDemandFillABM = value; }
+            get { return _EmpDemandFillABM; }
+            set { _EmpDemandFillABM = value; }
         }
         public Nullable<Int32> EmpDemandFillBM
         {
-            get { return this._EmpDemandFillBM; }
-            set { this._EmpDemandFillBM = value; }
+            get { return _EmpDemandFillBM; }
+            set { _EmpDemandFillBM = value; }
         }
         public Nullable<Int32> EmpDemandFillDM
         {
-            get { return this._EmpDemandFillDM; }
-            set { this._EmpDemandFillDM = value; }
+            get { return _EmpDemandFillDM; }
+            set { _EmpDemandFillDM = value; }
         }
         public Nullable<Int32> EmpDemandFillRM
         {
-            get { return this._EmpDemandFillRM; }
-            set { this._EmpDemandFillRM = value; }
+            get { return _EmpDemandFillRM; }
+            set { _EmpDemandFillRM = value; }
         }
         public Nullable<Int32> EmpDemandFillZM
         {
-            get { return this._EmpDemandFillZM; }
-            set { this._EmpDemandFillZM = value; }
+            get { return _EmpDemandFillZM; }
+            set { _EmpDemandFillZM = value; }
         }
         public String TransferNote
         {
-            get { return this._TransferNote; }
-            set { this._TransferNote = value; }
+            get { return _TransferNote; }
+            set { _TransferNote = value; }
         }
         public String LessTimeTransferNote
         {
-            get { return this._LessTimeTransferNote; }
-            set { this._LessTimeTransferNote = value; }
+            get { return _LessTimeTransferNote; }
+            set { _LessTimeTransferNote = value; }
         }
 
         public Nullable<Int32> TransAppLO
         {
-            get { return this._TransAppLO; }
-            set { this._TransAppLO = value; }
+            get { return _TransAppLO; }
+            set { _TransAppLO = value; }
         }
         public Nullable<Int32> TransAppSettleLO
         {
-            get { return this._TransAppSettleLO; }
-            set { this._TransAppSettleLO = value; }
+            get { return _TransAppSettleLO; }
+            set { _TransAppSettleLO = value; }
         }
         public Nullable<Int32> TransAppABM
         {
-            get { return this._TransAppABM; }
-            set { this._TransAppABM = value; }
+            get { return _TransAppABM; }
+            set { _TransAppABM = value; }
         }
         public Nullable<Int32> TransAppSettleABM
         {
-            get { return this._TransAppSettleABM; }
-            set { this._TransAppSettleABM = value; }
+            get { return _TransAppSettleABM; }
+            set { _TransAppSettleABM = value; }
         }
         public Nullable<Int32> TransAppBM
         {
-            get { return this._TransAppBM; }
-            set { this._TransAppBM = value; }
+            get { return _TransAppBM; }
+            set { _TransAppBM = value; }
         }
         public Nullable<Int32> TransAppSettleBM
         {
-            get { return this._TransAppSettleBM; }
-            set { this._TransAppSettleBM = value; }
+            get { return _TransAppSettleBM; }
+            set { _TransAppSettleBM = value; }
         }
         public Nullable<Int32> TransAppCO_ASE
         {
-            get { return this._TransAppCO_ASE; }
-            set { this._TransAppCO_ASE = value; }
+            get { return _TransAppCO_ASE; }
+            set { _TransAppCO_ASE = value; }
         }
         public Nullable<Int32> TransAppSettleCO_ASE
         {
-            get { return this._TransAppSettleCO_ASE; }
-            set { this._TransAppSettleCO_ASE = value; }
+            get { return _TransAppSettleCO_ASE; }
+            set { _TransAppSettleCO_ASE = value; }
         }
         public Nullable<Int32> TransAppRM
         {
-            get { return this._TransAppRM; }
-            set { this._TransAppRM = value; }
+            get { return _TransAppRM; }
+            set { _TransAppRM = value; }
         }
         public Nullable<Int32> TransAppSettleRM
         {
-            get { return this._TransAppSettleRM; }
-            set { this._TransAppSettleRM = value; }
+            get { return _TransAppSettleRM; }
+            set { _TransAppSettleRM = value; }
         }
         public Nullable<Int32> TransAppDM
         {
-            get { return this._TransAppDM; }
-            set { this._TransAppDM = value; }
+            get { return _TransAppDM; }
+            set { _TransAppDM = value; }
         }
         public Nullable<Int32> TransAppSettleDM
         {
-            get { return this._TransAppSettleDM; }
-            set { this._TransAppSettleDM = value; }
+            get { return _TransAppSettleDM; }
+            set { _TransAppSettleDM = value; }
         }
         public Nullable<Int32> TransAppZM
         {
-            get { return this._TransAppZM; }
-            set { this._TransAppZM = value; }
+            get { return _TransAppZM; }
+            set { _TransAppZM = value; }
         }
         public Nullable<Int32> TransAppSettleZM
         {
-            get { return this._TransAppSettleZM; }
-            set { this._TransAppSettleZM = value; }
+            get { return _TransAppSettleZM; }
+            set { _TransAppSettleZM = value; }
         }
         public String AttendanceNoteKa
         {
-            get { return this._AttendanceNoteKa; }
-            set { this._AttendanceNoteKa = value; }
+            get { return _AttendanceNoteKa; }
+            set { _AttendanceNoteKa = value; }
         }
         public String AttendanceNoteKha
         {
-            get { return this._AttendanceNoteKha; }
-            set { this._AttendanceNoteKha = value; }
+            get { return _AttendanceNoteKha; }
+            set { _AttendanceNoteKha = value; }
         }
         public String AttendanceNoteGa
         {
-            get { return this._AttendanceNoteGa; }
-            set { this._AttendanceNoteGa = value; }
+            get { return _AttendanceNoteGa; }
+            set { _AttendanceNoteGa = value; }
         }
         public String AdministrativeStepsTransfer
         {
-            get { return this._AdministrativeStepsTransfer; }
-            set { this._AdministrativeStepsTransfer = value; }
+            get { return _AdministrativeStepsTransfer; }
+            set { _AdministrativeStepsTransfer = value; }
         }
         public String AdministrativeStepsDropOut
         {
-            get { return this._AdministrativeStepsDropOut; }
-            set { this._AdministrativeStepsDropOut = value; }
+            get { return _AdministrativeStepsDropOut; }
+            set { _AdministrativeStepsDropOut = value; }
         }
         public String AdministrativeStepsPunishment
         {
-            get { return this._AdministrativeStepsPunishment; }
-            set { this._AdministrativeStepsPunishment = value; }
+            get { return _AdministrativeStepsPunishment; }
+            set { _AdministrativeStepsPunishment = value; }
         }
         public String AdministrativeStepsTreatment
         {
-            get { return this._AdministrativeStepsTreatment; }
-            set { this._AdministrativeStepsTreatment = value; }
+            get { return _AdministrativeStepsTreatment; }
+            set { _AdministrativeStepsTreatment = value; }
         }
         public String RecruitmentNote
         {
-            get { return this._RecruitmentNote; }
-            set { this._RecruitmentNote = value; }
+            get { return _RecruitmentNote; }
+            set { _RecruitmentNote = value; }
         }
         public DateTime EntryDateTime
         {
-            get { return this._EntryDateTime; }
-            set { this._EntryDateTime = value; }
+            get { return _EntryDateTime; }
+            set { _EntryDateTime = value; }
         }
         public String PrintingNote
         {
-            get { return this._PrintingNote; }
-            set { this._PrintingNote = value; }
+            get { return _PrintingNote; }
+            set { _PrintingNote = value; }
         }
         public Nullable<Int32> TelephoneBill
         {
-            get { return this._TelephoneBill; }
-            set { this._TelephoneBill = value; }
+            get { return _TelephoneBill; }
+            set { _TelephoneBill = value; }
         }
         public Nullable<Int32> ElectricityBill
         {
-            get { return this._ElectricityBill; }
-            set { this._ElectricityBill = value; }
+            get { return _ElectricityBill; }
+            set { _ElectricityBill = value; }
         }
         public Nullable<Int32> MobileBill
         {
-            get { return this._MobileBill; }
-            set { this._MobileBill = value; }
+            get { return _MobileBill; }
+            set { _MobileBill = value; }
         }
 
         public Nullable<Int32> HealthCompRecruit
         {
-            get { return this._HealthCompRecruit; }
-            set { this._HealthCompRecruit = value; }
+            get { return _HealthCompRecruit; }
+            set { _HealthCompRecruit = value; }
         }
         
     }

@@ -70,49 +70,49 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
         public Types Type
 		{
-			get {return this._Type;}
-			set {this._Type = value;}
+			get {return _Type;}
+			set {_Type = value;}
 		}
 
 		public String LetterNo
 		{
-			get {return this._LetterNo;}
-			set {this._LetterNo = value;}
+			get {return _LetterNo;}
+			set {_LetterNo = value;}
 		}
 
 		public DateTime LetterDate
 		{
-			get {return this._LetterDate;}
-			set {this._LetterDate = value;}
+			get {return _LetterDate;}
+			set {_LetterDate = value;}
 		}
 
 
 		public DateTime DropDate
 		{
-			get {return this._DropDate;}
-			set {this._DropDate = value;}
+			get {return _DropDate;}
+			set {_DropDate = value;}
 		}
 
 		public String Cause
 		{
-			get {return this._Cause;}
-			set {this._Cause = value;}
+			get {return _Cause;}
+			set {_Cause = value;}
 		}
         public Boolean Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         public Nullable<DateTime> EntryDate
         {
-            get { return this._EntryDate; }
-            set { this._EntryDate = value; }
+            get { return _EntryDate; }
+            set { _EntryDate = value; }
         }
         
     }

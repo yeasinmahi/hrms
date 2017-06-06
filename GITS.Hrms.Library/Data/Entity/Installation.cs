@@ -69,38 +69,38 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Location
 		{
-			get {return this._Location;}
-			set {this._Location = value;}
+			get {return _Location;}
+			set {_Location = value;}
 		}
 
 		public String Type
 		{
-			get {return this._Type;}
-			set {this._Type = value;}
+			get {return _Type;}
+			set {_Type = value;}
 		}
 
 		public String Version
 		{
-			get {return this._Version;}
-			set {this._Version = value;}
+			get {return _Version;}
+			set {_Version = value;}
 		}
 
 		public DateTime StartDate
 		{
-			get {return this._StartDate;}
-			set {this._StartDate = value;}
+			get {return _StartDate;}
+			set {_StartDate = value;}
 		}
 
 		public Nullable<DateTime> EndDate
 		{
-			get {return this._EndDate;}
-			set {this._EndDate = value;}
+			get {return _EndDate;}
+			set {_EndDate = value;}
 		}
 
 		public String Status
 		{
-			get {return this._Status;}
-			set {this._Status = value;}
+			get {return _Status;}
+			set {_Status = value;}
 		}
 
 	}

@@ -23,9 +23,9 @@ namespace GITS.Hrms.WebSite.HRM
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.BaseEntityType = typeof(H_Employee);
-            this.EntityType = typeof(H_EmployeeView);
+            GridView = gvList;
+            BaseEntityType = typeof(H_Employee);
+            EntityType = typeof(H_EmployeeView);
         }
 
         protected override string GetAddPageUrl()
@@ -38,7 +38,7 @@ namespace GITS.Hrms.WebSite.HRM
         {
 
             Int32 total = 0;
-            IList<H_EmployeeView> list = H_EmployeeView.FindByLogin(this.FilterExpression, this.SortExpression, User.Identity.Name, this.PageIndex * this.GridView.PageSize + 1, this.GridView.PageSize, out total);
+            IList<H_EmployeeView> list = H_EmployeeView.FindByLogin(FilterExpression, SortExpression, User.Identity.Name, PageIndex * GridView.PageSize + 1, GridView.PageSize, out total);
 
 
             //string whereClause = "BranchId IN(SELECT DISTINCT Branch.Id FROM Zone INNER JOIN UserLocation ON [Login] = '" + User.Identity.Name + "' AND (UserLocation.ZoneId IS NULL OR UserLocation.ZoneId = Zone.Id) INNER JOIN Subzone ON Zone.Id = Subzone.ZoneId AND (UserLocation.SubzoneId IS NULL OR UserLocation.SubzoneId = Subzone.Id) INNER JOIN Region ON Subzone.Id = Region.SubzoneId AND (UserLocation.RegionId IS NULL OR UserLocation.RegionId = Region.Id) INNER JOIN Branch ON Region.Id = Branch.RegionId  AND (UserLocation.BranchId IS NULL OR UserLocation.BranchId = Branch.Id))";

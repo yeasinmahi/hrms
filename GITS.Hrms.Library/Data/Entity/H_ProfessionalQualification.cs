@@ -58,44 +58,44 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public String Certification
 		{
-			get {return this._Certification;}
-			set {this._Certification = value;}
+			get {return _Certification;}
+			set {_Certification = value;}
 		}
 
 		public String InstituteName
 		{
-			get {return this._InstituteName;}
-			set {this._InstituteName = value;}
+			get {return _InstituteName;}
+			set {_InstituteName = value;}
 		}
 
 		public String Location
 		{
-			get {return this._Location;}
-			set {this._Location = value;}
+			get {return _Location;}
+			set {_Location = value;}
 		}
 
 		public DateTime StartDate
 		{
-			get {return this._StartDate;}
-			set {this._StartDate = value;}
+			get {return _StartDate;}
+			set {_StartDate = value;}
 		}
 
 		public DateTime EndDate
 		{
-			get {return this._EndDate;}
-			set {this._EndDate = value;}
+			get {return _EndDate;}
+			set {_EndDate = value;}
 		}
 
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
 
 	}

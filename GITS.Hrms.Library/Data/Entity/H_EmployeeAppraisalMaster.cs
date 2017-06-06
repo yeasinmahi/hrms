@@ -45,28 +45,28 @@ namespace GITS.Hrms.Library.Data.Entity
         }
         public Int32 H_AppraisalId
 		{
-            get { return this._H_AppraisalId; }
-            set { this._H_AppraisalId = value; }
+            get { return _H_AppraisalId; }
+            set { _H_AppraisalId = value; }
 		}
         public Int32 H_EmployeeId
         {
-            get { return this._H_EmployeeId; }
-            set { this._H_EmployeeId = value; }
+            get { return _H_EmployeeId; }
+            set { _H_EmployeeId = value; }
         }
         public Int32 Appraiser
         {
-            get { return this._Appraiser; }
-            set { this._Appraiser = value; }
+            get { return _Appraiser; }
+            set { _Appraiser = value; }
         }
         public DateTime AppraisalDate
         {
-            get { return this._AppraisalDate; }
-            set { this._AppraisalDate = value; }
+            get { return _AppraisalDate; }
+            set { _AppraisalDate = value; }
         }
         public String EntryUser
         {
-            get { return this._EntryUser; }
-            set { this._EntryUser = value; }
+            get { return _EntryUser; }
+            set { _EntryUser = value; }
         }
     }
 }

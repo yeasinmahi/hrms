@@ -9,8 +9,6 @@ namespace GITS.Hrms.Library.Web
     ]
     public class BoundField : System.Web.UI.WebControls.BoundField
     {
-        private FieldTypes _FieldType;
-
         public enum FieldTypes
         {
             String,
@@ -27,10 +25,6 @@ namespace GITS.Hrms.Library.Web
         Category("Misc"),
         DefaultValue(true),
         ]
-        public FieldTypes FieldType
-        {
-            get { return _FieldType; }
-            set { _FieldType = value; }
-        }
+        public FieldTypes FieldType { get; set; }
     }
 }

@@ -74,32 +74,32 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 H_EmployeeId
 		{
-			get {return this._H_EmployeeId;}
-			set {this._H_EmployeeId = value;}
+			get {return _H_EmployeeId;}
+			set {_H_EmployeeId = value;}
 		}
 
 		public Int32 InchargedGradeId
 		{
-			get {return this._InchargedGradeId;}
-			set {this._InchargedGradeId = value;}
+			get {return _InchargedGradeId;}
+			set {_InchargedGradeId = value;}
 		}
 
 		public Int32 InchargedDesignationId
 		{
-			get {return this._InchargedDesignationId;}
-			set {this._InchargedDesignationId = value;}
+			get {return _InchargedDesignationId;}
+			set {_InchargedDesignationId = value;}
 		}
 
 		public DateTime FromDate
 		{
-			get {return this._FromDate;}
-			set {this._FromDate = value;}
+			get {return _FromDate;}
+			set {_FromDate = value;}
 		}
 
 		public DateTime ToDate
 		{
-			get {return this._ToDate;}
-			set {this._ToDate = value;}
+			get {return _ToDate;}
+			set {_ToDate = value;}
 		}
 
 	}

@@ -56,7 +56,7 @@ namespace GITS.Hrms.Library.Data.Entity
         protected virtual bool Insert(TransactionManager transactionManager)
         {
             SqlCommand cmd = transactionManager.CreateCommand();
-            PropertyInfo[] props = this.GetType().GetProperties();
+            PropertyInfo[] props = GetType().GetProperties();
             string strInsertSql = "INSERT INTO " + AbstractName + " (";
             string fields = "";
             string parameters = "";
@@ -89,7 +89,7 @@ namespace GITS.Hrms.Library.Data.Entity
 
                 object newValue = prop.GetValue(this, null);
 
-                if (newValue == null || (newValue.GetType() == typeof(System.DateTime) && (DateTime)newValue == new DateTime()))
+                if (newValue == null || (newValue.GetType() == typeof(DateTime) && (DateTime)newValue == new DateTime()))
                 {
                     continue;
                 }
@@ -120,12 +120,12 @@ namespace GITS.Hrms.Library.Data.Entity
             Id = Convert.ToInt32(cmd.Parameters["@Id"].Value);
 
             #region audit
-            if (this.Audit)
+            if (Audit)
             {
                 DbTransactionDetails dbtd = new DbTransactionDetails();
                 dbtd.DbTransactionId = transactionManager.DbTransactionId;
                 dbtd.Type = DbTransactionDetails.TYPE_INSERT;
-                dbtd.TableName = this.AbstractName;
+                dbtd.TableName = AbstractName;
                 dbtd.IdentityColumn = "Id";
                 dbtd.IdentityValue = Id.ToString();
                 //dbtd.Value = Serializer.Serialize(this);
@@ -133,7 +133,7 @@ namespace GITS.Hrms.Library.Data.Entity
             }
             #endregion
 
-            this.EntityState = EntityStates.Clean;
+            EntityState = EntityStates.Clean;
 
             return true;
         }
@@ -170,7 +170,7 @@ namespace GITS.Hrms.Library.Data.Entity
             string strWhere = "";
             string strFieldValue = "";
 
-            Type type = this.GetType();
+            Type type = GetType();
             T oldObj = Get(transactionManager, "Id = " + Id);
 
             if (oldObj == null)
@@ -193,7 +193,7 @@ namespace GITS.Hrms.Library.Data.Entity
             SqlCommand cmd = transactionManager.CreateCommand();
             PropertyInfo[] props = type.GetProperties();
 
-            strUpdateSql = "UPDATE " + this.AbstractName;
+            strUpdateSql = "UPDATE " + AbstractName;
             strWhere = " WHERE Id = " + Id + "";
             strFieldValue = " SET ";
 
@@ -201,7 +201,7 @@ namespace GITS.Hrms.Library.Data.Entity
             XmlElement node = doc.CreateElement(type.FullName);
             doc.AppendChild(node);
 
-            foreach (System.Reflection.PropertyInfo prop in props)
+            foreach (PropertyInfo prop in props)
             {
                 bool update = true;
                 Attribute[] attributes = Attribute.GetCustomAttributes(prop);
@@ -238,7 +238,7 @@ namespace GITS.Hrms.Library.Data.Entity
                     attr.Value = DBUtility.ToNullableString(oldValue);
                     node.Attributes.Append(attr);
 
-                    if (updValue == null || (updValue.GetType() == typeof(System.DateTime) && (DateTime)updValue == new DateTime()))
+                    if (updValue == null || (updValue.GetType() == typeof(DateTime) && (DateTime)updValue == new DateTime()))
                     {
                         SqlParameter myParam = new SqlParameter();
                         myParam.ParameterName = "@" + prop.Name;
@@ -266,12 +266,12 @@ namespace GITS.Hrms.Library.Data.Entity
             transactionManager.RecordAffected += cmd.ExecuteNonQuery();
 
             #region audit
-            if (this.Audit)
+            if (Audit)
             {
                 DbTransactionDetails dbtd = new DbTransactionDetails();
                 dbtd.DbTransactionId = transactionManager.DbTransactionId;
                 dbtd.Type = DbTransactionDetails.TYPE_UPDATE;
-                dbtd.TableName = this.AbstractName;
+                dbtd.TableName = AbstractName;
                 dbtd.IdentityColumn = "Id";
                 dbtd.IdentityValue = Id.ToString();
                 dbtd.Value = doc.OuterXml;
@@ -279,7 +279,7 @@ namespace GITS.Hrms.Library.Data.Entity
             }
             #endregion
 
-            this.EntityState = EntityStates.Clean;
+            EntityState = EntityStates.Clean;
 
             return true;
         }
@@ -324,7 +324,7 @@ namespace GITS.Hrms.Library.Data.Entity
         
         public virtual bool Delete(TransactionManager transactionManager)
         {
-            string strDeleteSql = "DELETE FROM " + Instance.AbstractName + " WHERE Id = " + this.Id + ";";
+            string strDeleteSql = "DELETE FROM " + Instance.AbstractName + " WHERE Id = " + Id + ";";
 
             //IList<DbTransactionDetails> list = DbTransactionDetails.Find(transactionManager, "Type='" + DbTransactionDetails.TYPE_INSERT + "' AND TableName='" + Instance.AbstractName + "' AND IdentityValue='" + this.Id + "'", "");
 
@@ -343,20 +343,20 @@ namespace GITS.Hrms.Library.Data.Entity
             transactionManager.RecordAffected += cmd.ExecuteNonQuery();
 
             #region audit
-            if (this.Audit)
+            if (Audit)
             {
                 DbTransactionDetails dbtd = new DbTransactionDetails();
                 dbtd.DbTransactionId = transactionManager.DbTransactionId;
                 dbtd.Type = DbTransactionDetails.TYPE_DELETE;
                 dbtd.TableName = Instance.AbstractName;
                 dbtd.IdentityColumn = "Id";
-                dbtd.IdentityValue = this.Id.ToString();
+                dbtd.IdentityValue = Id.ToString();
                 dbtd.Value = Serializer.Serialize(this);
                 DbTransactionDetails.Insert(transactionManager, dbtd);
             }
             #endregion
 
-            this.EntityState = EntityStates.Deleted;
+            EntityState = EntityStates.Deleted;
 
             return true;
         }
@@ -383,20 +383,20 @@ namespace GITS.Hrms.Library.Data.Entity
             transactionManager.RecordAffected += cmd.ExecuteNonQuery();
 
             #region audit
-            if (this.Audit)
+            if (Audit)
             {
                 DbTransactionDetails dbtd = new DbTransactionDetails();
                 dbtd.DbTransactionId = transactionManager.DbTransactionId;
                 dbtd.Type = DbTransactionDetails.TYPE_DELETE;
                 dbtd.TableName = Instance.AbstractName;
                 dbtd.IdentityColumn = "Id";
-                dbtd.IdentityValue = this.Id.ToString();
+                dbtd.IdentityValue = Id.ToString();
                 dbtd.Value = Serializer.Serialize(this);
                 DbTransactionDetails.Insert(transactionManager, dbtd);
             }
             #endregion
 
-            this.EntityState = EntityStates.Deleted;
+            EntityState = EntityStates.Deleted;
 
             return true;
         }

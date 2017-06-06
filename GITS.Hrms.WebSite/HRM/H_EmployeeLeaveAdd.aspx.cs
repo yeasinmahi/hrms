@@ -39,7 +39,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_EmployeeLeaveHistory GetH_EmployeeLeave()
         {
             H_EmployeeLeaveHistory h_EmployeeLeave = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeeLeave = H_EmployeeLeaveHistory.GetById(Convert.ToInt32(hdnId.Value)); //if update hdnId is H_EmployeeLeaveHistoryId
             }
@@ -69,13 +69,13 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
                 return msg;
             }
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
 
             if (h_Employee == null)
@@ -85,21 +85,21 @@ namespace GITS.Hrms.WebSite.HRM
                 return msg;
             }
 
-            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(this.txtLetterDate.Text.Trim()))
+            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(txtLetterDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Letter date should be greater than employee's joining date (" + h_Employee.JoiningDate + ")";
                 return msg;
             }
 
-            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(this.txtStartDate.Text.Trim()))
+            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(txtStartDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Start date should be greater than employee's joining date (" + h_Employee.JoiningDate + ")";
                 return msg;
             }
 
-            if (DBUtility.ToDateTime(this.txtStartDate.Text.Trim()) > DBUtility.ToDateTime(this.txtEndDate.Text.Trim()))
+            if (DBUtility.ToDateTime(txtStartDate.Text.Trim()) > DBUtility.ToDateTime(txtEndDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "End date should be greater than or equal to start date";
@@ -125,7 +125,7 @@ namespace GITS.Hrms.WebSite.HRM
                 }
             }
 
-            IList<H_EmployeeLeave> h_EmployeeLeaveList = H_EmployeeLeave.Find("H_EmployeeID = " + h_Employee.Id + " AND LetterDate= '" + DBUtility.ToDateTime(this.txtLetterDate.Text).ToString(Configuration.DatabaseDateFormat)+"'","");// + "' AND '" + DBUtility.ToDateTime(this.txtEndDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "Id DESC");
+            IList<H_EmployeeLeave> h_EmployeeLeaveList = H_EmployeeLeave.Find("H_EmployeeID = " + h_Employee.Id + " AND LetterDate= '" + DBUtility.ToDateTime(txtLetterDate.Text).ToString(Configuration.DatabaseDateFormat)+"'","");// + "' AND '" + DBUtility.ToDateTime(this.txtEndDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "Id DESC");
 
             if (h_EmployeeLeaveList.Count > 0)
             {
@@ -155,38 +155,38 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+                H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
                 if (h_Employee != null)
                 {
 
-                    H_EmployeeLeaveHistory h_EmployeeLeave = this.GetH_EmployeeLeave();                  
+                    H_EmployeeLeaveHistory h_EmployeeLeave = GetH_EmployeeLeave();                  
 
                     string desc = "Insert [H_EmployeeLeaveHistory]";
-                    this.TransactionManager = new TransactionManager(true, desc);
+                    TransactionManager = new TransactionManager(true, desc);
 
                     H_EmployeeLeave pastLeave = H_EmployeeLeave.Get("H_EmployeeId="+h_Employee.Id+" AND Status=1");
                     if (pastLeave != null && chkCancel.Checked==false)
                     {
                         pastLeave.Status = 2;
                         pastLeave.EndDate = h_EmployeeLeave.StartDate.AddDays(-1);
-                        H_EmployeeLeave.Update(this.TransactionManager, pastLeave);
+                        H_EmployeeLeave.Update(TransactionManager, pastLeave);
 
                     }
-                    if (this.Type == TYPE_EDIT)
+                    if (Type == TYPE_EDIT)
                     {
                         if (chkCancel.Checked == true)
                         {
                             h_EmployeeLeave.Status = 2;
                         }
-                        H_EmployeeLeaveHistory.Update(this.TransactionManager, h_EmployeeLeave);
+                        H_EmployeeLeaveHistory.Update(TransactionManager, h_EmployeeLeave);
                     }
                     else
                     {
-                        H_EmployeeLeaveHistory.Insert(this.TransactionManager, h_EmployeeLeave);
+                        H_EmployeeLeaveHistory.Insert(TransactionManager, h_EmployeeLeave);
                     }
 
                     //if (h_EmployeeLeave.JoinType == H_EmployeeLeaveHistory.JoinTypes.Rejoin)
@@ -199,10 +199,10 @@ namespace GITS.Hrms.WebSite.HRM
                     //}                    
 
                     hdnId.Value = h_EmployeeLeave.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
-                    this.TransactionManager.Commit();
-                    this.TransactionManager = new TransactionManager(false);
+                    TransactionManager.Commit();
+                    TransactionManager = new TransactionManager(false);
                     //IList<H_EmployeeLeave> h_EmployeeLeaveList = H_EmployeeLeave.Find("H_EmployeeID = " + h_Employee.Id, "StartDate Desc");// + " AND EndDate BETWEEN '" + DBUtility.ToDateTime(this.txtStartDate.Text).ToString(Configuration.DatabaseDateFormat) + "' AND '" + DBUtility.ToDateTime(this.txtEndDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "Id DESC");
                     string query = "SELECT hel.LetterNo,hel.LetterDate,"
                     + "ISNULL((SELECT TOP(1) b.NAME FROM branch b INNER JOIN H_EmployeeBranch AS heb ON b.Id=heb.BranchId AND heb.H_EmployeeId=he.Id AND (DATEADD(dd, 0, DATEDIFF(dd, 0, hel.StartDate)) Between StartDate AND EndDate)),'None-0000000') AS 'LeaveBranch',"
@@ -243,7 +243,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                 if (h_History != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     H_Employee h_Employee = H_Employee.GetById(h_History.H_EmployeeId);
                     txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                     txtStatus.Text = ((H_Employee.Statuses)h_Employee.Status).ToString();
@@ -290,7 +290,7 @@ namespace GITS.Hrms.WebSite.HRM
                     txtStartDate.Text = UIUtility.Format(h_History.StartDate);
                     txtEndDate.Text = UIUtility.Format(h_History.EndDate);
                     txtCause.Text = h_History.Cause;
-                    this.TransactionManager = new TransactionManager(false);
+                    TransactionManager = new TransactionManager(false);
                     //IList<H_EmployeeLeave> h_EmployeeLeaveList = H_EmployeeLeave.Find("H_EmployeeID = " + h_Employee.Id, "StartDate Desc");// + " AND EndDate BETWEEN '" + DBUtility.ToDateTime(this.txtStartDate.Text).ToString(Configuration.DatabaseDateFormat) + "' AND '" + DBUtility.ToDateTime(this.txtEndDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "Id DESC");
                     string query = "SELECT hel.LetterNo,hel.LetterDate,"
                     +"ISNULL((SELECT TOP(1) b.NAME FROM branch b INNER JOIN H_EmployeeBranch AS heb ON b.Id=heb.BranchId AND heb.H_EmployeeId=he.Id AND (DATEADD(dd, 0, DATEDIFF(dd, 0, hel.StartDate)) Between StartDate AND EndDate)),'None-0000000') AS 'LeaveBranch',"
@@ -311,7 +311,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
@@ -361,7 +361,7 @@ namespace GITS.Hrms.WebSite.HRM
                 // hdnBranch.Value = branch.Id.ToString();
                 hdnId.Value = h_Employee.Id.ToString();
               
-                this.TransactionManager = new TransactionManager(false);
+                TransactionManager = new TransactionManager(false);
                 //IList<H_EmployeeLeave> h_EmployeeLeaveList = H_EmployeeLeave.Find("H_EmployeeID = " + h_Employee.Id, "StartDate Desc");// + " AND EndDate BETWEEN '" + DBUtility.ToDateTime(this.txtStartDate.Text).ToString(Configuration.DatabaseDateFormat) + "' AND '" + DBUtility.ToDateTime(this.txtEndDate.Text).ToString(Configuration.DatabaseDateFormat) + "'", "Id DESC");
                 string query = "SELECT hel.LetterNo,hel.LetterDate,"
                 + "ISNULL((SELECT TOP(1) b.NAME FROM branch b INNER JOIN H_EmployeeBranch AS heb ON b.Id=heb.BranchId AND heb.H_EmployeeId=he.Id AND (DATEADD(dd, 0, DATEDIFF(dd, 0, hel.StartDate)) Between StartDate AND EndDate)),'None-0000000') AS 'LeaveBranch',"

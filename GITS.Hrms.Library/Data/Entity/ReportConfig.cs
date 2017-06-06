@@ -66,44 +66,44 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
 
         public ReportType Type
         {
-            get { return this._Type; }
-            set { this._Type = value; }
+            get { return _Type; }
+            set { _Type = value; }
         }
 
 		public String Query
 		{
-			get {return this._Query;}
-			set {this._Query = value;}
+			get {return _Query;}
+			set {_Query = value;}
 		}
 
         public int DateBetween
         {
-            get { return this._DateBetween; }
-            set { this._DateBetween = value; }
+            get { return _DateBetween; }
+            set { _DateBetween = value; }
         }
 
         public Boolean Location
         {
-            get { return this._Location; }
-            set { this._Location=value; }
+            get { return _Location; }
+            set { _Location=value; }
         }
 
         public Boolean ReligionAndSex
         {
-            get { return this._ReligionAndSex; }
-            set { this._ReligionAndSex = value; }
+            get { return _ReligionAndSex; }
+            set { _ReligionAndSex = value; }
         }
 
         public Boolean Position
         {
-            get { return this._Position; }
-            set { this._Position = value; }
+            get { return _Position; }
+            set { _Position = value; }
         }
 	}
 }

@@ -58,44 +58,44 @@ namespace GITS.Hrms.WebSite.DbManagement
         {
             Message msg = new Message();
             msg.Type = MessageType.Information;
-            this.ShowUIMessage(msg);
+            ShowUIMessage(msg);
 
             switch (e.Item.Value)
             {
                 case "UPGRADE":
-                    this.tblUpgrade.Visible = true;
-                    this.tblBackup.Visible = false;
-                    this.tblRestore.Visible = false;
-                    this.tblExecute.Visible = false;
-                    this.tblShrink.Visible = false;
+                    tblUpgrade.Visible = true;
+                    tblBackup.Visible = false;
+                    tblRestore.Visible = false;
+                    tblExecute.Visible = false;
+                    tblShrink.Visible = false;
                     break;
                 case "BACKUP":
-                    this.tblUpgrade.Visible = false;
-                    this.tblBackup.Visible = true;
-                    this.tblRestore.Visible = false;
-                    this.tblExecute.Visible = false;
-                    this.tblShrink.Visible = false;
+                    tblUpgrade.Visible = false;
+                    tblBackup.Visible = true;
+                    tblRestore.Visible = false;
+                    tblExecute.Visible = false;
+                    tblShrink.Visible = false;
                     break;
                 case "RESTORE":
-                    this.tblUpgrade.Visible = false;
-                    this.tblBackup.Visible = false;
-                    this.tblRestore.Visible = true;
-                    this.tblExecute.Visible = false;
-                    this.tblShrink.Visible = false;
+                    tblUpgrade.Visible = false;
+                    tblBackup.Visible = false;
+                    tblRestore.Visible = true;
+                    tblExecute.Visible = false;
+                    tblShrink.Visible = false;
                     break;
                 case "EXECUTE":
-                    this.tblUpgrade.Visible = false;
-                    this.tblBackup.Visible = false;
-                    this.tblRestore.Visible = false;
-                    this.tblExecute.Visible = true;
-                    this.tblShrink.Visible = false;
+                    tblUpgrade.Visible = false;
+                    tblBackup.Visible = false;
+                    tblRestore.Visible = false;
+                    tblExecute.Visible = true;
+                    tblShrink.Visible = false;
                     break;
                 case "SHRINK":
-                    this.tblUpgrade.Visible = false;
-                    this.tblBackup.Visible = false;
-                    this.tblRestore.Visible = false;
-                    this.tblExecute.Visible = false;
-                    this.tblShrink.Visible = true;
+                    tblUpgrade.Visible = false;
+                    tblBackup.Visible = false;
+                    tblRestore.Visible = false;
+                    tblExecute.Visible = false;
+                    tblShrink.Visible = true;
                     break;
                 default:
                     throw new NotImplementedException();
@@ -105,15 +105,15 @@ namespace GITS.Hrms.WebSite.DbManagement
         protected void btnUpgrade_Click(object sender, EventArgs e)
         {
             Message msg = new Message();
-            this.ShowUIMessage(msg);
+            ShowUIMessage(msg);
 
-            msg = this.databaseManagementManager.InstallDatabase(this.cbReInstall.Checked);
+            msg = databaseManagementManager.InstallDatabase(cbReInstall.Checked);
 
             if (msg.Type == MessageType.Information)
             {
                 msg.Type = MessageType.Information;
 
-                if (this.cbReInstall.Checked)
+                if (cbReInstall.Checked)
                 {
                     msg.Msg = "Database re-installed successfully";
                 }
@@ -133,7 +133,7 @@ namespace GITS.Hrms.WebSite.DbManagement
 
             String file = Path.GetTempPath() + DateTime.Now.ToString("yyyyMMddHHmmss_") + Configuration.DatabaseName + "_" + Configuration.Version;
 
-            msg = this.databaseManagementManager.Backup(file);
+            msg = databaseManagementManager.Backup(file);
 
             if (msg.Type == MessageType.Information)
             {
@@ -160,9 +160,9 @@ namespace GITS.Hrms.WebSite.DbManagement
         protected void btnRestore_Click(object sender, EventArgs e)
         {
             Message msg = new Message();
-            this.ShowUIMessage(msg);
+            ShowUIMessage(msg);
 
-            if (this.fuFileName.HasFile == false)
+            if (fuFileName.HasFile == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid file name";
@@ -171,9 +171,9 @@ namespace GITS.Hrms.WebSite.DbManagement
             {
                 String file = Path.GetTempFileName();
 
-                this.fuFileName.SaveAs(file);
+                fuFileName.SaveAs(file);
 
-                msg = this.databaseManagementManager.Restore(file);
+                msg = databaseManagementManager.Restore(file);
 
                 File.Delete(file);
             }
@@ -184,9 +184,9 @@ namespace GITS.Hrms.WebSite.DbManagement
         protected void btnExecute_Click(object sender, EventArgs e)
         {
             Message msg = new Message();
-            this.ShowUIMessage(msg);
+            ShowUIMessage(msg);
 
-            if (this.fuScriptFileName.HasFile == false)
+            if (fuScriptFileName.HasFile == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid file name";
@@ -196,7 +196,7 @@ namespace GITS.Hrms.WebSite.DbManagement
                 String script = "";
                 String file = Path.GetTempFileName();
 
-                this.fuScriptFileName.SaveAs(file);
+                fuScriptFileName.SaveAs(file);
 
                 try
                 {
@@ -212,7 +212,7 @@ namespace GITS.Hrms.WebSite.DbManagement
                     return;
                 }
 
-                msg = this.databaseManagementManager.ExecuteScript(script);
+                msg = databaseManagementManager.ExecuteScript(script);
             }
 
             if (msg.Type == MessageType.Information)
@@ -225,19 +225,19 @@ namespace GITS.Hrms.WebSite.DbManagement
 
         protected void cbReInstall_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.cbReInstall.Checked)
+            if (cbReInstall.Checked)
             {
-                this.btnUpgrade.Text = "Re-Install";
+                btnUpgrade.Text = "Re-Install";
             }
             else
             {
-                this.btnUpgrade.Text = "Upgrade";
+                btnUpgrade.Text = "Upgrade";
             }
         }
 
         protected void btnShrink_Click(object sender, EventArgs e)
         {
-            Message msg = this.databaseManagementManager.ShrinkDatabase(Configuration.DatabaseName);
+            Message msg = databaseManagementManager.ShrinkDatabase(Configuration.DatabaseName);
 
             ShowUIMessage(msg);
         }

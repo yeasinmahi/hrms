@@ -30,7 +30,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
                 if (p_Loan != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = p_Loan.Name;
                     txtInterestRate.Text = p_Loan.InterestRate.ToString();
@@ -51,7 +51,7 @@ namespace GITS.Hrms.WebSite.Payroll
         {
             P_Loan p_Loan = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 p_Loan = P_Loan.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -75,7 +75,7 @@ namespace GITS.Hrms.WebSite.Payroll
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -87,14 +87,14 @@ namespace GITS.Hrms.WebSite.Payroll
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                P_Loan p_Loan = this.GetP_Earning();
+                P_Loan p_Loan = GetP_Earning();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [P_Loan]";
                 }
@@ -103,21 +103,21 @@ namespace GITS.Hrms.WebSite.Payroll
                     desc = "Update [P_Loan]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    P_Loan.Insert(this.TransactionManager, p_Loan);
+                    P_Loan.Insert(TransactionManager, p_Loan);
 
                     hdnId.Value = p_Loan.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    P_Loan.Update(this.TransactionManager, p_Loan);
+                    P_Loan.Update(TransactionManager, p_Loan);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;

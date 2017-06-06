@@ -25,7 +25,7 @@ namespace GITS.Hrms.WebSite.HRM
         {
             ddlZone.DataSource = Zone.Find("Status=1", "Name");
             ddlZone.DataBind();
-            this.ddlZone_SelectedIndexChanged(this.ddlZone, new EventArgs());
+            ddlZone_SelectedIndexChanged(ddlZone, new EventArgs());
 
             
             //Trasfer Info
@@ -41,36 +41,36 @@ namespace GITS.Hrms.WebSite.HRM
             zoneList.Insert(0, zone1);
             ddlTransZone.DataSource = zoneList;
             ddlTransZone.DataBind();
-            this.ddlTransZone_SelectedIndexChanged(null, null);
+            ddlTransZone_SelectedIndexChanged(null, null);
             
         }
         protected void ddlSubzone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlSubzone.SelectedValue != null && this.ddlSubzone.SelectedValue != "")
+            if (ddlSubzone.SelectedValue != null && ddlSubzone.SelectedValue != "")
             { 
-                this.ddlRegion.DataSource =  Region.Find("SubzoneId = " + this.ddlSubzone.SelectedValue + " And Status=1", "Name");//, User.Identity.Name);
-                this.ddlRegion.DataBind();
-                this.ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
+                ddlRegion.DataSource =  Region.Find("SubzoneId = " + ddlSubzone.SelectedValue + " And Status=1", "Name");//, User.Identity.Name);
+                ddlRegion.DataBind();
+                ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
             }
         }
 
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlRegion.SelectedValue != null && this.ddlRegion.SelectedValue != "")
+            if (ddlRegion.SelectedValue != null && ddlRegion.SelectedValue != "")
             {
-                this.ddlBranch.DataSource = Branch.Find("RegionId = " + this.ddlRegion.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
-                this.ddlBranch.DataBind();
+                ddlBranch.DataSource = Branch.Find("RegionId = " + ddlRegion.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
+                ddlBranch.DataBind();
                 ddlBranch_SelectedIndexChanged(ddlBranch,new EventArgs());
             }
             else
             {
-                this.ddlBranch.Items.Clear();
+                ddlBranch.Items.Clear();
             }
         }
 
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlBranch.SelectedValue != null && this.ddlBranch.SelectedValue != "")
+            if (ddlBranch.SelectedValue != null && ddlBranch.SelectedValue != "")
             {
                 Branch branch = Branch.GetById(Convert.ToInt32(ddlBranch.SelectedValue));
                 Thana thana = Thana.GetById(branch.ThanaId);
@@ -86,25 +86,25 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
             if (msg.Type == MessageType.Information)
             {
-                Library.Data.Entity.H_BranchTransfer h_BranchTransfer = this.GetH_BranchTransfer();
+                Library.Data.Entity.H_BranchTransfer h_BranchTransfer = GetH_BranchTransfer();
                 string desc = "Insert [H_BranchTransfer]";
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                Library.Data.Entity.H_BranchTransfer.Insert(this.TransactionManager, h_BranchTransfer);
+                Library.Data.Entity.H_BranchTransfer.Insert(TransactionManager, h_BranchTransfer);
 
                 hdnId.Value = h_BranchTransfer.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
                 Branch oBranch = Branch.GetById(Convert.ToInt32(ddlBranch.SelectedValue));
 
                 oBranch.RegionId =h_BranchTransfer.DestinationRegionId;
-                Branch.Update(this.TransactionManager, oBranch);
+                Branch.Update(TransactionManager, oBranch);
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
             return msg;
         }
@@ -129,7 +129,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -152,9 +152,9 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected void ddlTranSubzone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlTranSubzone.SelectedValue != null && this.ddlTranSubzone.SelectedValue != "")
+            if (ddlTranSubzone.SelectedValue != null && ddlTranSubzone.SelectedValue != "")
             {
-                IList<Region> regionList = Region.Find("SubzoneId = " + this.ddlTranSubzone.SelectedValue + " And Status=1", "Name");//, User.Identity.Name);
+                IList<Region> regionList = Region.Find("SubzoneId = " + ddlTranSubzone.SelectedValue + " And Status=1", "Name");//, User.Identity.Name);
                 if (regionList == null)
                 {
                     regionList = new List<Region>();
@@ -165,15 +165,15 @@ namespace GITS.Hrms.WebSite.HRM
                 all.Id = 0;
                 all.Name = "Select Region";
                 regionList.Insert(0, all);
-                this.ddlTransRegion.DataSource = regionList;
-                this.ddlTransRegion.DataBind();
+                ddlTransRegion.DataSource = regionList;
+                ddlTransRegion.DataBind();
 
             }
         }
 
         protected void ddlTransZone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            IList<Subzone> subzoneList = Subzone.Find("ZoneId = " + this.ddlTransZone.SelectedValue + " And Status=1", "Name");//, User.Identity.Name);
+            IList<Subzone> subzoneList = Subzone.Find("ZoneId = " + ddlTransZone.SelectedValue + " And Status=1", "Name");//, User.Identity.Name);
             if (subzoneList == null)
             {
                 subzoneList = new List<Subzone>();
@@ -184,18 +184,18 @@ namespace GITS.Hrms.WebSite.HRM
             all.Id = 0;
             all.Name = "Select District";
             subzoneList.Insert(0, all);
-            this.ddlTranSubzone.DataSource = subzoneList;// Subzone.FindByLogin("Status=1", "Name", User.Identity.Name);
-            this.ddlTranSubzone.DataBind();
-            this.ddlTranSubzone_SelectedIndexChanged(ddlTranSubzone, new EventArgs());
+            ddlTranSubzone.DataSource = subzoneList;// Subzone.FindByLogin("Status=1", "Name", User.Identity.Name);
+            ddlTranSubzone.DataBind();
+            ddlTranSubzone_SelectedIndexChanged(ddlTranSubzone, new EventArgs());
         }
 
         protected void ddlZone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlZone.SelectedValue != null && this.ddlZone.SelectedValue != "")
+            if (ddlZone.SelectedValue != null && ddlZone.SelectedValue != "")
             {
-                this.ddlSubzone.DataSource = Subzone.Find("ZoneId="+ddlZone.SelectedValue+" AND Status=1", "Name");//, User.Identity.Name);
-                this.ddlSubzone.DataBind();
-                this.ddlSubzone_SelectedIndexChanged(this.ddlSubzone, new EventArgs());
+                ddlSubzone.DataSource = Subzone.Find("ZoneId="+ddlZone.SelectedValue+" AND Status=1", "Name");//, User.Identity.Name);
+                ddlSubzone.DataBind();
+                ddlSubzone_SelectedIndexChanged(ddlSubzone, new EventArgs());
             }
         }
 

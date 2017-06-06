@@ -38,7 +38,7 @@ namespace GITS.Hrms.WebSite.HRM
         private H_EmployeePromotionHistory GetH_EmployeePromotion()
         {
             H_EmployeePromotionHistory h_EmployeePromotion = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeePromotion = H_EmployeePromotionHistory.GetById(Convert.ToInt32(hdnId.Value));
                 if (chkCancel.Checked == true)
@@ -75,7 +75,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -83,7 +83,7 @@ namespace GITS.Hrms.WebSite.HRM
             }
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee == null)
             {
                 msg.Type = MessageType.Error;
@@ -101,14 +101,14 @@ namespace GITS.Hrms.WebSite.HRM
                     return msg;
                 }
             }
-            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(this.txtLetterDate.Text.Trim()))
+            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(txtLetterDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Letter date should be greater than employee's joining date (" + h_Employee.JoiningDate + ")";
                 return msg;
             }
 
-            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(this.txtPromotionDate.Text.Trim()))
+            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(txtPromotionDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Promotion date should be greater than employee's joining date (" + h_Employee.JoiningDate + ")";
@@ -166,13 +166,13 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
                 string desc = "";
-                H_EmployeePromotionHistory h_EmployeePromotion = this.GetH_EmployeePromotion();
-                if (this.Type == TYPE_EDIT)
+                H_EmployeePromotionHistory h_EmployeePromotion = GetH_EmployeePromotion();
+                if (Type == TYPE_EDIT)
                 {
                     desc = "Update [H_EmployeePromotionHistory]";
                 }
@@ -181,17 +181,17 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "Insert [H_EmployeePromotionHistory]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
-                    H_EmployeePromotionHistory.Update(this.TransactionManager, h_EmployeePromotion);
+                    H_EmployeePromotionHistory.Update(TransactionManager, h_EmployeePromotion);
                 }
                 else
                 {
-                    H_EmployeePromotionHistory.Insert(this.TransactionManager, h_EmployeePromotion);
+                    H_EmployeePromotionHistory.Insert(TransactionManager, h_EmployeePromotion);
                 }
             
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -202,9 +202,9 @@ namespace GITS.Hrms.WebSite.HRM
             chkCancel.Enabled = false;
             UIUtility.LoadEnums(ddlType, typeof(H_EmployeePromotion.Types), false, false, false);
 
-            this.ddlNewH_GradeId.DataSource = H_Grade.FindAll();
-            this.ddlNewH_GradeId.DataBind();
-            this.ddlNewH_GradeId_SelectedIndexChanged(this.ddlNewH_GradeId, new EventArgs());
+            ddlNewH_GradeId.DataSource = H_Grade.FindAll();
+            ddlNewH_GradeId.DataBind();
+            ddlNewH_GradeId_SelectedIndexChanged(ddlNewH_GradeId, new EventArgs());
             if (Request.QueryString["Id"] != null)
             {
                 hdnId.Value = Request.QueryString["Id"];
@@ -212,7 +212,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (h_History != null)
                 {
                     chkCancel.Enabled = true;
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     H_Employee h_Employee = H_Employee.GetById(h_History.H_EmployeeId);
                     txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
                     H_EmployeeDepartment eDepartment = H_EmployeeDepartment.Find("H_EmployeeId=" + h_Employee.Id, "EndDate DESC")[0];
@@ -221,13 +221,13 @@ namespace GITS.Hrms.WebSite.HRM
                     IList<H_EmployeeGrade> eGrades = H_EmployeeGrade.Find("H_EmployeeId=" + h_Employee.Id, "EndDate DESC");
                     txtGrade.Text = H_Grade.GetById(eGrades[0].H_GradeId).Name;
                     hdnGrade.Value = eGrades[0].H_GradeId.ToString();
-                    this.ddlNewH_GradeId.SelectedValue = h_History.NewH_GradeId.ToString();
-                    this.ddlNewH_GradeId_SelectedIndexChanged(this.ddlNewH_GradeId, new EventArgs());
+                    ddlNewH_GradeId.SelectedValue = h_History.NewH_GradeId.ToString();
+                    ddlNewH_GradeId_SelectedIndexChanged(ddlNewH_GradeId, new EventArgs());
 
                     IList<H_EmployeeDesignation> eDesignations = H_EmployeeDesignation.Find("H_EmployeeId=" + h_Employee.Id, "EndDate DESC");
                     txtDesignation.Text = H_Designation.GetById(eDesignations[0].H_DesignationId).Name;
                     hdnDesignation.Value = eDesignations[0].H_DesignationId.ToString();
-                    this.ddlNewH_DesignationId.SelectedValue = h_History.NewH_DesignationId.ToString();
+                    ddlNewH_DesignationId.SelectedValue = h_History.NewH_DesignationId.ToString();
 
 
                     Int32 i = 0;
@@ -273,18 +273,18 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected void ddlNewH_GradeId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlNewH_GradeId.SelectedValue != null && this.ddlNewH_GradeId.SelectedValue != "")
+            if (ddlNewH_GradeId.SelectedValue != null && ddlNewH_GradeId.SelectedValue != "")
             {
                 TransactionManager tm = new TransactionManager(false);
 
-                ddlNewH_DesignationId.DataSource = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + this.ddlNewH_GradeId.SelectedValue + " ORDER BY Name").Tables[0];
+                ddlNewH_DesignationId.DataSource = tm.GetDataSet("SELECT H_Designation.Id, Name FROM H_Designation INNER JOIN H_GradeDesignation ON H_DesignationId = H_Designation.Id WHERE H_GradeId = " + ddlNewH_GradeId.SelectedValue + " ORDER BY Name").Tables[0];
                 ddlNewH_DesignationId.DataBind();
             }
         }
 
         protected void lbSearch_Click(object sender, EventArgs e)
         {
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 hdnId.Value = h_Employee.Id.ToString();
@@ -295,13 +295,13 @@ namespace GITS.Hrms.WebSite.HRM
                 IList<H_EmployeeGrade> eGrades = H_EmployeeGrade.Find("H_EmployeeId=" + h_Employee.Id, "EndDate DESC");
                 txtGrade.Text = H_Grade.GetById(eGrades[0].H_GradeId).Name;
                 hdnGrade.Value = eGrades[0].H_GradeId.ToString();
-                this.ddlNewH_GradeId.SelectedValue = eGrades[0].H_GradeId.ToString();
-                this.ddlNewH_GradeId_SelectedIndexChanged(this.ddlNewH_GradeId, new EventArgs());
+                ddlNewH_GradeId.SelectedValue = eGrades[0].H_GradeId.ToString();
+                ddlNewH_GradeId_SelectedIndexChanged(ddlNewH_GradeId, new EventArgs());
 
                 IList<H_EmployeeDesignation> eDesignations = H_EmployeeDesignation.Find("H_EmployeeId=" + h_Employee.Id, "EndDate DESC");
                 txtDesignation.Text = H_Designation.GetById(eDesignations[0].H_DesignationId).Name;
                 hdnDesignation.Value = eDesignations[0].H_DesignationId.ToString();
-                this.ddlNewH_DesignationId.SelectedValue = eDesignations[0].H_DesignationId.ToString();
+                ddlNewH_DesignationId.SelectedValue = eDesignations[0].H_DesignationId.ToString();
             
 
                 Int32 i = 0;
@@ -353,7 +353,7 @@ namespace GITS.Hrms.WebSite.HRM
                 txtRegion.Text = "";
                 txtBranch.Text = "";
 
-                this.ShowUIMessage(msg);
+                ShowUiMessage(msg);
             }
         }
     }

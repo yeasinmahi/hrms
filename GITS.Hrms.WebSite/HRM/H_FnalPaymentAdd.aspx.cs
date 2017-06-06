@@ -29,7 +29,7 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected void lbSearch_Click(object sender, EventArgs e)
         {
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 hdnEmpId.Value = "";
@@ -47,7 +47,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Invalid operation. Employee presently " + ((H_Employee.Statuses)(h_Employee.Status)).ToString().Replace("_", " ").ToLower();
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
                 H_FinalPayment h_FinalPayment = H_FinalPayment.Get("H_EmployeeId=" + h_Employee.Id);
@@ -76,7 +76,7 @@ namespace GITS.Hrms.WebSite.HRM
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "Invalid Operation. Final Payment Already Posted for this Employee";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     return;
                 }
 
@@ -141,19 +141,19 @@ namespace GITS.Hrms.WebSite.HRM
                 txtSubzone.Text = "";
                 txtBranch.Text = "";
 
-                if (this.txtEmployee.Text.Trim() != "")
+                if (txtEmployee.Text.Trim() != "")
                 {
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "No employee found";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                 }
             }
         }
         private H_FinalPayment GetH_FinalPayment()
         {
             H_FinalPayment h_FinalPayment = null;
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_FinalPayment = H_FinalPayment.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -171,12 +171,12 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
             if (msg.Type == MessageType.Information)
             {
-                H_FinalPayment h_FinalPay = this.GetH_FinalPayment();
+                H_FinalPayment h_FinalPay = GetH_FinalPayment();
                 string desc = null;
-                if (this.Type == TYPE_EDIT)
+                if (Type == TYPE_EDIT)
                 {
                     desc = "Insert [H_FinalPayment]";
                 }
@@ -185,21 +185,21 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "Insert [H_FinalPayment]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
-                    H_FinalPayment.Update(this.TransactionManager, h_FinalPay);
+                    H_FinalPayment.Update(TransactionManager, h_FinalPay);
                 }
                 else
                 {
-                    H_FinalPayment.Insert(this.TransactionManager, h_FinalPay);
+                    H_FinalPayment.Insert(TransactionManager, h_FinalPay);
                 }
 
 
                 hdnId.Value = h_FinalPay.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
             return msg;
         }
@@ -211,7 +211,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";

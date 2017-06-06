@@ -18,7 +18,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             get { return "[Monthly_Report_Procedure]"; }
         }
 
-        protected override System.Data.SqlClient.SqlParameter[] GetParameters(params object[] parameters)
+        protected override SqlParameter[] GetParameters(params object[] parameters)
         {
             SqlParameter[] sqlParameters = new SqlParameter[1];
 
@@ -27,7 +27,7 @@ namespace GITS.Hrms.Library.Data.Procedure
             return sqlParameters;
         }
 
-        protected override Monthly_Report_Procedure Map(System.Data.SqlClient.SqlDataReader dataReader)
+        protected override Monthly_Report_Procedure Map(SqlDataReader dataReader)
         {
             Monthly_Report_Procedure procedure = new Monthly_Report_Procedure();
 

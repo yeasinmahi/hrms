@@ -74,7 +74,7 @@ namespace GITS.Hrms.WebSite.Reports
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";

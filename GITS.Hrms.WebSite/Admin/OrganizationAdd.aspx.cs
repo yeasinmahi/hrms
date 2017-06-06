@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             Organization organization = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 organization = Organization.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -55,7 +55,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -67,14 +67,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                Organization organization = this.GetOrganization();
+                Organization organization = GetOrganization();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Organization]";
                 }
@@ -83,21 +83,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [Organization]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Organization.Insert(this.TransactionManager, organization);
+                    Organization.Insert(TransactionManager, organization);
 
                     hdnId.Value = organization.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    Organization.Update(this.TransactionManager, organization);
+                    Organization.Update(TransactionManager, organization);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -114,7 +114,7 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (organization != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = organization.Name;
 

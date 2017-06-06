@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using GITS.Hrms.Library.Data;
 using GITS.Hrms.Library.Data.Entity;
 using GITS.Hrms.Library.Data.View;
+using GITS.Hrms.Library.Properties;
 using GITS.Hrms.Library.Security;
 using GITS.Hrms.Library.Utility;
 
@@ -13,27 +14,17 @@ namespace GITS.Hrms.Library.Web
 {
     public abstract class BasePage : System.Web.UI.Page
     {
-        protected Panel pnlMessage = null;
-        protected Image imgMessage = null;
-        protected Label lblMessage = null;
-        private String _PropertyName;
-
-        private TransactionManager _TransactionManager;
+        protected Panel PnlMessage;
+        protected Image ImgMessage;
+        protected Label LblMessage;
+        private String _propertyName;
 
         protected virtual String PropertyName
         {
-            get { return _PropertyName; }
+            get { return _propertyName; }
         }
 
-        protected TransactionManager TransactionManager
-        {
-            get { return _TransactionManager; }
-            set { _TransactionManager = value; }
-        }
-
-        public BasePage()
-        {
-        }
+        protected TransactionManager TransactionManager { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -41,45 +32,48 @@ namespace GITS.Hrms.Library.Web
 
             if (Request.QueryString["propertyname"] != null)
             {
-                this._PropertyName = Request.QueryString["propertyname"];
+                _propertyName = Request.QueryString["propertyname"];
             }
-            else if (string.IsNullOrEmpty(this.PropertyName))
+            else if (string.IsNullOrEmpty(PropertyName))
             {
                 Property property = Property.Get("Path = '" + Request.Path.Substring(1) + "'");
 
                 if (property != null)
                 {
-                    this._PropertyName = property.Name;
+                    _propertyName = property.Name;
                 }
             }
 
-            pnlMessage = (Panel)Master.FindControl("pnlMessage");
-            lblMessage = (Label)Master.FindControl("lblMessage");
-            imgMessage = (Image)Master.FindControl("imgMessage");
-
-            if (User.Identity.IsAuthenticated == false)
+            if (Master != null)
             {
-                if (User.Identity.IsAuthenticated)
+                PnlMessage = (Panel)Master.FindControl("pnlMessage");
+                LblMessage = (Label)Master.FindControl("lblMessage");
+                ImgMessage = (Image)Master.FindControl("imgMessage");
+
+                if (User.Identity.IsAuthenticated == false)
                 {
-                    FormsAuthentication.SignOut();
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        FormsAuthentication.SignOut();
+                    }
+
+                    FormsAuthentication.RedirectToLoginPage();
+                    Response.End();
                 }
 
-                FormsAuthentication.RedirectToLoginPage();
-                Response.End();
-            }
+                Menu mnuPageToolbar = (Menu)Master.FindControl("mnuPageToolbar");
+                mnuPageToolbar.MenuItemClick += ToolButtonClick;
 
-            Menu mnuPageToolbar = (Menu)Master.FindControl("mnuPageToolbar");
-            mnuPageToolbar.MenuItemClick += new MenuEventHandler(ToolButtonClick);
+                if (MmsPermissionProvider.HasPermission(User.Identity.Name, PropertyName) == false)
+                {
+                    UIUtility.Transfer(Page, "/" + MmsPermissionProvider.PERMISSION_PAGE);
+                    return;
+                }
 
-            if (MmsPermissionProvider.HasPermission(User.Identity.Name, this.PropertyName) == false)
-            {
-                UIUtility.Transfer(Page, "/" + MmsPermissionProvider.PERMISSION_PAGE);
-                return;
-            }
-
-            if (IsPostBack == false)
-            {
-                this.SetToolbar(mnuPageToolbar);
+                if (IsPostBack == false)
+                {
+                    SetToolbar(mnuPageToolbar);
+                }
             }
         }
 
@@ -89,32 +83,32 @@ namespace GITS.Hrms.Library.Web
         {
             try
             {
-                if (MmsPermissionProvider.HasPermission(User.Identity.Name, this.PropertyName, e.Item.Value) == false)
+                if (MmsPermissionProvider.HasPermission(User.Identity.Name, PropertyName, e.Item.Value) == false)
                 {
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "You do not have permission to do this";
-                    this.ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                 }
                 else
                 {
-                    this.HandleCommonCommand(sender, e);
+                    HandleCommonCommand(sender, e);
                 }
             }
             catch (Exception ex)
             {
-                if (this.TransactionManager != null)
+                if (TransactionManager != null)
                 {
-                    this.TransactionManager.Rollback();
+                    TransactionManager.Rollback();
                 }
 
-                this.ShowUIMessage(ex);
+                ShowUiMessage(ex);
             }
         }
 
         private void SetToolbar(Menu mnuPageToolbar)
         {
-            IList<PropertyCommandView> propertyCommands = PropertyCommandView.Find("PropertyName = '" + this.PropertyName + "'", "SortOrder");
+            IList<PropertyCommandView> propertyCommands = PropertyCommandView.Find("PropertyName = '" + PropertyName + "'", "SortOrder");
 
             if (mnuPageToolbar.Items.Count > 0)
             {
@@ -138,7 +132,7 @@ namespace GITS.Hrms.Library.Web
                         }
                         else
                         {
-                            tool.Text = "&nbsp;" + propertyCommandView.DisplayName;
+                            tool.Text = Resources.Space + propertyCommandView.DisplayName;
                         }
 
                         //tool.SeparatorImageUrl = propertyCommandView.SeperatorUrl;
@@ -160,48 +154,48 @@ namespace GITS.Hrms.Library.Web
         {
             base.OnLoad(e);
 
-            this.ShowUIMessage(new Message());
+            ShowUiMessage(new Message());
         }
 
-        public void ShowUIMessage(Message msg)
+        public void ShowUiMessage(Message msg)
         {
             switch (msg.Type)
             {
                 case MessageType.Error:
-                    lblMessage.Text = @"Error: " + msg.Msg;
-                    imgMessage.ImageUrl = "~/Images/error.gif";
-                    pnlMessage.CssClass = "LabelErrorMessage";
+                    LblMessage.Text = @"Error: " + msg.Msg;
+                    ImgMessage.ImageUrl = "~/Images/error.gif";
+                    PnlMessage.CssClass = "LabelErrorMessage";
                     break;
                 case MessageType.Warning:
-                    lblMessage.Text = @"Warning: " + msg.Msg;
-                    imgMessage.ImageUrl = "~/Images/warning.gif";
-                    pnlMessage.CssClass = "LabelWarningMessage";
+                    LblMessage.Text = @"Warning: " + msg.Msg;
+                    ImgMessage.ImageUrl = "~/Images/warning.gif";
+                    PnlMessage.CssClass = "LabelWarningMessage";
                     break;
                 case MessageType.Information:
-                    lblMessage.Text = msg.Msg;
+                    LblMessage.Text = msg.Msg;
 
                     if (string.IsNullOrEmpty(msg.Msg))
                     {
-                        imgMessage.ImageUrl = "";
-                        pnlMessage.CssClass = "LabelEmptyMessage";
+                        ImgMessage.ImageUrl = "";
+                        PnlMessage.CssClass = "LabelEmptyMessage";
                     }
                     else
                     {
-                        imgMessage.ImageUrl = "~/Images/info.gif";
-                        pnlMessage.CssClass = "LabelInformationMessage";
+                        ImgMessage.ImageUrl = "~/Images/info.gif";
+                        PnlMessage.CssClass = "LabelInformationMessage";
                     }
                     break;
             }
         }
 
-        public void ShowUIMessage(Exception ex)
+        public void ShowUiMessage(Exception ex)
         {
             Message msg = new Message();
             msg.Type = MessageType.Error;
 
-            if (ex is SqlException || (ex.InnerException != null && ex.InnerException is SqlException))
+            if (ex is SqlException || (ex.InnerException is SqlException))
             {
-                SqlException sqlEx = null;
+                SqlException sqlEx;
 
                 if (ex is SqlException)
                 {
@@ -249,7 +243,7 @@ namespace GITS.Hrms.Library.Web
                 }
             }
 
-            this.ShowUIMessage(msg);
+            ShowUiMessage(msg);
         }
     }
 }

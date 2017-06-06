@@ -32,7 +32,7 @@ namespace GITS.Hrms.WebSite.Admin
         {
             Region region = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 region = Region.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -64,7 +64,7 @@ namespace GITS.Hrms.WebSite.Admin
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -76,14 +76,14 @@ namespace GITS.Hrms.WebSite.Admin
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                Region region = this.GetRegion();
+                Region region = GetRegion();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Region]";
                 }
@@ -92,21 +92,21 @@ namespace GITS.Hrms.WebSite.Admin
                     desc = "Update [Region]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Region.Insert(this.TransactionManager, region);
+                    Region.Insert(TransactionManager, region);
 
                     hdnId.Value = region.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    Region.Update(this.TransactionManager, region);
+                    Region.Update(TransactionManager, region);
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -115,9 +115,9 @@ namespace GITS.Hrms.WebSite.Admin
         protected override void LoadData()
         {
             UIUtility.LoadEnums(ddlStatus, typeof(Region.Statuses), false, false, false);
-            this.ddlZoneId.DataSource = Zone.Find("Status=1","Name");
-            this.ddlZoneId.DataBind();
-            this.ddlZoneId_OnSelectedIndexChanged(this.ddlZoneId, new EventArgs());
+            ddlZoneId.DataSource = Zone.Find("Status=1","Name");
+            ddlZoneId.DataBind();
+            ddlZoneId_OnSelectedIndexChanged(ddlZoneId, new EventArgs());
 
             Region region = null;
 
@@ -129,11 +129,11 @@ namespace GITS.Hrms.WebSite.Admin
 
                 if (region != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     Subzone subzone = Subzone.GetById(Convert.ToInt32(region.SubzoneId));
-                    this.ddlZoneId.SelectedValue = UIUtility.Format(subzone.ZoneId);
-                    this.ddlZoneId_OnSelectedIndexChanged(this.ddlZoneId, new EventArgs());
+                    ddlZoneId.SelectedValue = UIUtility.Format(subzone.ZoneId);
+                    ddlZoneId_OnSelectedIndexChanged(ddlZoneId, new EventArgs());
                     ddlSubzoneId.SelectedValue = UIUtility.Format(region.SubzoneId);
 
                     txtName.Text = region.Name;
@@ -156,8 +156,8 @@ namespace GITS.Hrms.WebSite.Admin
         {
             if (ddlZoneId.SelectedValue != null && ddlZoneId.SelectedValue != "")
             {
-                this.ddlSubzoneId.DataSource = Subzone.Find("ZoneId="+Convert.ToInt32(this.ddlZoneId.SelectedValue)+ " AND Status=1", "Name");
-                this.ddlSubzoneId.DataBind();
+                ddlSubzoneId.DataSource = Subzone.Find("ZoneId="+Convert.ToInt32(ddlZoneId.SelectedValue)+ " AND Status=1", "Name");
+                ddlSubzoneId.DataBind();
             }
         }
 

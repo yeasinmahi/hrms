@@ -35,7 +35,7 @@ namespace GITS.Hrms.WebSite.Security
         {
             Role role = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 role = Role.GetById(Convert.ToInt32(hdnId.Value));
             }
@@ -57,7 +57,7 @@ namespace GITS.Hrms.WebSite.Security
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -69,14 +69,14 @@ namespace GITS.Hrms.WebSite.Security
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information || msg.Type == MessageType.Information)
             {
-                Role role = this.GetRole();
+                Role role = GetRole();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [Role]";
                 }
@@ -85,11 +85,11 @@ namespace GITS.Hrms.WebSite.Security
                     desc = "Update [Role]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    Role.Insert(this.TransactionManager, role);
+                    Role.Insert(TransactionManager, role);
 
                     hdnId.Value = role.Id.ToString();
 
@@ -101,7 +101,7 @@ namespace GITS.Hrms.WebSite.Security
                             rp.PropertyName = gvList.DataKeys[gvr.RowIndex].Value.ToString();
                             rp.RoleName = role.Name;
 
-                            RoleProperty.Insert(this.TransactionManager, rp);
+                            RoleProperty.Insert(TransactionManager, rp);
                         }
 
                         CheckBoxList cblCommand = (CheckBoxList)gvr.FindControl("cblCommand");
@@ -110,7 +110,7 @@ namespace GITS.Hrms.WebSite.Security
                         {
                             if (li.Selected)
                             {
-                                PropertyCommand pc = PropertyCommand.GetById(this.TransactionManager, Convert.ToInt32(li.Value));
+                                PropertyCommand pc = PropertyCommand.GetById(TransactionManager, Convert.ToInt32(li.Value));
 
                                 if (pc != null)
                                 {
@@ -119,25 +119,25 @@ namespace GITS.Hrms.WebSite.Security
                                     rc.PropertyName = pc.PropertyName;
                                     rc.CommandName = pc.CommandName;
 
-                                    RoleCommand.Insert(this.TransactionManager, rc);
+                                    RoleCommand.Insert(TransactionManager, rc);
                                 }
                             }
                         }
                     }
 
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
                     //update role
-                    Role.Update(this.TransactionManager, role);
+                    Role.Update(TransactionManager, role);
                 
                     foreach (GridViewRow gvr in gvList.Rows)
                     {
                         IList<RoleProperty> delete = new List<RoleProperty>();
 
                         //update property
-                        RoleProperty rp = RoleProperty.GetByRoleNameAndPropertyName(this.TransactionManager, role.Name, gvList.DataKeys[gvr.RowIndex].Value.ToString());
+                        RoleProperty rp = RoleProperty.GetByRoleNameAndPropertyName(TransactionManager, role.Name, gvList.DataKeys[gvr.RowIndex].Value.ToString());
 
                         if (((CheckBox)gvr.FindControl("chkProperty")).Checked)
                         {
@@ -147,7 +147,7 @@ namespace GITS.Hrms.WebSite.Security
                                 rp.PropertyName = gvList.DataKeys[gvr.RowIndex].Value.ToString();
                                 rp.RoleName = role.Name;
 
-                                RoleProperty.Insert(this.TransactionManager, rp);
+                                RoleProperty.Insert(TransactionManager, rp);
                             }
                         }
                         else if (rp != null)
@@ -160,11 +160,11 @@ namespace GITS.Hrms.WebSite.Security
 
                         foreach (ListItem li in cblCommand.Items)
                         {
-                            PropertyCommand pc = PropertyCommand.GetById(this.TransactionManager, Convert.ToInt32(li.Value));
+                            PropertyCommand pc = PropertyCommand.GetById(TransactionManager, Convert.ToInt32(li.Value));
 
                             if (pc != null)
                             {
-                                RoleCommand rc = RoleCommand.GetByRoleNameAndPropertyNameAndCommandName(this.TransactionManager, role.Name, pc.PropertyName, pc.CommandName);
+                                RoleCommand rc = RoleCommand.GetByRoleNameAndPropertyNameAndCommandName(TransactionManager, role.Name, pc.PropertyName, pc.CommandName);
 
                                 if (li.Selected)
                                 {
@@ -175,24 +175,24 @@ namespace GITS.Hrms.WebSite.Security
                                         rc.PropertyName = pc.PropertyName;
                                         rc.CommandName = pc.CommandName;
 
-                                        RoleCommand.Insert(this.TransactionManager, rc);
+                                        RoleCommand.Insert(TransactionManager, rc);
                                     }
                                 }
                                 else if (rc != null)
                                 {
-                                    RoleCommand.Delete(this.TransactionManager, rc.Id);
+                                    RoleCommand.Delete(TransactionManager, rc.Id);
                                 }
                             }
                         }
 
                         foreach (RoleProperty del in delete)
                         {
-                            RoleProperty.Delete(this.TransactionManager, del.Id);
+                            RoleProperty.Delete(TransactionManager, del.Id);
                         }
                     }
                 }
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
 
                 if (UserRole.GetByUserLoginAndRoleName(User.Identity.Name, role.Name) != null)
                 {
@@ -207,7 +207,7 @@ namespace GITS.Hrms.WebSite.Security
         protected override void LoadData()
         {
             Role role = null;
-            string filter = this.gvspList.WhereClause;
+            string filter = gvspList.WhereClause;
 
             if (filter != "")
             {
@@ -226,7 +226,7 @@ namespace GITS.Hrms.WebSite.Security
 
                 if (role != null)
                 {
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
 
                     txtName.Text = role.Name;
 
@@ -294,19 +294,19 @@ namespace GITS.Hrms.WebSite.Security
         {
             if (e.NewPageIndex >= 0)
             {
-                this.gvList.PageIndex = e.NewPageIndex;
-                this.LoadData();
+                gvList.PageIndex = e.NewPageIndex;
+                LoadData();
             }
         }
 
         protected void gvspList_ResetButtonClicked(object sender, EventArgs e)
         {
-            this.LoadData();
+            LoadData();
         }
 
         protected void gvspList_SearchButtonClicked(object sender, EventArgs e)
         {
-            this.LoadData();   
+            LoadData();   
         }
     }
 }

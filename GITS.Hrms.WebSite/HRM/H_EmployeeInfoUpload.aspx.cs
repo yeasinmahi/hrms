@@ -33,7 +33,7 @@ namespace GITS.Hrms.WebSite.HRM
                 IList<H_FileUpload> uploadList = H_FileUpload.GetByH_EmployeeId(Convert.ToInt32(hdnId.Value));
                 gvList.DataSource = uploadList;
                 gvList.DataBind();
-                this.hlBack.NavigateUrl = "~/HRM/H_EmployeeAdd.aspx?Id=" + employee.Id.ToString();
+                hlBack.NavigateUrl = "~/HRM/H_EmployeeAdd.aspx?Id=" + employee.Id.ToString();
             }
         }
 
@@ -49,13 +49,13 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
                 return msg;
             }
-            if (this.Type == TYPE_ADD)
+            if (Type == TYPE_ADD)
             {
                 if (!FileUpload1.HasFile)
                 {
@@ -87,14 +87,14 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
             String uploadPath = ConfigurationManager.AppSettings["FileUploadPath"].ToString();
             if (msg.Type == MessageType.Information)
             {
-                H_FileUpload h_FileUpload = this.GetH_FileUpload();
+                H_FileUpload h_FileUpload = GetH_FileUpload();
                 string desc = "";
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
                     desc = "Insert [H_FileUpload]";
                 }
@@ -103,18 +103,18 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "Update [H_FileUpload]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                if (this.Type == TYPE_ADD)
+                if (Type == TYPE_ADD)
                 {
-                    H_FileUpload.Insert(this.TransactionManager, h_FileUpload);
+                    H_FileUpload.Insert(TransactionManager, h_FileUpload);
                     FileUpload1.SaveAs(uploadPath + h_FileUpload.FileName);
                     hdnUploadId.Value = h_FileUpload.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
-                    H_FileUpload.Update(this.TransactionManager, h_FileUpload);
+                    H_FileUpload.Update(TransactionManager, h_FileUpload);
                     if (FileUpload1.HasFile)
                     {
                         string oldFile = uploadPath + h_FileUpload.FileName;
@@ -126,7 +126,7 @@ namespace GITS.Hrms.WebSite.HRM
                     }
                 }
                 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
                 LoadFile(Convert.ToInt32(hdnId.Value));
             }
 
@@ -137,7 +137,7 @@ namespace GITS.Hrms.WebSite.HRM
         {
             H_FileUpload h_FileUpload = null;
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_FileUpload = H_FileUpload.GetById(Convert.ToInt32(hdnUploadId.Value));
             }
@@ -176,7 +176,7 @@ namespace GITS.Hrms.WebSite.HRM
                 H_FileUpload h_FileUpload = H_FileUpload.GetById(Id);
                 txtTitle.Text = h_FileUpload.Title;
                 hdnUploadId.Value = h_FileUpload.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
             }
             if (e.CommandName == "deleterow")
@@ -191,7 +191,7 @@ namespace GITS.Hrms.WebSite.HRM
                 {
                     System.IO.File.Delete(fileloc);
                 }
-                HiddenField hdnid = (HiddenField)this.Master.FindControl("hdnId");
+                HiddenField hdnid = (HiddenField)Master.FindControl("hdnId");
                 LoadFile(Convert.ToInt32(hdnid.Value));
             }
         }

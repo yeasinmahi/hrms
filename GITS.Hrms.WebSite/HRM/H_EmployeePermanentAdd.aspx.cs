@@ -36,7 +36,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -59,7 +59,7 @@ namespace GITS.Hrms.WebSite.HRM
         {
             H_EmployeePermanentHistory h_EmployeePenalty = new H_EmployeePermanentHistory();
 
-            if (this.Type == TYPE_EDIT)
+            if (Type == TYPE_EDIT)
             {
                 h_EmployeePenalty = H_EmployeePermanentHistory.GetById(Convert.ToInt32(hdnPer.Value));
             }
@@ -79,13 +79,13 @@ namespace GITS.Hrms.WebSite.HRM
         }
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_EmployeePermanentHistory h_Permanent = this.GetH_EmployeePermanent();
+                H_EmployeePermanentHistory h_Permanent = GetH_EmployeePermanent();
                 string desc = string.Empty;
-                if (this.Type == TYPE_EDIT)
+                if (Type == TYPE_EDIT)
                 {
                     desc = "UPDATE [H_EmployeePermanentHistory]";
                 }
@@ -94,14 +94,14 @@ namespace GITS.Hrms.WebSite.HRM
                     desc = "INSERT [H_EmployeePermanentHistory]";
                 }
 
-                this.TransactionManager = new TransactionManager(true, desc);
-                if (this.Type == TYPE_EDIT)
+                TransactionManager = new TransactionManager(true, desc);
+                if (Type == TYPE_EDIT)
                 {
-                    H_EmployeePermanentHistory.Update(this.TransactionManager, h_Permanent);
+                    H_EmployeePermanentHistory.Update(TransactionManager, h_Permanent);
                 }
                 else
                 {
-                    H_EmployeePermanentHistory.Insert(this.TransactionManager, h_Permanent);
+                    H_EmployeePermanentHistory.Insert(TransactionManager, h_Permanent);
                 }
 
                 //H_Employee h_Employee = H_Employee.GetById(h_Permanent.H_EmployeeId);
@@ -110,9 +110,9 @@ namespace GITS.Hrms.WebSite.HRM
                 //h_Employee.PermanentLetterDate = DBUtility.ToDateTime(txtLetterDate.Text);
                 //h_Employee.PermanentDate = DBUtility.ToDateTime(txtPermanentDate.Text);
                 //GITS.Hrms.Data.Entity.H_Employee.Update(h_Employee);
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -128,7 +128,7 @@ namespace GITS.Hrms.WebSite.HRM
                 if (h_History != null)
                 {
                     hdnId.Value = h_History.H_EmployeeId.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                     txtLetterNo.Text = h_History.LetterNo;
                     txtLetterDate.Text = UIUtility.Format(h_History.LetterDate);
                     txtPermanentDate.Text = UIUtility.Format(h_History.PermanentDate);
@@ -198,7 +198,7 @@ namespace GITS.Hrms.WebSite.HRM
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             TransactionManager tm = new TransactionManager(false);
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 txtEmployee.Text = h_Employee.Code.ToString() + ": " + h_Employee.Name;
@@ -242,13 +242,13 @@ namespace GITS.Hrms.WebSite.HRM
                 txtDistrict.Text = Subzone.GetById(region.SubzoneId).Name;
                 txtBranch.Text = branch.Name;
                 hdnId.Value = h_Employee.Id.ToString();
-                this.Type = TYPE_ADD;
+                Type = TYPE_ADD;
                 if (h_Employee.EmploymentType == H_Employee.EmploymentTypes.Permanent)
                 {
                     Message msg = new Message();
                     msg.Type = MessageType.Error;
                     msg.Msg = "The Employee is Permanent ( Letter No:" + h_Employee.PermanentLetterNo + "  Letter Date:" + (h_Employee.PermanentLetterDate != null ? UIUtility.Format(h_Employee.PermanentLetterDate) : "") + "  Permanent Date:" + (h_Employee.PermanentDate != null ? UIUtility.Format(h_Employee.PermanentDate) : "") + ")";
-                    ShowUIMessage(msg);
+                    ShowUiMessage(msg);
                     
                 }
                 H_EmployeePermanentHistory h_per = H_EmployeePermanentHistory.Get("H_EmployeeId=" + h_Employee.Id);
@@ -259,7 +259,7 @@ namespace GITS.Hrms.WebSite.HRM
                     txtPermanentDate.Text = UIUtility.Format(h_per.PermanentDate);
                     txtRemarks.Text = h_per.Remarks;
                     hdnPer.Value = h_per.Id.ToString();
-                    this.Type = TYPE_EDIT;
+                    Type = TYPE_EDIT;
                 }
                 else
                 {
@@ -268,7 +268,7 @@ namespace GITS.Hrms.WebSite.HRM
                     txtPermanentDate.Text = "";
                     txtRemarks.Text = "";
                     hdnPer.Value = "0";
-                    this.Type = TYPE_ADD;
+                    Type = TYPE_ADD;
                 }
 
 

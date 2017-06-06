@@ -18,8 +18,8 @@ namespace GITS.Hrms.WebSite.HRM
         {
             base.OnInit(e);
 
-            this.GridView = this.gvList;
-            this.EntityType = typeof(H_EmployeeReemployment);
+            GridView = gvList;
+            EntityType = typeof(H_EmployeeReemployment);
         }
 
         protected override string GetAddPageUrl()

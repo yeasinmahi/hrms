@@ -60,7 +60,7 @@ namespace GITS.Hrms.WebSite.HRM
 
             base.Validate();
 
-            if (base.IsValid == false)
+            if (IsValid == false)
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Invalid data provided or required data missing";
@@ -68,7 +68,7 @@ namespace GITS.Hrms.WebSite.HRM
             }
 
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee == null)
             {
                 msg.Type = MessageType.Error;
@@ -76,21 +76,21 @@ namespace GITS.Hrms.WebSite.HRM
                 return msg;
             }
 
-            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(this.txtLetterDate.Text.Trim()))
+            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(txtLetterDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "Letter date should be greater than employee's joining date (" + h_Employee.JoiningDate + ")";
                 return msg;
             }
 
-            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(this.txtFromDate.Text.Trim()))
+            if (h_Employee.JoiningDate >= DBUtility.ToDateTime(txtFromDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "From date should be greater than employee's joining date (" + h_Employee.JoiningDate + ")";
                 return msg;
             }
             if(!String.IsNullOrEmpty(txtToDate.Text))
-            if (DBUtility.ToDateTime(this.txtFromDate.Text.Trim()) > DBUtility.ToDateTime(this.txtToDate.Text.Trim()))
+            if (DBUtility.ToDateTime(txtFromDate.Text.Trim()) > DBUtility.ToDateTime(txtToDate.Text.Trim()))
             {
                 msg.Type = MessageType.Error;
                 msg.Msg = "To date should be greater than or equal to from date";
@@ -109,21 +109,21 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override Message Save()
         {
-            Message msg = this.Validate();
+            Message msg = Validate();
 
             if (msg.Type == MessageType.Information)
             {
-                H_EmployeeIncrementHeldup h_EmployeeIncrementHeldup = this.GetH_EmployeeIncrementHeldup();
+                H_EmployeeIncrementHeldup h_EmployeeIncrementHeldup = GetH_EmployeeIncrementHeldup();
                 string desc = "Insert [H_EmployeeIncrementHeldup]";
 
-                this.TransactionManager = new TransactionManager(true, desc);
+                TransactionManager = new TransactionManager(true, desc);
 
-                H_EmployeeIncrementHeldup.Insert(this.TransactionManager, h_EmployeeIncrementHeldup);
+                H_EmployeeIncrementHeldup.Insert(TransactionManager, h_EmployeeIncrementHeldup);
 
                 hdnId.Value = h_EmployeeIncrementHeldup.Id.ToString();
-                this.Type = TYPE_EDIT;
+                Type = TYPE_EDIT;
 
-                this.TransactionManager.Commit();
+                TransactionManager.Commit();
             }
 
             return msg;
@@ -131,48 +131,48 @@ namespace GITS.Hrms.WebSite.HRM
 
         protected override void LoadData()
         {
-            this.ddlZone.DataSource = Zone.Find("Status=1", "Name");//, User.Identity.Name);
-            this.ddlZone.DataBind();
-            this.ddlZone_SelectedIndexChanged(this.ddlZone, new EventArgs());
+            ddlZone.DataSource = Zone.Find("Status=1", "Name");//, User.Identity.Name);
+            ddlZone.DataBind();
+            ddlZone_SelectedIndexChanged(ddlZone, new EventArgs());
         }
 
         protected void ddlZone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlZone.SelectedValue != null && this.ddlZone.SelectedValue != "")
+            if (ddlZone.SelectedValue != null && ddlZone.SelectedValue != "")
             {
-                this.ddlSubzone.DataSource = Subzone.Find("ZoneId = " + this.ddlZone.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
-                this.ddlSubzone.DataBind();
-                this.ddlSubzone_SelectedIndexChanged(ddlRegion, new EventArgs());
+                ddlSubzone.DataSource = Subzone.Find("ZoneId = " + ddlZone.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
+                ddlSubzone.DataBind();
+                ddlSubzone_SelectedIndexChanged(ddlRegion, new EventArgs());
             }
         }
 
         protected void ddlSubzone_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlSubzone.SelectedValue != null && this.ddlSubzone.SelectedValue != "")
+            if (ddlSubzone.SelectedValue != null && ddlSubzone.SelectedValue != "")
             {
-                this.ddlRegion.DataSource = Region.Find("SubzoneId = " + this.ddlSubzone.SelectedValue, "Name");//, User.Identity.Name);
-                this.ddlRegion.DataBind();
-                this.ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
+                ddlRegion.DataSource = Region.Find("SubzoneId = " + ddlSubzone.SelectedValue, "Name");//, User.Identity.Name);
+                ddlRegion.DataBind();
+                ddlRegion_SelectedIndexChanged(ddlRegion, new EventArgs());
             }
         }
 
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.ddlRegion.SelectedValue != null && this.ddlRegion.SelectedValue != "")
+            if (ddlRegion.SelectedValue != null && ddlRegion.SelectedValue != "")
             {
-                this.ddlBranch.DataSource = Branch.Find("RegionId = " + this.ddlRegion.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
-                this.ddlBranch.DataBind();
+                ddlBranch.DataSource = Branch.Find("RegionId = " + ddlRegion.SelectedValue + " AND Status=1", "Name");//, User.Identity.Name);
+                ddlBranch.DataBind();
             }
             else
             {
-                this.ddlBranch.Items.Clear();
+                ddlBranch.Items.Clear();
             }
         }
 
         protected void lbSearch_Click(object sender, EventArgs e)
         {
             //H_Employee h_Employee = H_Employee.GetById(UIUtility.GetEmployeeID(this.txtEmployee.Text + UIUtility.GetAccessLevel(User.Identity.Name)));
-            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(this.txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
+            H_Employee h_Employee = H_Employee.GetByCode(UIUtility.GetEmployeeID(txtEmployee.Text) + UIUtility.GetAccessLevel(User.Identity.Name));
             if (h_Employee != null)
             {
                 hdnId.Value = h_Employee.Id.ToString();
@@ -211,7 +211,7 @@ namespace GITS.Hrms.WebSite.HRM
 
                 hdnId.Value = "0";
 
-                this.ShowUIMessage(msg);
+                ShowUiMessage(msg);
             }
         }
     }

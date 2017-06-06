@@ -45,38 +45,38 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public Int32 UserId
 		{
-			get {return this._UserId;}
-			set {this._UserId = value;}
+			get {return _UserId;}
+			set {_UserId = value;}
 		}
 
 		public DateTime DateTime
 		{
-			get {return this._DateTime;}
-			set {this._DateTime = value;}
+			get {return _DateTime;}
+			set {_DateTime = value;}
 		}
 
 		public String FileName
 		{
-			get {return this._FileName;}
-			set {this._FileName = value;}
+			get {return _FileName;}
+			set {_FileName = value;}
 		}
 
         public String Sender
         {
-            get {return this._Sender;}
-            set {this._Sender = value;}
+            get {return _Sender;}
+            set {_Sender = value;}
         }
 
         public String Subject
         {
-            get {return this._Subject;}
-            set {this._Subject = value;}
+            get {return _Subject;}
+            set {_Subject = value;}
         }
 
         public Boolean IsProcessed
         {
-            get { return this._IsProcessed; }
-            set { this._IsProcessed = value; }
+            get { return _IsProcessed; }
+            set { _IsProcessed = value; }
         }
 	}
 }

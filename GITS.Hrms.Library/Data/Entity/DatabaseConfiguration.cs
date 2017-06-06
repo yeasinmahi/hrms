@@ -76,38 +76,38 @@ namespace GITS.Hrms.Library.Data.Entity
 
         public Int32 InstallationId
         {
-            get { return this._InstallationId; }
-            set { this._InstallationId = value; }
+            get { return _InstallationId; }
+            set { _InstallationId = value; }
         }
 
         public Int64 Sequence
         {
-            get { return this._Sequence; }
-            set { this._Sequence = value; }
+            get { return _Sequence; }
+            set { _Sequence = value; }
         }
 
         public String Type
         {
-            get { return this._Type; }
-            set { this._Type = value; }
+            get { return _Type; }
+            set { _Type = value; }
         }
 
         public String Version
         {
-            get { return this._Version; }
-            set { this._Version = value; }
+            get { return _Version; }
+            set { _Version = value; }
         }
 
         public String Description
         {
-            get { return this._Description; }
-            set { this._Description = value; }
+            get { return _Description; }
+            set { _Description = value; }
         }
 
         public String Script
         {
-            get { return this._Script; }
-            set { this._Script = value; }
+            get { return _Script; }
+            set { _Script = value; }
         }
 
         [Property(PropertyAttribute.Attributes.NonTable)]

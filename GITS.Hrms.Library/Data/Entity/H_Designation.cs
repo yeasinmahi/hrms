@@ -85,33 +85,33 @@ namespace GITS.Hrms.Library.Data.Entity
 
 		public String Name
 		{
-			get {return this._Name;}
-			set {this._Name = value;}
+			get {return _Name;}
+			set {_Name = value;}
 		}
         public String ShortName
         {
-            get { return this._ShortName; }
-            set { this._ShortName = value; }
+            get { return _ShortName; }
+            set { _ShortName = value; }
         }
 		public Int32 SortOrder
 		{
-			get {return this._SortOrder;}
-			set {this._SortOrder = value;}
+			get {return _SortOrder;}
+			set {_SortOrder = value;}
 		}
         public Nullable<GroupTypes> GroupType
         {
-            get { return this._GroupType; }
-            set { this._GroupType = value; }
+            get { return _GroupType; }
+            set { _GroupType = value; }
         }
         public Statuses Status
         {
-            get { return this._Status; }
-            set { this._Status = value; }
+            get { return _Status; }
+            set { _Status = value; }
         }
         public String BanglaName
         {
-            get { return this._BanglaName; }
-            set { this._BanglaName = value; }
+            get { return _BanglaName; }
+            set { _BanglaName = value; }
         }
 	}
 }

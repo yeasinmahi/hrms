@@ -40,7 +40,7 @@ namespace GITS.Hrms.WebSite
         private void BuildMenu()
         {
             IList<Module> modules = Module.Find("IsActive = 'True'", "SortOrder");
-            this.mnuTitleMenubar.Items.Clear();
+            mnuTitleMenubar.Items.Clear();
 
             if (modules != null)
             {
@@ -52,17 +52,17 @@ namespace GITS.Hrms.WebSite
                         item.Value = module.Name;
                         item.Text = @"<span class='hideText'>&nbsp;" + module.DisplayName + @"</span>";
                         item.ImageUrl = module.ImageUrl;
-                        this.mnuTitleMenubar.Items.Add(item);
+                        mnuTitleMenubar.Items.Add(item);
                     }
                 }
             }
 
-            this.mnuTitleMenubar.DataBind();
+            mnuTitleMenubar.DataBind();
 
-            if (this.mnuTitleMenubar.Items.Count > 0)
+            if (mnuTitleMenubar.Items.Count > 0)
             {
-                this.mnuTitleMenubar.Items[0].Selected = true;
-                this.mnuTitleMenubar_MenuItemClick(this.mnuTitleMenubar, new MenuEventArgs(this.mnuTitleMenubar.Items[0]));
+                mnuTitleMenubar.Items[0].Selected = true;
+                mnuTitleMenubar_MenuItemClick(mnuTitleMenubar, new MenuEventArgs(mnuTitleMenubar.Items[0]));
             }
 
             //this.divMenu.Style["height"] = 528 - this.mnuTitleMenubar.Items.Count * 30 + "px";
@@ -72,7 +72,7 @@ namespace GITS.Hrms.WebSite
         {
             IList<Property> properties = Property.Find("IsActive = 'True' AND ModuleName ='" + e.Item.Value + "'", "SortOrder");
 
-            this.mnuMenubar.Items.Clear();
+            mnuMenubar.Items.Clear();
 
             if (properties != null)
             {
@@ -85,31 +85,31 @@ namespace GITS.Hrms.WebSite
                         item.Text = property.DisplayName;
                         item.PopOutImageUrl = property.Path;
                         item.ImageUrl = property.ImageUrl;
-                        this.mnuMenubar.Items.Add(item);
+                        mnuMenubar.Items.Add(item);
                     }
                 }
             }
 
-            this.mnuMenubar.DataBind();
-            this.Image1.ImageUrl = e.Item.ImageUrl;
+            mnuMenubar.DataBind();
+            Image1.ImageUrl = e.Item.ImageUrl;
 
-            if (this.mnuMenubar.Items.Count > 0)
+            if (mnuMenubar.Items.Count > 0)
             {
-                this.mnuMenubar.Items[0].Selected = true;
-                this.mnuMenubar_MenuItemClick(this.mnuMenubar, new MenuEventArgs(this.mnuMenubar.Items[0]));
+                mnuMenubar.Items[0].Selected = true;
+                mnuMenubar_MenuItemClick(mnuMenubar, new MenuEventArgs(mnuMenubar.Items[0]));
             }
         }
 
         protected void mnuMenubar_MenuItemClick(object sender, MenuEventArgs e)
         {
-            this.lblNavigationTitle.Text = e.Item.Text;
+            lblNavigationTitle.Text = e.Item.Text;
             if (MmsPermissionProvider.HasPermission(User.Identity.Name, e.Item.Value) == false)
             {
-                this.ifPage.Attributes["src"] = MmsPermissionProvider.PERMISSION_PAGE;
+                ifPage.Attributes["src"] = MmsPermissionProvider.PERMISSION_PAGE;
             }
             else
             {
-                this.ifPage.Attributes["src"] = e.Item.PopOutImageUrl + "?propertyname=" + e.Item.Value;
+                ifPage.Attributes["src"] = e.Item.PopOutImageUrl + "?propertyname=" + e.Item.Value;
             }
         }
     }
