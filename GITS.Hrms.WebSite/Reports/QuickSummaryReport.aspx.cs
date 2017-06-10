@@ -49,12 +49,12 @@ namespace GITS.Hrms.WebSite.Reports
 
         private void AtAGlanceReport(string queryString)
         {
-            Nullable<Int32> zoneId = DBUtility.ToInt32(ddlZone.SelectedValue);
-            Nullable<Int32> subzoneId = DBUtility.ToInt32(ddlSubzone.SelectedValue);
-            Nullable<Int32> regionId = DBUtility.ToInt32(ddlRegion.SelectedValue);
-            Nullable<Int32> branchCode = DBUtility.ToInt32(ddlBranch.SelectedValue);
-            Nullable<Int32> gradeId = DBUtility.ToInt32(ddlGrade.SelectedValue);
-            Nullable<Int32> designationId = DBUtility.ToInt32(ddlDesignation.SelectedValue);
+            int? zoneId = DBUtility.ToInt32(ddlZone.SelectedValue);
+            int? subzoneId = DBUtility.ToInt32(ddlSubzone.SelectedValue);
+            int? regionId = DBUtility.ToInt32(ddlRegion.SelectedValue);
+            int? branchCode = DBUtility.ToInt32(ddlBranch.SelectedValue);
+            int? gradeId = DBUtility.ToInt32(ddlGrade.SelectedValue);
+            int? designationId = DBUtility.ToInt32(ddlDesignation.SelectedValue);
 
             DateTime endDate = Configuration.EndDate = Convert.ToDateTime(txtAsOnDate.Text).Date;
 
@@ -134,12 +134,12 @@ namespace GITS.Hrms.WebSite.Reports
             dc = result.Columns.Add("Column1", typeof(Int32));
             dc.Caption = "";
 
-            Int32 NumberOfMuslim = 0;
-            Int32 NumberOfHindu = 0;
-            Int32 NumberOfChristian = 0;
-            Int32 NumberOfBuddha = 0;
-            Int32 NumberOfOthers = 0;
-            Int32 NumberOfTotal = 0;
+            Int32 numberOfMuslim = 0;
+            Int32 numberOfHindu = 0;
+            Int32 numberOfChristian = 0;
+            Int32 numberOfBuddha = 0;
+            Int32 numberOfOthers = 0;
+            Int32 numberOfTotal = 0;
 
             Int32 masters = 0;
             Int32 honors = 0;
@@ -148,24 +148,24 @@ namespace GITS.Hrms.WebSite.Reports
             Int32 others = 0;
             Int32 total = 0;
 
-            Int32 Age1 = 0;
-            Int32 Age2 = 0;
-            Int32 Age3 = 0;
-            Int32 Age4 = 0;
-            Int32 Age5 = 0;
-            Int32 Age6 = 0;
-            Int32 Age7 = 0;
-            Int32 Age8= 0;
-            Int32 AgeTotal = 0;
+            Int32 age1 = 0;
+            Int32 age2 = 0;
+            Int32 age3 = 0;
+            Int32 age4 = 0;
+            Int32 age5 = 0;
+            Int32 age6 = 0;
+            Int32 age7 = 0;
+            Int32 age8= 0;
+            Int32 ageTotal = 0;
 
             if (minorityInformation != null)
             {
-                NumberOfMuslim = DBUtility.ToInt32(minorityInformation.Compute("SUM([Muslim])", ""));
-                NumberOfHindu = DBUtility.ToInt32(minorityInformation.Compute("SUM([Hindu])", ""));
-                NumberOfChristian = DBUtility.ToInt32(minorityInformation.Compute("SUM([Christian])", ""));
-                NumberOfBuddha = DBUtility.ToInt32(minorityInformation.Compute("SUM([Buddha])", ""));
-                NumberOfOthers = DBUtility.ToInt32(minorityInformation.Compute("SUM([Others])", ""));
-                NumberOfTotal = DBUtility.ToInt32(minorityInformation.Compute("SUM([Total])", ""));
+                numberOfMuslim = DBUtility.ToInt32(minorityInformation.Compute("SUM([Muslim])", ""));
+                numberOfHindu = DBUtility.ToInt32(minorityInformation.Compute("SUM([Hindu])", ""));
+                numberOfChristian = DBUtility.ToInt32(minorityInformation.Compute("SUM([Christian])", ""));
+                numberOfBuddha = DBUtility.ToInt32(minorityInformation.Compute("SUM([Buddha])", ""));
+                numberOfOthers = DBUtility.ToInt32(minorityInformation.Compute("SUM([Others])", ""));
+                numberOfTotal = DBUtility.ToInt32(minorityInformation.Compute("SUM([Total])", ""));
             }
 
             if (employeeeducation != null)
@@ -180,25 +180,25 @@ namespace GITS.Hrms.WebSite.Reports
 
             if (employeeAge != null)
             {
-                Age1 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 0-25])", ""));
-                Age2 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 26-30])", ""));
-                Age3 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 31-35])", ""));
-                Age4 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 36-40])", ""));
-                Age5 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 41-45])", ""));
-                Age6 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 46-50])", ""));
-                Age7 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 51-57])", ""));
-                Age8 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 58-plus])", ""));
-                AgeTotal = DBUtility.ToInt32(employeeAge.Compute("SUM(Total)", ""));
+                age1 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 0-25])", ""));
+                age2 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 26-30])", ""));
+                age3 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 31-35])", ""));
+                age4 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 36-40])", ""));
+                age5 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 41-45])", ""));
+                age6 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 46-50])", ""));
+                age7 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 51-57])", ""));
+                age8 = DBUtility.ToInt32(employeeAge.Compute("SUM([Age 58-plus])", ""));
+                ageTotal = DBUtility.ToInt32(employeeAge.Compute("SUM(Total)", ""));
             }
 
             result.Rows.Add(new object[] { null, "", null });
             result.Rows.Add(new object[] { index++, "Minoroties Information of Employees", null });
-            result.Rows.Add(new object[] { null, "\t\t\t\tMuslim", NumberOfMuslim });
-            result.Rows.Add(new object[] { null, "\t\t\t\tHindu", NumberOfHindu });
-            result.Rows.Add(new object[] { null, "\t\t\t\tChristian", NumberOfChristian });
-            result.Rows.Add(new object[] { null, "\t\t\t\tBuddha", NumberOfBuddha });
-            result.Rows.Add(new object[] { null, "\t\t\t\tOthers", NumberOfOthers });
-            result.Rows.Add(new object[] { null, "\t\t\t\tTotal", NumberOfTotal });
+            result.Rows.Add(new object[] { null, "\t\t\t\tMuslim", numberOfMuslim });
+            result.Rows.Add(new object[] { null, "\t\t\t\tHindu", numberOfHindu });
+            result.Rows.Add(new object[] { null, "\t\t\t\tChristian", numberOfChristian });
+            result.Rows.Add(new object[] { null, "\t\t\t\tBuddha", numberOfBuddha });
+            result.Rows.Add(new object[] { null, "\t\t\t\tOthers", numberOfOthers });
+            result.Rows.Add(new object[] { null, "\t\t\t\tTotal", numberOfTotal });
 
             result.Rows.Add(new object[] { null, "", null });
             result.Rows.Add(new object[] { index++, "Employee Education Information", null });
@@ -211,15 +211,15 @@ namespace GITS.Hrms.WebSite.Reports
 
             result.Rows.Add(new object[] { null, "", null });
             result.Rows.Add(new object[] { index++, "Employee Age Information", null });
-            result.Rows.Add(new object[] { null, "\t\t\t\tAge 0-25", Age1 });
-            result.Rows.Add(new object[] { null, "\t\t\t\tAge 26-30", Age2 });
-            result.Rows.Add(new object[] { null, "\t\t\t\tAge 31-35", Age3 });
-            result.Rows.Add(new object[] { null, "\t\t\t\tAge 36-40", Age4 });
-            result.Rows.Add(new object[] { null, "\t\t\t\tAge 41-45", Age5 });
-            result.Rows.Add(new object[] { null, "\t\t\t\tAge 46-50", Age6 });
-            result.Rows.Add(new object[] { null, "\t\t\t\tAge 51-57", Age7 });
-            result.Rows.Add(new object[] { null, "\t\t\t\tAge 58-plus", Age8 });
-            result.Rows.Add(new object[] { null, "\t\t\t\tTotal", AgeTotal });
+            result.Rows.Add(new object[] { null, "\t\t\t\tAge 0-25", age1 });
+            result.Rows.Add(new object[] { null, "\t\t\t\tAge 26-30", age2 });
+            result.Rows.Add(new object[] { null, "\t\t\t\tAge 31-35", age3 });
+            result.Rows.Add(new object[] { null, "\t\t\t\tAge 36-40", age4 });
+            result.Rows.Add(new object[] { null, "\t\t\t\tAge 41-45", age5 });
+            result.Rows.Add(new object[] { null, "\t\t\t\tAge 46-50", age6 });
+            result.Rows.Add(new object[] { null, "\t\t\t\tAge 51-57", age7 });
+            result.Rows.Add(new object[] { null, "\t\t\t\tAge 58-plus", age8 });
+            result.Rows.Add(new object[] { null, "\t\t\t\tTotal", ageTotal });
 
             result.Columns[0].ExtendedProperties.Add("Width", 25);
             result.Columns[1].ExtendedProperties.Add("Width", 250);
@@ -364,8 +364,8 @@ namespace GITS.Hrms.WebSite.Reports
         {
             if (ddlZone.SelectedValue != null)
             {
-                Int32 ZoneId = DBUtility.ToInt32(ddlZone.SelectedValue);
-                IList<Subzone> subzoneList = Subzone.Find("Id > 0 AND ZoneId = " + ZoneId + " And Status=1", "Name");
+                Int32 zoneId = DBUtility.ToInt32(ddlZone.SelectedValue);
+                IList<Subzone> subzoneList = Subzone.Find("Id > 0 AND ZoneId = " + zoneId + " And Status=1", "Name");
 
                 if (subzoneList == null)
                 {
