@@ -13,6 +13,7 @@ namespace GITS.Hrms.WebSite
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             DatabaseManagementManager dmm = new DatabaseManagementManager();
 
             //if (dmm.CheckDatabase() == false)

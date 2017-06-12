@@ -185,6 +185,7 @@
     <Content Include="Images\XGridPreviousPage.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="login.Master" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -962,6 +963,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login.Master.cs">
+      <DependentUpon>login.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.Master.designer.cs">
+      <DependentUpon>login.Master</DependentUpon>
     </Compile>
     <Compile Include="Payroll\P_DeductionAdd.aspx.cs">
       <DependentUpon>P_DeductionAdd.aspx</DependentUpon>

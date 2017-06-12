@@ -44,9 +44,6 @@ footer a {
     height: 100%;
     overflow: auto;
 }
-.content {
-    background: #0F75BD;
-}
 #mainContentHeader {
     width: 100%;
     margin: 0 auto;
@@ -64,7 +61,7 @@ footer a {
     position: relative;
     z-index: 1;
     left: 0;
-    background-color: #111;
+    background: #0F75BD;
     overflow-x: hidden;
     -webkit-transition: 0.5s;
     -moz-transition: 0.5s;
