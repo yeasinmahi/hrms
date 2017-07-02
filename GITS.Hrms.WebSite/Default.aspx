@@ -10,6 +10,7 @@
     <script src="Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
     <script src="Scripts/jquery.cookie.js" type="text/javascript"></script>
     <script src="Scripts/bootstrap.min.js" type="text/javascript"></script>
+    
     <script src="Scripts/myScript.js" type="text/javascript"></script>
 
     <script language="javascript" type="text/javascript">
