@@ -79,7 +79,7 @@
                 <div class="container-fluid text-center">
                     <div class="row content">
                         <div class="sidenav">
-                            <div class="collapse navbar-collapse" id="mySidenav">
+                            <div class="" id="mySidenav">
                                 <div class="navController">
 
                                     <span id="closebtn" class="closebtn" onclick="closeNav()">&times;</span>
