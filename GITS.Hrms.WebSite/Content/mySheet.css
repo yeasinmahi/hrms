@@ -25,6 +25,9 @@ body {
 a {
     color: white;
 }
+td a {
+    color: blue;
+}
 footer {
     position: absolute;
     width: 100%;
