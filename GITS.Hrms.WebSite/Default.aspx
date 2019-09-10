@@ -10,6 +10,7 @@
     <script src="Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
     <script src="Scripts/jquery.cookie.js" type="text/javascript"></script>
     <script src="Scripts/bootstrap.min.js" type="text/javascript"></script>
+    
     <script src="Scripts/myScript.js" type="text/javascript"></script>
 
     <script language="javascript" type="text/javascript">
@@ -78,7 +79,7 @@
                 <div class="container-fluid text-center">
                     <div class="row content">
                         <div class="sidenav">
-                            <div class="collapse navbar-collapse" id="mySidenav">
+                            <div class="" id="mySidenav">
                                 <div class="navController">
 
                                     <span id="closebtn" class="closebtn" onclick="closeNav()">&times;</span>
